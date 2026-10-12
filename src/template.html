@@ -1,0 +1,836 @@
+<title>Radar de Corrida da Aline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: paleta do Linktree da Aline (menta → lilás → toque de laranja). Cartão de perfil com foto e cupom + abas (Provas / Treine comigo / Parceiros / Tênis) + cards */
+:root{
+  --g1:#BBE3E5; --g2:#D9C1D9; --bg:#F6F0F6; --surface:#FFFFFF; --ink:#1D1220; --muted:#6B5A6E; --line:#E7DAE8;
+  --accent:#7A4E7D; --mauve:#B28AB1; --mauve-ink:#1D1220; --hot:#B4501F; --good:#2E7A55; --soft:#EFE3EF;
+  --warn:#9A5B00; --warn-bg:#FFF0DC; --off:#857888; --off-bg:#F0EAF0;
+  --display:"Urbanist","Avenir Next",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --g1:#17302F; --g2:#3A2540; --bg:#1D1220; --surface:#2A1D2E; --ink:#F4ECF4; --muted:#BBA9BC; --line:#3E2D43;
+  --accent:#DDB9DD; --mauve:#B28AB1; --mauve-ink:#1D1220; --hot:#F28A5B; --good:#5FCB94; --soft:#33243A;
+  --warn:#F2B85B; --warn-bg:#3A2A14; --off:#9C8E9E; --off-bg:#30233A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --g1:#17302F; --g2:#3A2540; --bg:#1D1220; --surface:#2A1D2E; --ink:#F4ECF4; --muted:#BBA9BC; --line:#3E2D43;
+  --accent:#DDB9DD; --mauve:#B28AB1; --mauve-ink:#1D1220; --hot:#F28A5B; --good:#5FCB94; --soft:#33243A;
+  --warn:#F2B85B; --warn-bg:#3A2A14; --off:#9C8E9E; --off-bg:#30233A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg) linear-gradient(180deg,var(--g1) 0,var(--g2) 360px,var(--bg) 720px) no-repeat;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;padding-inline:16px;padding-block:24px 40px}
+.wrap{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.avatar{width:96px;height:96px;border-radius:50%;flex:none;background:var(--mauve);color:var(--mauve-ink);display:grid;place-items:center;font:800 40px/1 var(--display);overflow:hidden;box-shadow:0 0 0 4px var(--surface)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:800 clamp(30px,7.5vw,46px)/1 var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.byline{color:var(--muted);font-size:15px}
+.byline b{color:var(--ink);font-weight:600}
+.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.follow{display:inline-flex;align-items:center;gap:8px;background:var(--mauve);color:var(--mauve-ink);text-decoration:none;font:600 15px var(--body);padding:11px 18px;border-radius:999px;border:0;cursor:pointer}
+.follow:hover{filter:brightness(1.05)}
+.follow svg{width:18px;height:18px}
+.coupon{display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);border:1.5px dashed var(--mauve);font:600 15px var(--body);padding:10px 16px;border-radius:999px;cursor:pointer}
+.coupon b{letter-spacing:.06em}
+.coupon small{color:var(--accent);font-weight:600;font-size:12px}
+.meta{color:var(--muted);font-size:13px}
+.meta b{color:var(--ink);font-weight:600}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px;background:color-mix(in srgb,var(--surface) 70%,transparent);border:1px solid var(--line);border-radius:999px;align-self:center;max-width:100%}
+.tab{background:none;border:0;padding:10px 13px;border-radius:999px;font:800 16px/1 var(--display);color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--mauve);color:var(--mauve-ink)}
+.tab .c{font:600 12px var(--body);opacity:.75;margin-left:4px}
+.panel{display:flex;flex-direction:column;gap:16px}
+[hidden]{display:none!important}
+.filters{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row span.l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;min-width:60px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 14px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip:focus-visible,select:focus-visible,a:focus-visible,.tab:focus-visible,.coupon:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+select{font:500 14px var(--body);padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.deal{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.bib{background:var(--mauve);color:var(--mauve-ink);border-radius:12px;width:74px;padding:8px 4px 6px;text-align:center}
+.bib .n{font:800 30px/1 var(--display);font-variant-numeric:tabular-nums}
+.bib .t{font:700 10px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.bib.date{background:var(--soft);color:var(--ink)}
+.bib.date .t{color:var(--accent)}
+.info{min-width:0;display:flex;flex-direction:column;gap:4px}
+.name{font-weight:700;font-size:15px;line-height:1.3}
+.store{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.price{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.price .now{font:800 24px/1 var(--display);color:var(--hot)}
+.price s{color:var(--muted);font-size:13px}
+.cond{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
+.cond .cup{background:var(--soft);color:var(--accent);font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
+.det{color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:2px}
+.det b{color:var(--ink);font-weight:500}
+.pill{align-self:flex-start;font:700 11px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--off-bg);color:var(--off)}
+.pill.aberta{background:color-mix(in srgb,var(--good) 15%,transparent);color:var(--good)}
+.pill.parcial,.pill.embreve{background:var(--warn-bg);color:var(--warn)}
+.links{display:flex;gap:14px;flex-wrap:wrap}
+.go{font-size:13px;color:var(--accent);text-decoration:none;font-weight:700}
+.go:hover{text-decoration:underline}
+.deal.past-out{opacity:.62}
+.empty{color:var(--muted);padding:24px 0}
+.ptitle{font:800 20px/1.1 var(--display);margin:6px 0 0}
+.partner{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink)}
+.partner .mono.logo{overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.partner .mono.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.partner .mono{width:52px;height:52px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--soft);color:var(--accent);font:800 22px/1 var(--display)}
+.partner .pi{min-width:0;flex:1;display:flex;flex-direction:column;gap:2px}
+.partner .pn{font-weight:700}
+.partner .pd{color:var(--muted);font-size:13px}
+.partner .arrow{color:var(--accent);font-weight:700;white-space:nowrap;font-size:13px}
+.partner:hover{border-color:var(--mauve)}
+.partner .pc{align-self:flex-start;margin-top:4px;background:color-mix(in srgb,var(--hot) 13%,transparent);color:var(--hot);font:700 12px/1.3 var(--body);padding:4px 8px;border-radius:8px}
+section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
+.stores{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.st{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface);text-decoration:none;color:var(--ink);font-size:14px}
+.st small{color:var(--muted);font-size:12px;text-align:right}
+.st .dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--muted)}
+.st .dot.ok{background:var(--good)}
+.st .dot.insta{background:var(--mauve)}
+.st.insta{border-color:var(--mauve)}
+.note{color:var(--muted);font-size:13px;max-width:65ch}
+.cta{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px 16px}
+.cta p{margin:0;font-weight:600}
+.t-fresh{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px 14px;font-size:13px;color:var(--muted);align-self:center;text-align:center}
+.t-fresh b{color:var(--ink);font-weight:600}
+.t-fresh .live{width:8px;height:8px;border-radius:50%;background:var(--good);flex:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 22%,transparent)}
+.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fbtn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px var(--body);padding:9px 14px;border-radius:999px;cursor:pointer}
+.fbtn svg{width:16px;height:16px}
+.fbtn[aria-expanded="true"]{border-color:var(--mauve);background:var(--soft)}
+.fbtn .n{background:var(--mauve);color:var(--mauve-ink);border-radius:999px;font-size:12px;padding:1px 7px}
+.toolbar select{margin-left:auto}
+.fpanel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.fclear{align-self:flex-start;background:none;border:0;color:var(--accent);font:700 13px var(--body);cursor:pointer;padding:0}
+.deal .links{align-items:center}
+.sharebtn{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--accent);border:0;border-radius:999px;font:700 12px var(--body);padding:6px 10px;cursor:pointer}
+.sharebtn svg{width:14px;height:14px}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(20,10,22,.55);display:flex;align-items:flex-end;justify-content:center;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet{background:var(--surface);color:var(--ink);border-radius:24px;width:100%;max-width:440px;max-height:100%;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.sheet header{flex-direction:row;justify-content:space-between;align-items:center;text-align:left;gap:8px}
+.sheet h3{font:800 20px/1.1 var(--display);margin:0}
+.xbtn{background:var(--soft);border:0;color:var(--ink);width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer}
+.sheet .prev{display:block;width:100%;max-width:260px;aspect-ratio:9/16;margin:0 auto;border-radius:14px;border:1px solid var(--line);background:var(--soft);object-fit:contain}
+.sheet ol{margin:0;padding-left:20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:4px}
+.sheet ol b{color:var(--ink)}
+.sheet .btns{display:flex;flex-direction:column;gap:8px}
+.sheet .btns .follow{justify-content:center}
+.sheet .alt{background:var(--soft);color:var(--ink)}
+.hint{color:var(--muted);font-size:13px;text-align:center;margin:0}
+.urlbox{font:500 12px var(--body);color:var(--muted);word-break:break-all;text-align:center;user-select:all}
+.actions{gap:22px!important;margin-top:8px}
+.hl{display:flex;flex-direction:column;align-items:center;gap:6px;width:78px;background:none;border:0;padding:0;color:var(--ink);text-decoration:none;cursor:pointer;font-family:var(--body)}
+.hl .ring{width:64px;height:64px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#7FC8CC,var(--mauve) 55%,#E8774A)}
+.hl .ic{width:100%;height:100%;border-radius:50%;border:3px solid var(--surface);background:var(--surface);color:var(--accent);display:grid;place-items:center}
+.hl .ic svg{width:26px;height:26px}
+.hl .lb{font:600 12px/1.1 var(--body);letter-spacing:.02em}
+.hl .sub{font:500 10px/1 var(--body);color:var(--muted);margin-top:-3px}
+.hl:hover .ring{filter:brightness(1.05)}
+.deal{position:relative}
+.deal .info{padding-right:26px}
+.sharebtn{position:absolute;top:10px;right:10px;width:32px;height:32px;padding:0;justify-content:center;border-radius:50%}
+.sharebtn svg{width:16px;height:16px}
+.tabs{display:flex;gap:14px;justify-content:center;border:0;background:none;padding:0;border-radius:0;align-self:center;overflow:visible}
+.tab{display:flex;flex-direction:column;align-items:center;gap:7px;background:none;border:0;padding:0;cursor:pointer;color:var(--muted);font-family:var(--body)}
+.tab .ring{position:relative;width:66px;height:66px;border-radius:50%;padding:3px;background:var(--line);transition:background .2s}
+.tab[aria-selected="true"] .ring{background:linear-gradient(135deg,#7FC8CC,var(--mauve) 55%,#E8774A)}
+.tab .ic{width:100%;height:100%;border-radius:50%;border:3px solid var(--bg);background:var(--surface);color:var(--accent);display:grid;place-items:center}
+.tab .ic svg{width:30px;height:30px}
+.tab .c{position:absolute;right:-4px;top:-2px;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font:700 11px/22px var(--body);text-align:center;margin:0;opacity:1}
+.tab[aria-selected="true"] .c{background:var(--mauve);color:var(--mauve-ink);border-color:var(--mauve)}
+.tab .lb{font:700 13px/1 var(--body)}
+.tab[aria-selected="true"] .lb{color:var(--ink)}
+.tab[aria-selected="true"]{background:none}
+.radar-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.radar{position:relative;width:100%;max-width:420px;aspect-ratio:1/1;overflow:hidden;border-radius:50%}
+.radar svg{position:absolute;inset:0;width:100%;height:100%}
+.sweep{position:absolute;inset:2.5%;border-radius:50%;pointer-events:none;background:conic-gradient(from 0deg,transparent 0deg,transparent 290deg,color-mix(in srgb,var(--mauve) 45%,transparent) 360deg)}
+.r-water{fill:color-mix(in srgb,var(--g1) 70%,var(--surface))}
+.r-land{fill:var(--surface);stroke:color-mix(in srgb,var(--mauve) 45%,transparent);stroke-width:1}
+.r-ring{fill:none;stroke:color-mix(in srgb,var(--mauve) 40%,transparent);stroke-width:1}
+.r-edge{fill:none;stroke:var(--mauve);stroke-width:3}
+.r-lbl{fill:var(--muted);font:600 10px var(--body);letter-spacing:.06em;text-transform:uppercase}
+.r-dot{cursor:pointer}
+.r-dot circle.core{stroke:var(--surface);stroke-width:2}
+.r-dot.aberta circle.core{fill:var(--hot)}
+.r-dot.outra circle.core{fill:var(--accent)}
+.r-dot.esgotada circle.core{fill:var(--off)}
+.r-dot circle.halo{fill:none;stroke:var(--hot);stroke-width:2;opacity:0}
+.r-dot.ping circle.halo{animation:ping 1.4s ease-out}
+.r-dot text{fill:var(--surface);font:800 9px var(--body);pointer-events:none}
+@keyframes ping{0%{opacity:.9;r:6}100%{opacity:0;r:22}}
+.alinebadge{align-self:flex-start;background:linear-gradient(135deg,#7FC8CC,var(--mauve) 55%,#E8774A);color:#1D1220;font:800 11px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px}
+.deal.aline{border:2px solid var(--mauve)}
+.r-dot .aring{fill:none;stroke:var(--mauve);stroke-width:3}
+.radar-cap{min-height:64px;width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.radar-cap .rg{font:700 11px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.radar-cap .rn{font-weight:700}
+.radar-cap .rd{color:var(--muted)}
+.regs{justify-content:center}
+@media (prefers-reduced-motion:reduce){.sweep{display:none}}
+.trainbtn{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px;background:var(--soft);color:var(--accent);text-decoration:none;border-radius:12px;padding:9px 12px;font:700 13px var(--body)}
+.trainbtn small{font:600 11px var(--body);color:var(--muted);white-space:nowrap}
+.tr-hero{background:linear-gradient(135deg,color-mix(in srgb,#7FC8CC 35%,var(--surface)),color-mix(in srgb,var(--mauve) 35%,var(--surface)) 60%,color-mix(in srgb,#E8774A 25%,var(--surface)));border-radius:22px;padding:22px 18px;display:flex;flex-direction:column;gap:8px}
+.tr-eyebrow{font:700 11px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.tr-h{font:800 clamp(26px,7vw,34px)/1.05 var(--display);margin:0;text-wrap:balance}
+.tr-p{margin:0;color:var(--ink);opacity:.85;max-width:52ch}
+.tr-goal{display:flex;flex-direction:column;gap:8px}
+.tr-goal .l{font:700 13px var(--body)}
+.tr-steps{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:s}
+.tr-steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px 12px 52px;position:relative;display:flex;flex-direction:column;gap:2px}
+.tr-steps li::before{content:counter(s);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--mauve);color:var(--mauve-ink);display:grid;place-items:center;font:800 14px var(--display)}
+.tr-steps span{color:var(--muted);font-size:14px}
+.tr-plan{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.tr-plan.hot{border:2px solid var(--mauve)}
+.tp-tag{align-self:flex-start;font:700 10px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--soft);padding:4px 8px;border-radius:999px}
+.tr-plan.hot .tp-tag{background:var(--mauve);color:var(--mauve-ink)}
+.tp-n{font:800 20px var(--display)}
+.tp-d{color:var(--muted);font-size:14px}
+.tr-plan ul{margin:4px 0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.tp-p{font:800 18px var(--display);color:var(--hot)}
+.tr-cta{align-self:center;padding:14px 22px;font-size:16px}
+.tr-cta svg{width:20px;height:20px}
+.r-dot circle.core{transform-box:fill-box;transform-origin:center;transition:transform .35s ease,filter .35s ease}
+.r-dot.lit circle.core{transform:scale(1.7);filter:drop-shadow(0 0 5px #FFB27A) drop-shadow(0 0 10px #E8774A) brightness(1.25)}
+.r-dot.lit text{font-size:8px}
+.r-dot.lit .aring{stroke-width:4}
+.tp-price{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+.tp-de{color:var(--muted);font-size:13px}
+.tp-seg{font:800 26px/1 var(--display);color:var(--hot)}
+.tp-note{color:var(--accent);font:700 12px var(--body)}
+.tr-soon{background:linear-gradient(135deg,color-mix(in srgb,#7FC8CC 35%,var(--surface)),color-mix(in srgb,var(--mauve) 35%,var(--surface)) 60%,color-mix(in srgb,#E8774A 25%,var(--surface)));border-radius:22px;padding:28px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.tr-badge{background:var(--ink);color:var(--surface);font:800 12px var(--body);letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+.tr-soon-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;width:100%;max-width:320px}
+.tr-soon-list li{background:var(--surface);border-radius:12px;padding:9px 12px;font:600 14px var(--body)}
+.tr-trial{background:var(--surface);border:2px dashed var(--mauve);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:2px;text-align:center}
+.tr-trial span{color:var(--muted);font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:999px;font:600 13px var(--body);z-index:30;max-width:calc(100% - 32px);text-align:center}
+@media (prefers-reduced-motion:reduce){.r-dot circle.core{transition:none}}
+.tab .sil{display:block;width:17px;height:50px;background:currentColor;-webkit-mask:url(data:image/png;base64,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) center/contain no-repeat;mask:url(data:image/png;base64,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) center/contain no-repeat}
+.tp-pk{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--soft);padding:4px;border-radius:14px;margin-top:6px}
+.tp-pk button{border:0;background:none;border-radius:10px;padding:7px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;color:var(--ink);font:700 12px var(--body)}
+.tp-pk button small{font:600 10px var(--body);color:var(--accent)}
+.tp-pk button[aria-checked="true"]{background:var(--surface);box-shadow:0 1px 4px rgba(29,18,32,.12)}
+.tp-opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tp-opts span{background:var(--soft);color:var(--accent);font:700 12px var(--body);padding:5px 10px;border-radius:999px}
+@media (min-width:700px){.modal{align-items:center}}
+@media (prefers-reduced-motion:no-preference){.deal,.partner{transition:transform .15s}.deal:hover,.partner:hover{transform:translateY(-2px)}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="avatar" id="avatar">A</div>
+    <h1>Radar diário de corrida</h1>
+    <div class="byline">por <b id="pname">Aline</b> · <span id="phandle"></span></div>
+    <div class="actions">
+      <a class="follow" id="follow" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span id="follow-label">Seguir no Instagram</span></a>
+    </div>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Seções do radar">
+    <button class="tab" role="tab" id="tab-provas" aria-controls="p-provas" aria-selected="true"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor"/></svg></span><span class="c" id="c-provas"></span></span><span class="lb">Provas</span></button>
+    <button class="tab" role="tab" id="tab-roupas" aria-controls="p-roupas" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M10.5 15.5l5-5"/><circle cx="11.2" cy="11.4" r=".9" fill="currentColor"/><circle cx="14.8" cy="14.6" r=".9" fill="currentColor"/></svg></span><span class="c" id="c-roupas"></span></span><span class="lb">Parceiros</span></button>
+    <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5V12l3-5 3 2.2 2.4 1.8 5.4 1.6c2 .6 3.2 1.9 3.2 3.4v.5"/><path d="M3 16.5h18v1.2a1.3 1.3 0 0 1-1.3 1.3H4.3A1.3 1.3 0 0 1 3 17.7z"/><path d="M9.5 10.5l1.4-1.6M12 12l1.3-1.6"/></svg></span><span class="c" id="c-tenis"></span></span><span class="lb">Tênis</span></button>
+    <button class="tab" role="tab" id="tab-treino" aria-controls="p-treino" aria-selected="false"><span class="ring"><span class="ic"><span class="sil" aria-hidden="true"></span></span></span><span class="lb">Treine comigo</span></button>
+  </div>
+
+  <div class="panel" id="p-tenis" role="tabpanel" aria-labelledby="tab-tenis" hidden>
+    <div class="t-fresh" id="t-fresh" hidden><span class="live" aria-hidden="true"></span><span id="t-fresh-txt"></span></div>
+    <div class="toolbar">
+      <button class="fbtn" type="button" id="t-fbtn" aria-expanded="false" aria-controls="t-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
+      <select id="t-sort" aria-label="Ordenar tênis">
+        <option value="desc">Maior desconto</option>
+        <option value="price">Menor preço</option>
+      </select>
+    </div>
+    <div class="fpanel" id="t-fpanel" hidden>
+      <div class="row" id="t-gen"><span class="l">Para</span></div>
+      <div class="row" id="t-marca"><span class="l">Marca</span></div>
+      <div class="row" id="t-loja"><span class="l">Loja</span></div>
+      <button class="fclear" type="button" id="t-clear">Limpar filtros</button>
+    </div>
+    <div class="list" id="t-list"></div>
+  </div>
+
+  <div class="panel" id="p-provas" role="tabpanel" aria-labelledby="tab-provas">
+    <div class="toolbar">
+      <button class="fbtn" type="button" id="e-fbtn" aria-expanded="false" aria-controls="e-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
+      <select id="e-uf" aria-label="Estado"></select>
+    </div>
+    <div class="fpanel" id="e-fpanel" hidden>
+      <div class="row" id="e-mes"><span class="l">Mês</span></div>
+      <div class="row" id="e-reg"><span class="l">Região</span></div>
+      <div class="row" id="e-st"><span class="l">Inscrição</span></div>
+      <button class="fclear" type="button" id="e-clear">Limpar filtros</button>
+    </div>
+    <div class="radar-wrap">
+      <div class="radar" id="radar">
+        <svg id="radar-svg" viewBox="0 0 400 400" role="img" aria-label="Mapa do estado com as provas"></svg>
+        <div class="sweep" id="sweep" aria-hidden="true"></div>
+      </div>
+      <div class="radar-cap" id="radar-cap" aria-live="polite"></div>
+    </div>
+    <div class="list" id="e-list"></div>
+    <p class="note">Datas, locais e valores vêm dos sites de inscrição e podem mudar. Confirme sempre na página oficial da prova antes de se inscrever.</p>
+  </div>
+
+  <div class="panel" id="p-roupas" role="tabpanel" aria-labelledby="tab-roupas" hidden>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
+      <button class="coupon" id="coupon" type="button" hidden>Cupom <b id="coupon-code"></b> <small id="coupon-msg">copiar</small></button>
+      <p class="note" id="pt-intro" style="margin:0"></p>
+    </div>
+    <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px"></div>
+    <p class="note" style="text-align:center;margin:0 auto">Parcerias da Aline. Os destaques em laranja são campanhas das próprias lojas, conferidas no dia da atualização, e nem sempre acumulam com o cupom: confira no carrinho.</p>
+  </div>
+
+  <div class="panel" id="p-treino" role="tabpanel" aria-labelledby="tab-treino" hidden>
+    <section class="tr-soon" id="tr-soon" hidden>
+      <span class="tr-badge">Em breve</span>
+      <h2 class="tr-h">Novidades chegando</h2>
+      <p class="tr-p">Estamos trabalhando para trazer muitas novidades sobre treinamentos de corrida com a Aline.</p>
+      <p class="tr-p"><b>Siga a Aline no Instagram</b> para saber em primeira mão.</p>
+      <a class="follow tr-cta" id="tr-soon-follow" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span>Seguir @amartinscc</span></a>
+    </section>
+    <div id="tr-full" style="display:contents">
+    <section class="tr-hero">
+      <span class="tr-eyebrow">Assessoria de corrida</span>
+      <h2 class="tr-h">Corra sua próxima prova com a Aline</h2>
+      <p class="tr-p">Treino de corrida planejado por uma personal trainer que corre: do primeiro 5 km à maratona, no seu ritmo. Online ou presencial na praia da Barra da Tijuca.</p>
+    </section>
+    <div class="list" id="tr-plans"></div>
+    <div class="tr-trial"><b>Aula experimental grátis</b><span>Venha conhecer o treino na praia da Barra da Tijuca antes de decidir. Agende pela DM da Aline.</span></div>
+    <h3 class="ptitle" style="margin:0">Como funciona o acompanhamento personalizado</h3>
+    <ol class="tr-steps">
+      <li><b>Conversa e avaliação</b><span>Seu histórico, rotina, dores e a prova que você quer correr.</span></li>
+      <li><b>Planilha sob medida</b><span>Treinos semana a semana, com ritmo, rodagem, tiros e fortalecimento.</span></li>
+      <li><b>Acompanhamento</b><span>Ajustes conforme seu desempenho, pelo app e por mensagem.</span></li>
+    </ol>
+
+    <a class="follow tr-cta" id="tr-cta" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span>Chamar a Aline no Instagram</span></a>
+    <p class="note" style="text-align:center;margin:0 auto">Ao tocar, sua mensagem é copiada e a conversa com a Aline abre no Instagram: é só colar e enviar.</p>
+    </div>
+  </div>
+
+  <div class="cta" id="cta-follow">
+    <p>Gostou do radar? Siga a Aline para dicas de treino e as melhores ofertas de corrida.</p>
+    <a class="follow" id="follow2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span id="follow2-label">Seguir no Instagram</span></a>
+  </div>
+
+  <p class="note" style="text-align:center;margin:0 auto">Preços e estoque mudam ao longo do dia: confira o valor final e a sua numeração na loja antes de comprar.</p>
+</div>
+
+<div class="modal" id="share" hidden role="dialog" aria-modal="true" aria-labelledby="sh-t">
+  <div class="sheet">
+    <header><h3 id="sh-t">Compartilhar promoção</h3><button class="xbtn" type="button" id="sh-x" aria-label="Fechar">×</button></header>
+    <img class="prev" id="sh-img" alt="Imagem da promoção">
+    <div class="btns">
+      <button class="follow" type="button" id="sh-share">Compartilhar imagem</button>
+      <p class="hint" id="sh-hint" hidden>Toque e segure a imagem para salvar ou enviar.</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+<script id="radar-data" type="application/json">
+__DATA__
+</script>
+
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('radar-data').textContent);
+  const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  const withOff = a => (a||[]).map(o => ({...o, off: Math.round((1 - o.preco/o.de)*100)}));
+  const tenis = withOff(data.ofertas), roupas = withOff(data.artigos);
+  const sortPt = arr => [...new Set(arr)].sort((a,b)=>a.localeCompare(b,'pt-BR',{sensitivity:'base'}));
+
+  // data de hoje no Rio (AAAA-MM-DD)
+  const hoje = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date());
+  const provas = (data.provas||[]).filter(p => p.data >= hoje).sort((a,b)=> (a.data+(a.aline?'0':'1')+(a.hora||'')).localeCompare(b.data+(b.aline?'0':'1')+(b.hora||'')));
+
+  // perfil
+  const pf = data.perfil || {};
+  const ig = pf.instagram ? 'https://www.instagram.com/' + pf.instagram + '/' : null;
+  document.getElementById('pname').textContent = pf.nome || 'Aline';
+  document.getElementById('phandle').textContent = pf.instagram ? '@' + pf.instagram : '';
+  if(pf.foto){ const im = new Image(); im.alt = pf.nome || ''; im.src = pf.foto; const av = document.getElementById('avatar'); av.textContent=''; av.appendChild(im); }
+  else document.getElementById('avatar').textContent = (pf.nome||'A').charAt(0);
+  ['follow','follow2'].forEach(id => { const a = document.getElementById(id); if(ig) a.href = ig; else a.hidden = true; });
+  if(pf.instagram){ document.getElementById('follow2-label').textContent = 'Seguir @' + pf.instagram; document.getElementById('follow-label').textContent = 'Seguir @' + pf.instagram; }
+
+  const dtA = new Date(data.atualizado), dtO = data.ofertas_atualizado ? new Date(data.ofertas_atualizado) : dtA;
+  const dt = dtO > dtA ? dtO : dtA;
+  (function(){ // conferência das ofertas: 7h (completa), 13h e 19h (só tênis)
+    if(isNaN(dtO)) return;
+    const TZ = 'America/Sao_Paulo';
+    const ymd = d => d.toLocaleDateString('en-CA',{timeZone:TZ});
+    const hm = d => { const p = d.toLocaleTimeString('pt-BR',{timeZone:TZ,hour:'2-digit',minute:'2-digit',hour12:false}).split(':'); return {h:+p[0], m:+p[1], s:(+p[0]) + 'h' + p[1]}; };
+    const now = new Date(), today = ymd(now), yest = ymd(new Date(now - 864e5));
+    const u = hm(dtO), d = ymd(dtO);
+    const quando = d === today ? 'hoje às ' : d === yest ? 'ontem às ' : 'em ' + dtO.toLocaleDateString('pt-BR',{timeZone:TZ,day:'2-digit',month:'2-digit'}) + ' às ';
+    const n = hm(now), nowMin = n.h*60 + n.m;
+    const slots = [[7*60+15,'7h'],[13*60,'13h'],[19*60,'19h']];
+    const nx = slots.find(s => s[0] > nowMin);
+    const prox = nx ? 'por volta das ' + nx[1] : 'amanhã, por volta das 7h';
+    document.getElementById('t-fresh-txt').innerHTML = 'Ofertas conferidas <b>' + quando + u.s + '</b> · próxima conferência ' + prox;
+    document.getElementById('t-fresh').hidden = false;
+  })();
+  const best = tenis.reduce((a,b)=> b.off>a.off?b:a, tenis[0] || {off:0});
+  document.getElementById('meta').innerHTML =
+    'Atualizado em <b>' + dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'long'}) + ', ' +
+    dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) + '</b> · ' +
+    provas.length + ' provas de corrida · ' + tenis.length + ' tênis em oferta';
+  document.getElementById('c-tenis').textContent = tenis.length;
+  document.getElementById('c-provas').textContent = provas.length;
+  
+  // abas
+  const tabs = ['provas','roupas','tenis','treino'];
+  function show(name){
+    tabs.forEach(t => {
+      document.getElementById('tab-'+t).setAttribute('aria-selected', String(t===name));
+      document.getElementById('p-'+t).hidden = t!==name;
+    });
+    const cf = document.getElementById('cta-follow'); if(cf) cf.hidden = !!(data.treino_em_breve && name==='treino');
+    try{ localStorage.setItem('radar-aba2', name); }catch(e){}
+  }
+  tabs.forEach(t => document.getElementById('tab-'+t).addEventListener('click', () => show(t)));
+  let first = 'provas';
+  const h = (location.hash||'').slice(1);
+  if(tabs.includes(h)) first = h; else { try{ const s = localStorage.getItem('radar-aba2'); if(tabs.includes(s)) first = s; }catch(e){} }
+  show(first);
+
+  function chips(id, values, state, key, render, labels){
+    const box = document.getElementById(id);
+    ['Todas', ...values].forEach(v => {
+      const b = document.createElement('button');
+      b.className = 'chip'; b.type = 'button'; b.textContent = (labels && labels[v]) || v; b.dataset.v = v;
+      b.setAttribute('aria-pressed', String(state[key]===v));
+      b.addEventListener('click', () => {
+        state[key] = v;
+        box.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.v===v)));
+        render();
+      });
+      box.appendChild(b);
+    });
+  }
+  function setCount(id, vals){
+    const n = vals.filter(v => v!=='Todas').length;
+    const s = document.getElementById(id).querySelector('.n'); s.textContent = n; s.hidden = !n;
+  }
+  function toggler(btnId, panelId){
+    const b = document.getElementById(btnId), p = document.getElementById(panelId);
+    b.addEventListener('click', () => { const open = p.hidden; p.hidden = !open; b.setAttribute('aria-expanded', String(open)); });
+  }
+  function clearer(btnId, boxIds, state, keys, render){
+    document.getElementById(btnId).addEventListener('click', () => {
+      keys.forEach(k => state[k] = 'Todas');
+      boxIds.forEach(id => document.getElementById(id).querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.v==='Todas'))));
+      render();
+    });
+  }
+  function fill(list, rows, make, msg){
+    list.innerHTML = '';
+    if(!rows.length){ const p = document.createElement('p'); p.className='empty'; p.textContent = msg; list.appendChild(p); return; }
+    rows.forEach(r => list.appendChild(make(r)));
+  }
+  function dealCard(o, label){
+    const el = document.createElement('article');
+    el.className = 'deal';
+    el.innerHTML = `<div class="bib"><div class="n">${o.off}%</div><div class="t">off</div></div>
+      <div class="info"><div class="store"></div><div class="name"></div>
+      <div class="price"><span class="now">${brl(o.preco)}</span><s>${brl(o.de)}</s></div><div class="cond"></div>
+      <a class="go" target="_blank" rel="noopener">Ver na loja →</a></div><button class="sharebtn" type="button" aria-label="Compartilhar nos stories" title="Compartilhar nos stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>`;
+    el.querySelector('.sharebtn').addEventListener('click', () => openShare(o));
+    el.querySelector('.store').textContent = label;
+    el.querySelector('.name').textContent = o.nome;
+    el.querySelector('.go').href = o.link;
+    const cd = el.querySelector('.cond');
+    if(o.cupom){ const c = document.createElement('span'); c.className = 'cup'; c.textContent = 'cupom ' + o.cupom; cd.appendChild(c); }
+    if(o.condicao){ const c = document.createElement('span'); c.textContent = o.condicao; cd.appendChild(c); }
+    if(!cd.children.length) cd.remove();
+    return el;
+  }
+
+  // tênis
+  const ts = {gen:'Todas', marca:'Todas', loja:'Todas', sort:'desc'};
+  function renderT(){
+    let rows = tenis.filter(o =>
+      (ts.gen==='Todas' || o.genero===ts.gen || o.genero==='Unissex') &&
+      (ts.marca==='Todas'||o.marca===ts.marca) && (ts.loja==='Todas'||o.loja===ts.loja));
+    rows.sort(ts.sort==='desc' ? (a,b)=>b.off-a.off : (a,b)=>a.preco-b.preco);
+    setCount('t-fbtn', [ts.gen, ts.marca, ts.loja]);
+    fill(document.getElementById('t-list'), rows, o => dealCard(o, [o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), 'Nenhuma oferta com esse filtro hoje.');
+  }
+  chips('t-gen', ['Feminino','Masculino'], ts, 'gen', renderT, {Todas:'Todos'});
+  chips('t-marca', sortPt(tenis.map(o=>o.marca)), ts, 'marca', renderT);
+  chips('t-loja', sortPt(tenis.map(o=>o.loja)), ts, 'loja', renderT);
+  document.getElementById('t-sort').addEventListener('change', e => { ts.sort = e.target.value; renderT(); });
+  renderT();
+  toggler('t-fbtn','t-fpanel'); clearer('t-clear', ['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja'], renderT);
+
+  // geografia das provas
+  const PLACES = [
+    [['itaipuaçu','maricá'], -22.960,-42.975,'Região Metropolitana'],
+    [['niterói','icaraí'], -22.903,-43.112,'Região Metropolitana'],
+    [['nova iguaçu','iguaçu run','bairro da luz'], -22.759,-43.451,'Região Metropolitana'],
+    [['recreio'], -23.018,-43.468,'Zona Oeste'],
+    [['parque olímpico','barra da tijuca'], -22.977,-43.395,'Zona Oeste'],
+    [['museu aeroespacial','campo dos afonsos','marechal fontenelle','vila militar'], -22.877,-43.385,'Zona Oeste'],
+    [['portela','oswaldo cruz','osvaldo cruz'], -22.872,-43.346,'Zona Norte'],
+    [['madureira'], -22.868,-43.337,'Zona Norte'],
+    [['engenhão'], -22.893,-43.292,'Zona Norte'],
+    [['maracanã'], -22.912,-43.230,'Zona Norte'],
+    [['quinta da boa vista','são cristóvão','bio parque','pedro ii'], -22.906,-43.223,'Zona Norte'],
+    [['sambódromo','cidade nova','apoteose','salvador de sá','choque'], -22.911,-43.197,'Centro'],
+    [['praça mauá','porto maravilha','yup star','rodrigues alves','centro'], -22.896,-43.181,'Centro'],
+    [['copacabana','posto 2','posto 3','atlântica','leme'], -22.971,-43.184,'Zona Sul'],
+    [['ipanema','leblon','arpoador'], -22.985,-43.205,'Zona Sul'],
+    [['lagoa','figueiras','epitácio'], -22.972,-43.211,'Zona Sul'],
+    [['aterro','flamengo','pracinhas','glória','botafogo','urca'], -22.925,-43.172,'Zona Sul'],
+  ];
+  function geo(p){
+    if((p.uf||'RJ')!=='RJ') return (typeof p.lat==='number' && typeof p.lng==='number') ? {lat:p.lat, lng:p.lng, reg:p.cidade||p.local||p.uf} : null;
+    const s = ((p.local||'') + ' ' + (p.nome||'')).toLowerCase();
+    for(const [keys,lat,lng,reg] of PLACES){ if(keys.some(k => s.includes(k))) return {lat: p.lat ?? lat, lng: p.lng ?? lng, reg: p.regiao || reg}; }
+    if(typeof p.lat==='number' && typeof p.lng==='number') return {lat:p.lat, lng:p.lng, reg:p.regiao||'Rio de Janeiro'};
+    return null;
+  }
+  provas.forEach(p => { p.geo = geo(p); });
+
+
+  // radar do Rio
+  const RC = {lat:-22.915, lng:-43.215}, K = 650, COSL = 0.921, R = 188;
+  const rioP = (lat,lng) => [200 + (lng-RC.lng)*COSL*K, 200 - (lat-RC.lat)*K];
+  let P = rioP;
+  const pts = arr => arr.map(([la,ln]) => P(la,ln).map(v=>v.toFixed(1)).join(',')).join(' ');
+  const STATES = {"AC":{"n":"Acre","p":[[[-73.608,-7.202],[-72.659,-7.625],[-70.369,-8.141],[-68.728,-9.0],[-66.619,-9.894],[-66.627,-9.935],[-67.048,-10.275],[-67.406,-10.374],[-67.676,-10.605],[-67.707,-10.708],[-67.877,-10.64],[-68.054,-10.67],[-68.238,-10.956],[-68.543,-11.109],[-68.716,-11.143],[-68.758,-11.001],[-69.424,-10.927],[-69.737,-10.974],[-69.935,-10.921],[-70.311,-11.07],[-70.531,-10.935],[-70.622,-10.999],[-70.623,-9.821],[-70.538,-9.765],[-70.6,-9.558],[-70.558,-9.572],[-70.494,-9.426],[-70.595,-9.44],[-71.212,-9.967],[-72.18,-10.0],[-72.151,-9.799],[-72.271,-9.749],[-72.254,-9.614],[-72.357,-9.494],[-72.717,-9.411],[-73.215,-9.411],[-73.005,-9.211],[-72.937,-8.988],[-73.131,-8.707],[-73.291,-8.615],[-73.28,-8.475],[-73.389,-8.469],[-73.537,-8.345],[-73.63,-8.021],[-73.771,-7.906],[-73.684,-7.776],[-73.988,-7.555],[-73.919,-7.465],[-73.962,-7.345],[-73.869,-7.378],[-73.7,-7.305],[-73.804,-7.111],[-73.608,-7.202]]]},"AL":{"n":"Alagoas","p":[[[-35.465,-8.825],[-35.176,-8.888],[-35.152,-8.913],[-35.182,-8.978],[-35.307,-9.193],[-35.675,-9.599],[-35.694,-9.664],[-35.754,-9.678],[-35.812,-9.732],[-36.046,-10.075],[-36.272,-10.275],[-36.293,-10.354],[-36.391,-10.501],[-36.456,-10.407],[-36.51,-10.432],[-36.564,-10.416],[-36.571,-10.319],[-36.623,-10.258],[-36.72,-10.264],[-36.91,-10.138],[-36.992,-9.977],[-37.049,-9.986],[-37.153,-9.9],[-37.237,-9.894],[-37.285,-9.831],[-37.419,-9.762],[-37.581,-9.734],[-37.711,-9.631],[-37.785,-9.638],[-37.894,-9.54],[-37.989,-9.527],[-38.009,-9.48],[-38.079,-9.44],[-38.203,-9.418],[-38.194,-9.385],[-38.237,-9.329],[-38.092,-9.172],[-37.979,-9.148],[-37.839,-8.978],[-37.829,-8.893],[-37.76,-8.857],[-37.684,-8.967],[-37.698,-8.992],[-37.661,-8.987],[-37.643,-9.018],[-37.583,-8.97],[-37.49,-8.965],[-37.469,-9.027],[-37.315,-9.094],[-37.243,-9.186],[-37.234,-9.24],[-37.198,-9.215],[-37.159,-9.239],[-37.164,-9.275],[-37.106,-9.239],[-37.057,-9.281],[-37.058,-9.317],[-37.024,-9.315],[-36.952,-9.382],[-36.915,-9.299],[-36.868,-9.268],[-36.797,-9.293],[-36.693,-9.275],[-36.604,-9.341],[-36.567,-9.331],[-36.571,-9.292],[-36.437,-9.212],[-36.365,-9.222],[-36.309,-9.172],[-36.224,-9.171],[-36.266,-9.102],[-36.236,-9.103],[-36.195,-9.044],[-36.124,-9.03],[-36.104,-8.999],[-36.126,-8.956],[-36.063,-8.915],[-35.965,-8.902],[-35.896,-8.854],[-35.845,-8.872],[-35.795,-8.848],[-35.782,-8.897],[-35.748,-8.917],[-35.535,-8.819],[-35.465,-8.825]]]},"AM":{"n":"Amazonas","p":[[[-67.326,2.03],[-67.097,1.733],[-67.088,1.167],[-66.856,1.231],[-66.318,0.755],[-65.585,1.009],[-65.54,0.649],[-65.103,1.157],[-64.81,1.315],[-64.746,1.226],[-64.397,1.527],[-64.337,1.364],[-63.996,1.98],[-63.141,2.173],[-62.706,1.94],[-62.804,1.591],[-62.445,0.977],[-62.532,0.509],[-62.188,-0.33],[-62.29,-0.646],[-62.51,-0.759],[-61.896,-1.395],[-61.474,-1.579],[-61.619,-1.394],[-61.585,-0.937],[-61.216,-0.5],[-60.92,-0.555],[-60.667,-0.894],[-60.309,-0.724],[-60.399,-0.51],[-60.037,0.264],[-58.895,0.264],[-58.872,-0.343],[-58.323,-1.143],[-58.162,-1.229],[-58.017,-1.106],[-57.96,-1.401],[-57.164,-1.721],[-56.679,-2.212],[-56.098,-2.027],[-56.465,-2.423],[-58.478,-6.699],[-58.136,-7.356],[-58.382,-7.839],[-58.286,-8.128],[-58.395,-8.78],[-61.582,-8.798],[-61.713,-8.687],[-61.985,-8.878],[-62.845,-7.986],[-63.62,-7.969],[-63.773,-8.32],[-63.944,-8.331],[-64.149,-8.959],[-64.839,-8.994],[-65.097,-9.432],[-65.246,-9.257],[-65.791,-9.585],[-65.97,-9.413],[-66.408,-9.407],[-66.806,-9.814],[-70.369,-8.141],[-72.659,-7.625],[-73.804,-7.111],[-73.645,-6.761],[-73.137,-6.497],[-73.236,-6.031],[-72.814,-5.11],[-71.883,-4.516],[-70.943,-4.385],[-70.653,-4.127],[-70.326,-4.146],[-70.199,-4.366],[-69.964,-4.3],[-69.395,-1.132],[-69.614,-0.506],[-70.057,-0.186],[-70.043,0.559],[-69.481,0.736],[-69.114,0.65],[-69.265,1.065],[-69.844,1.086],[-69.842,1.721],[-68.156,1.732],[-68.208,1.962],[-67.941,1.831],[-67.407,2.247],[-67.326,2.03]]]},"AP":{"n":"Amapá","p":[[[-51.182,4.009],[-51.179,3.945],[-51.075,3.891],[-51.087,3.392],[-51.014,3.046],[-50.841,2.639],[-50.854,2.491],[-50.802,2.508],[-50.764,2.448],[-50.702,2.139],[-50.446,2.2],[-50.238,1.804],[-50.091,1.792],[-49.921,1.704],[-49.876,1.481],[-49.893,1.193],[-49.94,0.994],[-50.092,0.783],[-50.093,0.702],[-50.409,0.624],[-50.556,0.307],[-50.668,0.185],[-50.934,0.07],[-51.084,-0.087],[-51.216,-0.118],[-51.679,-0.785],[-51.704,-1.067],[-51.809,-1.157],[-51.925,-1.132],[-51.957,-1.169],[-51.985,-1.121],[-52.07,-1.236],[-52.12,-1.146],[-52.333,-1.116],[-52.427,-1.05],[-52.403,-0.877],[-52.455,-0.83],[-52.538,-0.854],[-52.497,-0.73],[-52.523,-0.589],[-52.64,-0.585],[-52.702,-0.459],[-52.69,-0.303],[-52.851,-0.15],[-52.933,-0.139],[-53.175,0.382],[-53.106,0.684],[-53.411,0.93],[-53.459,1.128],[-53.399,1.159],[-53.426,1.243],[-53.536,1.213],[-53.538,1.341],[-53.65,1.337],[-53.65,1.409],[-53.666,1.373],[-53.717,1.432],[-53.732,1.387],[-53.804,1.424],[-53.85,1.392],[-54.009,1.52],[-54.086,1.489],[-54.143,1.641],[-54.191,1.625],[-54.309,1.741],[-54.744,1.776],[-54.753,1.967],[-54.812,2.063],[-54.763,2.203],[-54.876,2.427],[-54.684,2.447],[-54.662,2.327],[-54.601,2.338],[-54.436,2.21],[-54.189,2.179],[-53.974,2.233],[-53.767,2.379],[-53.723,2.354],[-53.748,2.313],[-53.54,2.258],[-53.458,2.261],[-53.338,2.354],[-53.231,2.269],[-53.267,2.169],[-53.243,2.209],[-53.098,2.216],[-52.944,2.169],[-52.554,2.517],[-52.557,2.636],[-52.383,2.911],[-52.333,3.173],[-52.192,3.302],[-51.924,3.784],[-51.802,3.882],[-51.756,3.988],[-51.646,4.045],[-51.549,4.425],[-51.49,4.423],[-51.252,4.192],[-51.182,4.009]]]},"BA":{"n":"Bahia","p":[[[-39.288,-8.563],[-39.233,-8.705],[-38.798,-8.792],[-38.671,-8.974],[-38.551,-8.822],[-38.47,-8.865],[-38.483,-9.001],[-38.296,-9.022],[-38.203,-9.418],[-37.999,-9.497],[-37.997,-9.916],[-37.831,-10.001],[-37.736,-10.332],[-37.859,-10.426],[-37.814,-10.691],[-37.999,-10.764],[-38.212,-10.709],[-38.229,-10.915],[-37.974,-11.195],[-37.977,-11.393],[-37.813,-11.514],[-37.518,-11.548],[-37.343,-11.443],[-38.049,-12.634],[-38.347,-12.95],[-38.489,-13.014],[-38.616,-12.931],[-38.965,-13.283],[-38.888,-13.643],[-38.998,-13.744],[-38.928,-13.939],[-39.065,-14.705],[-38.856,-15.86],[-39.213,-17.168],[-39.135,-17.688],[-39.567,-18.09],[-39.67,-18.349],[-40.222,-17.98],[-40.224,-17.734],[-40.623,-17.406],[-40.491,-16.884],[-40.281,-16.901],[-40.257,-16.806],[-40.345,-16.787],[-40.275,-16.574],[-40.159,-16.58],[-39.856,-16.113],[-40.23,-15.803],[-40.562,-15.803],[-40.815,-15.648],[-41.144,-15.771],[-41.331,-15.744],[-41.356,-15.5],[-41.8,-15.101],[-42.091,-15.186],[-43.176,-14.65],[-43.531,-14.815],[-43.883,-14.653],[-43.783,-14.339],[-44.215,-14.233],[-44.565,-14.34],[-45.083,-14.749],[-45.205,-14.744],[-46.077,-15.264],[-46.119,-15.192],[-45.966,-14.965],[-46.052,-14.831],[-46.016,-14.419],[-45.907,-14.353],[-46.265,-14.098],[-46.21,-14.012],[-46.26,-13.687],[-46.162,-13.59],[-46.242,-13.429],[-46.041,-13.28],[-46.315,-13.303],[-46.322,-13.098],[-46.114,-12.918],[-46.304,-12.949],[-46.28,-12.584],[-46.154,-12.483],[-46.254,-12.493],[-46.352,-12.337],[-46.397,-12.04],[-46.171,-11.901],[-46.374,-11.868],[-46.315,-11.632],[-46.083,-11.636],[-46.479,-11.516],[-46.617,-11.289],[-46.283,-10.906],[-46.211,-10.649],[-45.827,-10.436],[-45.697,-10.263],[-45.722,-10.155],[-45.603,-10.108],[-45.396,-10.446],[-45.436,-10.619],[-45.248,-10.822],[-44.931,-10.928],[-44.577,-10.626],[-44.335,-10.549],[-44.134,-10.636],[-43.662,-10.004],[-43.653,-9.839],[-43.785,-9.762],[-43.849,-9.548],[-43.485,-9.265],[-43.278,-9.424],[-42.971,-9.408],[-42.946,-9.518],[-42.765,-9.616],[-42.243,-9.289],[-41.838,-9.242],[-41.723,-9.013],[-41.544,-8.96],[-41.382,-8.708],[-41.113,-8.704],[-41.021,-8.843],[-40.921,-8.835],[-40.804,-9.098],[-40.667,-9.159],[-40.776,-9.454],[-40.623,-9.482],[-40.335,-9.353],[-40.25,-9.06],[-39.958,-9.048],[-39.894,-8.831],[-39.674,-8.787],[-39.691,-8.662],[-39.288,-8.563]]]},"CE":{"n":"Ceará","p":[[[-40.018,-2.837],[-39.252,-3.222],[-39.083,-3.393],[-38.995,-3.397],[-38.667,-3.674],[-38.472,-3.707],[-38.364,-3.881],[-38.013,-4.246],[-37.77,-4.401],[-37.593,-4.625],[-37.325,-4.701],[-37.252,-4.832],[-37.64,-4.926],[-37.902,-5.497],[-38.082,-5.672],[-38.089,-5.728],[-38.047,-5.73],[-38.164,-5.946],[-38.304,-6.087],[-38.383,-6.053],[-38.447,-6.085],[-38.578,-6.28],[-38.564,-6.356],[-38.602,-6.389],[-38.518,-6.408],[-38.612,-6.513],[-38.673,-6.697],[-38.614,-6.783],[-38.765,-6.911],[-38.765,-6.994],[-38.669,-7.047],[-38.687,-7.19],[-38.626,-7.191],[-38.534,-7.293],[-38.585,-7.434],[-38.645,-7.46],[-38.655,-7.565],[-38.742,-7.66],[-38.819,-7.664],[-38.822,-7.714],[-38.939,-7.758],[-38.966,-7.845],[-39.017,-7.814],[-39.091,-7.858],[-39.135,-7.723],[-39.307,-7.665],[-39.278,-7.607],[-39.317,-7.541],[-39.662,-7.31],[-40.246,-7.433],[-40.319,-7.374],[-40.548,-7.392],[-40.489,-7.118],[-40.406,-7.005],[-40.428,-6.864],[-40.37,-6.803],[-40.432,-6.813],[-40.476,-6.734],[-40.732,-6.654],[-40.792,-6.512],[-40.781,-6.324],[-40.907,-6.041],[-40.874,-5.974],[-40.938,-5.673],[-40.901,-5.615],[-40.942,-5.42],[-40.911,-5.407],[-40.925,-5.181],[-41.131,-5.048],[-41.137,-4.985],[-41.249,-4.869],[-41.208,-4.776],[-41.25,-4.756],[-41.174,-4.667],[-41.242,-4.571],[-41.12,-4.33],[-41.136,-4.233],[-41.091,-4.17],[-41.143,-4.124],[-41.114,-4.04],[-41.254,-4.035],[-41.22,-3.941],[-41.3,-3.826],[-41.239,-3.712],[-41.341,-3.68],[-41.37,-3.567],[-41.299,-3.491],[-41.423,-3.368],[-41.256,-3.088],[-41.257,-3.004],[-41.322,-2.921],[-41.258,-2.884],[-40.592,-2.843],[-40.499,-2.784],[-40.018,-2.837]]]},"ES":{"n":"Espírito Santo","p":[[[-40.724,-20.842],[-40.804,-20.943],[-40.801,-21.005],[-40.856,-21.128],[-40.953,-21.237],[-40.957,-21.303],[-41.092,-21.218],[-41.161,-21.246],[-41.241,-21.221],[-41.277,-21.24],[-41.718,-21.123],[-41.736,-21.102],[-41.71,-20.991],[-41.736,-20.928],[-41.712,-20.871],[-41.741,-20.871],[-41.755,-20.807],[-41.879,-20.76],[-41.808,-20.644],[-41.856,-20.614],[-41.804,-20.544],[-41.799,-20.477],[-41.803,-20.422],[-41.858,-20.372],[-41.847,-20.329],[-41.781,-20.292],[-41.756,-20.206],[-41.382,-20.188],[-41.308,-19.948],[-41.184,-19.888],[-41.168,-19.672],[-41.036,-19.568],[-41.045,-19.487],[-40.972,-19.505],[-40.949,-19.473],[-40.967,-19.427],[-40.907,-19.308],[-40.944,-19.279],[-40.917,-19.256],[-40.938,-19.249],[-40.944,-19.144],[-41.065,-19.051],[-41.066,-19.006],[-41.018,-18.973],[-41.103,-18.934],[-41.166,-18.858],[-41.214,-18.877],[-41.242,-18.854],[-41.232,-18.797],[-41.134,-18.796],[-41.097,-18.842],[-40.917,-18.815],[-40.943,-18.687],[-41.053,-18.628],[-41.024,-18.457],[-41.182,-18.439],[-41.144,-18.406],[-41.158,-18.308],[-41.096,-18.255],[-41.104,-18.213],[-41.056,-18.166],[-40.989,-18.17],[-40.893,-18.107],[-40.849,-18.147],[-40.771,-18.155],[-40.773,-18.107],[-40.902,-17.987],[-40.882,-17.97],[-40.863,-17.988],[-40.808,-17.952],[-40.772,-18.002],[-40.704,-18.023],[-40.626,-17.989],[-40.613,-17.939],[-40.527,-17.891],[-40.464,-17.928],[-40.334,-17.927],[-40.222,-17.98],[-39.666,-18.332],[-39.728,-18.5],[-39.75,-18.841],[-39.689,-19.306],[-39.807,-19.648],[-39.983,-19.739],[-40.139,-19.949],[-40.159,-20.038],[-40.19,-20.056],[-40.171,-20.109],[-40.197,-20.216],[-40.237,-20.289],[-40.258,-20.267],[-40.292,-20.288],[-40.27,-20.33],[-40.424,-20.635],[-40.461,-20.623],[-40.627,-20.841],[-40.645,-20.786],[-40.724,-20.842]]]},"GO":{"n":"Goiás","p":[[[-50.158,-12.412],[-50.3,-12.68],[-50.292,-12.839],[-49.913,-12.966],[-49.369,-13.274],[-49.337,-13.066],[-49.119,-12.79],[-49.078,-12.903],[-48.975,-12.957],[-48.846,-12.809],[-48.73,-12.989],[-48.602,-13.06],[-48.586,-13.317],[-48.508,-13.128],[-48.441,-13.292],[-48.173,-13.148],[-48.165,-13.305],[-48.062,-13.235],[-47.966,-13.315],[-47.824,-13.311],[-47.679,-13.467],[-47.622,-13.367],[-47.634,-13.104],[-47.478,-13.185],[-47.427,-13.289],[-46.978,-13.131],[-46.75,-12.969],[-46.454,-12.971],[-46.417,-12.823],[-46.363,-12.991],[-46.114,-12.918],[-46.322,-13.098],[-46.279,-13.347],[-46.041,-13.28],[-46.242,-13.429],[-46.235,-13.562],[-46.162,-13.59],[-46.26,-13.687],[-46.268,-13.943],[-46.21,-14.012],[-46.265,-14.098],[-45.907,-14.353],[-46.016,-14.419],[-46.008,-14.793],[-46.088,-14.936],[-46.286,-14.928],[-46.322,-14.814],[-46.503,-14.704],[-46.565,-14.786],[-46.502,-15.052],[-46.625,-15.089],[-46.856,-15.01],[-46.924,-15.058],[-46.94,-15.229],[-46.836,-15.322],[-46.949,-15.554],[-46.854,-15.62],[-46.812,-15.885],[-47.142,-15.926],[-47.319,-16.036],[-47.376,-15.88],[-47.315,-15.594],[-47.417,-15.5],[-48.197,-15.501],[-48.279,-16.051],[-47.304,-16.06],[-47.458,-16.502],[-47.25,-16.666],[-47.126,-16.98],[-47.352,-17.166],[-47.44,-17.347],[-47.511,-17.331],[-47.541,-17.454],[-47.492,-17.526],[-47.33,-17.524],[-47.266,-17.609],[-47.373,-17.829],[-47.283,-18.058],[-47.567,-18.203],[-47.626,-18.334],[-47.954,-18.5],[-48.262,-18.331],[-48.313,-18.384],[-48.561,-18.323],[-48.816,-18.379],[-48.936,-18.306],[-49.077,-18.416],[-49.205,-18.411],[-49.378,-18.642],[-49.535,-18.493],[-49.783,-18.641],[-50.016,-18.599],[-50.08,-18.672],[-50.309,-18.698],[-50.509,-18.937],[-50.537,-19.099],[-50.677,-19.139],[-50.817,-19.289],[-50.875,-19.422],[-50.842,-19.499],[-51.087,-19.308],[-51.657,-19.137],[-51.94,-18.967],[-52.081,-18.95],[-52.181,-18.847],[-52.334,-18.828],[-52.449,-18.691],[-52.916,-18.639],[-52.962,-18.54],[-52.758,-18.348],[-53.101,-18.31],[-53.143,-18.081],[-53.07,-17.986],[-53.238,-17.714],[-53.246,-17.532],[-53.218,-17.299],[-53.056,-17.07],[-53.011,-16.858],[-52.785,-16.741],[-52.739,-16.589],[-52.626,-16.533],[-52.681,-16.303],[-52.547,-16.261],[-52.525,-16.14],[-52.327,-16.068],[-52.252,-15.893],[-51.879,-15.825],[-51.762,-15.645],[-51.776,-15.537],[-51.699,-15.484],[-51.652,-15.179],[-51.535,-15.069],[-51.337,-14.973],[-51.242,-15.035],[-51.086,-14.917],[-50.962,-14.527],[-50.975,-14.29],[-50.917,-14.114],[-50.833,-14.089],[-50.871,-13.733],[-50.607,-13.31],[-50.61,-13.063],[-50.525,-12.976],[-50.478,-12.71],[-50.365,-12.546],[-50.158,-12.412]]]},"MA":{"n":"Maranhão","p":[[[-47.031,-8.985],[-46.913,-8.847],[-46.916,-8.595],[-46.806,-8.399],[-46.544,-8.319],[-46.466,-8.066],[-46.604,-7.896],[-47.043,-8.053],[-47.504,-7.436],[-47.59,-7.439],[-47.499,-7.293],[-47.648,-7.303],[-47.746,-7.201],[-47.529,-6.976],[-47.378,-6.27],[-47.5,-5.525],[-47.843,-5.376],[-47.885,-5.26],[-48.178,-5.26],[-48.363,-5.168],[-48.755,-5.349],[-47.789,-4.585],[-47.611,-4.556],[-47.372,-4.244],[-47.318,-4.047],[-47.088,-3.855],[-47.037,-3.563],[-46.679,-3.093],[-46.679,-2.881],[-46.575,-2.841],[-46.664,-2.694],[-46.416,-2.529],[-46.432,-2.239],[-46.28,-2.153],[-46.21,-1.833],[-46.324,-1.765],[-46.153,-1.676],[-46.151,-1.224],[-45.965,-1.046],[-45.948,-1.238],[-45.846,-1.045],[-45.908,-1.176],[-45.861,-1.151],[-45.86,-1.284],[-45.814,-1.166],[-45.794,-1.279],[-45.68,-1.138],[-45.719,-1.404],[-45.58,-1.257],[-45.551,-1.351],[-45.501,-1.294],[-45.519,-1.412],[-45.41,-1.289],[-45.488,-1.431],[-45.443,-1.543],[-45.317,-1.318],[-45.293,-1.421],[-45.388,-1.481],[-45.374,-1.549],[-45.298,-1.494],[-45.352,-1.736],[-45.309,-1.6],[-45.248,-1.622],[-45.151,-1.465],[-45.129,-1.529],[-45.101,-1.36],[-45.078,-1.518],[-44.816,-1.418],[-44.898,-1.613],[-44.821,-1.575],[-44.798,-1.659],[-44.698,-1.553],[-44.719,-1.612],[-44.678,-1.564],[-44.642,-1.624],[-44.784,-1.671],[-44.787,-1.75],[-44.697,-1.738],[-44.814,-1.815],[-44.593,-1.744],[-44.639,-1.857],[-44.529,-1.838],[-44.599,-1.897],[-44.487,-1.945],[-44.499,-2.141],[-44.396,-2.213],[-44.412,-2.413],[-44.326,-2.5],[-44.022,-2.398],[-44.101,-2.464],[-43.958,-2.482],[-43.98,-2.573],[-43.615,-2.219],[-43.492,-2.371],[-43.185,-2.373],[-42.479,-2.712],[-41.823,-2.719],[-41.865,-2.875],[-41.796,-2.966],[-41.939,-3.187],[-42.115,-3.262],[-42.204,-3.435],[-42.498,-3.447],[-42.675,-3.675],[-42.726,-3.91],[-42.989,-4.234],[-42.85,-4.481],[-42.949,-4.79],[-42.798,-5.183],[-42.826,-5.347],[-43.099,-5.633],[-43.075,-6.054],[-42.829,-6.337],[-42.919,-6.67],[-43.001,-6.754],[-43.42,-6.843],[-43.716,-6.699],[-44.033,-6.76],[-44.306,-7.117],[-44.564,-7.227],[-44.688,-7.394],[-44.816,-7.361],[-44.924,-7.47],[-45.456,-7.67],[-45.765,-8.609],[-45.994,-8.926],[-45.893,-9.342],[-45.783,-9.48],[-45.946,-10.258],[-46.028,-10.176],[-46.367,-10.168],[-46.493,-9.827],[-46.647,-9.73],[-46.561,-9.484],[-46.763,-9.409],[-46.922,-9.066],[-47.068,-9.063],[-47.031,-8.985]]]},"MG":{"n":"Minas Gerais","p":[[[-44.209,-14.244],[-43.783,-14.339],[-43.883,-14.653],[-43.531,-14.815],[-43.176,-14.65],[-42.091,-15.186],[-41.8,-15.101],[-41.356,-15.5],[-41.331,-15.744],[-40.707,-15.666],[-40.562,-15.803],[-40.23,-15.803],[-39.856,-16.113],[-40.159,-16.58],[-40.275,-16.574],[-40.345,-16.787],[-40.257,-16.806],[-40.281,-16.901],[-40.48,-16.876],[-40.57,-17.061],[-40.623,-17.406],[-40.224,-17.734],[-40.222,-17.98],[-40.527,-17.891],[-40.704,-18.023],[-40.882,-17.97],[-40.771,-18.155],[-41.056,-18.166],[-41.158,-18.308],[-41.182,-18.439],[-41.024,-18.457],[-41.053,-18.628],[-40.917,-18.815],[-41.242,-18.854],[-41.018,-18.973],[-40.944,-19.46],[-41.168,-19.672],[-41.184,-19.888],[-41.308,-19.948],[-41.382,-20.188],[-41.756,-20.206],[-41.847,-20.329],[-41.808,-20.644],[-41.976,-20.935],[-42.151,-20.974],[-42.08,-21.035],[-42.369,-21.619],[-42.271,-21.715],[-43.073,-22.093],[-43.246,-22.007],[-43.766,-22.062],[-45.395,-22.651],[-45.716,-22.578],[-45.819,-22.722],[-45.713,-22.814],[-45.791,-22.858],[-46.345,-22.904],[-46.335,-22.76],[-46.477,-22.699],[-46.393,-22.662],[-46.407,-22.54],[-46.723,-22.306],[-46.6,-22.134],[-46.723,-22.077],[-46.613,-22.009],[-46.691,-21.836],[-46.509,-21.469],[-46.665,-21.361],[-47.011,-21.422],[-47.24,-20.885],[-47.097,-20.644],[-47.291,-20.449],[-47.257,-20.166],[-47.466,-19.964],[-47.636,-20.048],[-47.859,-19.993],[-47.894,-20.123],[-47.976,-20.035],[-48.112,-20.143],[-48.24,-20.029],[-48.246,-20.14],[-48.823,-20.161],[-48.899,-20.441],[-48.992,-20.165],[-49.217,-20.303],[-49.308,-20.102],[-49.25,-19.97],[-49.551,-19.905],[-49.891,-19.943],[-50.471,-19.779],[-51.0,-20.085],[-51.045,-19.729],[-50.923,-19.576],[-50.962,-19.484],[-50.826,-19.487],[-50.817,-19.289],[-50.537,-19.099],[-50.309,-18.698],[-50.016,-18.599],[-49.783,-18.641],[-49.535,-18.493],[-49.378,-18.642],[-49.205,-18.411],[-48.936,-18.306],[-48.816,-18.379],[-48.262,-18.331],[-47.954,-18.5],[-47.283,-18.058],[-47.373,-17.829],[-47.266,-17.609],[-47.495,-17.525],[-47.538,-17.388],[-47.126,-16.98],[-47.25,-16.666],[-47.458,-16.502],[-47.3,-16.017],[-46.812,-15.885],[-46.949,-15.554],[-46.836,-15.322],[-46.94,-15.229],[-46.918,-15.049],[-46.502,-15.052],[-46.565,-14.786],[-46.474,-14.705],[-46.286,-14.928],[-46.003,-14.902],[-45.975,-15.038],[-46.119,-15.192],[-46.052,-15.259],[-45.083,-14.749],[-44.565,-14.34],[-44.209,-14.244]]]},"MS":{"n":"Mato Grosso do Sul","p":[[[-53.874,-17.922],[-53.692,-18.013],[-53.615,-17.978],[-53.472,-18.039],[-53.43,-17.984],[-53.071,-18.039],[-53.143,-18.081],[-53.069,-18.342],[-52.949,-18.296],[-52.758,-18.348],[-52.962,-18.54],[-52.916,-18.639],[-52.749,-18.69],[-52.531,-18.658],[-52.015,-18.982],[-51.057,-19.329],[-50.924,-19.558],[-51.045,-19.729],[-51.001,-20.096],[-51.069,-20.25],[-51.343,-20.355],[-51.586,-20.634],[-51.618,-20.932],[-51.875,-21.136],[-51.867,-21.351],[-51.967,-21.501],[-52.077,-21.515],[-52.076,-21.714],[-52.408,-22.141],[-52.998,-22.493],[-53.201,-22.728],[-53.607,-22.951],[-53.73,-23.317],[-53.982,-23.46],[-54.129,-23.982],[-54.287,-24.07],[-54.437,-23.906],[-54.671,-23.812],[-54.94,-23.963],[-55.347,-23.994],[-55.432,-23.941],[-55.434,-23.717],[-55.537,-23.625],[-55.523,-23.197],[-55.597,-23.152],[-55.665,-22.851],[-55.615,-22.656],[-55.849,-22.284],[-56.209,-22.276],[-56.363,-22.17],[-56.392,-22.074],[-56.502,-22.095],[-56.635,-22.262],[-56.702,-22.218],[-56.841,-22.302],[-56.996,-22.223],[-57.372,-22.231],[-57.576,-22.175],[-57.612,-22.094],[-57.802,-22.15],[-57.991,-22.09],[-57.912,-21.879],[-57.969,-21.846],[-57.913,-21.791],[-57.945,-21.742],[-57.882,-21.688],[-57.966,-21.525],[-57.854,-21.338],[-57.921,-21.279],[-57.85,-21.219],[-57.819,-20.942],[-57.928,-20.898],[-57.859,-20.826],[-57.96,-20.789],[-57.862,-20.741],[-57.919,-20.664],[-57.985,-20.701],[-57.996,-20.435],[-58.084,-20.372],[-58.094,-20.255],[-58.16,-20.262],[-58.122,-20.195],[-58.167,-20.171],[-57.859,-19.97],[-58.131,-19.758],[-57.784,-19.033],[-57.694,-19.01],[-57.766,-18.899],[-57.557,-18.24],[-57.453,-18.231],[-57.574,-18.131],[-57.795,-17.56],[-57.712,-17.544],[-57.684,-17.715],[-57.452,-17.902],[-57.377,-17.826],[-57.044,-17.73],[-56.733,-17.309],[-56.443,-17.33],[-56.113,-17.167],[-55.939,-17.277],[-55.641,-17.339],[-55.524,-17.481],[-55.127,-17.652],[-54.86,-17.623],[-54.581,-17.468],[-54.481,-17.487],[-54.302,-17.661],[-54.077,-17.615],[-54.037,-17.486],[-53.708,-17.228],[-53.706,-17.662],[-53.888,-17.749],[-53.955,-17.883],[-53.874,-17.922]]]},"MT":{"n":"Mato Grosso","p":[[[-60.361,-13.299],[-60.086,-12.898],[-60.068,-12.616],[-59.774,-12.341],[-60.108,-11.839],[-60.114,-11.591],[-59.92,-11.398],[-59.976,-11.122],[-60.347,-11.109],[-60.46,-10.989],[-61.55,-10.986],[-61.461,-10.42],[-61.6,-10.154],[-61.507,-9.861],[-61.574,-9.717],[-61.477,-9.627],[-61.632,-9.266],[-61.526,-9.244],[-61.468,-8.917],[-61.582,-8.798],[-58.415,-8.792],[-58.326,-8.72],[-58.437,-8.703],[-58.286,-8.128],[-58.382,-7.839],[-58.202,-7.621],[-58.138,-7.349],[-57.643,-8.213],[-57.592,-8.756],[-57.192,-8.93],[-57.057,-9.184],[-56.82,-9.246],[-56.761,-9.405],[-50.224,-9.841],[-50.603,-10.661],[-50.609,-11.067],[-50.739,-11.435],[-50.618,-12.429],[-50.706,-12.609],[-50.502,-12.884],[-50.607,-13.31],[-50.871,-13.733],[-50.833,-14.089],[-50.975,-14.29],[-51.086,-14.917],[-51.535,-15.069],[-51.879,-15.825],[-52.252,-15.893],[-52.327,-16.068],[-52.681,-16.303],[-52.635,-16.551],[-53.011,-16.858],[-53.218,-17.299],[-53.246,-17.69],[-53.071,-18.039],[-53.948,-17.923],[-53.855,-17.702],[-53.706,-17.662],[-53.708,-17.228],[-54.084,-17.619],[-54.335,-17.661],[-54.581,-17.468],[-55.127,-17.652],[-56.113,-17.167],[-56.443,-17.33],[-56.733,-17.309],[-57.044,-17.73],[-57.452,-17.902],[-57.684,-17.715],[-57.728,-17.529],[-58.043,-17.492],[-58.395,-17.184],[-58.47,-16.703],[-58.321,-16.264],[-60.171,-16.265],[-60.238,-15.473],[-60.564,-15.108],[-60.244,-15.096],[-60.272,-14.62],[-60.489,-14.188],[-60.381,-13.987],[-60.467,-13.795],[-60.716,-13.682],[-60.387,-13.454],[-60.361,-13.299]]]},"PA":{"n":"Pará","p":[[[-46.951,-0.734],[-46.955,-0.861],[-46.845,-0.735],[-46.746,-0.92],[-46.638,-0.788],[-46.675,-0.976],[-46.427,-0.858],[-46.5,-0.973],[-46.428,-1.065],[-46.39,-0.987],[-46.305,-1.084],[-46.19,-0.894],[-46.272,-1.172],[-46.171,-0.993],[-46.172,-1.155],[-46.072,-1.019],[-46.153,-1.676],[-46.324,-1.765],[-46.21,-1.833],[-46.28,-2.153],[-46.432,-2.239],[-46.416,-2.529],[-46.664,-2.694],[-46.575,-2.841],[-47.037,-3.563],[-47.088,-3.855],[-47.581,-4.52],[-48.755,-5.349],[-48.384,-5.394],[-48.138,-5.602],[-48.294,-5.756],[-48.231,-5.946],[-48.431,-6.177],[-48.382,-6.379],[-48.613,-6.453],[-48.664,-6.662],[-49.209,-6.925],[-49.185,-7.235],[-49.384,-7.543],[-49.15,-7.802],[-49.215,-8.194],[-49.592,-8.839],[-50.037,-9.289],[-50.224,-9.841],[-56.754,-9.406],[-56.82,-9.246],[-57.057,-9.184],[-57.192,-8.93],[-57.592,-8.756],[-57.643,-8.213],[-58.478,-6.699],[-58.262,-6.469],[-56.402,-2.456],[-56.465,-2.423],[-56.098,-2.027],[-56.679,-2.212],[-56.768,-2.165],[-56.734,-2.022],[-57.037,-1.911],[-57.164,-1.721],[-57.392,-1.723],[-57.96,-1.401],[-58.017,-1.106],[-58.162,-1.229],[-58.43,-1.027],[-58.436,-0.883],[-58.705,-0.679],[-58.725,-0.442],[-58.872,-0.343],[-58.895,1.228],[-58.496,1.268],[-58.508,1.463],[-58.322,1.597],[-58.004,1.504],[-57.989,1.66],[-57.537,1.701],[-57.304,2.0],[-57.086,2.028],[-56.791,1.853],[-56.451,1.957],[-55.956,1.845],[-55.903,2.042],[-56.138,2.266],[-55.978,2.528],[-55.717,2.402],[-55.385,2.419],[-54.954,2.584],[-54.763,2.203],[-54.744,1.776],[-54.309,1.741],[-54.086,1.489],[-53.65,1.409],[-53.536,1.213],[-53.426,1.243],[-53.411,0.93],[-53.106,0.684],[-53.175,0.382],[-52.933,-0.139],[-52.69,-0.303],[-52.64,-0.585],[-52.523,-0.589],[-52.427,-1.05],[-52.1,-1.226],[-51.704,-1.067],[-51.679,-0.785],[-51.216,-0.118],[-50.668,0.185],[-50.436,0.6],[-50.157,0.705],[-50.04,0.574],[-50.061,0.339],[-49.677,0.366],[-49.397,0.016],[-48.93,-0.226],[-48.412,-0.257],[-48.472,-0.499],[-47.989,-0.706],[-47.897,-0.552],[-47.841,-0.68],[-47.703,-0.535],[-47.488,-0.765],[-47.444,-0.589],[-47.161,-0.667],[-47.17,-0.776],[-47.088,-0.662],[-47.057,-0.806],[-46.951,-0.734]]]},"PB":{"n":"Paraíba","p":[[[-37.227,-6.035],[-37.174,-6.048],[-37.157,-6.152],[-37.377,-6.344],[-37.396,-6.514],[-37.483,-6.55],[-37.484,-6.71],[-37.283,-6.694],[-37.234,-6.824],[-37.002,-6.709],[-36.957,-6.79],[-36.835,-6.731],[-36.772,-6.787],[-36.769,-6.838],[-36.73,-6.836],[-36.766,-6.935],[-36.718,-6.982],[-36.688,-6.927],[-36.609,-6.936],[-36.569,-6.848],[-36.507,-6.813],[-36.504,-6.756],[-36.557,-6.71],[-36.524,-6.599],[-36.435,-6.625],[-36.443,-6.56],[-36.525,-6.501],[-36.529,-6.447],[-36.499,-6.358],[-36.43,-6.362],[-36.394,-6.294],[-36.307,-6.281],[-36.279,-6.308],[-36.295,-6.393],[-36.251,-6.404],[-36.249,-6.437],[-36.08,-6.405],[-35.977,-6.489],[-35.658,-6.446],[-35.559,-6.492],[-35.442,-6.479],[-35.33,-6.544],[-35.222,-6.516],[-35.17,-6.558],[-35.095,-6.497],[-35.057,-6.527],[-34.971,-6.485],[-34.938,-6.753],[-34.902,-6.865],[-34.853,-6.9],[-34.867,-7.008],[-34.855,-7.027],[-34.83,-6.966],[-34.843,-7.056],[-34.793,-7.154],[-34.826,-7.547],[-34.96,-7.538],[-34.987,-7.463],[-35.079,-7.397],[-35.243,-7.374],[-35.421,-7.474],[-35.479,-7.445],[-35.536,-7.58],[-35.532,-7.654],[-35.61,-7.654],[-35.998,-7.813],[-36.216,-7.764],[-36.263,-7.831],[-36.424,-7.815],[-36.445,-7.915],[-36.552,-7.898],[-36.576,-7.959],[-36.611,-7.948],[-36.657,-8.08],[-36.628,-8.111],[-36.991,-8.303],[-37.088,-8.255],[-37.122,-8.174],[-37.163,-8.165],[-37.149,-8.023],[-37.192,-7.96],[-37.355,-7.975],[-37.309,-7.934],[-37.322,-7.911],[-37.244,-7.874],[-37.243,-7.819],[-37.152,-7.779],[-37.139,-7.745],[-37.195,-7.652],[-37.168,-7.581],[-36.984,-7.482],[-37.026,-7.388],[-37.233,-7.275],[-37.331,-7.289],[-37.385,-7.356],[-37.497,-7.367],[-37.533,-7.473],[-37.706,-7.55],[-37.755,-7.619],[-37.738,-7.66],[-37.782,-7.626],[-37.858,-7.653],[-37.971,-7.777],[-38.039,-7.748],[-38.077,-7.83],[-38.164,-7.78],[-38.286,-7.83],[-38.312,-7.716],[-38.357,-7.677],[-38.409,-7.73],[-38.593,-7.754],[-38.718,-7.609],[-38.655,-7.565],[-38.645,-7.46],[-38.585,-7.434],[-38.534,-7.293],[-38.626,-7.191],[-38.687,-7.19],[-38.669,-7.047],[-38.765,-6.994],[-38.743,-6.975],[-38.765,-6.911],[-38.614,-6.783],[-38.673,-6.697],[-38.612,-6.513],[-38.518,-6.408],[-38.602,-6.389],[-38.457,-6.329],[-38.486,-6.398],[-38.401,-6.41],[-38.288,-6.505],[-38.239,-6.48],[-38.115,-6.521],[-38.051,-6.442],[-38.012,-6.468],[-38.013,-6.427],[-37.955,-6.398],[-37.928,-6.421],[-37.888,-6.364],[-37.841,-6.363],[-37.81,-6.291],[-37.757,-6.29],[-37.776,-6.245],[-37.749,-6.193],[-37.459,-6.145],[-37.445,-6.112],[-37.227,-6.035]]]},"PE":{"n":"Pernambuco","p":[[[-37.177,-7.309],[-36.984,-7.482],[-37.168,-7.581],[-37.152,-7.779],[-37.355,-7.975],[-37.192,-7.96],[-37.163,-8.165],[-36.991,-8.303],[-36.628,-8.111],[-36.611,-7.948],[-36.445,-7.915],[-36.424,-7.815],[-36.263,-7.831],[-36.216,-7.764],[-35.998,-7.813],[-35.532,-7.654],[-35.479,-7.445],[-35.079,-7.397],[-34.96,-7.538],[-34.84,-7.543],[-34.837,-8.006],[-35.152,-8.913],[-35.467,-8.815],[-35.748,-8.917],[-35.896,-8.854],[-36.126,-8.956],[-36.111,-9.017],[-36.266,-9.102],[-36.224,-9.171],[-36.604,-9.341],[-36.868,-9.268],[-36.952,-9.382],[-37.106,-9.239],[-37.234,-9.24],[-37.49,-8.965],[-37.698,-8.992],[-37.76,-8.857],[-37.979,-9.148],[-38.237,-9.329],[-38.296,-9.022],[-38.483,-9.001],[-38.479,-8.85],[-38.571,-8.831],[-38.64,-8.987],[-38.798,-8.792],[-39.223,-8.711],[-39.282,-8.568],[-39.383,-8.533],[-39.691,-8.662],[-39.691,-8.797],[-39.894,-8.831],[-39.958,-9.048],[-40.128,-9.109],[-40.25,-9.06],[-40.335,-9.353],[-40.623,-9.482],[-40.776,-9.454],[-40.667,-9.159],[-40.82,-9.08],[-40.921,-8.835],[-41.021,-8.843],[-41.113,-8.704],[-41.358,-8.707],[-40.589,-8.138],[-40.543,-7.835],[-40.673,-7.761],[-40.644,-7.607],[-40.713,-7.473],[-40.548,-7.392],[-40.246,-7.433],[-39.662,-7.31],[-39.317,-7.541],[-39.307,-7.665],[-39.135,-7.723],[-39.091,-7.858],[-38.966,-7.845],[-38.715,-7.622],[-38.593,-7.754],[-38.357,-7.677],[-38.286,-7.83],[-38.164,-7.78],[-38.077,-7.83],[-37.858,-7.653],[-37.738,-7.66],[-37.497,-7.367],[-37.276,-7.275],[-37.177,-7.309]]]},"PI":{"n":"Piauí","p":[[[-41.739,-2.806],[-41.593,-2.905],[-41.322,-2.921],[-41.257,-3.004],[-41.423,-3.368],[-41.299,-3.491],[-41.37,-3.567],[-41.341,-3.68],[-41.239,-3.712],[-41.3,-3.826],[-41.22,-3.941],[-41.254,-4.035],[-41.114,-4.04],[-41.091,-4.17],[-41.242,-4.571],[-41.174,-4.667],[-41.249,-4.869],[-41.131,-5.048],[-40.925,-5.181],[-40.907,-6.041],[-40.732,-6.654],[-40.37,-6.803],[-40.548,-7.392],[-40.713,-7.473],[-40.644,-7.607],[-40.673,-7.761],[-40.543,-7.835],[-40.589,-8.138],[-40.926,-8.446],[-41.0,-8.4],[-41.217,-8.645],[-41.382,-8.708],[-41.544,-8.96],[-41.723,-9.013],[-41.838,-9.242],[-42.243,-9.289],[-42.492,-9.493],[-42.72,-9.531],[-42.765,-9.616],[-42.946,-9.518],[-42.971,-9.408],[-43.278,-9.424],[-43.485,-9.265],[-43.849,-9.548],[-43.785,-9.762],[-43.653,-9.839],[-43.709,-9.913],[-43.662,-10.004],[-43.766,-10.08],[-43.917,-10.424],[-44.029,-10.416],[-44.13,-10.633],[-44.335,-10.549],[-44.577,-10.626],[-44.931,-10.928],[-45.248,-10.822],[-45.436,-10.619],[-45.396,-10.446],[-45.579,-10.122],[-45.726,-10.156],[-45.793,-10.267],[-45.955,-10.218],[-45.878,-10.11],[-45.783,-9.48],[-45.893,-9.342],[-45.994,-8.926],[-45.765,-8.609],[-45.496,-7.75],[-45.339,-7.58],[-44.924,-7.47],[-44.816,-7.361],[-44.688,-7.394],[-44.564,-7.227],[-44.306,-7.117],[-44.053,-6.768],[-43.716,-6.699],[-43.42,-6.843],[-43.001,-6.754],[-42.919,-6.67],[-42.829,-6.337],[-43.075,-6.054],[-43.099,-5.633],[-42.826,-5.347],[-42.798,-5.183],[-42.949,-4.79],[-42.85,-4.481],[-42.963,-4.376],[-42.989,-4.234],[-42.726,-3.91],[-42.675,-3.675],[-42.498,-3.447],[-42.204,-3.435],[-42.135,-3.281],[-42.0,-3.241],[-41.824,-3.024],[-41.849,-2.773],[-41.739,-2.806]]]},"PR":{"n":"Paraná","p":[[[-52.064,-22.534],[-51.559,-22.697],[-51.263,-22.669],[-51.154,-22.752],[-50.89,-22.795],[-50.741,-22.961],[-50.662,-22.895],[-50.183,-22.953],[-49.986,-22.897],[-49.911,-23.051],[-49.727,-23.108],[-49.567,-23.427],[-49.629,-23.512],[-49.617,-23.639],[-49.549,-23.703],[-49.61,-23.851],[-49.337,-24.137],[-49.355,-24.211],[-49.283,-24.308],[-49.2,-24.344],[-49.315,-24.555],[-49.305,-24.672],[-49.055,-24.682],[-49.004,-24.634],[-48.958,-24.685],[-48.581,-24.671],[-48.499,-24.738],[-48.597,-25.003],[-48.556,-25.084],[-48.411,-24.98],[-48.333,-25.07],[-48.251,-24.978],[-48.156,-25.144],[-48.187,-25.198],[-48.114,-25.25],[-48.023,-25.23],[-48.208,-25.46],[-48.309,-25.493],[-48.298,-25.567],[-48.439,-25.654],[-48.59,-25.976],[-49.175,-26.001],[-49.555,-26.237],[-49.942,-26.008],[-49.972,-26.058],[-49.993,-26.011],[-50.121,-26.064],[-50.171,-26.025],[-50.182,-26.078],[-50.251,-26.03],[-50.323,-26.134],[-50.571,-26.003],[-50.553,-26.055],[-50.628,-26.063],[-50.718,-26.244],[-50.869,-26.242],[-50.9,-26.289],[-50.935,-26.233],[-50.944,-26.282],[-51.083,-26.228],[-51.243,-26.324],[-51.297,-26.419],[-51.228,-26.616],[-51.391,-26.663],[-51.411,-26.717],[-51.51,-26.582],[-51.873,-26.6],[-52.185,-26.445],[-52.601,-26.414],[-52.737,-26.342],[-53.09,-26.39],[-53.281,-26.247],[-53.551,-26.292],[-53.643,-26.252],[-53.734,-26.043],[-53.834,-25.97],[-53.822,-25.792],[-53.892,-25.622],[-53.956,-25.645],[-54.079,-25.559],[-54.098,-25.618],[-54.099,-25.495],[-54.206,-25.542],[-54.178,-25.584],[-54.378,-25.594],[-54.429,-25.695],[-54.593,-25.592],[-54.617,-25.453],[-54.43,-25.159],[-54.441,-24.949],[-54.258,-24.362],[-54.341,-24.129],[-54.099,-23.946],[-53.982,-23.46],[-53.73,-23.317],[-53.607,-22.951],[-52.972,-22.57],[-52.701,-22.627],[-52.586,-22.566],[-52.503,-22.634],[-52.25,-22.615],[-52.223,-22.674],[-52.156,-22.644],[-52.125,-22.519],[-52.064,-22.534]]]},"RJ":{"n":"Rio de Janeiro","p":[[[-44.513,-23.293],[-44.591,-23.362],[-44.64,-23.333],[-44.724,-23.368],[-44.875,-23.249],[-44.873,-23.184],[-44.811,-23.125],[-44.802,-22.999],[-44.494,-22.846],[-44.467,-22.885],[-44.27,-22.83],[-44.25,-22.757],[-44.161,-22.678],[-44.226,-22.604],[-44.343,-22.588],[-44.356,-22.614],[-44.384,-22.573],[-44.508,-22.64],[-44.549,-22.606],[-44.633,-22.609],[-44.641,-22.559],[-44.715,-22.514],[-44.74,-22.426],[-44.809,-22.405],[-44.793,-22.387],[-44.724,-22.359],[-44.66,-22.379],[-44.432,-22.251],[-44.235,-22.266],[-44.1,-22.173],[-43.766,-22.062],[-43.734,-22.096],[-43.586,-22.052],[-43.562,-22.087],[-43.462,-22.072],[-43.346,-22.003],[-43.246,-22.007],[-43.131,-22.029],[-43.136,-22.109],[-43.073,-22.093],[-42.882,-21.96],[-42.271,-21.715],[-42.275,-21.676],[-42.369,-21.619],[-42.252,-21.49],[-42.292,-21.46],[-42.279,-21.41],[-42.239,-21.401],[-42.229,-21.284],[-42.189,-21.249],[-42.208,-21.178],[-42.08,-21.035],[-42.151,-20.974],[-42.093,-20.936],[-41.976,-20.935],[-41.928,-20.794],[-41.875,-20.766],[-41.755,-20.807],[-41.741,-20.871],[-41.712,-20.871],[-41.736,-20.928],[-41.718,-21.123],[-41.277,-21.24],[-41.092,-21.218],[-40.957,-21.303],[-40.96,-21.361],[-41.074,-21.515],[-41.056,-21.585],[-41.01,-21.611],[-41.026,-21.721],[-40.985,-21.999],[-41.203,-22.132],[-41.689,-22.3],[-41.96,-22.534],[-41.998,-22.608],[-41.985,-22.717],[-41.931,-22.768],[-41.864,-22.754],[-42.031,-22.904],[-42.026,-22.956],[-41.997,-22.96],[-42.013,-22.997],[-42.076,-22.955],[-42.517,-22.932],[-43.051,-22.982],[-43.135,-22.938],[-43.095,-22.926],[-43.135,-22.883],[-43.026,-22.742],[-43.032,-22.692],[-43.085,-22.677],[-43.235,-22.735],[-43.288,-22.8],[-43.238,-22.877],[-43.157,-22.912],[-43.181,-22.986],[-43.444,-23.022],[-43.553,-23.076],[-43.56,-23.046],[-43.711,-23.056],[-43.58,-23.04],[-43.775,-22.921],[-43.852,-22.924],[-43.836,-22.903],[-44.003,-22.938],[-44.047,-22.984],[-44.046,-22.938],[-44.11,-23.023],[-44.194,-23.054],[-44.25,-23.05],[-44.221,-23.017],[-44.248,-22.996],[-44.358,-23.023],[-44.299,-22.958],[-44.336,-22.964],[-44.326,-22.927],[-44.364,-22.923],[-44.384,-22.972],[-44.412,-22.941],[-44.431,-23.02],[-44.483,-23.008],[-44.599,-23.063],[-44.645,-23.046],[-44.69,-23.083],[-44.712,-23.233],[-44.643,-23.185],[-44.624,-23.221],[-44.662,-23.214],[-44.692,-23.253],[-44.613,-23.234],[-44.655,-23.295],[-44.56,-23.227],[-44.584,-23.266],[-44.513,-23.293]]]},"RN":{"n":"Rio Grande do Norte","p":[[[-37.152,-4.935],[-37.038,-4.951],[-36.962,-4.919],[-36.689,-5.092],[-36.483,-5.062],[-36.308,-5.103],[-36.151,-5.095],[-35.974,-5.042],[-35.489,-5.158],[-35.389,-5.257],[-35.261,-5.48],[-35.193,-5.698],[-35.179,-5.868],[-35.107,-6.006],[-35.094,-6.182],[-35.037,-6.236],[-35.03,-6.344],[-34.992,-6.373],[-34.969,-6.488],[-35.057,-6.527],[-35.095,-6.497],[-35.17,-6.558],[-35.222,-6.516],[-35.33,-6.544],[-35.442,-6.479],[-35.559,-6.492],[-35.658,-6.446],[-35.773,-6.482],[-35.977,-6.489],[-36.08,-6.405],[-36.249,-6.437],[-36.251,-6.404],[-36.295,-6.393],[-36.279,-6.308],[-36.307,-6.281],[-36.362,-6.31],[-36.394,-6.294],[-36.43,-6.362],[-36.499,-6.358],[-36.529,-6.447],[-36.525,-6.501],[-36.443,-6.56],[-36.435,-6.625],[-36.524,-6.599],[-36.557,-6.71],[-36.504,-6.756],[-36.507,-6.813],[-36.569,-6.848],[-36.609,-6.936],[-36.688,-6.927],[-36.718,-6.982],[-36.766,-6.935],[-36.73,-6.836],[-36.769,-6.838],[-36.772,-6.787],[-36.835,-6.731],[-36.957,-6.79],[-37.002,-6.709],[-37.19,-6.825],[-37.234,-6.824],[-37.283,-6.694],[-37.484,-6.71],[-37.483,-6.55],[-37.396,-6.514],[-37.364,-6.324],[-37.274,-6.281],[-37.251,-6.226],[-37.165,-6.17],[-37.174,-6.048],[-37.255,-6.028],[-37.445,-6.112],[-37.459,-6.145],[-37.749,-6.193],[-37.776,-6.245],[-37.757,-6.29],[-37.81,-6.291],[-37.841,-6.363],[-37.888,-6.364],[-37.886,-6.397],[-37.928,-6.421],[-37.955,-6.398],[-38.013,-6.427],[-38.012,-6.468],[-38.051,-6.442],[-38.115,-6.521],[-38.239,-6.48],[-38.288,-6.505],[-38.401,-6.41],[-38.486,-6.398],[-38.457,-6.329],[-38.577,-6.347],[-38.578,-6.28],[-38.447,-6.085],[-38.401,-6.053],[-38.365,-6.088],[-38.277,-6.07],[-38.244,-5.999],[-38.125,-5.887],[-38.047,-5.73],[-38.089,-5.728],[-38.082,-5.672],[-37.902,-5.497],[-37.847,-5.34],[-37.783,-5.294],[-37.765,-5.139],[-37.724,-5.069],[-37.677,-5.053],[-37.64,-4.926],[-37.252,-4.832],[-37.152,-4.935]]]},"RO":{"n":"Rondônia","p":[[[-66.459,-9.875],[-66.581,-9.904],[-66.806,-9.814],[-66.5,-9.633],[-66.392,-9.5],[-66.408,-9.407],[-65.97,-9.413],[-65.791,-9.585],[-65.596,-9.413],[-65.434,-9.466],[-65.447,-9.316],[-65.246,-9.257],[-65.184,-9.427],[-65.097,-9.432],[-64.936,-9.255],[-64.917,-9.043],[-64.839,-8.994],[-64.143,-8.953],[-64.143,-8.743],[-64.027,-8.715],[-63.986,-8.585],[-63.924,-8.575],[-63.974,-8.487],[-63.944,-8.331],[-63.773,-8.32],[-63.62,-7.969],[-62.866,-7.975],[-62.692,-8.093],[-62.526,-8.383],[-62.465,-8.339],[-62.367,-8.389],[-62.341,-8.602],[-62.281,-8.638],[-62.268,-8.575],[-62.188,-8.59],[-62.124,-8.801],[-61.905,-8.874],[-61.836,-8.732],[-61.713,-8.687],[-61.468,-8.917],[-61.554,-9.09],[-61.526,-9.244],[-61.632,-9.266],[-61.477,-9.627],[-61.574,-9.717],[-61.507,-9.861],[-61.6,-10.154],[-61.461,-10.42],[-61.473,-10.797],[-61.55,-10.986],[-60.46,-10.989],[-60.347,-11.109],[-60.301,-11.057],[-59.986,-11.114],[-59.92,-11.398],[-60.114,-11.591],[-60.108,-11.839],[-59.985,-11.914],[-59.892,-12.245],[-59.774,-12.341],[-59.855,-12.478],[-60.068,-12.616],[-60.079,-12.881],[-60.282,-13.08],[-60.387,-13.454],[-60.632,-13.571],[-60.708,-13.692],[-60.922,-13.54],[-61.006,-13.547],[-61.014,-13.487],[-61.194,-13.536],[-61.296,-13.477],[-61.469,-13.555],[-61.576,-13.488],[-61.84,-13.548],[-61.892,-13.43],[-62.115,-13.258],[-62.17,-13.113],[-62.391,-13.134],[-62.453,-13.064],[-62.609,-13.042],[-62.65,-12.965],[-62.778,-13.009],[-62.891,-12.858],[-63.008,-12.837],[-63.062,-12.685],[-63.157,-12.613],[-63.295,-12.681],[-63.786,-12.427],[-63.956,-12.53],[-64.231,-12.455],[-64.291,-12.5],[-64.504,-12.36],[-64.506,-12.227],[-64.712,-12.174],[-64.708,-12.086],[-64.757,-12.156],[-64.765,-12.096],[-64.835,-12.117],[-64.838,-12.011],[-65.031,-11.995],[-65.085,-11.712],[-65.186,-11.756],[-65.26,-11.706],[-65.211,-11.53],[-65.304,-11.501],[-65.335,-11.354],[-65.291,-11.324],[-65.361,-11.251],[-65.319,-11.199],[-65.362,-11.137],[-65.251,-10.987],[-65.366,-10.792],[-65.344,-10.69],[-65.413,-10.624],[-65.429,-10.481],[-65.288,-10.219],[-65.332,-9.957],[-65.286,-9.841],[-65.374,-9.699],[-65.443,-9.67],[-65.559,-9.843],[-65.774,-9.734],[-65.794,-9.791],[-65.919,-9.753],[-65.966,-9.804],[-66.152,-9.785],[-66.459,-9.875]]]},"RR":{"n":"Roraima","p":[[[-59.916,3.146],[-59.99,2.687],[-59.896,2.363],[-59.722,2.277],[-59.751,1.862],[-59.662,1.87],[-59.69,1.758],[-59.536,1.72],[-59.252,1.389],[-58.918,1.317],[-58.886,1.261],[-58.895,0.264],[-60.037,0.264],[-60.399,-0.51],[-60.303,-0.711],[-60.479,-0.771],[-60.531,-0.875],[-60.752,-0.861],[-60.761,-0.761],[-60.92,-0.555],[-61.087,-0.5],[-61.216,-0.5],[-61.231,-0.564],[-61.428,-0.634],[-61.538,-0.756],[-61.585,-0.937],[-61.544,-1.062],[-61.628,-1.301],[-61.482,-1.58],[-61.635,-1.434],[-61.896,-1.395],[-62.039,-1.118],[-62.51,-0.759],[-62.486,-0.681],[-62.406,-0.727],[-62.29,-0.646],[-62.309,-0.514],[-62.188,-0.33],[-62.248,-0.302],[-62.245,-0.174],[-62.424,0.092],[-62.446,0.379],[-62.532,0.509],[-62.535,0.694],[-62.457,0.786],[-62.471,1.087],[-62.529,1.089],[-62.637,1.434],[-62.804,1.591],[-62.723,1.713],[-62.706,1.94],[-62.838,2.017],[-63.023,2.015],[-63.141,2.173],[-63.359,2.197],[-63.406,2.436],[-63.708,2.381],[-64.055,2.498],[-63.993,2.77],[-64.234,3.114],[-64.255,3.411],[-64.185,3.56],[-64.288,3.7],[-64.488,3.791],[-64.824,4.244],[-64.793,4.287],[-64.698,4.252],[-64.56,4.102],[-64.164,4.127],[-63.964,3.868],[-63.859,3.948],[-63.682,3.908],[-63.68,4.017],[-63.498,3.843],[-63.435,3.868],[-63.428,3.978],[-63.206,3.952],[-63.226,3.836],[-63.103,3.794],[-63.081,3.694],[-62.96,3.608],[-62.835,3.738],[-62.736,3.69],[-62.788,3.894],[-62.747,4.035],[-62.556,4.018],[-62.552,4.109],[-62.437,4.183],[-62.145,4.075],[-61.984,4.18],[-61.93,4.104],[-61.774,4.25],[-61.559,4.255],[-61.513,4.407],[-61.289,4.458],[-61.321,4.535],[-61.146,4.483],[-60.996,4.518],[-60.9,4.716],[-60.743,4.762],[-60.591,4.927],[-60.723,5.22],[-60.434,5.182],[-60.21,5.271],[-59.996,5.085],[-59.99,4.987],[-60.03,4.701],[-60.162,4.508],[-59.794,4.466],[-59.675,4.373],[-59.724,4.183],[-59.616,4.132],[-59.649,4.072],[-59.517,3.943],[-59.594,3.884],[-59.595,3.796],[-59.679,3.759],[-59.668,3.703],[-59.865,3.577],[-59.803,3.508],[-59.806,3.355],[-59.916,3.146]]]},"RS":{"n":"Rio Grande do Sul","p":[[[-52.044,-31.574],[-52.11,-31.554],[-52.069,-31.676],[-52.2,-31.728],[-52.256,-31.849],[-52.068,-32.03],[-52.098,-32.162],[-52.306,-32.361],[-52.629,-33.116],[-53.416,-33.748],[-53.529,-33.687],[-53.535,-33.613],[-53.51,-33.535],[-53.45,-33.57],[-53.43,-33.156],[-53.32,-33.055],[-53.256,-33.102],[-53.123,-32.791],[-53.072,-32.832],[-52.982,-32.734],[-53.001,-32.793],[-52.894,-32.892],[-52.75,-32.862],[-52.586,-32.526],[-52.693,-32.318],[-52.622,-32.143],[-52.737,-32.167],[-52.795,-32.271],[-52.817,-32.34],[-52.724,-32.387],[-52.953,-32.486],[-53.076,-32.656],[-53.388,-32.586],[-53.644,-32.383],[-53.745,-32.078],[-53.972,-31.918],[-54.1,-31.927],[-54.454,-31.652],[-54.585,-31.458],[-54.835,-31.441],[-55.006,-31.268],[-55.073,-31.332],[-55.238,-31.26],[-55.35,-31.037],[-55.577,-30.833],[-55.869,-31.07],[-56.009,-31.081],[-56.022,-30.786],[-56.807,-30.104],[-57.068,-30.086],[-57.221,-30.29],[-57.523,-30.285],[-57.643,-30.188],[-57.345,-30.003],[-57.278,-29.817],[-56.968,-29.639],[-56.705,-29.361],[-56.589,-29.12],[-56.413,-29.071],[-56.282,-28.788],[-56.002,-28.599],[-56.01,-28.507],[-55.886,-28.48],[-55.872,-28.359],[-55.7,-28.426],[-55.667,-28.333],[-55.773,-28.245],[-55.608,-28.116],[-55.557,-28.162],[-55.444,-28.096],[-55.196,-27.856],[-55.031,-27.855],[-55.08,-27.779],[-54.936,-27.772],[-54.812,-27.529],[-54.682,-27.574],[-54.585,-27.454],[-54.53,-27.505],[-54.411,-27.405],[-54.28,-27.445],[-54.172,-27.254],[-54.077,-27.297],[-53.874,-27.127],[-53.666,-27.162],[-53.642,-27.22],[-53.492,-27.202],[-53.506,-27.138],[-53.372,-27.09],[-53.294,-27.134],[-53.309,-27.217],[-53.072,-27.157],[-53.028,-27.08],[-52.977,-27.221],[-52.951,-27.162],[-52.699,-27.282],[-52.445,-27.217],[-52.375,-27.304],[-52.253,-27.257],[-52.212,-27.33],[-52.166,-27.273],[-51.951,-27.381],[-52.007,-27.402],[-51.889,-27.52],[-51.631,-27.489],[-51.569,-27.584],[-51.49,-27.56],[-51.432,-27.655],[-51.386,-27.623],[-51.082,-27.834],[-50.625,-28.391],[-50.247,-28.429],[-50.157,-28.497],[-50.126,-28.429],[-50.1,-28.485],[-49.765,-28.46],[-49.691,-28.618],[-49.935,-28.728],[-49.92,-28.978],[-50.007,-29.072],[-49.954,-29.085],[-50.166,-29.247],[-50.037,-29.351],[-50.114,-29.259],[-49.946,-29.2],[-49.711,-29.325],[-50.017,-29.772],[-50.333,-30.5],[-50.769,-31.11],[-51.25,-31.567],[-51.885,-31.958],[-52.081,-32.157],[-52.013,-31.939],[-52.098,-31.835],[-51.852,-31.867],[-51.787,-31.806],[-51.865,-31.799],[-51.664,-31.77],[-51.491,-31.569],[-51.436,-31.624],[-51.429,-31.48],[-51.36,-31.529],[-51.238,-31.458],[-51.159,-31.281],[-51.168,-31.067],[-50.98,-31.041],[-50.966,-30.896],[-50.701,-30.746],[-50.729,-30.368],[-50.623,-30.392],[-50.627,-30.327],[-50.593,-30.4],[-50.654,-30.442],[-50.574,-30.481],[-50.537,-30.273],[-50.597,-30.194],[-50.658,-30.199],[-50.673,-30.296],[-50.922,-30.332],[-50.93,-30.435],[-51.055,-30.391],[-51.03,-30.274],[-51.248,-30.186],[-51.23,-30.043],[-51.295,-30.001],[-51.293,-30.303],[-51.095,-30.381],[-51.142,-30.471],[-51.182,-30.407],[-51.258,-30.466],[-51.295,-30.75],[-51.317,-30.648],[-51.386,-30.654],[-51.369,-30.874],[-51.496,-30.915],[-51.44,-31.087],[-51.618,-31.139],[-51.616,-31.267],[-51.919,-31.31],[-52.032,-31.695],[-52.044,-31.574]]]},"SC":{"n":"Santa Catarina","p":[[[-53.72,-26.56],[-53.643,-26.252],[-53.497,-26.302],[-53.281,-26.247],[-53.09,-26.39],[-52.737,-26.342],[-52.601,-26.414],[-52.185,-26.445],[-52.011,-26.566],[-51.873,-26.6],[-51.51,-26.582],[-51.411,-26.717],[-51.391,-26.663],[-51.228,-26.616],[-51.297,-26.419],[-51.243,-26.324],[-51.083,-26.228],[-50.944,-26.282],[-50.935,-26.233],[-50.9,-26.289],[-50.869,-26.242],[-50.718,-26.244],[-50.628,-26.063],[-50.553,-26.055],[-50.592,-26.042],[-50.571,-26.003],[-50.459,-26.027],[-50.323,-26.134],[-50.332,-26.083],[-50.251,-26.03],[-50.182,-26.078],[-50.171,-26.025],[-50.121,-26.064],[-49.993,-26.011],[-49.972,-26.058],[-49.942,-26.008],[-49.555,-26.237],[-49.175,-26.001],[-48.643,-25.956],[-48.594,-25.977],[-48.58,-26.165],[-48.492,-26.219],[-48.664,-26.58],[-48.68,-26.726],[-48.585,-26.783],[-48.643,-26.901],[-48.621,-26.999],[-48.567,-27.007],[-48.602,-27.125],[-48.465,-27.145],[-48.48,-27.207],[-48.53,-27.181],[-48.616,-27.251],[-48.596,-27.316],[-48.54,-27.298],[-48.524,-27.334],[-48.647,-27.483],[-48.567,-27.595],[-48.643,-27.643],[-48.601,-27.661],[-48.574,-27.89],[-48.623,-27.951],[-48.598,-28.03],[-48.646,-28.233],[-48.767,-28.464],[-48.743,-28.508],[-48.809,-28.605],[-49.291,-28.882],[-49.711,-29.325],[-49.962,-29.198],[-50.114,-29.259],[-50.065,-29.341],[-50.147,-29.288],[-50.151,-29.203],[-50.093,-29.237],[-50.099,-29.163],[-50.016,-29.181],[-50.014,-29.128],[-49.962,-29.117],[-49.94,-29.057],[-50.007,-29.072],[-49.92,-28.978],[-49.965,-28.922],[-49.935,-28.728],[-49.875,-28.744],[-49.782,-28.611],[-49.692,-28.625],[-49.765,-28.46],[-49.839,-28.496],[-49.858,-28.443],[-49.943,-28.481],[-49.971,-28.439],[-50.1,-28.485],[-50.126,-28.429],[-50.157,-28.497],[-50.247,-28.429],[-50.345,-28.463],[-50.357,-28.42],[-50.625,-28.391],[-50.788,-28.198],[-50.786,-28.143],[-50.869,-28.137],[-50.928,-27.969],[-51.01,-27.963],[-51.082,-27.834],[-51.235,-27.779],[-51.386,-27.623],[-51.432,-27.655],[-51.49,-27.56],[-51.569,-27.584],[-51.631,-27.489],[-51.656,-27.52],[-51.687,-27.479],[-51.798,-27.491],[-51.795,-27.53],[-51.847,-27.525],[-51.857,-27.475],[-51.889,-27.52],[-51.9,-27.464],[-51.955,-27.474],[-51.934,-27.432],[-52.007,-27.402],[-51.951,-27.381],[-52.018,-27.331],[-52.097,-27.348],[-52.166,-27.273],[-52.212,-27.33],[-52.274,-27.302],[-52.253,-27.257],[-52.301,-27.26],[-52.298,-27.317],[-52.375,-27.304],[-52.445,-27.217],[-52.479,-27.264],[-52.667,-27.238],[-52.699,-27.282],[-52.85,-27.169],[-52.925,-27.202],[-52.951,-27.162],[-52.977,-27.221],[-52.993,-27.138],[-53.043,-27.146],[-53.028,-27.08],[-53.072,-27.157],[-53.133,-27.178],[-53.158,-27.138],[-53.188,-27.191],[-53.242,-27.17],[-53.309,-27.217],[-53.294,-27.134],[-53.372,-27.09],[-53.411,-27.14],[-53.506,-27.138],[-53.492,-27.202],[-53.563,-27.173],[-53.642,-27.22],[-53.666,-27.162],[-53.834,-27.169],[-53.777,-27.101],[-53.799,-27.044],[-53.758,-27.062],[-53.783,-27.026],[-53.67,-26.941],[-53.695,-26.858],[-53.66,-26.859],[-53.754,-26.714],[-53.715,-26.682],[-53.755,-26.642],[-53.72,-26.56]]]},"SE":{"n":"Sergipe","p":[[[-37.96,-9.533],[-37.894,-9.54],[-37.818,-9.592],[-37.785,-9.638],[-37.711,-9.631],[-37.581,-9.734],[-37.466,-9.749],[-37.35,-9.792],[-37.285,-9.831],[-37.237,-9.894],[-37.153,-9.9],[-37.049,-9.986],[-36.992,-9.977],[-36.967,-9.994],[-36.954,-10.07],[-36.91,-10.138],[-36.85,-10.162],[-36.837,-10.202],[-36.72,-10.264],[-36.683,-10.273],[-36.623,-10.258],[-36.571,-10.319],[-36.564,-10.416],[-36.51,-10.432],[-36.456,-10.407],[-36.393,-10.498],[-36.399,-10.519],[-36.492,-10.536],[-36.62,-10.589],[-36.854,-10.743],[-36.994,-10.903],[-37.131,-11.105],[-37.151,-11.162],[-37.26,-11.288],[-37.33,-11.445],[-37.358,-11.445],[-37.444,-11.516],[-37.505,-11.525],[-37.518,-11.548],[-37.578,-11.551],[-37.588,-11.528],[-37.603,-11.54],[-37.651,-11.518],[-37.67,-11.564],[-37.7,-11.562],[-37.703,-11.54],[-37.727,-11.552],[-37.73,-11.538],[-37.813,-11.514],[-37.809,-11.496],[-37.863,-11.465],[-37.849,-11.445],[-37.88,-11.433],[-37.866,-11.428],[-37.898,-11.437],[-37.905,-11.411],[-37.929,-11.403],[-37.943,-11.423],[-37.952,-11.395],[-37.977,-11.393],[-37.969,-11.374],[-37.999,-11.34],[-37.988,-11.331],[-38.003,-11.289],[-37.974,-11.195],[-38.048,-11.177],[-38.072,-11.152],[-38.07,-11.121],[-38.095,-11.103],[-38.079,-11.074],[-38.106,-11.015],[-38.176,-10.985],[-38.184,-10.942],[-38.229,-10.915],[-38.24,-10.876],[-38.241,-10.8],[-38.213,-10.759],[-38.212,-10.709],[-38.058,-10.708],[-38.023,-10.763],[-37.999,-10.764],[-37.814,-10.691],[-37.84,-10.549],[-37.813,-10.508],[-37.859,-10.426],[-37.839,-10.379],[-37.736,-10.332],[-37.765,-10.196],[-37.783,-10.18],[-37.776,-10.136],[-37.831,-10.001],[-37.927,-9.965],[-37.96,-9.97],[-37.997,-9.916],[-37.966,-9.816],[-38.017,-9.787],[-38.038,-9.749],[-38.04,-9.686],[-37.987,-9.647],[-38.035,-9.612],[-38.04,-9.573],[-38.019,-9.563],[-38.003,-9.515],[-37.96,-9.533]]]},"SP":{"n":"São Paulo","p":[[[-46.138,-23.859],[-46.181,-23.99],[-46.287,-24.044],[-46.384,-23.97],[-46.94,-24.28],[-47.009,-24.414],[-47.841,-24.975],[-47.913,-25.158],[-48.099,-25.311],[-48.023,-25.23],[-48.187,-25.198],[-48.251,-24.978],[-48.333,-25.07],[-48.411,-24.98],[-48.528,-25.1],[-48.582,-25.051],[-48.499,-24.738],[-48.581,-24.671],[-49.305,-24.672],[-49.2,-24.344],[-49.61,-23.851],[-49.549,-23.703],[-49.629,-23.512],[-49.567,-23.427],[-49.678,-23.165],[-49.911,-23.051],[-49.986,-22.897],[-50.183,-22.953],[-50.662,-22.895],[-50.741,-22.961],[-50.89,-22.795],[-51.263,-22.669],[-51.718,-22.669],[-52.107,-22.516],[-52.223,-22.674],[-52.586,-22.566],[-52.701,-22.627],[-52.972,-22.57],[-53.087,-22.658],[-53.108,-22.597],[-52.408,-22.141],[-52.076,-21.714],[-52.077,-21.515],[-51.967,-21.501],[-51.867,-21.351],[-51.875,-21.136],[-51.618,-20.932],[-51.586,-20.634],[-51.343,-20.355],[-51.069,-20.25],[-50.966,-20.034],[-50.576,-19.816],[-50.471,-19.779],[-49.891,-19.943],[-49.265,-19.962],[-49.308,-20.102],[-49.238,-20.287],[-48.992,-20.165],[-48.968,-20.393],[-48.899,-20.441],[-48.823,-20.161],[-48.246,-20.14],[-48.24,-20.029],[-48.112,-20.143],[-47.976,-20.035],[-47.894,-20.123],[-47.859,-19.993],[-47.704,-19.979],[-47.636,-20.048],[-47.473,-19.962],[-47.231,-20.219],[-47.291,-20.449],[-47.154,-20.519],[-47.096,-20.659],[-47.24,-20.885],[-47.143,-20.982],[-47.011,-21.422],[-46.665,-21.361],[-46.509,-21.469],[-46.517,-21.611],[-46.691,-21.836],[-46.613,-22.009],[-46.723,-22.077],[-46.6,-22.134],[-46.723,-22.306],[-46.666,-22.414],[-46.407,-22.54],[-46.393,-22.662],[-46.477,-22.699],[-46.335,-22.76],[-46.359,-22.896],[-45.791,-22.858],[-45.713,-22.814],[-45.728,-22.723],[-45.819,-22.722],[-45.694,-22.651],[-45.716,-22.578],[-45.665,-22.65],[-45.471,-22.59],[-45.4,-22.653],[-44.809,-22.405],[-44.633,-22.609],[-44.384,-22.573],[-44.162,-22.674],[-44.27,-22.83],[-44.792,-22.982],[-44.888,-23.224],[-44.724,-23.368],[-44.907,-23.333],[-45.061,-23.42],[-45.019,-23.461],[-45.082,-23.521],[-45.171,-23.493],[-45.211,-23.583],[-45.406,-23.623],[-45.405,-23.82],[-45.844,-23.758],[-46.138,-23.859]]]},"TO":{"n":"Tocantins","p":[[[-47.033,-8.982],[-47.068,-9.063],[-46.922,-9.066],[-46.763,-9.409],[-46.666,-9.392],[-46.561,-9.484],[-46.537,-9.557],[-46.647,-9.73],[-46.493,-9.827],[-46.367,-10.168],[-46.028,-10.176],[-46.003,-10.261],[-45.793,-10.267],[-45.699,-10.166],[-45.827,-10.436],[-46.211,-10.649],[-46.283,-10.906],[-46.617,-11.289],[-46.479,-11.516],[-46.086,-11.622],[-46.315,-11.632],[-46.374,-11.868],[-46.171,-11.901],[-46.397,-12.04],[-46.352,-12.337],[-46.254,-12.493],[-46.154,-12.483],[-46.28,-12.584],[-46.304,-12.949],[-46.119,-12.925],[-46.363,-12.991],[-46.417,-12.823],[-46.454,-12.971],[-46.75,-12.969],[-46.978,-13.131],[-47.427,-13.289],[-47.634,-13.104],[-47.679,-13.467],[-47.824,-13.311],[-47.966,-13.315],[-48.062,-13.235],[-48.165,-13.305],[-48.173,-13.148],[-48.441,-13.292],[-48.508,-13.128],[-48.586,-13.317],[-48.602,-13.06],[-48.857,-12.805],[-48.975,-12.957],[-49.119,-12.79],[-49.237,-12.884],[-49.369,-13.274],[-49.913,-12.966],[-50.292,-12.839],[-50.3,-12.68],[-50.142,-12.396],[-50.365,-12.546],[-50.511,-12.86],[-50.622,-12.819],[-50.706,-12.609],[-50.618,-12.429],[-50.686,-12.202],[-50.639,-11.884],[-50.722,-11.739],[-50.656,-11.6],[-50.742,-11.454],[-50.609,-11.067],[-50.603,-10.661],[-50.418,-10.356],[-50.392,-10.134],[-50.107,-9.594],[-50.037,-9.289],[-49.745,-8.906],[-49.592,-8.839],[-49.283,-8.379],[-49.15,-7.802],[-49.323,-7.681],[-49.384,-7.543],[-49.185,-7.235],[-49.209,-6.925],[-48.664,-6.662],[-48.646,-6.509],[-48.507,-6.355],[-48.382,-6.379],[-48.431,-6.177],[-48.292,-6.104],[-48.334,-6.004],[-48.231,-5.946],[-48.294,-5.756],[-48.135,-5.637],[-48.384,-5.394],[-48.591,-5.421],[-48.755,-5.349],[-48.606,-5.336],[-48.539,-5.205],[-48.363,-5.168],[-48.178,-5.26],[-47.885,-5.26],[-47.843,-5.376],[-47.5,-5.525],[-47.378,-6.27],[-47.529,-6.976],[-47.746,-7.201],[-47.648,-7.303],[-47.499,-7.293],[-47.485,-7.367],[-47.59,-7.439],[-47.504,-7.436],[-47.043,-8.053],[-46.604,-7.896],[-46.466,-8.066],[-46.544,-8.319],[-46.806,-8.399],[-46.916,-8.595],[-46.913,-8.847],[-47.033,-8.982]]]},"DF":{"n":"Distrito Federal","p":[[[-47.309,-16.035],[-47.308,-16.05],[-48.279,-16.051],[-48.252,-15.943],[-48.261,-15.929],[-48.276,-15.93],[-48.272,-15.88],[-48.287,-15.843],[-48.267,-15.806],[-48.242,-15.798],[-48.206,-15.741],[-48.207,-15.718],[-48.218,-15.708],[-48.24,-15.707],[-48.233,-15.639],[-48.219,-15.622],[-48.2,-15.621],[-48.197,-15.501],[-47.417,-15.5],[-47.417,-15.546],[-47.404,-15.546],[-47.374,-15.578],[-47.321,-15.586],[-47.315,-15.594],[-47.333,-15.629],[-47.326,-15.648],[-47.331,-15.681],[-47.312,-15.694],[-47.319,-15.72],[-47.314,-15.747],[-47.353,-15.822],[-47.366,-15.828],[-47.375,-15.896],[-47.363,-15.909],[-47.36,-15.931],[-47.372,-15.936],[-47.376,-15.978],[-47.368,-16.001],[-47.347,-16.006],[-47.319,-16.036],[-47.309,-16.035]]]}};
+  function stateProj(uf){
+    let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9; STATES[uf].p.forEach(r => r.forEach(([x,y]) => { x0=Math.min(x0,x); x1=Math.max(x1,x); y0=Math.min(y0,y); y1=Math.max(y1,y); }));
+    const cx=(x0+x1)/2, cy=(y0+y1)/2, cl=Math.cos(cy*Math.PI/180), half=Math.max((x1-x0)*cl,(y1-y0))/2*1.08, k=(R-16)/half;
+    return (lat,lng) => [200 + (lng-cx)*cl*k, 200 - (lat-cy)*k];
+  }
+  const WEST = [[-22.70,-43.90],[-22.70,-43.29],[-22.76,-43.28],[-22.80,-43.27],[-22.84,-43.265],[-22.865,-43.24],[-22.88,-43.22],[-22.893,-43.19],[-22.898,-43.178],[-22.905,-43.168],[-22.913,-43.170],[-22.925,-43.168],[-22.936,-43.175],[-22.945,-43.182],[-22.950,-43.168],[-22.952,-43.157],[-22.960,-43.163],[-22.964,-43.170],[-22.972,-43.180],[-22.985,-43.190],[-22.988,-43.205],[-22.988,-43.222],[-22.996,-43.250],[-23.000,-43.268],[-23.010,-43.290],[-23.012,-43.330],[-23.018,-43.380],[-23.030,-43.460],[-23.045,-43.505],[-23.060,-43.560],[-23.050,-43.620],[-22.990,-43.690],[-22.960,-43.90]];
+  const EAST = [[-22.70,-43.17],[-22.74,-43.12],[-22.80,-43.09],[-22.86,-43.110],[-22.880,-43.122],[-22.895,-43.128],[-22.903,-43.112],[-22.920,-43.110],[-22.932,-43.122],[-22.945,-43.105],[-22.960,-43.060],[-22.975,-43.040],[-22.972,-43.000],[-22.968,-42.940],[-22.960,-42.85],[-22.70,-42.85]];
+  const GOV = [[-22.775,-43.255],[-22.790,-43.205],[-22.815,-43.175],[-22.830,-43.200],[-22.815,-43.250]];
+  const LBLS = [['Zona Oeste',-22.93,-43.45],['Zona Norte',-22.845,-43.33],['Centro',-22.885,-43.165],['Zona Sul',-23.003,-43.215],['Niterói',-22.885,-43.07],['Baía de Guanabara',-22.835,-43.14],['Oceano Atlântico',-23.06,-43.30],['Maricá →',-22.94,-42.985]];
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.getElementById('radar-svg');
+  const cap = document.getElementById('radar-cap');
+  let dots = [];
+  function drawBase(uf){
+    const rings = `${[0.25,0.5,0.75].map(f=>`<circle class="r-ring" cx="200" cy="200" r="${(R*f).toFixed(1)}"/>`).join('')}
+        <line class="r-ring" x1="200" y1="12" x2="200" y2="388"/><line class="r-ring" x1="12" y1="200" x2="388" y2="200"/>`;
+    let land, lbls;
+    if(uf==='RJ'){
+      P = rioP;
+      land = `<polygon class="r-land" points="${pts(WEST)}"/><polygon class="r-land" points="${pts(EAST)}"/><polygon class="r-land" points="${pts(GOV)}"/>`;
+      lbls = LBLS.map(([n,la,ln])=>{const [x,y]=P(la,ln);return `<text class="r-lbl" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle">${n}</text>`}).join('');
+    } else {
+      P = stateProj(uf);
+      land = STATES[uf].p.map(r => `<polygon class="r-land" points="${r.map(([x,y]) => P(y,x).map(v=>v.toFixed(1)).join(',')).join(' ')}"/>`).join('');
+      lbls = `<text class="r-lbl" x="200" y="34" text-anchor="middle">${STATES[uf].n}</text>`;
+    }
+    svg.innerHTML = `<defs><clipPath id="rclip"><circle cx="200" cy="200" r="${R}"/></clipPath></defs>
+      <g clip-path="url(#rclip)"><rect class="r-water" x="0" y="0" width="400" height="400"/>${land}${rings}${lbls}<g id="r-dots"></g></g>
+      <circle class="r-edge" cx="200" cy="200" r="${R}"/>`;
+  }
+  const fmtD = d => { const [y,m,dd] = d.split('-').map(Number); return String(dd).padStart(2,'0') + ' ' + MES[m-1]; };
+  function showCap(g){
+    cap.innerHTML = '';
+    const a = document.createElement('span'); a.className='rg'; a.textContent = g.reg + ' · ' + g.items.length + (g.items.length>1?' provas':' prova'); cap.appendChild(a);
+    g.items.slice(0,3).forEach(p => { const l = document.createElement('span'); l.innerHTML = '<span class="rn"></span> <span class="rd"></span>'; l.querySelector('.rn').textContent = (p.aline ? '★ ' : '') + p.nome; l.querySelector('.rd').textContent = '· ' + fmtD(p.data) + (p.status==='aberta'?' · inscrições abertas':'') + (p.aline?' · a Aline vai correr':''); cap.appendChild(l); });
+    if(g.items.length>3){ const m = document.createElement('span'); m.className='rd'; m.textContent = '+ ' + (g.items.length-3) + ' na lista abaixo'; cap.appendChild(m); }
+  }
+  function drawRadar(list){
+    const layer = document.getElementById('r-dots'); layer.innerHTML = '';
+    const groups = {};
+    list.forEach(p => { if(!p.geo) return; const k = (p.uf||'RJ')==='RJ' ? p.geo.lat.toFixed(3)+','+p.geo.lng.toFixed(3) : p.geo.reg; (groups[k] = groups[k] || {lat:p.geo.lat,lng:p.geo.lng,reg:p.geo.reg,items:[]}).items.push(p); });
+    dots = Object.values(groups).map(g => {
+      let [x,y] = P(g.lat,g.lng); const dx = x-200, dy = y-200, dist = Math.hypot(dx,dy);
+      if(dist > R-10){ x = 200 + dx/dist*(R-10); y = 200 + dy/dist*(R-10); }
+      g.ang = (Math.atan2(x-200, -(y-200)) * 180/Math.PI + 360) % 360;
+      const st = g.items.some(p=>p.status==='aberta') ? 'aberta' : (g.items.every(p=>p.status==='esgotada') ? 'esgotada' : 'outra');
+      const el = document.createElementNS(svgNS,'g'); el.setAttribute('class','r-dot '+st+(g.items.some(p=>p.aline)?' aline':'')); el.setAttribute('tabindex','0'); el.setAttribute('role','button');
+      el.setAttribute('aria-label', g.reg + ': ' + g.items.map(p=>p.nome).join(', '));
+      const n = g.items.length, r = n>1 ? 9 : 6;
+      el.innerHTML = (g.items.some(p=>p.aline) ? `<circle class="aring" cx="${x}" cy="${y}" r="${r+5}"/>` : '') + `<circle class="halo" cx="${x}" cy="${y}" r="6"/><circle class="core" cx="${x}" cy="${y}" r="${r}"/>` + (n>1?`<text x="${x}" y="${y+3}" text-anchor="middle">${n}</text>`:'');
+      el.addEventListener('click', () => { showCap(g); ping(g); holdUntil = performance.now() + 12000; });
+      el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); showCap(g); ping(g); holdUntil = performance.now() + 12000; } });
+      g.el = el; layer.appendChild(el); return g;
+    });
+    const first = dots.find(g => g.items.some(p=>p.aline)) || dots.slice().sort((a,b)=> b.items.length - a.items.length)[0];
+    if(first) showCap(first); else cap.textContent = 'Nenhuma prova com localização para esse filtro.';
+  }
+  function ping(g){ g.el.classList.remove('ping'); void g.el.getBBox(); g.el.classList.add('ping','lit'); clearTimeout(g.lt); g.lt = setTimeout(() => g.el.classList.remove('lit'), 2800); }
+  const sweep = document.getElementById('sweep');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let last = 0, t0 = performance.now(), capAt = 0, holdUntil = 0;
+  function tick(now){
+    const ang = ((now - t0) / 18000 * 360) % 360;
+    sweep.style.transform = 'rotate(' + ang + 'deg)';
+    if(!document.getElementById('p-provas').hidden){
+      dots.forEach(g => { const passed = last <= ang ? (g.ang > last && g.ang <= ang) : (g.ang > last || g.ang <= ang); if(passed){ ping(g); if(now - capAt > 5500 && now > holdUntil){ showCap(g); capAt = now; } } });
+    }
+    last = ang; requestAnimationFrame(tick);
+  }
+  if(!reduce) requestAnimationFrame(tick);
+  // provas
+  const MES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const MESF = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const ST = {cancelada:'Cancelada pela organização', adiada:'Adiada: veja a nova data', aberta:'Inscrições abertas', esgotada:'Esgotada', parcial:'Alguns lotes esgotados', embreve:'Inscrições em breve', confira:'Confira no site'};
+  const DOW = ['dom','seg','ter','qua','qui','sex','sáb'];
+  function calLink(p){
+    const d = p.data.replace(/-/g,'');
+    let dates;
+    if(p.hora){ const [hh,mm] = p.hora.split(':').map(Number); const end = String(hh+3).padStart(2,'0') + String(mm).padStart(2,'0');
+      dates = d + 'T' + String(hh).padStart(2,'0') + String(mm).padStart(2,'0') + '00/' + d + 'T' + end + '00'; }
+    else { const nx = new Date(p.data + 'T12:00:00Z'); nx.setUTCDate(nx.getUTCDate()+1); dates = d + '/' + nx.toISOString().slice(0,10).replace(/-/g,''); }
+    const q = new URLSearchParams({action:'TEMPLATE', text:p.nome, dates, ctz:'America/Sao_Paulo', location:(p.local||'') + ', ' + ((p.uf||'RJ')==='RJ' ? 'Rio de Janeiro' : (p.cidade||'') + ' - ' + p.uf), details:'Inscrição: ' + p.link});
+    return 'https://calendar.google.com/calendar/render?' + q.toString();
+  }
+  const ufCount = {}; provas.forEach(p => { const u = p.uf||'RJ'; ufCount[u] = (ufCount[u]||0) + 1; });
+  const ufs = Object.keys(ufCount).sort((a,b) => (a==='RJ'?-1:b==='RJ'?1:ufCount[b]-ufCount[a]));
+  let ufStart = 'RJ'; try{ const s = localStorage.getItem('radar-uf'); if(s && ufCount[s]) ufStart = s; }catch(e){}
+  if(!ufCount[ufStart]) ufStart = ufs[0] || 'RJ';
+  const es = {mes:'Todas', st:'Todas', reg:'Todas', uf: ufStart};
+  function renderE(){
+    setCount('e-fbtn', [es.mes, es.st, es.reg]);
+    const base = provas.filter(p => (p.uf||'RJ')===es.uf && (es.mes==='Todas' || p.data.slice(5,7)===es.mes) && (es.st==='Todas' || p.status==='aberta'));
+    drawRadar(base);
+    const rows = base.filter(p => es.reg==='Todas' || (p.geo && p.geo.reg===es.reg));
+    fill(document.getElementById('e-list'), rows, p => {
+      const [y,m,dd] = p.data.split('-').map(Number);
+      const dow = DOW[new Date(Date.UTC(y,m-1,dd)).getUTCDay()];
+      const el = document.createElement('article');
+      el.className = 'deal' + (p.status==='esgotada' && !p.aline ? ' past-out' : '') + (p.aline ? ' aline' : '');
+      el.innerHTML = `<div class="bib date"><div class="n">${String(dd).padStart(2,'0')}</div><div class="t">${MES[m-1]} · ${dow}</div></div>
+        <div class="info"><span class="pill"></span><div class="name"></div><div class="det"></div>
+        <div class="links"><a class="go ins" target="_blank" rel="noopener">Ver inscrição →</a><a class="go cal" target="_blank" rel="noopener">Adicionar à agenda</a></div><a class="trainbtn" target="_blank" rel="noopener"></a></div>`;
+      const pill = el.querySelector('.pill'); pill.textContent = ST[p.status] || ST.confira; pill.classList.add(p.status||'confira');
+      if(p.aline){ const b = document.createElement('span'); b.className = 'alinebadge'; b.textContent = 'A Aline vai correr'; el.querySelector('.info').insertBefore(b, pill); }
+      el.querySelector('.name').textContent = p.nome;
+      if(p.geo){ const rg = document.createElement('div'); rg.className='store'; rg.textContent = p.geo.reg + ((p.uf||'RJ')!=='RJ' ? ' · ' + p.uf : ''); el.querySelector('.info').insertBefore(rg, el.querySelector('.name')); }
+      const det = el.querySelector('.det');
+      const add = (lbl, val) => { if(val===undefined||val===null||val==='') return; const s = document.createElement('span'); s.innerHTML = lbl + ' <b></b>'; s.querySelector('b').textContent = val; det.appendChild(s); };
+      add('Local:', p.local);
+      add('Largada:', p.hora ? p.hora.replace(':','h') : null);
+      add('Distâncias:', p.distancias);
+      add('A partir de:', p.valor===0 ? 'gratuita' : (typeof p.valor==='number' ? brl(p.valor) : null));
+      el.querySelector('.ins').href = p.link;
+      const cal = el.querySelector('.cal');
+      if(p.status==='esgotada') cal.remove(); else cal.href = calLink(p);
+      const tb = el.querySelector('.trainbtn');
+      const wk = Math.floor((new Date(p.data+'T12:00:00') - new Date(hoje+'T12:00:00')) / (7*864e5));
+      if(data.treino_em_breve || p.status==='esgotada' || wk < 1){ tb.remove(); }
+      else { tb.innerHTML = '<span>Treinar para essa prova com a Aline</span><small></small>'; tb.querySelector('small').textContent = 'faltam ' + wk + (wk===1?' semana':' semanas');
+        dmBtn(tb, 'Oi, Aline! Vi no Radar e quero treinar para a ' + p.nome + ' (' + fmtD(p.data) + '). RADAR'); }
+      return el;
+    }, 'Nenhuma prova com esse filtro.');
+  }
+  const meses = [...new Set(provas.map(p => p.data.slice(5,7)))].sort();
+  const mesLabels = {Todas:'Todos'}; meses.forEach(mm => mesLabels[mm] = MESF[Number(mm)-1]);
+  chips('e-mes', meses, es, 'mes', renderE, mesLabels);
+  chips('e-st', ['aberta'], es, 'st', renderE, {Todas:'Todas', aberta:'Abertas'});
+  function buildReg(){
+    const box = document.getElementById('e-reg'); box.innerHTML = '<span class="l"></span>';
+    box.querySelector('.l').textContent = es.uf==='RJ' ? 'Região' : 'Cidade';
+    const mine = provas.filter(p => (p.uf||'RJ')===es.uf && p.geo);
+    const order = es.uf==='RJ' ? ['Zona Sul','Centro','Zona Norte','Zona Oeste','Região Metropolitana'] : [...new Set(mine.map(p=>p.geo.reg))].sort((a,b)=> mine.filter(p=>p.geo.reg===b).length - mine.filter(p=>p.geo.reg===a).length);
+    const present = order.filter(r => mine.some(p => p.geo.reg===r));
+    const lbl = {Todas:'Todas'}; present.forEach(r => lbl[r] = r + ' · ' + mine.filter(p=>p.geo.reg===r).length);
+    chips('e-reg', present, es, 'reg', renderE, lbl);
+  }
+  const ufSel = document.getElementById('e-uf');
+  ufs.forEach(u => { const o = document.createElement('option'); o.value = u; o.textContent = (STATES[u] ? STATES[u].n : u) + ' (' + ufCount[u] + ')'; ufSel.appendChild(o); });
+  ufSel.value = es.uf;
+  ufSel.addEventListener('change', () => { es.uf = ufSel.value; es.reg = 'Todas'; try{ localStorage.setItem('radar-uf', es.uf); }catch(e){} drawBase(es.uf); buildReg(); renderE(); });
+  drawBase(es.uf); buildReg(); renderE();
+  toggler('e-fbtn','e-fpanel'); clearer('e-clear', ['e-mes','e-reg','e-st'], es, ['mes','reg','st'], renderE);
+
+
+  // assessoria (prévia)
+  const AS = data.assessoria || {};
+  if(data.treino_em_breve){
+    document.getElementById('tr-full').hidden = true;
+    document.getElementById('tr-soon').hidden = false;
+    const fs = document.getElementById('tr-soon-follow'); const ih = (data.perfil||{}).instagram || 'amartinscc';
+    fs.href = 'https://www.instagram.com/' + ih + '/'; fs.querySelector('span').textContent = 'Seguir @' + ih;
+  }
+  function toast(msg){ const el = document.getElementById('toast'); el.textContent = msg; el.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(()=>{ el.hidden = true; }, 3500); }
+  function dmBtn(a, msg){
+    a.href = 'https://ig.me/m/' + ((data.perfil||{}).instagram || 'amartinscc');
+    a.addEventListener('click', () => {
+      const m = typeof msg === 'function' ? msg() : msg;
+      try{ navigator.clipboard.writeText(m).then(() => toast('Mensagem copiada: cole na conversa com a Aline'), () => {}); }catch(e){}
+    });
+  }
+  dmBtn(document.getElementById('tr-cta'), 'Oi, Aline! Vi no Radar e quero saber mais sobre a assessoria de corrida. RADAR');
+  const pl = document.getElementById('tr-plans');
+  (AS.planos||[]).forEach(p => { const c = document.createElement('article'); c.className = 'tr-plan' + (p.destaque?' hot':'');
+    c.innerHTML = '<span class="tp-tag"></span><b class="tp-n"></b><span class="tp-d"></span><ul></ul><div class="tp-price"><s class="tp-de"></s><span class="tp-seg"></span><small class="tp-note"></small></div>';
+    const tag = c.querySelector('.tp-tag'); if(p.tag) tag.textContent = p.tag; else tag.remove();
+    c.querySelector('.tp-n').textContent = p.nome; c.querySelector('.tp-d').textContent = p.desc;
+    (p.itens||[]).forEach(i => { const li = document.createElement('li'); li.textContent = i; c.querySelector('ul').appendChild(li); });
+    const per = p.periodo || '';
+    c.querySelector('.tp-de').textContent = p.preco_de ? 'de ' + brl(p.preco_de) + per : '';
+    c.querySelector('.tp-seg').textContent = p.preco_seg ? brl(p.preco_seg) + per : 'valor a definir';
+    const off = (p.preco_de && p.preco_seg) ? Math.round((1 - p.preco_seg/p.preco_de)*100) : 0;
+    c.querySelector('.tp-note').textContent = (off ? off + '% off para quem segue @' + ((data.perfil||{}).instagram||'amartinscc') + ' no Instagram' : '') + (p.nota ? (off ? ' · ' : '') + p.nota : '');
+    if(p.pacotes && p.pacotes.length){
+      const base = p.pacotes[0].mes, ig = '@' + ((data.perfil||{}).instagram||'amartinscc');
+      const pk = document.createElement('div'); pk.className = 'tp-pk'; pk.setAttribute('role','radiogroup'); pk.setAttribute('aria-label','Período do ' + p.nome);
+      const setPk = i => { const k = p.pacotes[i];
+        pk.querySelectorAll('button').forEach((b,j) => b.setAttribute('aria-checked', j===i ? 'true' : 'false'));
+        c.querySelector('.tp-seg').textContent = brl(k.mes) + '/mês';
+        if(k.meses === 1){
+          c.querySelector('.tp-de').textContent = p.preco_de ? 'de ' + brl(p.preco_de) + '/mês' : '';
+          c.querySelector('.tp-note').textContent = off ? off + '% off para quem segue ' + ig + ' no Instagram' : '';
+        } else {
+          const sv = Math.round((1 - k.mes/base)*100);
+          c.querySelector('.tp-de').textContent = brl(base) + '/mês no mensal';
+          c.querySelector('.tp-note').textContent = 'Total de ' + brl(k.mes*k.meses) + ' em ' + k.meses + ' meses · economia de ' + sv + '% · valor para quem segue ' + ig;
+        } };
+      p.pacotes.forEach((k,i) => { const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role','radio');
+        const sv = i ? Math.round((1 - k.mes/base)*100) : 0;
+        b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = k.nome; b.querySelector('small').textContent = sv ? '−' + sv + '%' : 'livre';
+        b.addEventListener('click', () => setPk(i)); pk.appendChild(b); });
+      c.querySelector('.tp-price').before(pk); setPk(0);
+    }
+    if(p.opcoes){ const o = document.createElement('div'); o.className = 'tp-opts'; p.opcoes.forEach(x => { const s = document.createElement('span'); s.textContent = x; o.appendChild(s); }); c.querySelector('.tp-d').after(o); }
+    pl.appendChild(c); });
+
+  // compartilhar nos stories
+  const RADAR_URL = 'https://claude.ai/artifact/4DvQN7bYGcQC9c7SHfqsAJ';
+  const shareEl = document.getElementById('share');
+  const shImg = document.getElementById('sh-img');
+  let shBlob = null, shUrl = null, dlApi = null;
+  try{ window.claude?.use?.('downloads').then(api => { dlApi = api; }).catch(()=>{}); }catch(e){}
+  const avatarImg = new Image(); if(pf.foto) avatarImg.src = pf.foto;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  function rr(c,x,y,w,h,r){ c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r); c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); }
+  function wrap(c, text, x, y, maxW, lh, maxLines){
+    const words = text.split(' '); let line = '', lines = [];
+    words.forEach(w => { const t = line ? line + ' ' + w : w; if(c.measureText(t).width > maxW && line){ lines.push(line); line = w; } else line = t; });
+    if(line) lines.push(line);
+    if(lines.length > maxLines){ lines = lines.slice(0,maxLines); lines[maxLines-1] = lines[maxLines-1].replace(/\s*\S*$/,'') + '…'; }
+    lines.forEach((l,i) => c.fillText(l, x, y + i*lh)); return lines.length;
+  }
+  async function drawStory(o){
+    const D = "'Urbanist','Avenir Next',system-ui,sans-serif", B = "'Plus Jakarta Sans',system-ui,sans-serif";
+    try{ await Promise.all(['800 60px Urbanist','700 40px "Plus Jakarta Sans"','600 40px "Plus Jakarta Sans"'].map(f => document.fonts.load(f))); }catch(e){}
+    const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const c = cv.getContext('2d');
+    const g = c.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#BBE3E5'); g.addColorStop(.5,'#D9C1D9'); g.addColorStop(.82,'#E9A07E'); g.addColorStop(1,'#3B2A40');
+    c.fillStyle = g; c.fillRect(0,0,W,H);
+    // foto
+    const cx = W/2, cy = 250, r = 110;
+    c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(cx,cy,r+10,0,Math.PI*2); c.fill();
+    if(avatarImg.complete && avatarImg.naturalWidth){ c.save(); c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.clip(); c.drawImage(avatarImg,cx-r,cy-r,r*2,r*2); c.restore(); }
+    else { c.fillStyle = '#B28AB1'; c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 110px ' + D; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('A',cx,cy+6); }
+    c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    c.fillStyle = '#1D1220'; c.font = '700 44px ' + B; c.fillText('@' + (pf.instagram||'amartinscc'), cx, 430);
+    c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(o ? 'OFERTA DO DIA' : 'RADAR DE HOJE', cx, 500);
+    // cartão
+    const x0 = 90, y0 = 560, cw = W-180, ch = 860;
+    c.fillStyle = '#FFFFFF'; rr(c,x0,y0,cw,ch,56); c.fill();
+    if(o){
+      c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
+      c.fillStyle = '#1D1220'; c.font = '800 130px ' + D; c.fillText('-' + o.off + '%', cx, y0+205);
+      c.fillStyle = '#6B5A6E'; c.font = '700 32px ' + B; c.fillText([o.genero, o.marca, o.loja].filter((v,i,a)=>v && a.indexOf(v)===i).join(' · ').toUpperCase(), cx, y0+320);
+      c.fillStyle = '#1D1220'; c.font = '800 76px ' + D; const n = wrap(c, o.nome, cx, y0+420, cw-120, 84, 3);
+      const py = y0 + 420 + n*84 + 90;
+      c.fillStyle = '#B4501F'; c.font = '800 130px ' + D; c.fillText(brl(o.preco), cx, py);
+      c.fillStyle = '#6B5A6E'; c.font = '600 48px ' + B; const de = 'de ' + brl(o.de); c.fillText(de, cx, py+80);
+      const dw = c.measureText(de).width, pw = c.measureText('de ').width; c.strokeStyle = '#6B5A6E'; c.lineWidth = 4; c.beginPath(); c.moveTo(cx-dw/2+pw, py+64); c.lineTo(cx+dw/2, py+64); c.stroke();
+    } else {
+      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; c.fillText('Tênis de corrida', cx, y0+130); c.fillText('em promoção', cx, y0+210);
+      const top = [...tenis].sort((a,b)=>b.off-a.off).slice(0,3);
+      top.forEach((t,i) => {
+        const yy = y0 + 280 + i*160;
+        c.fillStyle = '#B28AB1'; rr(c,x0+60,yy,200,120,28); c.fill();
+        c.fillStyle = '#1D1220'; c.font = '800 64px ' + D; c.textAlign = 'center'; c.fillText('-' + t.off + '%', x0+160, yy+82);
+        c.textAlign = 'left'; c.font = '700 40px ' + B; wrap(c, t.nome, x0+290, yy+48, cw-350, 46, 1);
+        c.fillStyle = '#B4501F'; c.font = '800 48px ' + D; c.fillText(brl(t.preco), x0+290, yy+104);
+        c.textAlign = 'center';
+      });
+      c.fillStyle = '#6B5A6E'; c.font = '600 36px ' + B; c.fillText('+ provas no Rio e cupons da Aline', cx, y0+ch-45);
+    }
+    if(o){ c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; const dd = new Date(data.ofertas_atualizado || data.atualizado); c.fillText('Preço conferido em ' + dd.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' · sujeito a alteração', cx, y0+ch-50); }
+    // assinatura do radar
+    c.fillStyle = 'rgba(255,255,255,.9)'; c.font = '700 38px ' + B; c.fillText('Achado no', cx, 1580);
+    c.fillStyle = '#FFFFFF'; c.font = '800 76px ' + D; c.fillText('Radar de Corrida', cx, 1670); c.fillText('da Aline', cx, 1750);
+    c.fillStyle = 'rgba(255,255,255,.85)'; c.font = '600 34px ' + B; c.fillText('provas e ofertas de corrida todos os dias', cx, 1830);
+    return cv;
+  }
+  let shName = 'radar-da-aline.png';
+  async function openShare(o){
+    shareEl.hidden = false; shImg.removeAttribute('src');
+    const cv = await drawStory(o);
+    shImg.src = cv.toDataURL('image/png');
+    shBlob = await new Promise(res => cv.toBlob(res, 'image/png'));
+    shName = 'radar-da-aline-' + (o ? (o.marca + '-' + o.nome).toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40) : 'ofertas') + '.png';
+  }
+  function closeShare(){ shareEl.hidden = true; }
+  document.getElementById('sh-x').addEventListener('click', closeShare);
+  shareEl.addEventListener('click', e => { if(e.target === shareEl) closeShare(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && !shareEl.hidden) closeShare(); });
+  document.getElementById('sh-share').addEventListener('click', async () => {
+    const b = document.getElementById('sh-share'), hint = document.getElementById('sh-hint');
+    if(!shBlob) return;
+    // 1) menu de compartilhar do celular (WhatsApp, Instagram...)
+    try{
+      const f = new File([shBlob], shName, {type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[f]})){ await navigator.share({files:[f]}); return; }
+    }catch(e){ if(e && e.name === 'AbortError') return; }
+    // 2) salvar a imagem
+    if(dlApi){
+      try{ await dlApi.save({filename: shName, data: shBlob}); b.textContent = 'Imagem salva!'; setTimeout(()=>{ b.textContent = 'Compartilhar imagem'; }, 2500); return; }
+      catch(e){ if(e && (e.code === 'declined' || e.code === 'rate_limited')) return; }
+    }
+    // 3) último recurso
+    hint.hidden = false;
+  });
+
+  // parceiros
+  const pc = data.parceiros || {marcas:[]};
+  const marcas = pc.marcas || [];
+  document.getElementById('c-roupas').textContent = marcas.length;
+  if(pc.cupom){
+    const cb = document.getElementById('coupon'); cb.hidden = false;
+    document.getElementById('coupon-code').textContent = pc.cupom;
+    cb.addEventListener('click', async () => {
+      const msg = document.getElementById('coupon-msg');
+      try{ await navigator.clipboard.writeText(pc.cupom); msg.textContent = 'copiado!'; }
+      catch(e){ const r = document.createRange(); r.selectNodeContents(document.getElementById('coupon-code')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
+      setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
+    });
+    document.getElementById('pt-intro').textContent = 'Use o cupom nas marcas parceiras da Aline.';
+  }
+  const groups = document.getElementById('pt-groups');
+  [...new Set(marcas.map(m=>m.categoria))].forEach(cat => {
+    const h = document.createElement('h3'); h.className='ptitle'; h.textContent = cat; groups.appendChild(h);
+    const list = document.createElement('div'); list.className='list'; groups.appendChild(list);
+    marcas.filter(m=>m.categoria===cat).forEach(m => {
+      const a = document.createElement('a'); a.className='partner'; a.href=m.link; a.target='_blank'; a.rel='noopener';
+      a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><span class="arrow">Ir à loja →</span>';
+      if(m.logo){ const im = document.createElement('img'); im.src = m.logo; im.alt = ''; a.querySelector('.mono').appendChild(im); a.querySelector('.mono').classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
+      a.querySelector('.pn').textContent = m.nome;
+      a.querySelector('.pd').textContent = m.descricao || '';
+      const cl = document.createElement('span'); cl.className = 'pd'; cl.style.fontWeight = '600'; cl.style.color = 'var(--accent)';
+      cl.textContent = m.cupom_auto ? 'Cupom ' + pc.cupom + ' já aplicado pelo link' : 'Use o cupom ' + pc.cupom + ' no carrinho';
+      a.querySelector('.pi').appendChild(cl);
+      if(m.campanha){ const c = document.createElement('span'); c.className = 'pc'; c.textContent = m.campanha; a.querySelector('.pi').appendChild(c); }
+      list.appendChild(a);
+    });
+  });
+
+})();
+</script>
