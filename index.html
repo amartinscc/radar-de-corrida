@@ -303,6 +303,11 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .thumb{position:relative;width:96px;height:96px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden;flex:none}
 .thumb img{width:100%;height:100%;object-fit:contain;padding:6px}
 .thumb .off{position:absolute;left:6px;bottom:6px;background:var(--hot);color:#fff;font:800 13px/1 var(--display);padding:4px 7px;border-radius:999px}
+.partner.hascup{cursor:pointer}
+.partner .pcopy{align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);border:1.5px dashed var(--mauve);font:600 13px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
+.partner .pcopy b{letter-spacing:.06em}
+.partner .pcopy small{color:var(--accent);font-weight:700;font-size:11px}
+.partner a.arrow{text-decoration:none}
 </style>
 
 <section class="hero" id="topo">
@@ -367,7 +372,6 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 
   <div class="panel" id="p-roupas" role="tabpanel" aria-labelledby="tab-roupas" hidden>
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
-      <button class="coupon" id="coupon" type="button" hidden>Cupom <b id="coupon-code"></b> <small id="coupon-msg">copiar</small></button>
       <p class="note" id="pt-intro" style="margin:0"></p>
     </div>
     <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px"></div>
@@ -4019,30 +4023,36 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   const pc = data.parceiros || {marcas:[]};
   const marcas = pc.marcas || [];
   document.getElementById('c-roupas').textContent = marcas.length;
-  if(pc.cupom){
-    const cb = document.getElementById('coupon'); cb.hidden = false;
-    document.getElementById('coupon-code').textContent = pc.cupom;
-    cb.addEventListener('click', async () => {
-      const msg = document.getElementById('coupon-msg');
-      try{ await navigator.clipboard.writeText(pc.cupom); msg.textContent = 'copiado!'; }
-      catch(e){ const r = document.createRange(); r.selectNodeContents(document.getElementById('coupon-code')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
-      setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
-    });
-    document.getElementById('pt-intro').textContent = 'Use o cupom nas marcas parceiras da Aline.';
-  }
+  document.getElementById('pt-intro').textContent = 'Cada marca tem o seu cupom: toque no cupom para copiar.';
   const groups = document.getElementById('pt-groups');
   [...new Set(marcas.map(m=>m.categoria))].forEach(cat => {
     const h = document.createElement('h3'); h.className='ptitle'; h.textContent = cat; groups.appendChild(h);
     const list = document.createElement('div'); list.className='list'; groups.appendChild(list);
     marcas.filter(m=>m.categoria===cat).forEach(m => {
-      const a = document.createElement('a'); a.className='partner'; a.href=m.link; a.target='_blank'; a.rel='noopener';
-      a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><span class="arrow">Ir à loja →</span>';
+      const code = m.cupom || pc.cupom;
+      const a = document.createElement('div'); a.className = 'partner hascup';
+      a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><a class="arrow" target="_blank" rel="noopener">Ir à loja →</a>';
+      a.querySelector('a.arrow').href = m.link;
+      a.addEventListener('click', ev => { if(ev.target.closest('.pcopy, a')) return; window.open(m.link, '_blank', 'noopener'); });
       if(m.logo){ const im = document.createElement('img'); im.src = m.logo; im.alt = ''; a.querySelector('.mono').appendChild(im); a.querySelector('.mono').classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
       a.querySelector('.pn').textContent = m.nome;
       a.querySelector('.pd').textContent = m.descricao || '';
-      const cl = document.createElement('span'); cl.className = 'pd'; cl.style.fontWeight = '600'; cl.style.color = 'var(--accent)';
-      cl.textContent = m.cupom_auto ? 'Cupom ' + pc.cupom + ' já aplicado pelo link' : 'Use o cupom ' + pc.cupom + ' no carrinho';
-      a.querySelector('.pi').appendChild(cl);
+      if(code){
+        const cl = document.createElement('span'); cl.className = 'pd'; cl.style.fontWeight = '600'; cl.style.color = 'var(--accent)';
+        cl.textContent = m.cupom_auto ? 'O cupom já entra sozinho pelo link' : 'Use o cupom no carrinho';
+        a.querySelector('.pi').appendChild(cl);
+        const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'pcopy';
+        cp.innerHTML = 'Cupom <b></b> <small>copiar</small>'; cp.querySelector('b').textContent = code;
+        cp.setAttribute('aria-label', 'Copiar cupom ' + code);
+        cp.addEventListener('click', async ev => {
+          ev.preventDefault(); ev.stopPropagation();
+          const msg = cp.querySelector('small');
+          try{ await navigator.clipboard.writeText(code); msg.textContent = 'copiado!'; }
+          catch(e){ const r = document.createRange(); r.selectNodeContents(cp.querySelector('b')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
+          setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
+        });
+        a.querySelector('.pi').appendChild(cp);
+      }
       if(m.campanha){ const c = document.createElement('span'); c.className = 'pc'; c.textContent = m.campanha; a.querySelector('.pi').appendChild(c); }
       list.appendChild(a);
     });
