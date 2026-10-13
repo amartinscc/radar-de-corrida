@@ -318,6 +318,22 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   .tab .lb{font-size:11.5px;white-space:normal;max-width:64px}
   .tab .c{min-width:22px;height:22px;font-size:10px;line-height:20px;right:-6px}
 }
+
+/* Voltar ao topo */
+.totop{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:15;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:#1D1220;background:linear-gradient(135deg,#7FC8CC,var(--mauve) 55%,#E8774A);box-shadow:0 6px 18px rgba(29,18,32,.25);opacity:0;transform:translateY(12px) scale(.9);pointer-events:none;transition:opacity .25s,transform .25s}
+.totop.on{opacity:1;transform:none;pointer-events:auto}
+.totop svg{width:22px;height:22px}
+/* Brilho na bolinha dos Parceiros */
+#tab-roupas .ring::before{content:"";position:absolute;inset:-5px;border-radius:50%;background:conic-gradient(from 0deg,#7FC8CC,var(--mauve),#E8774A,#FFD27A,#7FC8CC);filter:blur(6px);opacity:.55;z-index:-1}
+#tab-roupas .ring{isolation:isolate}
+#tab-roupas .ring::after{content:"";position:absolute;top:2px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px rgba(255,210,122,.9);opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  #tab-roupas .ring::before{animation:pglow 2.8s ease-in-out infinite, pspin 8s linear infinite}
+  #tab-roupas .ring::after{animation:psparkle 2.8s ease-in-out infinite}
+}
+@keyframes pglow{0%,100%{opacity:.45;transform:scale(.97)}50%{opacity:.95;transform:scale(1.06)}}
+@keyframes pspin{to{rotate:360deg}}
+@keyframes psparkle{0%,60%,100%{opacity:0}75%{opacity:1}}
 </style>
 
 <section class="hero" id="topo">
@@ -450,6 +466,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   </div>
 </div>
 
+<button class="totop" id="totop" type="button" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
 <div class="toast" id="toast" role="status" hidden></div>
 <script id="radar-data" type="application/json">
 __DATA__
@@ -866,6 +883,18 @@ __DATA__
       if(nDist > 1 && best[r.dist] === r){ const bd = document.createElement('span'); bd.className = 'ar-badge'; bd.textContent = 'Melhor tempo nos ' + r.dist.replace(' km','K'); el.insertBefore(bd, el.firstChild); }
       else if(r.cat && r.cat <= 5){ const bd = document.createElement('span'); bd.className = 'ar-badge'; bd.textContent = r.cat <= 3 ? r.cat + 'º lugar na categoria' : 'Top 5 na categoria'; el.insertBefore(bd, el.firstChild); }
       list.appendChild(el);
+    });
+  })();
+
+  // botão de voltar ao topo
+  (function(){
+    const b = document.getElementById('totop'); if(!b) return;
+    const upd = () => b.classList.toggle('on', window.scrollY > window.innerHeight * 1.2);
+    window.addEventListener('scroll', upd, {passive:true}); upd();
+    b.addEventListener('click', () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+      if(window.posthog) posthog.capture('voltar_topo');
     });
   })();
   const RADAR_URL = 'https://claude.ai/artifact/4DvQN7bYGcQC9c7SHfqsAJ';
