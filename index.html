@@ -243,6 +243,10 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .tp-opts span{background:var(--soft);color:var(--accent);font:700 12px var(--body);padding:5px 10px;border-radius:999px}
 @media (min-width:700px){.modal{align-items:center}}
 @media (prefers-reduced-motion:no-preference){.deal,.partner{transition:transform .15s}.deal:hover,.partner:hover{transform:translateY(-2px)}}
+/* Fotos dos tênis */
+.thumb{position:relative;width:96px;height:96px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden;flex:none}
+.thumb img{width:100%;height:100%;object-fit:contain;padding:6px}
+.thumb .off{position:absolute;left:6px;bottom:6px;background:var(--hot);color:#fff;font:800 13px/1 var(--display);padding:4px 7px;border-radius:999px}
 </style>
 
 <div class="wrap">
@@ -3593,6 +3597,14 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <div class="info"><div class="store"></div><div class="name"></div>
       <div class="price"><span class="now">${brl(o.preco)}</span><s>${brl(o.de)}</s></div><div class="cond"></div>
       <a class="go" target="_blank" rel="noopener">Ver na loja →</a></div><button class="sharebtn" type="button" aria-label="Compartilhar nos stories" title="Compartilhar nos stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>`;
+    if(o.foto){
+      const th = document.createElement('div'); th.className = 'thumb';
+      const im = new Image(); im.alt = o.nome; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.src = o.foto;
+      const off = document.createElement('span'); off.className = 'off'; off.textContent = '-' + o.off + '%';
+      th.append(im, off);
+      const bib = el.querySelector('.bib'); bib.replaceWith(th);
+      im.onerror = () => th.replaceWith(bib);
+    }
     el.querySelector('.sharebtn').addEventListener('click', () => openShare(o));
     el.querySelector('.store').textContent = label;
     el.querySelector('.name').textContent = o.nome;
