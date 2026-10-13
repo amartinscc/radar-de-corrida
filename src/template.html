@@ -304,6 +304,20 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .ar-it .tm{font:800 20px/1 var(--display);color:var(--hot);font-variant-numeric:tabular-nums}
 .ar-badge{align-self:flex-start;background:linear-gradient(135deg,#7FC8CC,var(--mauve) 55%,#E8774A);color:#1D1220;font:800 11px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px}
 @media (min-width:860px){.ar{flex-direction:row}.ar-ban{width:38%;height:auto;min-height:260px}.ar-body{flex:1;justify-content:center}}
+
+.ar-sub{font:800 18px/1.1 var(--display);margin:4px 0 0}
+.tabs{gap:10px}
+.tab{flex:0 1 96px;min-width:0}
+.tab .lb{text-align:center;line-height:1.15;white-space:normal}
+@media (max-width:520px){
+  .tabs{gap:4px;width:100%;justify-content:space-between}
+  .tab{flex:1 1 0}
+  .tab .ring{width:58px;height:58px}
+  .tab .ic svg{width:26px;height:26px}
+  .tab .sil{height:44px}
+  .tab .lb{font-size:11.5px;white-space:normal;max-width:64px}
+  .tab .c{min-width:22px;height:22px;font-size:10px;line-height:20px;right:-6px}
+}
 </style>
 
 <section class="hero" id="topo">
@@ -321,6 +335,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 
   <div class="tabs" id="radar-abas" role="tablist" aria-label="Seções do radar">
     <button class="tab" role="tab" id="tab-provas" aria-controls="p-provas" aria-selected="true"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor"/></svg></span><span class="c" id="c-provas"></span></span><span class="lb">Provas</span></button>
+    <button class="tab" role="tab" id="tab-result" aria-controls="p-result" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-2.2 6.2M8 3l2.2 6.2M10.2 3 12 8.3 13.8 3"/><circle cx="12" cy="15" r="5.5"/><path d="M12 12.4l.8 1.6 1.8.3-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.3z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-result"></span></span><span class="lb">Resultados</span></button>
     <button class="tab" role="tab" id="tab-roupas" aria-controls="p-roupas" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M10.5 15.5l5-5"/><circle cx="11.2" cy="11.4" r=".9" fill="currentColor"/><circle cx="14.8" cy="14.6" r=".9" fill="currentColor"/></svg></span><span class="c" id="c-roupas"></span></span><span class="lb">Parceiros</span></button>
     <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5V12l3-5 3 2.2 2.4 1.8 5.4 1.6c2 .6 3.2 1.9 3.2 3.4v.5"/><path d="M3 16.5h18v1.2a1.3 1.3 0 0 1-1.3 1.3H4.3A1.3 1.3 0 0 1 3 17.7z"/><path d="M9.5 10.5l1.4-1.6M12 12l1.3-1.6"/></svg></span><span class="c" id="c-tenis"></span></span><span class="lb">Tênis</span></button>
     <button class="tab" role="tab" id="tab-treino" aria-controls="p-treino" aria-selected="false"><span class="ring"><span class="ic"><span class="sil" aria-hidden="true"></span></span></span><span class="lb">Treine comigo</span></button>
@@ -366,6 +381,18 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <p class="note">Datas, locais e valores vêm dos sites de inscrição e podem mudar. Confirme sempre na página oficial da prova antes de se inscrever.</p>
   </div>
 
+  <div class="panel" id="p-result" role="tabpanel" aria-labelledby="tab-result" hidden>
+  <section class="ar" id="aline-resultados" aria-labelledby="ar-h">
+    <div class="ar-ban"><picture><source srcset="fotos/aline-prova-closeup.webp" type="image/webp"><img src="fotos/aline-prova-closeup.jpg" alt="Aline correndo a New Balance 15K Rio" loading="lazy"></picture>
+      <div class="ar-t"><span class="eyebrow">A Aline na pista</span><h2 id="ar-h">Resultados oficiais</h2></div></div>
+    <div class="ar-body">
+      <div class="ar-prs" id="ar-prs"></div>
+      <h3 class="ar-sub">Últimas provas</h3><div class="ar-list" id="ar-list"></div>
+    </div>
+  </section>
+    <p class="note" style="text-align:center;margin:0 auto">Tempos líquidos (chip) dos resultados oficiais de cada prova.</p>
+  </div>
+
   <div class="panel" id="p-roupas" role="tabpanel" aria-labelledby="tab-roupas" hidden>
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
       <p class="note" id="pt-intro" style="margin:0"></p>
@@ -402,15 +429,6 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <p class="note" style="text-align:center;margin:0 auto">Ao tocar, sua mensagem é copiada e a conversa com a Aline abre no Instagram: é só colar e enviar.</p>
     </div>
   </div>
-
-  <section class="ar" id="aline-resultados" aria-labelledby="ar-h" hidden>
-    <div class="ar-ban"><picture><source srcset="fotos/aline-prova-closeup.webp" type="image/webp"><img src="fotos/aline-prova-closeup.jpg" alt="Aline correndo a New Balance 15K Rio" loading="lazy"></picture>
-      <div class="ar-t"><span class="eyebrow">A Aline na pista</span><h2 id="ar-h">Resultados oficiais</h2></div></div>
-    <div class="ar-body">
-      <div class="ar-prs" id="ar-prs"></div>
-      <details id="ar-det"><summary><span class="mais">Ver as últimas provas ▾</span><span class="menos">Fechar ▴</span></summary><div class="ar-list" id="ar-list"></div></details>
-    </div>
-  </section>
 
   <div class="cta photo-card" id="cta-follow">
     <picture><source srcset="fotos/aline-prova.webp" type="image/webp"><img src="fotos/aline-prova.jpg" alt="Aline sorrindo durante uma prova de 15 km no Rio" loading="lazy"></picture>
@@ -485,7 +503,7 @@ __DATA__
   document.getElementById('c-provas').textContent = provas.length;
   
   // abas
-  const tabs = ['provas','roupas','tenis','treino'];
+  const tabs = ['provas','result','roupas','tenis','treino'];
   function show(name){
     tabs.forEach(t => {
       document.getElementById('tab-'+t).setAttribute('aria-selected', String(t===name));
@@ -817,8 +835,8 @@ __DATA__
     {prova:'Asics Golden Run Rio', data:'2026-07-12', dist:'21 km', tempo:'1:54:41', pace:'5:26', geral:'1.201º de 3.544', fem:'260ª de 1.263', cat:46, catTot:205, catNome:'F40-44'}
   ];
   (function(){
-    if(!RESULTADOS.length) return;
-    const sec = document.getElementById('aline-resultados'); sec.hidden = false;
+    if(!RESULTADOS.length){ document.getElementById('tab-result').hidden = true; return; }
+    document.getElementById('c-result').textContent = RESULTADOS.length;
     const ORD = ['5 km','10 km','15 km','21 km','42 km'];
     const toSec = s => s.split(':').reduce((a,v)=>a*60+(+v),0);
     const best = {};
@@ -845,7 +863,6 @@ __DATA__
       if(r.cat <= 3 || r.cat <= 5){ const bd = document.createElement('span'); bd.className = 'ar-badge'; bd.textContent = r.cat <= 3 ? r.cat + 'º lugar na categoria' : 'Top 5 na categoria'; el.insertBefore(bd, el.firstChild); }
       list.appendChild(el);
     });
-    document.getElementById('ar-det').addEventListener('toggle', e => { if(e.target.open && window.posthog) posthog.capture('resultados_abertos'); });
   })();
   const RADAR_URL = 'https://claude.ai/artifact/4DvQN7bYGcQC9c7SHfqsAJ';
   const shareEl = document.getElementById('share');
