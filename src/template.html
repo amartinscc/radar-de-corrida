@@ -257,6 +257,24 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .partner .pcopy b{letter-spacing:.06em}
 .partner .pcopy small{color:var(--accent);font-weight:700;font-size:11px}
 .partner a.arrow{text-decoration:none}
+
+/* Fotos da Aline nos cards */
+.photo-card{position:relative;isolation:isolate;overflow:hidden;color:#fff;background:#1D1220;border:0}
+.photo-card>picture,.photo-card>picture img{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.photo-card>picture img{object-fit:cover}
+.photo-card::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(29,18,32,.05) 20%,rgba(29,18,32,.55) 55%,rgba(29,18,32,.9) 100%)}
+.cta.photo-card{min-height:340px;justify-content:flex-end;padding:24px 18px}
+.cta.photo-card>picture img{object-position:50% 18%}
+.cta.photo-card p{color:#fff;max-width:34ch}
+.cta.photo-card .follow{background:#fff;color:#1D1220}
+.tr-soon.photo-card{min-height:600px;justify-content:flex-end}
+.tr-soon.photo-card::after{background:linear-gradient(180deg,rgba(29,18,32,0) 25%,rgba(29,18,32,.7) 55%,rgba(29,18,32,.94) 100%)}
+.tr-soon.photo-card>picture img{object-position:50% 10%}
+.tr-soon.photo-card .tr-p{color:#fff;opacity:.92}
+.tr-soon.photo-card .tr-h{color:#fff}
+.tr-soon.photo-card .tr-badge{background:#fff;color:#1D1220}
+.tr-soon.photo-card .follow{background:#fff;color:#1D1220}
+@media (min-width:700px){.cta.photo-card{min-height:420px}.cta.photo-card>picture img{object-position:50% 6%}}
 </style>
 
 <section class="hero" id="topo">
@@ -328,7 +346,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   </div>
 
   <div class="panel" id="p-treino" role="tabpanel" aria-labelledby="tab-treino" hidden>
-    <section class="tr-soon" id="tr-soon" hidden>
+    <section class="tr-soon photo-card" id="tr-soon" hidden>
+      <picture><source srcset="fotos/aline-treino.webp" type="image/webp"><img src="fotos/aline-treino.jpg" alt="Aline treinando com kettlebell na Barra da Tijuca" loading="lazy"></picture>
       <span class="tr-badge">Em breve</span>
       <h2 class="tr-h">Novidades chegando</h2>
       <p class="tr-p">Estamos trabalhando para trazer muitas novidades sobre treinamentos de corrida com a Aline.</p>
@@ -355,7 +374,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     </div>
   </div>
 
-  <div class="cta" id="cta-follow">
+  <div class="cta photo-card" id="cta-follow">
+    <picture><source srcset="fotos/aline-prova.webp" type="image/webp"><img src="fotos/aline-prova.jpg" alt="Aline sorrindo durante uma prova de 15 km no Rio" loading="lazy"></picture>
     <p>Gostou do radar? Siga a Aline para dicas de treino e as melhores ofertas de corrida.</p>
     <a class="follow" id="follow2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span id="follow2-label">Seguir no Instagram</span></a>
   </div>
