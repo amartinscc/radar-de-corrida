@@ -17,9 +17,38 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 <style>html,body{margin:0}[hidden]{display:none!important}</style>
+<link rel="preload" as="image" href="hero.webp" type="image/webp" fetchpriority="high">
+<!-- Métricas (PostHog), sem cookies e sem gravação de sessão -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once unregister identify reset opt_in_capturing opt_out_capturing set_config get_distinct_id get_session_id".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_zsQnmLquCtXeJS3KPduebmDL5uGw4Qd5XLUnYRgL7dzk', {
+  api_host: 'https://us.i.posthog.com',
+  defaults: '2026-05-30',
+  person_profiles: 'identified_only',
+  persistence: 'memory',
+  disable_session_recording: true
+});
+(function(){
+  function txt(el, sel){ var x = el && el.querySelector(sel); return x ? x.textContent.trim() : undefined; }
+  document.addEventListener('click', function(ev){
+    var t = ev.target; if(!t.closest) return;
+    var c, card;
+    if((c = t.closest('#t-list a.go'))){ card = c.closest('.deal'); posthog.capture('clique_loja', {tenis: txt(card,'.name'), detalhe: txt(card,'.store'), preco: txt(card,'.now'), url: c.href}); return; }
+    if((c = t.closest('#t-list .sharebtn'))){ card = c.closest('.deal'); posthog.capture('compartilhar_oferta', {tenis: txt(card,'.name')}); return; }
+    if((c = t.closest('#sh-share'))){ posthog.capture('compartilhar_imagem'); return; }
+    if((c = t.closest('#e-list a'))){ card = c.closest('.deal'); posthog.capture('clique_prova', {prova: txt(card,'.name'), url: c.href}); return; }
+    if((c = t.closest('.pcopy, #coupon, .coupon'))){ card = c.closest('.partner'); posthog.capture('cupom_copiado', {parceiro: txt(card,'.pn') || 'geral', cupom: txt(c,'b')}); return; }
+    if((c = t.closest('.partner'))){ posthog.capture('clique_parceiro', {parceiro: txt(c,'.pn')}); return; }
+    if((c = t.closest('a.follow'))){ posthog.capture('seguir_instagram', {botao: c.id || 'outro'}); return; }
+    if((c = t.closest('.tab'))){ posthog.capture('aba_aberta', {aba: ({'tab-roupas':'parceiros'})[c.id] || (c.id||'').replace('tab-','')}); return; }
+  }, true);
+  document.addEventListener('change', function(ev){
+    if(ev.target && ev.target.id === 'e-uf') posthog.capture('estado_escolhido', {estado: ev.target.value});
+  }, true);
+})();
+</script>
 </head>
 <body>
-<link rel="preload" as="image" href="hero.webp" type="image/webp" fetchpriority="high">
 <title>Radar de Corrida da Aline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
