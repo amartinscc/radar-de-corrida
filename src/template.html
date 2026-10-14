@@ -384,6 +384,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <div class="row" id="e-mes"><span class="l">Mês</span></div>
       <div class="row" id="e-reg"><span class="l">Região</span></div>
       <div class="row" id="e-st"><span class="l">Inscrição</span></div>
+      <div class="row" id="e-al"><span class="l">Aline</span></div>
       <button class="fclear" type="button" id="e-clear">Limpar filtros</button>
     </div>
     <div class="radar-wrap">
@@ -457,7 +458,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 
 <div class="modal" id="share" hidden role="dialog" aria-modal="true" aria-labelledby="sh-t">
   <div class="sheet">
-    <header><h3 id="sh-t">Compartilhar promoção</h3><button class="xbtn" type="button" id="sh-x" aria-label="Fechar">×</button></header>
+    <header><h3 id="sh-t">Compartilhar</h3><button class="xbtn" type="button" id="sh-x" aria-label="Fechar">×</button></header>
     <img class="prev" id="sh-img" alt="Imagem da promoção">
     <div class="btns">
       <button class="follow" type="button" id="sh-share">Compartilhar imagem</button>
@@ -737,10 +738,10 @@ __DATA__
   const ufs = Object.keys(ufCount).sort((a,b) => (a==='RJ'?-1:b==='RJ'?1:ufCount[b]-ufCount[a]));
   let ufStart = 'RJ'; try{ const s = localStorage.getItem('radar-uf'); if(s && ufCount[s]) ufStart = s; }catch(e){}
   if(!ufCount[ufStart]) ufStart = ufs[0] || 'RJ';
-  const es = {mes:'Todas', st:'Todas', reg:'Todas', uf: ufStart};
+  const es = {mes:'Todas', st:'Todas', reg:'Todas', al:'Todas', uf: ufStart};
   function renderE(){
-    setCount('e-fbtn', [es.mes, es.st, es.reg]);
-    const base = provas.filter(p => (p.uf||'RJ')===es.uf && (es.mes==='Todas' || p.data.slice(5,7)===es.mes) && (es.st==='Todas' || p.status==='aberta'));
+    setCount('e-fbtn', [es.mes, es.st, es.reg, es.al]);
+    const base = provas.filter(p => (p.uf||'RJ')===es.uf && (es.mes==='Todas' || p.data.slice(5,7)===es.mes) && (es.st==='Todas' || p.status==='aberta') && (es.al==='Todas' || p.aline));
     drawRadar(base);
     const rows = base.filter(p => es.reg==='Todas' || (p.geo && p.geo.reg===es.reg));
     fill(document.getElementById('e-list'), rows, p => {
@@ -753,6 +754,10 @@ __DATA__
         <div class="links"><a class="go ins" target="_blank" rel="noopener">Ver inscrição →</a><a class="go cal" target="_blank" rel="noopener">Adicionar à agenda</a></div><a class="trainbtn" target="_blank" rel="noopener"></a></div>`;
       const pill = el.querySelector('.pill'); pill.textContent = ST[p.status] || ST.confira; pill.classList.add(p.status||'confira');
       if(p.aline){ const b = document.createElement('span'); b.className = 'alinebadge'; b.textContent = 'A Aline vai correr'; el.querySelector('.info').insertBefore(b, pill); }
+      const shb = document.createElement('button'); shb.className = 'sharebtn'; shb.type = 'button'; shb.setAttribute('aria-label','Compartilhar prova'); shb.title = 'Compartilhar prova';
+      shb.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
+      shb.addEventListener('click', () => { if(window.posthog) posthog.capture('compartilhar_prova', {prova: p.nome}); openShare(null, p); });
+      el.appendChild(shb);
       el.querySelector('.name').textContent = p.nome;
       if(p.geo){ const rg = document.createElement('div'); rg.className='store'; rg.textContent = p.geo.reg + ((p.uf||'RJ')!=='RJ' ? ' · ' + p.uf : ''); el.querySelector('.info').insertBefore(rg, el.querySelector('.name')); }
       const det = el.querySelector('.det');
@@ -776,6 +781,7 @@ __DATA__
   const mesLabels = {Todas:'Todos'}; meses.forEach(mm => mesLabels[mm] = MESF[Number(mm)-1]);
   chips('e-mes', meses, es, 'mes', renderE, mesLabels);
   chips('e-st', ['aberta'], es, 'st', renderE, {Todas:'Todas', aberta:'Abertas'});
+  chips('e-al', ['sim'], es, 'al', renderE, {Todas:'Todas', sim:'A Aline vai correr'});
   function buildReg(){
     const box = document.getElementById('e-reg'); box.innerHTML = '<span class="l"></span>';
     box.querySelector('.l').textContent = es.uf==='RJ' ? 'Região' : 'Cidade';
@@ -790,7 +796,7 @@ __DATA__
   ufSel.value = es.uf;
   ufSel.addEventListener('change', () => { es.uf = ufSel.value; es.reg = 'Todas'; try{ localStorage.setItem('radar-uf', es.uf); }catch(e){} drawBase(es.uf); buildReg(); renderE(); });
   drawBase(es.uf); buildReg(); renderE();
-  toggler('e-fbtn','e-fpanel'); clearer('e-clear', ['e-mes','e-reg','e-st'], es, ['mes','reg','st'], renderE);
+  toggler('e-fbtn','e-fpanel'); clearer('e-clear', ['e-mes','e-reg','e-st','e-al'], es, ['mes','reg','st','al'], renderE);
 
 
   // assessoria (prévia)
@@ -912,7 +918,7 @@ __DATA__
     if(lines.length > maxLines){ lines = lines.slice(0,maxLines); lines[maxLines-1] = lines[maxLines-1].replace(/\s*\S*$/,'') + '…'; }
     lines.forEach((l,i) => c.fillText(l, x, y + i*lh)); return lines.length;
   }
-  async function drawStory(o){
+  async function drawStory(o, p){
     const D = "'Urbanist','Avenir Next',system-ui,sans-serif", B = "'Plus Jakarta Sans',system-ui,sans-serif";
     try{ await Promise.all(['800 60px Urbanist','700 40px "Plus Jakarta Sans"','600 40px "Plus Jakarta Sans"'].map(f => document.fonts.load(f))); }catch(e){}
     const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
@@ -927,11 +933,32 @@ __DATA__
     else { c.fillStyle = '#B28AB1'; c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 110px ' + D; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('A',cx,cy+6); }
     c.textAlign = 'center'; c.textBaseline = 'alphabetic';
     c.fillStyle = '#1D1220'; c.font = '700 44px ' + B; c.fillText('@' + (pf.instagram||'amartinscc'), cx, 430);
-    c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(o ? 'OFERTA DO DIA' : 'RADAR DE HOJE', cx, 500);
+    c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(o ? 'OFERTA DO DIA' : (p ? 'PROVA DO RADAR' : 'RADAR DE HOJE'), cx, 500);
     // cartão
-    const x0 = 90, y0 = 560, cw = W-180, ch = 860;
+    const x0 = 90, y0 = 560, cw = W-180, ch = p ? 960 : 860;
     c.fillStyle = '#FFFFFF'; rr(c,x0,y0,cw,ch,56); c.fill();
-    if(o){
+    if(p){
+      const [pyy, pmm, pdd] = p.data.split('-').map(Number);
+      const dow = new Date(Date.UTC(pyy, pmm-1, pdd)).getUTCDay();
+      c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
+      c.fillStyle = '#1D1220'; c.font = '800 120px ' + D; c.fillText(String(pdd).padStart(2,'0'), cx, y0+170);
+      c.font = '700 32px ' + B; c.fillText(MESF[pmm-1].toUpperCase(), cx, y0+222);
+      c.fillStyle = '#6B5A6E'; c.font = '700 30px ' + B; c.fillText([DOW[dow], p.uf!=='RJ' && p.cidade ? p.cidade : (p.geo && p.geo.reg) || 'Rio de Janeiro'].join(' · ').toUpperCase(), cx, y0+320);
+      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; const pn = wrap(c, p.nome, cx, y0+420, cw-120, 80, 2);
+      let yy = y0 + 420 + pn*80 + 64;
+      const info = [];
+      if(p.local) info.push(p.local);
+      const hd = [p.hora ? p.hora.replace(':','h') : null, p.distancias].filter(Boolean).join(' · ');
+      if(hd) info.push(hd);
+      const pr = p.valor===0 ? 'Inscrição gratuita' : (typeof p.valor==='number' ? 'A partir de ' + brl(p.valor) : null);
+      const stt = ST[p.status] || '';
+      const last = [pr, stt].filter(Boolean).join(' · ');
+      if(last) info.push(last);
+      c.fillStyle = '#6B5A6E'; c.font = '600 38px ' + B;
+      info.forEach(line => { const k = wrap(c, line, cx, yy, cw-120, 48, 2); yy += k*48 + 16; });
+      if(p.aline){ c.fillStyle = '#B28AB1'; rr(c,cx-300,y0+ch-150,600,70,35); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 34px ' + B; c.fillText('★ A Aline vai correr', cx, y0+ch-100); }
+      c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; c.fillText('Confira a inscrição no radar', cx, y0+ch-45);
+    } else if(o){
       c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
       c.fillStyle = '#1D1220'; c.font = '800 130px ' + D; c.fillText('-' + o.off + '%', cx, y0+205);
       c.fillStyle = '#6B5A6E'; c.font = '700 32px ' + B; c.fillText([o.genero, o.marca, o.loja].filter((v,i,a)=>v && a.indexOf(v)===i).join(' · ').toUpperCase(), cx, y0+320);
@@ -961,12 +988,13 @@ __DATA__
     return cv;
   }
   let shName = 'radar-da-aline.png';
-  async function openShare(o){
+  async function openShare(o, p){
     shareEl.hidden = false; shImg.removeAttribute('src');
-    const cv = await drawStory(o);
+    const cv = await drawStory(o, p);
     shImg.src = cv.toDataURL('image/png');
     shBlob = await new Promise(res => cv.toBlob(res, 'image/png'));
-    shName = 'radar-da-aline-' + (o ? (o.marca + '-' + o.nome).toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40) : 'ofertas') + '.png';
+    const slug = s => s.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40);
+    shName = 'radar-da-aline-' + (o ? slug(o.marca + '-' + o.nome) : p ? 'prova-' + slug(p.nome) : 'ofertas') + '.png';
   }
   function closeShare(){ shareEl.hidden = true; }
   document.getElementById('sh-x').addEventListener('click', closeShare);

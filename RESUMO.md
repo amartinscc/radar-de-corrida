@@ -21,6 +21,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - `ofertas`: `{loja, nome, marca, preco, de, link, genero}` + `cupom?`, `condicao?`, `foto?`. Foto = URL direta da imagem do próprio modelo/cor na loja (og:image), sem rastreamento; sem foto certa, omitir. Nunca usar AMARTINS em tênis. Links limpos, sem afiliado. Só corrida/running.
 - `provas`: `{uf, data, nome, local, link, status}` + `hora?, distancias?, valor?, cidade?, lat?, lng?, regiao?`. **Cumulativas**: só saem quando a data passa; canceladas ficam com status `cancelada`. Fora do RJ precisa de `cidade` + `lat/lng`.
 - Selo **"A Aline vai correr"** (`"aline": true`): **só manual**. As tarefas nunca põem nem tiram.
+- Na aba Provas: cada prova tem botão de compartilhar (gera imagem de story, como nas ofertas de tênis) e o filtro **"A Aline vai correr"** mostra só as provas com `aline: true`.
 
 ## Tarefas agendadas (atualização automática)
 Ambas leem o JSON do `index.html`, trocam só os campos delas, fazem commit e push na `main`. Não usam artifact nem a ferramenta add_repo (o repositório já vem clonado em `/home/claude/radar-de-corrida`).
