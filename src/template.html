@@ -252,6 +252,12 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .thumb{position:relative;width:96px;height:96px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden;flex:none}
 .thumb img{width:100%;height:100%;object-fit:contain;padding:6px}
 .thumb .off{position:absolute;left:6px;bottom:6px;background:var(--hot);color:#fff;font:800 13px/1 var(--display);padding:4px 7px;border-radius:999px}
+/* Capas oficiais das provas */
+.thumb.capa{background:var(--soft);width:112px;height:112px}
+.thumb.capa img{object-fit:cover;padding:0}
+.thumb .cdate{position:absolute;left:6px;bottom:6px;display:flex;flex-direction:column;align-items:center;min-width:38px;padding:4px 6px 3px;border-radius:10px;background:rgba(255,255,255,.94);color:#1D1220;box-shadow:0 1px 4px rgba(29,18,32,.18)}
+.thumb .cdate b{font:800 17px/1 var(--display);font-variant-numeric:tabular-nums}
+.thumb .cdate small{font:700 9px/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#7A4E7D}
 .partner.hascup{cursor:pointer}
 .partner .pcopy{align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);border:1.5px dashed var(--mauve);font:600 13px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
 .partner .pcopy b{letter-spacing:.06em}
@@ -750,6 +756,15 @@ __DATA__
       el.innerHTML = `<div class="bib date"><div class="n">${String(dd).padStart(2,'0')}</div><div class="t">${MES[m-1]} · ${dow}</div></div>
         <div class="info"><span class="pill"></span><div class="name"></div><div class="det"></div>
         <div class="links"><a class="go ins" target="_blank" rel="noopener">Ver inscrição →</a><a class="go cal" target="_blank" rel="noopener">Adicionar à agenda</a></div><a class="trainbtn" target="_blank" rel="noopener"></a></div>`;
+      if(p.capa){ // capa oficial do evento (link para a imagem do organizador); se falhar, volta o bloco de data
+        const bib = el.querySelector('.bib');
+        const th = document.createElement('div'); th.className = 'thumb capa';
+        const im = new Image(); im.alt = 'Arte oficial: ' + p.nome; im.loading = 'lazy'; im.decoding = 'async'; im.referrerPolicy = 'no-referrer'; im.src = p.capa;
+        const dl = document.createElement('span'); dl.className = 'cdate'; dl.innerHTML = '<b></b><small></small>';
+        dl.querySelector('b').textContent = String(dd).padStart(2,'0'); dl.querySelector('small').textContent = MES[m-1];
+        th.append(im, dl); bib.replaceWith(th);
+        im.onerror = () => th.replaceWith(bib);
+      }
       const pill = el.querySelector('.pill'); pill.textContent = ST[p.status] || ST.confira; pill.classList.add(p.status||'confira');
       if(p.aline){ const b = document.createElement('span'); b.className = 'alinebadge'; b.textContent = 'A Aline vai correr'; el.querySelector('.info').insertBefore(b, pill); }
       const shb = document.createElement('button'); shb.className = 'sharebtn'; shb.type = 'button'; shb.setAttribute('aria-label','Compartilhar prova'); shb.title = 'Compartilhar prova';

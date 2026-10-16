@@ -303,6 +303,12 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .thumb{position:relative;width:96px;height:96px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden;flex:none}
 .thumb img{width:100%;height:100%;object-fit:contain;padding:6px}
 .thumb .off{position:absolute;left:6px;bottom:6px;background:var(--hot);color:#fff;font:800 13px/1 var(--display);padding:4px 7px;border-radius:999px}
+/* Capas oficiais das provas */
+.thumb.capa{background:var(--soft);width:112px;height:112px}
+.thumb.capa img{object-fit:cover;padding:0}
+.thumb .cdate{position:absolute;left:6px;bottom:6px;display:flex;flex-direction:column;align-items:center;min-width:38px;padding:4px 6px 3px;border-radius:10px;background:rgba(255,255,255,.94);color:#1D1220;box-shadow:0 1px 4px rgba(29,18,32,.18)}
+.thumb .cdate b{font:800 17px/1 var(--display);font-variant-numeric:tabular-nums}
+.thumb .cdate small{font:700 9px/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#7A4E7D}
 .partner.hascup{cursor:pointer}
 .partner .pcopy{align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);border:1.5px dashed var(--mauve);font:600 13px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
 .partner .pcopy b{letter-spacing:.06em}
@@ -1185,7 +1191,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "lng": -43.341,
    "regiao": "Zona Norte",
    "link": "https://lets.events/e/corrida-mulheres",
-   "status": "confira"
+   "status": "confira",
+   "capa": "https://s3-sa-east-1.amazonaws.com/lets.events-production/events/photos/a2e/0b4/b3-/small/data?1787486526&v=1787486526"
   },
   {
    "uf": "BA",
@@ -1526,7 +1533,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://haid.app/en/events/corrichopp-com-elas-outubro-rosa-or-18-de-outubro-mtwbhqmx",
    "status": "confira",
    "hora": "08:00",
-   "valor": 59.9
+   "valor": 59.9,
+   "capa": "https://assets.haid.app/external-events/cmtwbhqt3e6mp01lluikly9or/image.webp"
   },
   {
    "uf": "RJ",
@@ -1663,7 +1671,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "valor": 180,
    "lat": -23.046,
    "lng": -43.523,
-   "regiao": "Zona Oeste"
+   "regiao": "Zona Oeste",
+   "capa": "https://assets.haid.app/external-events/cmudh8bj60pnl01qltx3aryka/image.webp"
   },
   {
    "uf": "RJ",
@@ -1676,7 +1685,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://haid.app/en/events/todo-mes-e-outubro-rosa-or-2026-mssb5x3e",
    "status": "confira",
    "hora": "07:00",
-   "valor": 120
+   "valor": 120,
+   "capa": "https://assets.haid.app/external-events/cmssb5xb11c1k01mmaw69uvmc/image.webp"
   },
   {
    "uf": "RJ",
@@ -1879,7 +1889,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "distancias": "5 km",
    "lat": -22.88,
    "lng": -43.575,
-   "regiao": "Zona Oeste"
+   "regiao": "Zona Oeste",
+   "capa": "https://images.sympla.com.br/6a82bea93878f-lg.jpg"
   },
   {
    "uf": "RJ",
@@ -2249,7 +2260,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "valor": 79.99,
    "status": "aberta",
    "link": "https://www.riorunningtour.com.br/event-details/corrida-das-poderosas-2026-3-etapa-aterro-do-flamengo",
-   "uf": "RJ"
+   "uf": "RJ",
+   "capa": "https://static.wixstatic.com/media/de786d_b6ffaea6eb5648c49eec2d49fcbb444c~mv2.jpg/v1/fill/w_320,h_320,al_c,q_80/de786d_b6ffaea6eb5648c49eec2d49fcbb444c~mv2.jpg"
   },
   {
    "uf": "RJ",
@@ -2386,7 +2398,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "regiao": "Zona Oeste",
    "link": "https://www.sympla.com.br/evento/3deg-corre-das-meninas-da-g/3585221",
    "status": "confira",
-   "distancias": "4 km"
+   "distancias": "4 km",
+   "capa": "https://images.sympla.com.br/6acad55d83ce4-lg.jpg"
   },
   {
    "uf": "RJ",
@@ -2409,7 +2422,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "valor": 94.99,
    "status": "aberta",
    "link": "https://www.riorunningtour.com.br/event-details/rio-night-run-2026",
-   "uf": "RJ"
+   "uf": "RJ",
+   "capa": "https://static.wixstatic.com/media/de786d_a5e14a7f523747439e0fd1096ca70245~mv2.jpg/v1/fill/w_320,h_320,al_c,q_80/de786d_a5e14a7f523747439e0fd1096ca70245~mv2.jpg"
   },
   {
    "uf": "RS",
@@ -2555,7 +2569,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://haid.app/en/events/corre-comigo-edicao-chopp-e-resenha-mtxqufth",
    "status": "confira",
    "hora": "08:00",
-   "valor": 50
+   "valor": 50,
+   "capa": "https://assets.haid.app/external-events/cmtxqufxt0mnk01qwmrbaovbc/image.webp"
   },
   {
    "data": "2026-11-08",
@@ -3059,7 +3074,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "status": "aberta",
    "link": "https://www.riorunningtour.com.br/event-details/circuito-dos-elementos-etapa-ar-2026",
    "uf": "RJ",
-   "valor": 79.99
+   "valor": 79.99,
+   "capa": "https://static.wixstatic.com/media/de786d_06243cf08e26403f93abfbbbdf4df87d~mv2.jpg/v1/fill/w_320,h_320,al_c,q_80/de786d_06243cf08e26403f93abfbbbdf4df87d~mv2.jpg"
   },
   {
    "uf": "RJ",
@@ -3082,7 +3098,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "regiao": "Região Metropolitana",
    "link": "https://viaesporte.com/evento/1-corrida-eldorado-farma-run",
    "status": "confira",
-   "distancias": "5 km"
+   "distancias": "5 km",
+   "capa": "https://viaesporte.com/assets/upload/evento/66da35e532295adce04f5744f9de14d5.webp"
   },
   {
    "data": "2026-11-15",
@@ -3131,7 +3148,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "status": "aberta",
    "hora": "07:00",
    "distancias": "5 km",
-   "valor": 59.9
+   "valor": 59.9,
+   "capa": "https://assets.haid.app/external-events/cmuw1k3p106do01ro1ck1v83n/image.webp"
   },
   {
    "uf": "RJ",
@@ -3145,7 +3163,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "status": "aberta",
    "hora": "07:00",
    "distancias": "5 km (corrida/caminhada)",
-   "valor": 39.9
+   "valor": 39.9,
+   "capa": "https://assets.haid.app/external-events/cmuw1i51x09k001ufn86oaaab/image.webp"
   },
   {
    "uf": "RJ",
@@ -3156,7 +3175,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "status": "aberta",
    "hora": "07:00",
    "distancias": "5 km",
-   "valor": 85
+   "valor": 85,
+   "capa": "https://static.wixstatic.com/media/de786d_1e653d8d1b514755910a3776f9d8c786~mv2.jpg/v1/fill/w_320,h_320,al_c,q_80/de786d_1e653d8d1b514755910a3776f9d8c786~mv2.jpg"
   },
   {
    "uf": "RJ",
@@ -3396,7 +3416,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "regiao": "Zona Sul",
    "link": "https://www.ticketsports.com.br/e/87298",
    "status": "confira",
-   "distancias": "5 km, 10 km, 21 km"
+   "distancias": "5 km, 10 km, 21 km",
+   "capa": "https://cdn.ticketsports.com.br/ticketagora/images/1AAMPDBZ0MJ9GTBW9J76ILVM4AKVEOVFO3AVBWRZK293D7TWVB.png"
   },
   {
    "uf": "SP",
@@ -3584,7 +3605,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "valor": 69.99,
    "status": "aberta",
    "link": "https://www.riorunningtour.com.br/event-details/corrida-da-portela-2026",
-   "uf": "RJ"
+   "uf": "RJ",
+   "capa": "https://cdn.ticketsports.com.br/ticketagora/images/T19NQIJTASLN3CKTH1A30WXROQ8BMDSAUJF21TPK76R3L14VAL.png"
   },
   {
    "uf": "RJ",
@@ -3913,7 +3935,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "local": "Lagoa (em frente ao Club Monte Líbano)",
    "link": "https://lets.events/e/corridao-das-nails-2-edicao",
    "status": "confira",
-   "distancias": "2 e 5 km"
+   "distancias": "2 e 5 km",
+   "capa": "https://s3-sa-east-1.amazonaws.com/lets.events-production/events/photos/d0a/5c2/72-/small/data?1790707651&v=1790707651"
   },
   {
    "uf": "RJ",
@@ -3942,7 +3965,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "local": "Caminho Niemeyer, Centro, Niterói",
    "link": "https://www.ticketsports.com.br/e/VASCORRIDA-NITER%C3%93I-2026-87671",
    "status": "confira",
-   "distancias": "5 km"
+   "distancias": "5 km",
+   "capa": "https://cdn.ticketsports.com.br/ticketagora/images/0TDQSVSUNDB3UWF6MM779WE8YUWKRRHJU76GJL8XVOE9BW7A7A.png"
   },
   {
    "uf": "RS",
@@ -4255,7 +4279,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "nome": "Corrida e Caminhada Soldado do Fogo Niterói 2026",
    "local": "Niterói",
    "link": "https://haid.app/en/events/corrida-e-caminhada-soldado-do-fogo-niteroi-2026-mv37lnpp",
-   "status": "aberta"
+   "status": "aberta",
+   "capa": "https://assets.haid.app/external-events/cmv37lnr41io801mjasin1med/image.webp"
   },
   {
    "uf": "RJ",
@@ -4346,7 +4371,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "status": "aberta",
    "hora": "19:00",
    "distancias": "5 km",
-   "valor": 130
+   "valor": 130,
+   "capa": "https://static.wixstatic.com/media/de786d_e90a6507c9954207b7e61db78390435c~mv2.jpg/v1/fill/w_320,h_320,al_c,q_80/de786d_e90a6507c9954207b7e61db78390435c~mv2.jpg"
   },
   {
    "uf": "RJ",
@@ -4601,7 +4627,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "local": "Niterói",
    "link": "https://www.ticketsports.com.br/e/85548",
    "status": "confira",
-   "distancias": "4 e 12 km"
+   "distancias": "4 e 12 km",
+   "capa": "https://cdn.ticketsports.com.br/ticketagora/images/VFZ53989PA7G8T0Y52CW1ZH1FCH6GYKVKGP4MAJH9T49YXQTHB.png"
   },
   {
    "data": "2026-12-20",
@@ -4646,7 +4673,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "valor": 84.99,
    "status": "aberta",
    "link": "https://www.riorunningtour.com.br/event-details/yup-star-run-rio-de-janeiro-2026",
-   "uf": "RJ"
+   "uf": "RJ",
+   "capa": "https://static.wixstatic.com/media/de786d_59ed578a15564e438f33474b152c1564~mv2.jpg/v1/fill/w_320,h_320,al_c,q_80/de786d_59ed578a15564e438f33474b152c1564~mv2.jpg"
   },
   {
    "uf": "SC",
@@ -4704,7 +4732,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "status": "aberta",
    "link": "https://www.riorunningtour.com.br/event-details/rio-maravilha-etapa-seasons-2026",
    "uf": "RJ",
-   "valor": 79.99
+   "valor": 79.99,
+   "capa": "https://static.wixstatic.com/media/de786d_46a7a997912044a694f9a570c971a225~mv2.jpg/v1/fill/w_320,h_320,al_c,q_80/de786d_46a7a997912044a694f9a570c971a225~mv2.jpg"
   },
   {
    "data": "2026-12-31",
@@ -4714,7 +4743,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "distancias": "7,5 km, 15 km",
    "status": "aberta",
    "link": "https://www.riorunningtour.com.br/event-details/corrida-de-vera-cruz-2026-rio-de-janeiro",
-   "uf": "RJ"
+   "uf": "RJ",
+   "capa": "https://static.wixstatic.com/media/de786d_c013122b5c804479a47ab451579c1010~mv2.png/v1/fill/w_320,h_320,al_c,q_80/de786d_c013122b5c804479a47ab451579c1010~mv2.png"
   },
   {
    "uf": "RS",
@@ -5263,6 +5293,15 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       el.innerHTML = `<div class="bib date"><div class="n">${String(dd).padStart(2,'0')}</div><div class="t">${MES[m-1]} · ${dow}</div></div>
         <div class="info"><span class="pill"></span><div class="name"></div><div class="det"></div>
         <div class="links"><a class="go ins" target="_blank" rel="noopener">Ver inscrição →</a><a class="go cal" target="_blank" rel="noopener">Adicionar à agenda</a></div><a class="trainbtn" target="_blank" rel="noopener"></a></div>`;
+      if(p.capa){ // capa oficial do evento (link para a imagem do organizador); se falhar, volta o bloco de data
+        const bib = el.querySelector('.bib');
+        const th = document.createElement('div'); th.className = 'thumb capa';
+        const im = new Image(); im.alt = 'Arte oficial: ' + p.nome; im.loading = 'lazy'; im.decoding = 'async'; im.referrerPolicy = 'no-referrer'; im.src = p.capa;
+        const dl = document.createElement('span'); dl.className = 'cdate'; dl.innerHTML = '<b></b><small></small>';
+        dl.querySelector('b').textContent = String(dd).padStart(2,'0'); dl.querySelector('small').textContent = MES[m-1];
+        th.append(im, dl); bib.replaceWith(th);
+        im.onerror = () => th.replaceWith(bib);
+      }
       const pill = el.querySelector('.pill'); pill.textContent = ST[p.status] || ST.confira; pill.classList.add(p.status||'confira');
       if(p.aline){ const b = document.createElement('span'); b.className = 'alinebadge'; b.textContent = 'A Aline vai correr'; el.querySelector('.info').insertBefore(b, pill); }
       const shb = document.createElement('button'); shb.className = 'sharebtn'; shb.type = 'button'; shb.setAttribute('aria-label','Compartilhar prova'); shb.title = 'Compartilhar prova';
