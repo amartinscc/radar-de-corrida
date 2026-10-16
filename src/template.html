@@ -252,6 +252,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .thumb{position:relative;width:96px;height:96px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden;flex:none}
 .thumb img{width:100%;height:100%;object-fit:contain;padding:6px}
 .thumb .off{position:absolute;left:6px;bottom:6px;background:var(--hot);color:#fff;font:800 13px/1 var(--display);padding:4px 7px;border-radius:999px}
+/* Item aberto por link compartilhado */
+.deal.hilite{box-shadow:0 0 0 3px var(--mauve),0 8px 24px rgba(29,18,32,.18)}
 /* Capas oficiais das provas */
 .thumb.capa{background:var(--soft);width:112px;height:112px}
 .thumb.capa img{object-fit:cover;padding:0}
@@ -465,8 +467,11 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <header><h3 id="sh-t">Compartilhar</h3><button class="xbtn" type="button" id="sh-x" aria-label="Fechar">×</button></header>
     <img class="prev" id="sh-img" alt="Imagem da promoção">
     <div class="btns">
-      <button class="follow" type="button" id="sh-share">Compartilhar imagem</button>
-      <p class="hint" id="sh-hint" hidden>Toque e segure a imagem para salvar ou enviar.</p>
+      <button class="follow" type="button" id="sh-share">Compartilhar imagem e link</button>
+      <a class="follow alt" id="sh-wa" target="_blank" rel="noopener">Enviar link no WhatsApp</a>
+      <button class="follow alt" type="button" id="sh-copy">Copiar link</button>
+      <p class="hint" id="sh-hint" hidden>Toque e segure a imagem para salvar ou enviar. Mande o link junto: é ele que abre o radar.</p>
+      <p class="hint">Nos Stories do Instagram: publique a imagem e adicione o adesivo “Link” com o link copiado.</p>
     </div>
   </div>
 </div>
@@ -487,6 +492,11 @@ __DATA__
 
   // data de hoje no Rio (AAAA-MM-DD)
   const hoje = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date());
+  // endereço próprio de cada prova e tênis (mesma regra de src/paginas.py: mude os dois juntos)
+  const slugTxt = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70).replace(/-+$/,'');
+  function slugAll(arr, base, extra){ const b = arr.map(base); arr.forEach((x,i) => { x.slug = b.filter(v => v===b[i]).length > 1 ? b[i] + '-' + slugTxt(extra(x)) : b[i]; }); }
+  slugAll(data.provas||[], p => slugTxt(p.nome) + '-' + p.data, p => (p.cidade||'') + ' ' + (p.uf||'RJ'));
+  slugAll(tenis, o => slugTxt(o.marca + ' ' + o.nome + ' ' + o.genero), o => o.loja||'');
   const provas = (data.provas||[]).filter(p => p.data >= hoje).sort((a,b)=> (a.data+(a.aline?'0':'1')+(a.hora||'')).localeCompare(b.data+(b.aline?'0':'1')+(b.hora||'')));
 
   // perfil
@@ -590,6 +600,7 @@ __DATA__
       const bib = el.querySelector('.bib'); bib.replaceWith(th);
       im.onerror = () => th.replaceWith(bib);
     }
+    el.dataset.slug = o.slug || '';
     el.querySelector('.sharebtn').addEventListener('click', () => openShare(o));
     el.querySelector('.store').textContent = label;
     el.querySelector('.name').textContent = o.nome;
@@ -753,6 +764,7 @@ __DATA__
       const dow = DOW[new Date(Date.UTC(y,m-1,dd)).getUTCDay()];
       const el = document.createElement('article');
       el.className = 'deal' + (p.status==='esgotada' && !p.aline ? ' past-out' : '') + (p.aline ? ' aline' : '');
+      el.dataset.slug = p.slug || '';
       el.innerHTML = `<div class="bib date"><div class="n">${String(dd).padStart(2,'0')}</div><div class="t">${MES[m-1]} · ${dow}</div></div>
         <div class="info"><span class="pill"></span><div class="name"></div><div class="det"></div>
         <div class="links"><a class="go ins" target="_blank" rel="noopener">Ver inscrição →</a><a class="go cal" target="_blank" rel="noopener">Adicionar à agenda</a></div><a class="trainbtn" target="_blank" rel="noopener"></a></div>`;
@@ -1000,7 +1012,7 @@ __DATA__
     c.fillStyle = 'rgba(255,255,255,.85)'; c.font = '600 34px ' + B; c.fillText('provas e ofertas de corrida todos os dias', cx, 1830);
     return cv;
   }
-  let shName = 'radar-da-aline.png';
+  let shName = 'radar-da-aline.png', shLink = RADAR_URL, shMsg = '', shTxt = '', shKind = '', shSlug = '';
   async function openShare(o, p){
     shareEl.hidden = false; shImg.removeAttribute('src');
     const cv = await drawStory(o, p);
@@ -1008,7 +1020,25 @@ __DATA__
     shBlob = await new Promise(res => cv.toBlob(res, 'image/png'));
     const slug = s => s.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40);
     shName = 'radar-da-aline-' + (o ? slug(o.marca + '-' + o.nome) : p ? 'prova-' + slug(p.nome) : 'ofertas') + '.png';
+    // link da página do item no radar (a prévia no WhatsApp mostra a imagem e o título; o toque abre o radar)
+    shKind = o ? 'tenis' : p ? 'prova' : ''; shSlug = (o||p||{}).slug || '';
+    shLink = shSlug ? RADAR_URL + shKind + '/' + shSlug + '/' : RADAR_URL;
+    if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : ''); }
+    else if(o){ shTxt = o.nome + ' por ' + brl(o.preco) + ' (-' + o.off + '%) na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
+    else shTxt = 'Provas e ofertas de corrida todos os dias';
+    shTxt += '\nAchado no Radar de Corrida da Aline 👉';
+    shMsg = shTxt + ' ' + shLink;
+    document.getElementById('sh-wa').href = 'https://wa.me/?text=' + encodeURIComponent(shMsg);
+    document.getElementById('sh-hint').hidden = true;
   }
+  const shTrack = canal => { if(window.posthog) posthog.capture('compartilhar_link', {canal, tipo: shKind, item: shSlug}); };
+  document.getElementById('sh-wa').addEventListener('click', () => shTrack('whatsapp'));
+  document.getElementById('sh-copy').addEventListener('click', async () => {
+    const b = document.getElementById('sh-copy');
+    try{ await navigator.clipboard.writeText(shLink); b.textContent = 'Link copiado!'; }
+    catch(e){ prompt('Copie o link:', shLink); }
+    setTimeout(() => { b.textContent = 'Copiar link'; }, 2200); shTrack('copiar');
+  });
   function closeShare(){ shareEl.hidden = true; }
   document.getElementById('sh-x').addEventListener('click', closeShare);
   shareEl.addEventListener('click', e => { if(e.target === shareEl) closeShare(); });
@@ -1019,7 +1049,8 @@ __DATA__
     // 1) menu de compartilhar do celular (WhatsApp, Instagram...)
     try{
       const f = new File([shBlob], shName, {type:'image/png'});
-      if(navigator.canShare && navigator.canShare({files:[f]})){ await navigator.share({files:[f]}); return; }
+      if(navigator.canShare && navigator.canShare({files:[f], text: shMsg})){ await navigator.share({files:[f], text: shMsg}); shTrack('nativo-imagem'); return; }
+      if(navigator.share){ await navigator.share({title: 'Radar de Corrida da Aline', text: shTxt, url: shLink}); shTrack('nativo-link'); return; }
     }catch(e){ if(e && e.name === 'AbortError') return; }
     // 2) salvar a imagem
     if(dlApi){
@@ -1029,6 +1060,22 @@ __DATA__
     // 3) último recurso
     hint.hidden = false;
   });
+
+  // link direto de uma prova ou tênis: as páginas /prova/<slug>/ e /tenis/<slug>/ trazem para #prova=<slug> ou #tenis=<slug>
+  setTimeout(function(){
+    const mt = (location.hash||'').match(/^#(prova|tenis)=([a-z0-9-]+)$/); if(!mt) return;
+    const tipo = mt[1], sl = mt[2];
+    const zera = (ids, st, keys) => { keys.forEach(k => st[k] = 'Todas'); ids.forEach(id => document.getElementById(id).querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.v==='Todas')))); };
+    if(tipo === 'prova'){
+      const p = provas.find(x => x.slug === sl);
+      if(p){ zera(['e-mes','e-st','e-al'], es, ['mes','st','al']); es.reg = 'Todas'; if(es.uf !== (p.uf||'RJ')){ es.uf = p.uf||'RJ'; ufSel.value = es.uf; drawBase(es.uf); } buildReg(); renderE(); }
+      show('provas');
+    } else { zera(['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja']); renderT(); show('tenis'); }
+    const el = document.querySelector((tipo==='prova' ? '#e-list' : '#t-list') + ' [data-slug="' + sl + '"]');
+    if(el){ el.scrollIntoView({block:'center'}); el.classList.add('hilite'); }
+    else toast(tipo === 'prova' ? 'Essa prova não está mais no radar. Veja as próximas!' : 'Essa oferta acabou. Veja as ofertas de hoje!');
+    if(window.posthog) posthog.capture('abriu_link_compartilhado', {tipo, item: sl, achou: !!el});
+  }, 0);
 
   // parceiros
   const pc = data.parceiros || {marcas:[]};
