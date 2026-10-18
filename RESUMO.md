@@ -30,6 +30,16 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Folha de compartilhar: "Compartilhar imagem e link" (menu do celular, manda a arte de story + texto com o link), "Enviar link no WhatsApp" e "Copiar link". A foto enviada sozinha nunca vira link; o que abre o radar é o link/prévia. Stories: publicar a imagem e pôr o adesivo de Link.
 - O WhatsApp guarda a prévia de um link por um tempo: mudanças na imagem podem demorar a aparecer em links já enviados.
 
+## Calculadora de pace (desde 17/10/2026)
+- Página própria: `radardecorrida.com.br/calculadora-de-pace/` (arquivo `calculadora-de-pace/index.html`, independente do `index.html`). As tarefas **nunca mexem** nela.
+- Faz: pace, tempo ou distância (km ou milha), previsão de prova (Riegel), parciais (constante ou split negativo), ritmos de treino (VDOT de Jack Daniels), zonas de frequência cardíaca (FC máx. medida, ou Tanaka/Gulati pela idade; Karvonen quando há FC de repouso) e gasto calórico estimado pelo peso. Imagem de story para compartilhar e link com o resultado (`?m=&d=&t=&p=`).
+- **Não coleta dados**: idade, FC e peso ficam só no aparelho. As métricas mandam só o tipo de cálculo: `calc_calculo` (modo, unidade, prova), `calc_zonas_fc` (método), `calc_compartilhar` (canal), `calc_copiar_link`, `clique_radar`, `seguir_instagram` (botão `calculadora_*`), `clique_prova` (origem calculadora). Na home: `clique_calculadora` (topo/rodape). PostHog só liga no domínio radardecorrida.com.br.
+- Mostra as próximas 4 provas do RJ lendo o bloco radar-data do `index.html` (mesma regra de slug do template), com link para `/#prova=<slug>`.
+- Paleta e fontes iguais às do `src/template.html`: se a paleta do radar mudar, mudar também na calculadora.
+- Foto: `fotos/aline-calculadora.jpg/.webp` (recorte pequeno do `hero.jpg`, em círculo). Imagem de compartilhamento: `og-calculadora.jpg`.
+- Links para a calculadora na home: botão discreto no topo (`.calc-link`) e uma linha antes da nota de preços, no `src/template.html`.
+- SEO: título e descrição próprios, canonical, Open Graph, dados estruturados (WebApplication, BreadcrumbList, FAQPage igual ao FAQ visível), tabela de pace em HTML. `sitemap.xml` e `robots.txt` na raiz.
+
 ## Tarefas agendadas (atualização automática)
 Ambas leem o JSON do `index.html`, trocam só os campos delas, fazem commit e push na `main`. Não usam artifact nem a ferramenta add_repo (o repositório já vem clonado em `/home/claude/radar-de-corrida`).
 - **Radar de Corrida da Aline (atualização completa)** — todo dia às **6h48** (Brasília). Tênis, provas (RJ todo dia + rodízio semanal de estados), campanhas dos parceiros. Usa todas as fontes listadas nas instruções, inclusive a lista de eventos em destaque da Ticket Sports (`lnk.bio/TicketSports`, sem datas: abrir cada página /e/ do evento). Também completa capas que faltam (até ~30 por dia, RJ primeiro).

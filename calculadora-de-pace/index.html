@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Calculadora de Pace para Corrida: ritmo, previsão e zonas de FC</title>
+<meta name="description" content="Calculadora de pace grátis: descubra seu ritmo por km, o tempo de prova e a distância. Veja previsão para 5K, 10K, meia e maratona, parciais, ritmos de treino e zonas de frequência cardíaca.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Aline Martins (@amartinscc)">
+<meta name="theme-color" content="#BBE3E5">
+<link rel="canonical" href="https://radardecorrida.com.br/calculadora-de-pace/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Radar de Corrida">
+<meta property="og:title" content="Calculadora de Pace para Corrida">
+<meta property="og:description" content="Seu ritmo por km, previsão para 5K, 10K, meia e maratona, ritmos de treino e zonas de frequência cardíaca. Grátis.">
+<meta property="og:url" content="https://radardecorrida.com.br/calculadora-de-pace/">
+<meta property="og:image" content="https://radardecorrida.com.br/og-calculadora.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Calculadora de pace do Radar de Corrida">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="https://radardecorrida.com.br/favicon.png">
+<link rel="apple-touch-icon" href="https://radardecorrida.com.br/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebApplication","@id":"https://radardecorrida.com.br/calculadora-de-pace/#app","name":"Calculadora de Pace para Corrida","url":"https://radardecorrida.com.br/calculadora-de-pace/","description":"Calcule pace, tempo e distância de corrida, com previsão de prova, parciais por km, ritmos de treino e zonas de frequência cardíaca.","applicationCategory":"SportsApplication","operatingSystem":"Qualquer navegador","inLanguage":"pt-BR","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"BRL"},"image":"https://radardecorrida.com.br/og-calculadora.jpg","creator":{"@type":"Person","name":"Aline Martins","jobTitle":"Personal trainer e treinadora de corrida","sameAs":["https://www.instagram.com/amartinscc/"]},"isPartOf":{"@type":"WebSite","name":"Radar de Corrida","url":"https://radardecorrida.com.br/"}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Radar de Corrida","item":"https://radardecorrida.com.br/"},{"@type":"ListItem","position":2,"name":"Calculadora de pace","item":"https://radardecorrida.com.br/calculadora-de-pace/"}]},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"O que é pace na corrida?","acceptedAnswer":{"@type":"Answer","text":"Pace é o tempo que você leva para percorrer 1 quilômetro. Um pace de 5:30 min/km significa 5 minutos e 30 segundos a cada km. Quanto menor o pace, mais rápido você corre."}},
+  {"@type":"Question","name":"Como calcular o pace?","acceptedAnswer":{"@type":"Answer","text":"Divida o tempo total pela distância. Exemplo: 10 km em 55 minutos dá 55 ÷ 10 = 5,5 minutos por km, ou seja, pace de 5:30 min/km."}},
+  {"@type":"Question","name":"Qual a diferença entre pace e velocidade?","acceptedAnswer":{"@type":"Answer","text":"São a mesma informação vista ao contrário. O pace diz quantos minutos você leva por km; a velocidade diz quantos km você faz por hora. Para converter, divida 60 pelo pace em minutos: pace 5:00 equivale a 12 km/h."}},
+  {"@type":"Question","name":"Como saber minha frequência cardíaca máxima?","acceptedAnswer":{"@type":"Answer","text":"O jeito mais preciso é um teste de esforço com acompanhamento profissional. Sem teste, fórmulas por idade dão uma estimativa, como 208 − 0,7 × idade (Tanaka) ou 206 − 0,88 × idade para mulheres (Gulati), mas o valor real de cada pessoa pode variar bastante."}},
+  {"@type":"Question","name":"Quais são as zonas de frequência cardíaca na corrida?","acceptedAnswer":{"@type":"Answer","text":"São cinco faixas de intensidade: Z1 regenerativo (50–60%), Z2 leve ou base aeróbica (60–70%), Z3 moderado (70–80%), Z4 limiar (80–90%) e Z5 máximo (90–100%). Com a frequência de repouso, as faixas são calculadas pela fórmula de Karvonen, que é mais individual."}},
+  {"@type":"Question","name":"A previsão de tempo para a maratona é confiável?","acceptedAnswer":{"@type":"Answer","text":"É uma estimativa feita pela fórmula de Riegel a partir de uma prova sua. Funciona melhor entre distâncias próximas e quando você tem treino para a distância prevista. Para meia e maratona, o volume de treino pesa muito no resultado real."}},
+  {"@type":"Question","name":"O que é split negativo?","acceptedAnswer":{"@type":"Answer","text":"É correr a segunda metade da prova mais rápido que a primeira. Começar um pouco mais contido poupa energia e costuma render tempos melhores em provas longas."}}
+ ]}
+]}
+</script>
+
+<style>
+:root{
+  --g1:#BBE3E5; --g2:#D9C1D9; --bg:#F6F0F6; --surface:#FFFFFF; --ink:#1D1220; --muted:#6B5A6E; --line:#E7DAE8;
+  --accent:#7A4E7D; --mauve:#B28AB1; --mauve-ink:#1D1220; --hot:#B4501F; --good:#2E7A55; --soft:#EFE3EF;
+  --warn:#9A5B00; --warn-bg:#FFF0DC;
+  --z1:#5E9EA1; --z2:#2E7A55; --z3:#B28AB1; --z4:#D9822B; --z5:#B4501F;
+  --display:"Urbanist","Avenir Next",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --g1:#17302F; --g2:#3A2540; --bg:#1D1220; --surface:#2A1D2E; --ink:#F4ECF4; --muted:#BBA9BC; --line:#3E2D43;
+  --accent:#DDB9DD; --mauve:#B28AB1; --mauve-ink:#1D1220; --hot:#F28A5B; --good:#5FCB94; --soft:#33243A;
+  --warn:#F2B85B; --warn-bg:#3A2A14;
+  --z1:#7FC4C7; --z2:#5FCB94; --z3:#C9A3C8; --z4:#F2B85B; --z5:#F28A5B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --g1:#17302F; --g2:#3A2540; --bg:#1D1220; --surface:#2A1D2E; --ink:#F4ECF4; --muted:#BBA9BC; --line:#3E2D43;
+  --accent:#DDB9DD; --mauve:#B28AB1; --mauve-ink:#1D1220; --hot:#F28A5B; --good:#5FCB94; --soft:#33243A;
+  --warn:#F2B85B; --warn-bg:#3A2A14;
+  --z1:#7FC4C7; --z2:#5FCB94; --z3:#C9A3C8; --z4:#F2B85B; --z5:#F28A5B; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body{background:var(--bg) linear-gradient(180deg,var(--g1) 0,var(--g2) 300px,var(--bg) 620px) no-repeat;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.01em;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+
+/* topo */
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 0 6px}
+.brand{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font:800 16px var(--display)}
+.brand img{width:26px;height:26px;border-radius:8px}
+.top-links{display:flex;gap:6px}
+.chip-link{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;background:color-mix(in srgb,var(--surface) 70%,transparent);color:var(--ink);text-decoration:none;font:600 13px var(--body);border:1px solid var(--line)}
+.chip-link svg{width:16px;height:16px}
+
+/* cabeçalho da calculadora */
+.head{display:flex;align-items:center;gap:14px;padding:14px 0 16px}
+.head-txt{flex:1;min-width:0}
+.eyebrow{font:700 11px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.head h1{font-size:clamp(28px,7.4vw,42px);line-height:1.02;margin:4px 0 6px}
+.head p{margin:0;color:var(--muted);font-size:14px}
+.avatar{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:var(--muted);font:600 11px var(--body)}
+.avatar img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--mauve),0 6px 18px rgba(29,18,32,.18)}
+
+/* cartões */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 1px 0 rgba(29,18,32,.03),0 10px 30px -18px rgba(29,18,32,.25)}
+.card h2{font-size:21px;margin-bottom:4px}
+.card .sub{color:var(--muted);font-size:13.5px;margin:0 0 12px}
+.calc{padding:16px 16px 18px;border:0;box-shadow:0 18px 50px -22px rgba(122,78,125,.55)}
+
+/* seletor de modo */
+.modes{display:grid;grid-template-columns:repeat(3,1fr);background:var(--soft);border-radius:14px;padding:4px;gap:4px}
+.modes button{border:0;background:transparent;border-radius:11px;padding:9px 4px;font:600 13.5px var(--body);color:var(--muted);cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 2px 8px rgba(29,18,32,.12)}
+.mode-q{display:flex;justify-content:space-between;align-items:center;margin:0 0 8px}
+.mode-q span{font:600 13px var(--body);color:var(--muted)}
+.unit{display:inline-flex;background:var(--soft);border-radius:999px;padding:3px}
+.unit button{border:0;background:transparent;border-radius:999px;padding:4px 10px;font:700 12px var(--body);color:var(--muted);cursor:pointer}
+.unit button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+
+.field{margin-top:14px}
+.field>label,.lbl{display:block;font:600 13px var(--body);color:var(--ink);margin-bottom:6px}
+.lbl small,.field>label small{font-weight:500;color:var(--muted)}
+input,select{width:100%;font:600 17px var(--body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;outline:none;-moz-appearance:textfield;appearance:none}
+select{font-size:15px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:30px}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+.split{display:grid;gap:8px;align-items:end}
+.split.t3{grid-template-columns:1fr 1fr 1fr}
+.split.t2{grid-template-columns:1fr 1fr}
+.unitbox{position:relative}
+.unitbox input{padding-right:40px;text-align:left}
+.unitbox span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font:600 13px var(--body);color:var(--muted);pointer-events:none}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chips button{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 11px;font:600 12.5px var(--body);cursor:pointer}
+.chips button.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+
+/* resultado */
+.result{margin-top:16px;border-radius:18px;padding:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 75%,var(--surface)),color-mix(in srgb,var(--g2) 75%,var(--surface)))}
+.r-main{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.r-main b{font:800 clamp(46px,14vw,64px)/1 var(--display);letter-spacing:-.02em;color:var(--ink)}
+.r-main span{font:600 16px var(--body);color:var(--muted)}
+.r-label{font:700 11px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.r-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.r-grid div{background:color-mix(in srgb,var(--surface) 78%,transparent);border-radius:12px;padding:9px 10px}
+.r-grid small{display:block;font:600 11px var(--body);color:var(--muted)}
+.r-grid b{font:800 17px var(--display)}
+.r-err{margin:10px 0 0;color:var(--hot);font-weight:600;font-size:13.5px}
+.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:999px;padding:11px 16px;font:700 14px var(--body);cursor:pointer;text-decoration:none;color:var(--ink);background:var(--surface)}
+.btn svg{width:17px;height:17px}
+.btn.pri{background:var(--accent);color:var(--surface)}
+.btn.mauve{background:var(--mauve);color:var(--mauve-ink)}
+.btn.line{background:transparent;border:1.5px solid var(--line)}
+.btn.grow{flex:1}
+
+/* tabelas */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:9px 6px;text-align:left;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+thead th{font:700 11.5px var(--body);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+tbody th{font-weight:700}
+tr.me{background:var(--soft)}
+tr.me th::after{content:" • você";font-weight:600;color:var(--accent);font-size:12px}
+.scroll{overflow-x:auto;margin:0 -6px;padding:0 6px}
+.more{margin-top:10px}
+.toggle{display:inline-flex;background:var(--soft);border-radius:999px;padding:3px;margin-bottom:10px}
+.toggle button{border:0;background:transparent;border-radius:999px;padding:6px 12px;font:600 12.5px var(--body);color:var(--muted);cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(29,18,32,.12)}
+
+/* zonas */
+.zones{display:grid;gap:8px}
+.zone{display:grid;grid-template-columns:6px 1fr auto;gap:0 12px;align-items:center;background:var(--bg);border-radius:14px;padding:10px 12px 10px 0;overflow:hidden}
+.zone i{align-self:stretch;border-radius:0 6px 6px 0;background:var(--c)}
+.zone .zn{font:800 15px var(--display)}
+.zone .zn em{font-style:normal;font-family:var(--body);font-weight:600;font-size:12px;color:var(--muted);margin-left:4px}
+.zone .zd{font-size:12.5px;color:var(--muted);line-height:1.35;margin-top:1px}
+.zone .zv{text-align:right;font:800 15px var(--display);white-space:nowrap}
+.zone .zv small{display:block;font:600 11.5px var(--body);color:var(--muted)}
+.vdot{display:inline-flex;align-items:center;gap:6px;background:var(--soft);border-radius:999px;padding:5px 11px;font:600 12.5px var(--body);margin-bottom:12px}
+.vdot b{font:800 15px var(--display);color:var(--accent)}
+.adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.adv-grid .field{margin-top:0}
+.pill-ok{display:inline-block;font:600 12px var(--body);background:var(--soft);border-radius:999px;padding:4px 10px;margin:12px 0 10px}
+.note{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.warn{background:var(--warn-bg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:12.5px;margin-top:12px}
+.warn b{color:var(--warn)}
+.kcal{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:14px;padding:10px 12px;margin-top:10px}
+.kcal b{font:800 20px var(--display)}
+
+/* provas do radar */
+.races{display:grid;gap:8px}
+.race{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);background:var(--bg);border-radius:14px;padding:10px}
+.race .dt{flex:none;width:50px;text-align:center;background:var(--surface);border-radius:11px;padding:5px 0;border:1px solid var(--line)}
+.race .dt b{display:block;font:800 20px/1.1 var(--display)}
+.race .dt small{font:700 10.5px var(--body);text-transform:uppercase;color:var(--accent)}
+.race .rn{font-weight:700;font-size:14px;line-height:1.3}
+.race .rl{font-size:12.5px;color:var(--muted)}
+.race .tag{display:inline-block;margin-top:3px;font:700 10.5px var(--body);background:var(--mauve);color:var(--mauve-ink);border-radius:999px;padding:2px 8px}
+
+/* conteúdo */
+.content h2{font-size:21px;margin:4px 0 8px}
+.content h3{font-size:16.5px;margin:16px 0 4px}
+.content p,.content li{color:var(--ink);font-size:14.5px}
+.content ul{padding-left:20px;margin:6px 0}
+.content li{margin-bottom:4px}
+.formula{background:var(--soft);border-radius:12px;padding:10px 12px;font-weight:600;font-size:14px}
+details{border-top:1px solid var(--line);padding:12px 0}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:800 20px/1 var(--display);color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{margin:8px 0 0;color:var(--muted)}
+
+/* Aline */
+.aline{display:flex;gap:14px;align-items:center}
+.aline img{width:76px;height:76px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 2px var(--mauve)}
+.aline h2{font-size:19px}
+.aline p{margin:4px 0 0;color:var(--muted);font-size:13.5px}
+.aline-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+
+footer{text-align:center;color:var(--muted);font-size:12.5px;padding:10px 16px 34px}
+footer a{color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:999px;font:600 13.5px var(--body);transition:.25s;pointer-events:none;z-index:9}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (min-width:640px){
+  .calc{padding:22px}
+  .adv-grid{grid-template-columns:repeat(3,1fr)}
+  .avatar img{width:78px;height:78px}
+}
+@media (max-width:360px){.r-grid b{font-size:15px}.modes button{font-size:12.5px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<!-- Métricas (PostHog), sem cookies e sem gravação de sessão. Idade, frequência cardíaca e peso não são enviados. -->
+<script>
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once unregister identify reset opt_in_capturing opt_out_capturing set_config get_distinct_id get_session_id".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+if (location.hostname === 'radardecorrida.com.br') {
+  posthog.init('phc_zsQnmLquCtXeJS3KPduebmDL5uGw4Qd5XLUnYRgL7dzk', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2026-05-30',
+    person_profiles: 'identified_only',
+    persistence: 'memory',
+    disable_session_recording: true
+  });
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="https://radardecorrida.com.br/" data-ev="radar" data-origem="topo"><img src="https://radardecorrida.com.br/favicon.png" alt="" width="26" height="26">Radar de Corrida</a>
+    <nav class="top-links" aria-label="Links">
+      <a class="chip-link" href="https://radardecorrida.com.br/" data-ev="radar" data-origem="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/></svg>Provas</a>
+      <a class="chip-link" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener" data-ev="ig" data-origem="menu" aria-label="Instagram da Aline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+    </nav>
+  </header>
+
+  <div class="head">
+    <div class="head-txt">
+      <div class="eyebrow">Ferramenta grátis</div>
+      <h1>Calculadora de pace</h1>
+      <p>Ritmo, tempo de prova, parciais e zonas de treino em segundos.</p>
+    </div>
+    <a class="avatar" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener" data-ev="ig" data-origem="avatar">
+      <img src="/fotos/aline-calculadora.webp" alt="Aline Martins, personal trainer e corredora" width="78" height="78">
+      @amartinscc
+    </a>
+  </div>
+
+  <main>
+  <section class="card calc" id="calculadora" aria-labelledby="t-calc">
+    <h2 id="t-calc" class="sr">Calcular pace, tempo ou distância</h2>
+    <div class="mode-q"><span>O que você quer descobrir?</span>
+      <div class="unit" role="group" aria-label="Unidade">
+        <button type="button" data-unit="km" aria-pressed="true">km</button>
+        <button type="button" data-unit="mi" aria-pressed="false">milha</button>
+      </div>
+    </div>
+    <div class="modes" role="group" aria-label="Modo de cálculo">
+      <button type="button" data-mode="pace" aria-pressed="true">Pace</button>
+      <button type="button" data-mode="tempo" aria-pressed="false">Tempo</button>
+      <button type="button" data-mode="dist" aria-pressed="false">Distância</button>
+    </div>
+
+    <div class="field" id="f-dist">
+      <label for="dist">Distância</label>
+      <div class="unitbox"><input id="dist" type="text" inputmode="decimal" value="10" autocomplete="off"><span class="u-dist">km</span></div>
+      <div class="chips" id="chips" role="group" aria-label="Distâncias de prova">
+        <button type="button" data-km="5">5 km</button>
+        <button type="button" data-km="10">10 km</button>
+        <button type="button" data-km="15">15 km</button>
+        <button type="button" data-km="21.0975">Meia 21 km</button>
+        <button type="button" data-km="42.195">Maratona</button>
+      </div>
+    </div>
+
+    <div class="field" id="f-tempo">
+      <span class="lbl">Tempo total</span>
+      <div class="split t3">
+        <div class="unitbox"><input id="th" type="text" inputmode="numeric" value="0" aria-label="Horas" autocomplete="off"><span>h</span></div>
+        <div class="unitbox"><input id="tm" type="text" inputmode="numeric" value="55" aria-label="Minutos" autocomplete="off"><span>min</span></div>
+        <div class="unitbox"><input id="ts" type="text" inputmode="numeric" value="0" aria-label="Segundos" autocomplete="off"><span>s</span></div>
+      </div>
+    </div>
+
+    <div class="field" id="f-pace" hidden>
+      <span class="lbl">Pace <small>(minutos por <span class="u-word">km</span>)</small></span>
+      <div class="split t2">
+        <div class="unitbox"><input id="pm" type="text" inputmode="numeric" value="5" aria-label="Minutos do pace" autocomplete="off"><span>min</span></div>
+        <div class="unitbox"><input id="ps" type="text" inputmode="numeric" value="30" aria-label="Segundos do pace" autocomplete="off"><span>s</span></div>
+      </div>
+    </div>
+
+    <div class="result" aria-live="polite">
+      <div class="r-label" id="r-label">Seu pace</div>
+      <div class="r-main"><b id="r-main">5:30</b><span id="r-unit">/km</span></div>
+      <div class="r-grid">
+        <div><small id="g1l">Distância</small><b id="g1">10 km</b></div>
+        <div><small id="g2l">Tempo</small><b id="g2">55:00</b></div>
+        <div><small>Velocidade</small><b id="g3">10,9 km/h</b></div>
+      </div>
+      <p class="r-err" id="r-err" hidden></p>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn pri grow" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4M12 2v14"/></svg>Compartilhar resultado</button>
+      <button type="button" class="btn line" id="b-link" aria-label="Copiar link do resultado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Link</button>
+    </div>
+  </section>
+
+  <section class="card" id="previsao" aria-labelledby="t-prev">
+    <h2 id="t-prev">Previsão para outras provas</h2>
+    <p class="sub">Quanto você faria em outras distâncias com o mesmo nível de hoje.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Prova</th><th>Tempo</th><th>Pace</th></tr></thead>
+      <tbody id="t-pred"></tbody>
+    </table></div>
+    <p class="note">Calculado pela fórmula de Riegel. Vale mais entre distâncias próximas e se você tiver treino para a prova.</p>
+  </section>
+
+  <section class="card" id="parciais" aria-labelledby="t-split">
+    <h2 id="t-split">Parciais por <span class="u-word">km</span></h2>
+    <p class="sub">Use como plano de prova ou cole na pulseira.</p>
+    <div class="toggle" role="group" aria-label="Estratégia">
+      <button type="button" data-split="igual" aria-pressed="true">Ritmo constante</button>
+      <button type="button" data-split="neg" aria-pressed="false">Split negativo</button>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th><span class="u-cap">Km</span></th><th>Pace</th><th>Tempo acumulado</th></tr></thead>
+      <tbody id="t-split-b"></tbody>
+    </table></div>
+    <button type="button" class="btn line more" id="b-more" hidden>Ver todas as parciais</button>
+    <p class="note" id="n-split" hidden>Split negativo: primeira metade 2% mais lenta e segunda 2% mais rápida, com o mesmo tempo final.</p>
+  </section>
+
+  <section class="card" id="ritmos" aria-labelledby="t-ritmo">
+    <h2 id="t-ritmo">Seus ritmos de treino</h2>
+    <p class="sub">Faixas de pace para cada tipo de treino, a partir do seu resultado.</p>
+    <div id="vdot-ok">
+      <div class="vdot">Índice de condicionamento (VDOT) <b id="vdot">0</b></div>
+      <div class="zones" id="z-pace"></div>
+      <p class="note">Baseado nas tabelas de VDOT de Jack Daniels. Use o tempo de uma prova ou de um teste em esforço máximo.</p>
+    </div>
+    <p class="note" id="vdot-no" hidden>Para calcular os ritmos de treino, informe um esforço entre 1,5 km e 5 horas.</p>
+  </section>
+
+  <section class="card" id="zonas" aria-labelledby="t-fc">
+    <h2 id="t-fc">Zonas de esforço por frequência cardíaca</h2>
+    <p class="sub">Cálculo avançado: preencha o que souber. Quanto mais dados, mais individual.</p>
+    <div class="adv-grid">
+      <div class="field"><label for="idade">Idade</label><div class="unitbox"><input id="idade" type="text" inputmode="numeric" placeholder="ex.: 32" autocomplete="off"><span>anos</span></div></div>
+      <div class="field"><label for="sexo">Sexo <small>(opcional)</small></label><select id="sexo"><option value="">Não informar</option><option value="f">Feminino</option><option value="m">Masculino</option></select></div>
+      <div class="field"><label for="fcr">FC de repouso <small>(opcional)</small></label><div class="unitbox"><input id="fcr" type="text" inputmode="numeric" placeholder="ex.: 58" autocomplete="off"><span>bpm</span></div></div>
+      <div class="field"><label for="fcm">FC máxima medida <small>(opcional)</small></label><div class="unitbox"><input id="fcm" type="text" inputmode="numeric" placeholder="se já fez teste" autocomplete="off"><span>bpm</span></div></div>
+      <div class="field"><label for="peso">Peso <small>(opcional)</small></label><div class="unitbox"><input id="peso" type="text" inputmode="decimal" placeholder="ex.: 62" autocomplete="off"><span>kg</span></div></div>
+    </div>
+    <div id="fc-out" hidden>
+      <span class="pill-ok" id="fc-metodo"></span>
+      <div class="zones" id="z-fc"></div>
+    </div>
+    <div class="kcal" id="kcal" hidden><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--hot)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8 0 4 3 7 7 7z"/></svg><div><b id="kcal-v">0 kcal</b><div class="note" style="margin:0" id="kcal-t">gasto estimado</div></div></div>
+    <p class="note" id="fc-vazio">Informe sua idade ou sua FC máxima medida para ver as zonas.</p>
+    <p class="note">Esses dados ficam só no seu aparelho: não são enviados nem salvos.</p>
+    <div class="warn"><b>Importante:</b> fórmulas dão estimativas, e a FC máxima real pode variar bastante de pessoa para pessoa. Os resultados não substituem avaliação médica nem o acompanhamento de um profissional de educação física.</div>
+  </section>
+
+  <section class="card" id="provas" aria-labelledby="t-provas" hidden>
+    <h2 id="t-provas">Próximas provas no Rio</h2>
+    <p class="sub">Já sabe seu pace? Escolha a próxima prova no Radar de Corrida.</p>
+    <div class="races" id="races"></div>
+    <div class="actions"><a class="btn pri grow" href="https://radardecorrida.com.br/" data-ev="radar" data-origem="provas">Ver todas as provas no Radar</a></div>
+  </section>
+
+  <section class="card aline-card" aria-labelledby="t-aline">
+    <div class="aline">
+      <img src="/fotos/aline-calculadora.webp" alt="Aline Martins" width="76" height="76" loading="lazy">
+      <div><h2 id="t-aline">Treine com a Aline</h2>
+        <p>Personal trainer, corredora e treinadora de corrida no Rio. Dicas de treino, provas e rotina no Instagram.</p></div>
+    </div>
+    <div class="aline-btns">
+      <a class="btn mauve" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener" data-ev="ig" data-origem="cartao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Seguir @amartinscc</a>
+      <a class="btn line" href="https://radardecorrida.com.br/" data-ev="radar" data-origem="cartao">Abrir o Radar</a>
+    </div>
+  </section>
+
+  <article class="card content" aria-labelledby="t-guia">
+    <h2 id="t-guia">Guia rápido de pace</h2>
+    <h3>O que é pace?</h3>
+    <p>Pace é o tempo que você leva para correr <strong>1 quilômetro</strong>. Um pace de <strong>5:30 min/km</strong> quer dizer 5 minutos e 30 segundos a cada km. Quanto <strong>menor</strong> o pace, mais rápido você está.</p>
+    <h3>Como calcular o pace</h3>
+    <p class="formula">Pace = tempo total ÷ distância</p>
+    <p>Exemplo: 10 km em 55 minutos → 55 ÷ 10 = 5,5 min → <strong>5:30 min/km</strong>. Para virar velocidade, divida 60 pelo pace em minutos: 60 ÷ 5,5 = <strong>10,9 km/h</strong>.</p>
+    <h3>Como usar esta calculadora</h3>
+    <ul>
+      <li><strong>Pace:</strong> informe distância e tempo para descobrir seu ritmo.</li>
+      <li><strong>Tempo:</strong> informe distância e pace para saber em quanto tempo termina a prova.</li>
+      <li><strong>Distância:</strong> informe tempo e pace para ver quantos km você corre.</li>
+      <li><strong>Previsão e ritmos de treino:</strong> use o tempo de uma prova recente, em esforço máximo.</li>
+      <li><strong>Zonas de FC:</strong> idade e FC de repouso já dão faixas individuais; a FC máxima medida deixa mais preciso.</li>
+    </ul>
+    <h3>Para que serve cada ritmo de treino</h3>
+    <ul>
+      <li><strong>Leve:</strong> a base de tudo. Dá para conversar. É onde fica a maior parte do volume da semana.</li>
+      <li><strong>Ritmo de maratona:</strong> confortável, mas firme. Ensina o corpo a sustentar o ritmo de prova longa.</li>
+      <li><strong>Limiar:</strong> “confortavelmente difícil”, sustentável por uns 40 a 60 minutos. Sobe o ritmo que você aguenta por mais tempo.</li>
+      <li><strong>Intervalado:</strong> tiros de 3 a 5 minutos com pausas. Desenvolve o VO₂máx.</li>
+      <li><strong>Tiro curto:</strong> repetições rápidas de até 2 minutos. Trabalha velocidade e técnica.</li>
+    </ul>
+  </article>
+
+  <section class="card content" id="tabela" aria-labelledby="t-tab">
+    <h2 id="t-tab">Tabela de pace: tempos de 5K, 10K, meia e maratona</h2>
+    <p class="sub">Tempo final em cada distância para ritmos de 3:30 a 8:00 min/km.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Pace</th><th>km/h</th><th>5 km</th><th>10 km</th><th>21 km</th><th>42 km</th></tr></thead>
+      <tbody>
+<tr><th scope="row">3:30</th><td>17,1</td><td>17:30</td><td>35:00</td><td>1:13:50</td><td>2:27:41</td></tr>
+<tr><th scope="row">3:45</th><td>16,0</td><td>18:45</td><td>37:30</td><td>1:19:07</td><td>2:38:14</td></tr>
+<tr><th scope="row">4:00</th><td>15,0</td><td>20:00</td><td>40:00</td><td>1:24:23</td><td>2:48:47</td></tr>
+<tr><th scope="row">4:15</th><td>14,1</td><td>21:15</td><td>42:30</td><td>1:29:40</td><td>2:59:20</td></tr>
+<tr><th scope="row">4:30</th><td>13,3</td><td>22:30</td><td>45:00</td><td>1:34:56</td><td>3:09:53</td></tr>
+<tr><th scope="row">4:45</th><td>12,6</td><td>23:45</td><td>47:30</td><td>1:40:13</td><td>3:20:26</td></tr>
+<tr><th scope="row">5:00</th><td>12,0</td><td>25:00</td><td>50:00</td><td>1:45:29</td><td>3:30:58</td></tr>
+<tr><th scope="row">5:15</th><td>11,4</td><td>26:15</td><td>52:30</td><td>1:50:46</td><td>3:41:31</td></tr>
+<tr><th scope="row">5:30</th><td>10,9</td><td>27:30</td><td>55:00</td><td>1:56:02</td><td>3:52:04</td></tr>
+<tr><th scope="row">5:45</th><td>10,4</td><td>28:45</td><td>57:30</td><td>2:01:19</td><td>4:02:37</td></tr>
+<tr><th scope="row">6:00</th><td>10,0</td><td>30:00</td><td>1:00:00</td><td>2:06:35</td><td>4:13:10</td></tr>
+<tr><th scope="row">6:15</th><td>9,6</td><td>31:15</td><td>1:02:30</td><td>2:11:52</td><td>4:23:43</td></tr>
+<tr><th scope="row">6:30</th><td>9,2</td><td>32:30</td><td>1:05:00</td><td>2:17:08</td><td>4:34:16</td></tr>
+<tr><th scope="row">6:45</th><td>8,9</td><td>33:45</td><td>1:07:30</td><td>2:22:24</td><td>4:44:49</td></tr>
+<tr><th scope="row">7:00</th><td>8,6</td><td>35:00</td><td>1:10:00</td><td>2:27:41</td><td>4:55:22</td></tr>
+<tr><th scope="row">7:15</th><td>8,3</td><td>36:15</td><td>1:12:30</td><td>2:32:57</td><td>5:05:55</td></tr>
+<tr><th scope="row">7:30</th><td>8,0</td><td>37:30</td><td>1:15:00</td><td>2:38:14</td><td>5:16:28</td></tr>
+<tr><th scope="row">7:45</th><td>7,7</td><td>38:45</td><td>1:17:30</td><td>2:43:30</td><td>5:27:01</td></tr>
+<tr><th scope="row">8:00</th><td>7,5</td><td>40:00</td><td>1:20:00</td><td>2:48:47</td><td>5:37:34</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card content" id="faq" aria-labelledby="t-faq">
+    <h2 id="t-faq">Perguntas frequentes</h2>
+    <details><summary>O que é pace na corrida?</summary><p>Pace é o tempo que você leva para percorrer 1 quilômetro. Um pace de 5:30 min/km significa 5 minutos e 30 segundos a cada km. Quanto menor o pace, mais rápido você corre.</p></details>
+    <details><summary>Como calcular o pace?</summary><p>Divida o tempo total pela distância. Exemplo: 10 km em 55 minutos dá 55 ÷ 10 = 5,5 minutos por km, ou seja, pace de 5:30 min/km.</p></details>
+    <details><summary>Qual a diferença entre pace e velocidade?</summary><p>São a mesma informação vista ao contrário. O pace diz quantos minutos você leva por km; a velocidade diz quantos km você faz por hora. Para converter, divida 60 pelo pace em minutos: pace 5:00 equivale a 12 km/h.</p></details>
+    <details><summary>Como saber minha frequência cardíaca máxima?</summary><p>O jeito mais preciso é um teste de esforço com acompanhamento profissional. Sem teste, fórmulas por idade dão uma estimativa, como 208 − 0,7 × idade (Tanaka) ou 206 − 0,88 × idade para mulheres (Gulati), mas o valor real de cada pessoa pode variar bastante.</p></details>
+    <details><summary>Quais são as zonas de frequência cardíaca na corrida?</summary><p>São cinco faixas de intensidade: Z1 regenerativo (50–60%), Z2 leve ou base aeróbica (60–70%), Z3 moderado (70–80%), Z4 limiar (80–90%) e Z5 máximo (90–100%). Com a frequência de repouso, as faixas são calculadas pela fórmula de Karvonen, que é mais individual.</p></details>
+    <details><summary>A previsão de tempo para a maratona é confiável?</summary><p>É uma estimativa feita pela fórmula de Riegel a partir de uma prova sua. Funciona melhor entre distâncias próximas e quando você tem treino para a distância prevista. Para meia e maratona, o volume de treino pesa muito no resultado real.</p></details>
+    <details><summary>O que é split negativo?</summary><p>É correr a segunda metade da prova mais rápido que a primeira. Começar um pouco mais contido poupa energia e costuma render tempos melhores em provas longas.</p></details>
+  </section>
+  </main>
+</div>
+
+<footer>
+  <a href="https://radardecorrida.com.br/">Radar de Corrida</a> · Calculadora de pace por <a href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener">@amartinscc</a><br>
+  Estimativas para orientar o treino. Não substituem avaliação profissional.
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const MI = 1.609344;
+  const SITE = 'https://radardecorrida.com.br/';
+  const URL_CALC = SITE + 'calculadora-de-pace/';
+  const st = { mode:'pace', unit:'km', split:'igual', allSplits:false, r:null };
+
+  const ev = (nome, props) => { try { if (window.posthog && posthog.capture) posthog.capture(nome, props||{}); } catch(e){} };
+  const num = v => { const n = parseFloat(String(v).replace(',', '.').trim()); return isFinite(n) ? n : NaN; };
+  const int0 = v => { const s = String(v).trim(); if (s === '') return 0; const n = parseInt(s, 10); return isFinite(n) ? n : NaN; };
+  const dec = (n, d=1) => n.toFixed(d).replace('.', ',');
+  const fmtT = sec => { sec = Math.round(sec); const h = Math.floor(sec/3600), m = Math.floor(sec%3600/60), s = sec%60; const p = n => String(n).padStart(2,'0'); return h ? h+':'+p(m)+':'+p(s) : m+':'+p(s); };
+  const fmtP = sec => { sec = Math.round(sec); return Math.floor(sec/60) + ':' + String(sec%60).padStart(2,'0'); };
+  const fmtD = km => { const v = st.unit === 'mi' ? km/MI : km; return v.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.', ',') + ' ' + (st.unit === 'mi' ? 'mi' : 'km'); };
+  const uLbl = () => st.unit === 'mi' ? 'mi' : 'km';
+  const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('show'), 2200); };
+
+  /* ---------- modo e unidade ---------- */
+  function setMode(m){
+    st.mode = m;
+    document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === m));
+    $('f-dist').hidden = m === 'dist';
+    $('f-tempo').hidden = m === 'tempo';
+    $('f-pace').hidden = m === 'pace';
+    calc();
+  }
+  function setUnit(u){
+    if (u === st.unit) return;
+    const km = num($('dist').value);
+    const pace = int0($('pm').value)*60 + int0($('ps').value);
+    if (isFinite(km) && km > 0) $('dist').value = String(+(u === 'mi' ? km/MI : km*MI).toFixed(2)).replace('.', ',');
+    if (pace > 0){ const np = Math.round(u === 'mi' ? pace*MI : pace/MI); $('pm').value = Math.floor(np/60); $('ps').value = String(np%60).padStart(2,'0'); }
+    st.unit = u;
+    document.querySelectorAll('[data-unit]').forEach(b => b.setAttribute('aria-pressed', b.dataset.unit === u));
+    document.querySelectorAll('.u-dist,.u-word').forEach(e => e.textContent = u === 'mi' ? (e.classList.contains('u-word') ? 'milha' : 'mi') : 'km');
+    document.querySelectorAll('.u-cap').forEach(e => e.textContent = u === 'mi' ? 'Milha' : 'Km');
+    calc();
+  }
+
+  /* ---------- cálculo principal ---------- */
+  function calc(){
+    const err = $('r-err'); err.hidden = true;
+    const dIn = num($('dist').value);
+    const h = int0($('th').value), m = int0($('tm').value), s = int0($('ts').value);
+    const pm = int0($('pm').value), ps = int0($('ps').value);
+    const fator = st.unit === 'mi' ? MI : 1;
+    let km, t, pk; // pk = segundos por km
+    const tOk = [h,m,s].every(isFinite) && m < 60 && s < 60 && h >= 0 && m >= 0 && s >= 0;
+    const pOk = isFinite(pm) && isFinite(ps) && ps < 60 && pm >= 0 && ps >= 0 && (pm*60+ps) > 0;
+    const dOk = isFinite(dIn) && dIn > 0 && dIn < 1000;
+    const tSec = h*3600 + m*60 + s;
+    let msg = '';
+    if (st.mode === 'pace'){ if (!dOk) msg = 'Informe a distância.'; else if (!tOk || tSec <= 0) msg = 'Confira o tempo: minutos e segundos vão de 0 a 59.'; else { km = dIn*fator; t = tSec; pk = t/km; } }
+    if (st.mode === 'tempo'){ if (!dOk) msg = 'Informe a distância.'; else if (!pOk) msg = 'Confira o pace: segundos vão de 0 a 59.'; else { km = dIn*fator; pk = (pm*60+ps)/fator; t = pk*km; } }
+    if (st.mode === 'dist'){ if (!tOk || tSec <= 0) msg = 'Confira o tempo: minutos e segundos vão de 0 a 59.'; else if (!pOk) msg = 'Confira o pace: segundos vão de 0 a 59.'; else { t = tSec; pk = (pm*60+ps)/fator; km = t/pk; } }
+    if (msg){ err.textContent = msg; err.hidden = false; st.r = null; return; }
+    if (pk < 120 || pk > 1800){ err.textContent = pk < 120 ? 'Esse pace está rápido demais para corrida. Confira os números.' : 'Pace acima de 30 min/km. Confira os números.'; err.hidden = false; }
+    st.r = { km, t, pk };
+    const pu = pk*fator;
+    const kmh = 3600/pk;
+    const vel = st.unit === 'mi' ? dec(kmh/MI) + ' mph' : dec(kmh) + ' km/h';
+
+    if (st.mode === 'pace'){ $('r-label').textContent = 'Seu pace'; $('r-main').textContent = fmtP(pu); $('r-unit').textContent = '/' + uLbl();
+      $('g1l').textContent = 'Distância'; $('g1').textContent = fmtD(km); $('g2l').textContent = 'Tempo'; $('g2').textContent = fmtT(t); }
+    if (st.mode === 'tempo'){ $('r-label').textContent = 'Seu tempo'; $('r-main').textContent = fmtT(t); $('r-unit').textContent = t >= 3600 ? 'h:min:s' : 'min:s';
+      $('g1l').textContent = 'Distância'; $('g1').textContent = fmtD(km); $('g2l').textContent = 'Pace'; $('g2').textContent = fmtP(pu) + '/' + uLbl(); }
+    if (st.mode === 'dist'){ $('r-label').textContent = 'Você corre'; const v = st.unit === 'mi' ? km/MI : km; $('r-main').textContent = dec(v, 2); $('r-unit').textContent = uLbl();
+      $('g1l').textContent = 'Tempo'; $('g1').textContent = fmtT(t); $('g2l').textContent = 'Pace'; $('g2').textContent = fmtP(pu) + '/' + uLbl(); }
+    $('g3').textContent = vel;
+
+    // chips
+    document.querySelectorAll('#chips button').forEach(b => b.classList.toggle('on', Math.abs(+b.dataset.km - km) < 0.01));
+
+    previsao(); parciais(); ritmos(); fc(); salvarURL(); evCalc();
+  }
+
+  /* ---------- previsão (Riegel) ---------- */
+  const PROVAS = [['5 km',5],['10 km',10],['15 km',15],['Meia maratona',21.0975],['Maratona',42.195]];
+  const riegel = (t, d1, d2) => t * Math.pow(d2/d1, 1.06);
+  function previsao(){
+    const { km, t } = st.r; const f = st.unit === 'mi' ? MI : 1;
+    $('t-pred').innerHTML = PROVAS.map(([n,d]) => { const tt = Math.abs(d-km) < 0.01 ? t : riegel(t, km, d);
+      return `<tr${Math.abs(d-km) < 0.01 ? ' class="me"' : ''}><th scope="row">${n}</th><td>${fmtT(tt)}</td><td>${fmtP(tt/d*f)}/${uLbl()}</td></tr>`; }).join('');
+  }
+
+  /* ---------- parciais ---------- */
+  function parciais(){
+    const { km, pk } = st.r; const f = st.unit === 'mi' ? MI : 1;
+    const totU = km/f, n = Math.ceil(totU - 1e-9), metade = km/2;
+    const paceEm = x => st.split === 'neg' ? (x < metade ? pk*1.02 : pk*0.98) : pk; // s/km
+    const tempoAte = xKm => st.split === 'neg' ? (Math.min(xKm, metade)*pk*1.02 + Math.max(0, xKm - metade)*pk*0.98) : xKm*pk;
+    if (n > 200){ $('t-split-b').innerHTML = ''; return; }
+    const rows = [];
+    for (let i = 1; i <= n; i++){
+      const fimKm = Math.min(i*f, km), iniKm = (i-1)*f;
+      const seg = tempoAte(fimKm) - tempoAte(iniKm), len = (fimKm - iniKm)/f;
+      const lbl = fimKm >= km - 1e-9 && Math.abs(len - 1) > 1e-6 ? dec(totU, 2).replace(/,?0+$/, '') : i;
+      rows.push(`<tr><th scope="row">${lbl}</th><td>${fmtP(seg/len)}</td><td>${fmtT(tempoAte(fimKm))}</td></tr>`);
+    }
+    const lim = 12, show = st.allSplits || rows.length <= lim + 2;
+    $('t-split-b').innerHTML = (show ? rows : rows.slice(0, lim)).join('');
+    $('b-more').hidden = show;
+    $('b-more').textContent = `Ver todas as ${rows.length} parciais`;
+    $('n-split').hidden = st.split !== 'neg';
+  }
+
+  /* ---------- VDOT e ritmos de treino ---------- */
+  const vo2 = v => -4.60 + 0.182258*v + 0.000104*v*v;              // v em m/min
+  const pctMax = tm => 0.8 + 0.1894393*Math.exp(-0.012778*tm) + 0.2989558*Math.exp(-0.1932605*tm);
+  const velDe = alvo => (-0.182258 + Math.sqrt(0.182258*0.182258 + 4*0.000104*(alvo + 4.60))) / (2*0.000104);
+  const paceDe = (vd, p) => 60000 / velDe(vd*p);                       // s/km
+  const RITMOS = [
+    { n:'Leve', e:'regenerativo e base', a:.59, b:.74, c:'--z2', d:'Dá para conversar. A maior parte do volume da semana.' },
+    { n:'Maratona', e:'ritmo de prova longa', a:.75, b:.84, c:'--z3', d:'Firme e controlado. Treinos longos com ritmo.' },
+    { n:'Limiar', e:'tempo run', a:.83, b:.88, c:'--z4', d:'Confortavelmente difícil, de 20 a 40 min contínuos.' },
+    { n:'Intervalado', e:'VO₂máx', a:.95, b:1.00, c:'--z5', d:'Tiros de 3 a 5 min com pausa igual ou menor.' },
+    { n:'Tiro curto', e:'velocidade', a:1.05, b:1.10, c:'--hot', d:'Repetições de 200 a 400 m com pausa completa.' }
+  ];
+  function calcVdot(km, t){ const tm = t/60; if (km < 1.5 || tm < 3.5 || tm > 300) return null; return vo2(km*1000/tm) / pctMax(tm); }
+  function ritmos(){
+    const { km, t } = st.r; const vd = calcVdot(km, t); const f = st.unit === 'mi' ? MI : 1;
+    st.vdot = vd;
+    $('vdot-ok').hidden = !vd; $('vdot-no').hidden = !!vd;
+    if (!vd) return;
+    $('vdot').textContent = dec(vd);
+    $('z-pace').innerHTML = RITMOS.map(z => {
+      const lento = paceDe(vd, z.a)*f, rapido = paceDe(vd, z.b)*f;
+      return `<div class="zone" style="--c:var(${z.c})"><i></i><div><div class="zn">${z.n}<em>${z.e}</em></div><div class="zd">${z.d}</div></div><div class="zv">${fmtP(rapido)}–${fmtP(lento)}<small>/${uLbl()}</small></div></div>`;
+    }).join('');
+    fc();
+  }
+
+  /* ---------- zonas de FC ---------- */
+  const ZFC = [
+    { z:'Z1', n:'Regenerativo', a:.50, b:.60, c:'--z1', d:'Aquecimento, desaquecimento e recuperação.', r:[.50,.59] },
+    { z:'Z2', n:'Leve', a:.60, b:.70, c:'--z2', d:'Base aeróbica. Dá para conversar.', r:[.59,.74] },
+    { z:'Z3', n:'Moderado', a:.70, b:.80, c:'--z3', d:'Ritmo de prova longa. Frases curtas.', r:[.75,.84] },
+    { z:'Z4', n:'Limiar', a:.80, b:.90, c:'--z4', d:'Forte e sustentável. Poucas palavras.', r:[.83,.88] },
+    { z:'Z5', n:'Máximo', a:.90, b:1.00, c:'--z5', d:'Tiros curtos. Sem fôlego para falar.', r:[.95,1.00] }
+  ];
+  let fcLog = false;
+  function fc(){
+    const idade = int0($('idade').value), sexo = $('sexo').value;
+    const rep = int0($('fcr').value), maxM = int0($('fcm').value), peso = num($('peso').value);
+    const idadeOk = $('idade').value.trim() !== '' && idade >= 10 && idade <= 90;
+    const repOk = $('fcr').value.trim() !== '' && rep >= 30 && rep <= 110;
+    const maxOk = $('fcm').value.trim() !== '' && maxM >= 120 && maxM <= 230;
+    let fcmax = null, origem = '';
+    if (maxOk){ fcmax = maxM; origem = 'FC máx. medida'; }
+    else if (idadeOk){ fcmax = sexo === 'f' ? Math.round(206 - 0.88*idade) : Math.round(208 - 0.7*idade); origem = sexo === 'f' ? 'FC máx. estimada (Gulati)' : 'FC máx. estimada (Tanaka)'; }
+    $('fc-out').hidden = !fcmax; $('fc-vazio').hidden = !!fcmax;
+    if (fcmax){
+      const kv = repOk && rep < fcmax - 40;
+      const bpm = p => Math.round(kv ? rep + p*(fcmax - rep) : p*fcmax);
+      $('fc-metodo').textContent = `${origem}: ${fcmax} bpm · ${kv ? 'Karvonen (com FC de repouso)' : '% da FC máxima'}`;
+      const f = st.unit === 'mi' ? MI : 1, vd = st.vdot;
+      $('z-fc').innerHTML = ZFC.map(z => {
+        const pace = vd ? `<small>${fmtP(paceDe(vd, z.r[1])*f)}–${fmtP(paceDe(vd, z.r[0])*f)}/${uLbl()}</small>` : '<small>bpm</small>';
+        return `<div class="zone" style="--c:var(${z.c})"><i></i><div><div class="zn">${z.z} · ${z.n}<em>${Math.round(z.a*100)}–${Math.round(z.b*100)}%</em></div><div class="zd">${z.d}</div></div><div class="zv">${bpm(z.a)}–${bpm(z.b)}${vd ? ' bpm' : ''}${pace}</div></div>`;
+      }).join('');
+      if (!fcLog){ fcLog = true; ev('calc_zonas_fc', { metodo: kv ? 'karvonen' : 'percentual', fcmax_medida: maxOk }); }
+    }
+    const pesoOk = isFinite(peso) && peso >= 30 && peso <= 200;
+    $('kcal').hidden = !(pesoOk && st.r);
+    if (pesoOk && st.r){ $('kcal-v').textContent = '≈ ' + Math.round(peso * st.r.km).toLocaleString('pt-BR') + ' kcal'; $('kcal-t').textContent = `gasto estimado em ${fmtD(st.r.km)} (cerca de 1 kcal por kg a cada km)`; }
+  }
+
+  /* ---------- link do resultado ---------- */
+  function linkAtual(){
+    const q = new URLSearchParams();
+    q.set('m', st.mode); if (st.unit === 'mi') q.set('u', 'mi');
+    if (st.mode !== 'dist') q.set('d', $('dist').value.replace(',', '.'));
+    if (st.mode !== 'tempo') q.set('t', [int0($('th').value), int0($('tm').value), int0($('ts').value)].join('-'));
+    if (st.mode !== 'pace') q.set('p', int0($('pm').value) + '-' + int0($('ps').value));
+    return URL_CALC + '?' + q.toString();
+  }
+  function salvarURL(){ try { history.replaceState(null, '', location.pathname + '?' + linkAtual().split('?')[1]); } catch(e){} }
+  function lerURL(){
+    const q = new URLSearchParams(location.search);
+    if (q.get('u') === 'mi'){ st.unit = 'mi'; document.querySelectorAll('[data-unit]').forEach(b => b.setAttribute('aria-pressed', b.dataset.unit === 'mi')); document.querySelectorAll('.u-dist').forEach(e => e.textContent = 'mi'); document.querySelectorAll('.u-word').forEach(e => e.textContent = 'milha'); document.querySelectorAll('.u-cap').forEach(e => e.textContent = 'Milha'); }
+    if (q.get('d') && isFinite(num(q.get('d')))) $('dist').value = String(num(q.get('d'))).replace('.', ',');
+    const t = (q.get('t')||'').split('-'); if (t.length === 3 && t.every(x => /^\d+$/.test(x))){ $('th').value = +t[0]; $('tm').value = +t[1]; $('ts').value = +t[2]; }
+    const p = (q.get('p')||'').split('-'); if (p.length === 2 && p.every(x => /^\d+$/.test(x))){ $('pm').value = +p[0]; $('ps').value = String(+p[1]).padStart(2,'0'); }
+    return ['pace','tempo','dist'].includes(q.get('m')) ? q.get('m') : 'pace';
+  }
+
+  /* ---------- métricas (só o tipo de cálculo, nunca dados pessoais) ---------- */
+  let evT;
+  function evCalc(){ clearTimeout(evT); evT = setTimeout(() => {
+    const km = st.r && st.r.km; const nome = !km ? 'outra' : [[5,'5k'],[10,'10k'],[15,'15k'],[21.0975,'meia'],[42.195,'maratona']].find(([d]) => Math.abs(d-km) < 0.05)?.[1] || 'outra';
+    ev('calc_calculo', { modo: st.mode, unidade: st.unit, prova: nome }); }, 2500); }
+
+  /* ---------- imagem para compartilhar ---------- */
+  function rr(ctx, x, y, w, h, r){ ctx.beginPath(); ctx.moveTo(x+r, y); ctx.arcTo(x+w, y, x+w, y+h, r); ctx.arcTo(x+w, y+h, x, y+h, r); ctx.arcTo(x, y+h, x, y, r); ctx.arcTo(x, y, x+w, y, r); ctx.closePath(); }
+  async function cardImagem(){
+    const W = 1080, H = 1920, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+    try { await document.fonts.ready; } catch(e){}
+    const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#BBE3E5'); g.addColorStop(.45, '#D9C1D9'); g.addColorStop(1, '#F6F0F6'); x.fillStyle = g; x.fillRect(0, 0, W, H);
+    const D = '"Urbanist", sans-serif', B = '"Plus Jakarta Sans", sans-serif', ink = '#1D1220', mut = '#6B5A6E', acc = '#7A4E7D';
+    x.textAlign = 'center';
+    x.fillStyle = acc; x.font = `700 34px ${B}`; x.fillText('RADAR DE CORRIDA  ·  CALCULADORA DE PACE', W/2, 190);
+    const { km, t, pk } = st.r; const f = st.unit === 'mi' ? MI : 1;
+    let big, bigU, lab;
+    if (st.mode === 'tempo'){ lab = 'MEU TEMPO PREVISTO'; big = fmtT(t); bigU = fmtD(km); }
+    else if (st.mode === 'dist'){ lab = 'EU CORRO'; big = fmtD(km); bigU = 'em ' + fmtT(t); }
+    else { lab = 'MEU PACE'; big = fmtP(pk*f); bigU = '/' + uLbl(); }
+    x.fillStyle = mut; x.font = `700 40px ${B}`; x.fillText(lab, W/2, 420);
+    x.fillStyle = ink; x.font = `800 ${big.length > 6 ? 210 : 260}px ${D}`; x.fillText(big, W/2, 650);
+    x.fillStyle = mut; x.font = `600 56px ${B}`; x.fillText(bigU, W/2, 740);
+    // cartão com dados
+    x.fillStyle = 'rgba(255,255,255,.82)'; rr(x, 90, 830, W-180, 600, 48); x.fill();
+    const linhas = [['Distância', fmtD(km)], ['Tempo', fmtT(t)], ['Pace', fmtP(pk*f) + '/' + uLbl()], ['Velocidade', st.unit === 'mi' ? dec(3600/pk/MI) + ' mph' : dec(3600/pk) + ' km/h']];
+    if (calcVdot(km, t)){ linhas.push(['Previsão 10 km', fmtT(Math.abs(km-10) < .01 ? t : riegel(t, km, 10))]); linhas.push(['Previsão meia', fmtT(Math.abs(km-21.0975) < .01 ? t : riegel(t, km, 21.0975))]); }
+    linhas.forEach(([a, b], i) => { const y = 920 + i*88; x.textAlign = 'left'; x.fillStyle = mut; x.font = `600 40px ${B}`; x.fillText(a, 150, y); x.textAlign = 'right'; x.fillStyle = ink; x.font = `800 48px ${D}`; x.fillText(b, W-150, y); });
+    // avatar
+    const av = document.querySelector('.avatar img');
+    try { if (av && av.complete && av.naturalWidth){ x.save(); x.beginPath(); x.arc(W/2, 1580, 90, 0, Math.PI*2); x.closePath(); x.clip(); x.drawImage(av, W/2-90, 1490, 180, 180); x.restore(); x.lineWidth = 8; x.strokeStyle = '#B28AB1'; x.beginPath(); x.arc(W/2, 1580, 94, 0, Math.PI*2); x.stroke(); } } catch(e){}
+    x.textAlign = 'center'; x.fillStyle = ink; x.font = `800 46px ${D}`; x.fillText('@amartinscc', W/2, 1735);
+    x.fillStyle = acc; x.font = `600 36px ${B}`; x.fillText('radardecorrida.com.br/calculadora-de-pace', W/2, 1800);
+    return new Promise(res => c.toBlob(res, 'image/png'));
+  }
+  async function compartilhar(){
+    if (!st.r) return;
+    const link = linkAtual();
+    const txt = st.mode === 'tempo' ? `Meu tempo previsto: ${fmtT(st.r.t)} em ${fmtD(st.r.km)}.` : st.mode === 'dist' ? `Corro ${fmtD(st.r.km)} em ${fmtT(st.r.t)}.` : `Meu pace: ${fmtP(st.r.pk*(st.unit === 'mi' ? MI : 1))}/${uLbl()} em ${fmtD(st.r.km)}.`;
+    const texto = `${txt} Calcule o seu na calculadora de pace da @amartinscc:`;
+    try {
+      const blob = await cardImagem();
+      const file = blob && new File([blob], 'meu-pace.png', { type: 'image/png' });
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })){
+        await navigator.share({ files: [file], text: texto + ' ' + link, title: 'Calculadora de pace' }); ev('calc_compartilhar', { canal: 'imagem' }); return;
+      }
+      if (navigator.share){ await navigator.share({ text: texto, url: link, title: 'Calculadora de pace' }); ev('calc_compartilhar', { canal: 'link' }); return; }
+      if (blob){ const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'meu-pace.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); toast('Imagem salva. Poste no story com o adesivo de link!'); ev('calc_compartilhar', { canal: 'download' }); }
+    } catch(e){ if (e && e.name !== 'AbortError') toast('Não deu para compartilhar agora.'); }
+  }
+  async function copiarLink(){
+    const link = linkAtual();
+    try { await navigator.clipboard.writeText(link); toast('Link copiado'); }
+    catch(e){ const i = document.createElement('textarea'); i.value = link; document.body.appendChild(i); i.select(); try { document.execCommand('copy'); toast('Link copiado'); } catch(_){} i.remove(); }
+    ev('calc_copiar_link');
+  }
+
+  /* ---------- próximas provas do radar ---------- */
+  const slugTxt = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70).replace(/-+$/,'');
+  const MES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const esc = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  async function provas(){
+    try {
+      const html = await (await fetch(SITE, { cache: 'no-cache' })).text();
+      const m = html.match(/<script id="radar-data" type="application\/json">([\s\S]*?)<\/script>/); if (!m) return;
+      const lista = (JSON.parse(m[1]).provas || []);
+      const base = lista.map(p => slugTxt(p.nome) + '-' + p.data);
+      lista.forEach((p, i) => { p.slug = base.filter(v => v === base[i]).length > 1 ? base[i] + '-' + slugTxt((p.cidade||'') + ' ' + (p.uf||'RJ')) : base[i]; });
+      const agora = new Date(), hoje = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(agora);
+      const hora = +new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Sao_Paulo', hour: '2-digit', hour12: false }).format(agora);
+      const prox = lista.filter(p => (hora >= 12 ? p.data > hoje : p.data >= hoje) && p.status !== 'cancelada' && (p.uf||'RJ') === 'RJ')
+        .sort((a,b) => (a.data + (a.aline?'0':'1') + (a.hora||'')).localeCompare(b.data + (b.aline?'0':'1') + (b.hora||''))).slice(0, 4);
+      if (!prox.length) return;
+      $('races').innerHTML = prox.map(p => { const [y, mo, d] = p.data.split('-');
+        return `<a class="race" href="${SITE}#prova=${encodeURIComponent(p.slug)}" data-ev="prova"><div class="dt"><b>${+d}</b><small>${MES[+mo-1]}</small></div><div><div class="rn">${esc(p.nome)}</div><div class="rl">${esc([p.cidade || p.local, p.distancias].filter(Boolean).join(' · '))}</div>${p.aline ? '<span class="tag">A Aline vai correr</span>' : ''}</div></a>`; }).join('');
+      $('provas').hidden = false;
+    } catch(e){}
+  }
+
+  /* ---------- eventos ---------- */
+  document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  document.querySelectorAll('[data-unit]').forEach(b => b.addEventListener('click', () => setUnit(b.dataset.unit)));
+  document.querySelectorAll('#chips button').forEach(b => b.addEventListener('click', () => { const km = +b.dataset.km; $('dist').value = String(+(st.unit === 'mi' ? km/MI : km).toFixed(st.unit === 'mi' ? 2 : 4)).replace('.', ','); calc(); }));
+  document.querySelectorAll('[data-split]').forEach(b => b.addEventListener('click', () => { st.split = b.dataset.split; document.querySelectorAll('[data-split]').forEach(x => x.setAttribute('aria-pressed', x === b)); if (st.r) parciais(); }));
+  ['dist','th','tm','ts','pm','ps'].forEach(id => $(id).addEventListener('input', calc));
+  ['idade','sexo','fcr','fcm','peso'].forEach(id => $(id).addEventListener('input', fc));
+  document.querySelectorAll('input').forEach(i => i.addEventListener('focus', () => i.select()));
+  $('b-more').addEventListener('click', () => { st.allSplits = true; parciais(); });
+  $('b-share').addEventListener('click', compartilhar);
+  $('b-link').addEventListener('click', copiarLink);
+  document.addEventListener('click', e => { const a = e.target.closest && e.target.closest('[data-ev]'); if (!a) return;
+    if (a.dataset.ev === 'ig') ev('seguir_instagram', { botao: 'calculadora_' + a.dataset.origem });
+    if (a.dataset.ev === 'radar') ev('clique_radar', { origem: 'calculadora_' + a.dataset.origem });
+    if (a.dataset.ev === 'prova') ev('clique_prova', { origem: 'calculadora', prova: (a.querySelector('.rn')||{}).textContent }); });
+
+  setMode(lerURL());
+  if ('IntersectionObserver' in window){ const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)){ io.disconnect(); provas(); } }, { rootMargin: '600px' }); io.observe($('zonas')); } else provas();
+})();
+</script>
+</body>
+</html>
