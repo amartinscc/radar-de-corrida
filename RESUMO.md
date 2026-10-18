@@ -44,6 +44,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Home: título "Calendário de Corridas de Rua no Rio e no Brasil | Radar de Corrida" (no `src/template.html`), descrição, canonical e robots no cabeçalho do `index.html` (o `build.py` preserva o cabeçalho). Dados estruturados WebSite + Person + FAQPage no template; o FAQ visível fica no bloco `.sobre`, no fim da página. Mudar o FAQ visível e o do JSON-LD juntos.
 - Páginas de prova: indexáveis, com título "<nome> – <data>, <cidade>" e dados estruturados SportsEvent (só com dados do radar). **Não redirecionam mais sozinhas**: só vão para o radar quando o link tem `?c=1`, que o botão de compartilhar acrescenta. Quem vem do Google vê a página da prova.
 - Páginas de tênis e de provas encerradas: `noindex` (continuam no ar para compartilhar).
+- Google Search Console: verificação pelo arquivo `google46ef085f7a7a7d5c.html` na raiz. **Nunca apagar nem alterar** (o Google confere de tempos em tempos).
 - `sitemap.xml` é gerado pelo `src/paginas.py` (home, calculadora e provas ativas). `robots.txt` aponta para ele.
 
 ## Tarefas agendadas (atualização automática)
