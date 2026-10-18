@@ -25,7 +25,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 
 ## Páginas de compartilhamento (desde 16/10/2026)
 - Cada prova (de hoje em diante) e cada tênis em oferta tem endereço próprio: `radardecorrida.com.br/prova/<slug>/` e `/tenis/<slug>/`. Slug da prova = nome + data; do tênis = marca + nome + gênero (com cidade/UF ou loja só se repetir). A regra está em `src/paginas.py` e na função `slugTxt` do template: mudar as duas juntas.
-- `python3 src/paginas.py` gera essas páginas e a imagem de prévia 1200x630 de cada item (`og/`), com os metadados Open Graph no HTML. Só regrava imagens de itens que mudaram (`og/manifest.json`). **Rodar sempre depois de mudar os dados** (as tarefas rodam). Fontes das imagens em `src/fontes` (Outfit e Inter, licença OFL).
+- `python3 src/paginas.py` gera essas páginas e a imagem de prévia 1200x630 de cada item (`og/`), com os metadados Open Graph no HTML. Só regrava imagens de itens que mudaram (`og/manifest.json`). **Rodar sempre depois de mudar os dados** (a tarefa diária roda). Fontes das imagens em `src/fontes` (Outfit e Inter, licença OFL).
 - A página do item leva para o radar (`/#prova=<slug>` ou `/#tenis=<slug>`), que abre a aba, o estado e destaca o card. Item que saiu do radar: a página continua no ar com aviso e botão para o radar.
 - Folha de compartilhar: "Compartilhar imagem e link" (menu do celular, manda a arte de story + texto com o link), "Enviar link no WhatsApp" e "Copiar link". A foto enviada sozinha nunca vira link; o que abre o radar é o link/prévia. Stories: publicar a imagem e pôr o adesivo de Link.
 - O WhatsApp guarda a prévia de um link por um tempo: mudanças na imagem podem demorar a aparecer em links já enviados.
@@ -40,12 +40,17 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Links para a calculadora na home: botão discreto no topo (`.calc-link`) e uma linha antes da nota de preços, no `src/template.html`.
 - SEO: título e descrição próprios, canonical, Open Graph, dados estruturados (WebApplication, BreadcrumbList, FAQPage igual ao FAQ visível), tabela de pace em HTML. `sitemap.xml` e `robots.txt` na raiz.
 
+## SEO (desde 17/10/2026)
+- Home: título "Calendário de Corridas de Rua no Rio e no Brasil | Radar de Corrida" (no `src/template.html`), descrição, canonical e robots no cabeçalho do `index.html` (o `build.py` preserva o cabeçalho). Dados estruturados WebSite + Person + FAQPage no template; o FAQ visível fica no bloco `.sobre`, no fim da página. Mudar o FAQ visível e o do JSON-LD juntos.
+- Páginas de prova: indexáveis, com título "<nome> – <data>, <cidade>" e dados estruturados SportsEvent (só com dados do radar). **Não redirecionam mais sozinhas**: só vão para o radar quando o link tem `?c=1`, que o botão de compartilhar acrescenta. Quem vem do Google vê a página da prova.
+- Páginas de tênis e de provas encerradas: `noindex` (continuam no ar para compartilhar).
+- `sitemap.xml` é gerado pelo `src/paginas.py` (home, calculadora e provas ativas). `robots.txt` aponta para ele.
+
 ## Tarefas agendadas (atualização automática)
-Ambas leem o JSON do `index.html`, trocam só os campos delas, fazem commit e push na `main`. Não usam artifact nem a ferramenta add_repo (o repositório já vem clonado em `/home/claude/radar-de-corrida`).
-- **Radar de Corrida da Aline (atualização completa)** — todo dia às **6h48** (Brasília). Tênis, provas (RJ todo dia + rodízio semanal de estados), campanhas dos parceiros. Usa todas as fontes listadas nas instruções, inclusive a lista de eventos em destaque da Ticket Sports (`lnk.bio/TicketSports`, sem datas: abrir cada página /e/ do evento). Também completa capas que faltam (até ~30 por dia, RJ primeiro).
-- **Radar de Corrida da Aline: ofertas de tênis** — todo dia às **18h45**. Só `ofertas` e `ofertas_atualizado` (Telegram Tênis Certo Cupons e Mania de Corrida, Pelando, Promobit).
-- Ambas rodam `python3 src/paginas.py` antes do commit e fazem `git add -A` (index.html, prova/, tenis/, og/).
-- Regra: ao mudar o site ou as regras do radar, **atualize também as instruções das duas tarefas**, para a atualização automática não desfazer a mudança.
+**Uma única atualização por dia** (decisão de 17/10/2026): a tarefa **Radar de Corrida da Aline (atualização completa)**, todo dia às **6h48** (Brasília), atualiza tênis, provas (RJ todo dia + rodízio semanal de estados) e campanhas dos parceiros. Usa todas as fontes listadas nas instruções, inclusive a lista de eventos em destaque da Ticket Sports (`lnk.bio/TicketSports`, sem datas: abrir cada página /e/ do evento). Também completa capas que faltam (até ~30 por dia, RJ primeiro).
+- A antiga tarefa de ofertas de tênis das 18h45 foi **desativada** (as fontes dela, Telegram, Pelando e Promobit, já estão na atualização completa). Não reativar sem pedido.
+- A tarefa lê o JSON do `index.html`, troca só os campos dela, roda `python3 src/paginas.py` (páginas, imagens e sitemap), faz `git add -A`, commit e push na `main`. Não usa artifact nem a ferramenta add_repo (o repositório já vem clonado em `/home/claude/radar-de-corrida`). Nunca mexe em `calculadora-de-pace/`, `src/`, `robots.txt` nem no cabeçalho do `index.html`.
+- Regra: ao mudar o site ou as regras do radar, **atualize também as instruções da tarefa**, para a atualização automática não desfazer a mudança.
 - Por que o envio ao GitHub falhava até 13/10: as instruções mandavam usar a ferramenta add_repo, que não existe nas execuções agendadas; as tarefas paravam ali. O git funciona normalmente quando a tarefa é criada a partir de uma conversa que já tem o repositório ligado.
 
 ## Métricas (PostHog)
