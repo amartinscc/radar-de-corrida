@@ -176,13 +176,17 @@ CSS = ('*{box-sizing:border-box}body{margin:0;font-family:"Plus Jakarta Sans",sy
        'h1{font:800 28px/1.1 system-ui,sans-serif;margin:0}p{margin:0;color:#6B5A6E}'
        'a.b{display:block;text-align:center;padding:13px 18px;border-radius:999px;text-decoration:none;font-weight:700}'
        'a.p{background:#B28AB1;color:#1D1220}a.s{background:#fff;color:#7A4E7D;border:1.5px solid #B28AB1}'
-       '.n{background:#FFF0DC;color:#9A5B00;padding:10px 14px;border-radius:14px;font-weight:600}')
+       '.x{text-align:center;font-size:14px}.x a{color:#7A4E7D}.n{background:#FFF0DC;color:#9A5B00;padding:10px 14px;border-radius:14px;font-weight:600}')
 
 
-def pagina(tipo, sl, titulo, desc, img, destino, ext_label, ext_link, ativo):
+def pagina(tipo, sl, titulo, desc, img, destino, ext_label, ext_link, ativo, titulo_busca=None, ld=None):
     url = SITE + tipo + '/' + sl + '/'
     e = html.escape
-    redir = (f'<script>location.replace("/#{tipo}={sl}");</script>' if ativo else '')
+    # Só quem chega por um link compartilhado (?c=1) vai direto para o radar; quem vem do Google vê a página da prova.
+    redir = (f'<script>if(/[?&]c=1(&|$)/.test(location.search))location.replace("/#{tipo}={sl}");</script>' if ativo else '')
+    # Indexar só provas ativas; tênis (preço muda todo dia) e páginas encerradas ficam fora da busca.
+    robots = 'index,follow,max-image-preview:large' if (ativo and tipo == 'prova') else 'noindex,follow'
+    ldj = ('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>') if ld else ''
     aviso = '' if ativo else ('<p class="n">' + ('Essa prova já aconteceu ou saiu do radar.' if tipo == 'prova' else 'Essa oferta não está mais no radar. Veja as ofertas de hoje.') + '</p>')
     ext = f'<a class="b s" href="{e(ext_link)}" target="_blank" rel="noopener">{e(ext_label)}</a>' if (ativo and ext_link) else ''
     return f'''<!doctype html>
@@ -190,8 +194,9 @@ def pagina(tipo, sl, titulo, desc, img, destino, ext_label, ext_link, ativo):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{e(titulo)} · Radar de Corrida da Aline</title>
+<title>{e(titulo_busca or titulo)} · Radar de Corrida</title>
 <meta name="description" content="{e(desc)}">
+<meta name="robots" content="{robots}">
 <link rel="canonical" href="{url}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -209,6 +214,7 @@ def pagina(tipo, sl, titulo, desc, img, destino, ext_label, ext_link, ativo):
 <meta name="theme-color" content="#BBE3E5">
 <link rel="icon" type="image/png" href="/favicon.png">
 <style>{CSS}</style>
+{ldj}
 {redir}
 </head>
 <body>
@@ -219,10 +225,40 @@ def pagina(tipo, sl, titulo, desc, img, destino, ext_label, ext_link, ativo):
 <p>{e(desc)}</p>
 <a class="b p" href="/{destino}">Ver no Radar de Corrida da Aline</a>
 {ext}
+<p class="x"><a href="/calculadora-de-pace/">Calcule seu pace e a previsão de tempo para a prova</a></p>
 </main>
 </body>
 </html>
 '''
+
+
+def evento(p, sl, img, desc):
+    """Dados estruturados (schema.org SportsEvent) só com o que está no radar."""
+    uf = p.get('uf') or 'RJ'
+    cidade = p.get('cidade') or ('Rio de Janeiro' if uf == 'RJ' else '')
+    end = {'@type': 'PostalAddress', 'addressRegion': uf, 'addressCountry': 'BR'}
+    if cidade: end['addressLocality'] = cidade
+    if p.get('local'): end['streetAddress'] = p['local']
+    lugar = {'@type': 'Place', 'name': p.get('local') or cidade or uf, 'address': end}
+    if p.get('lat') is not None and p.get('lng') is not None:
+        lugar['geo'] = {'@type': 'GeoCoordinates', 'latitude': p['lat'], 'longitude': p['lng']}
+    inicio = p['data'] + (f"T{p['hora']}:00-03:00" if re.fullmatch(r'\d{2}:\d{2}', p.get('hora') or '') else '')
+    ev = {'@context': 'https://schema.org', '@type': 'SportsEvent', 'name': p['nome'], 'startDate': inicio,
+          'eventAttendanceMode': 'https://schema.org/OfflineEventAttendanceMode',
+          'eventStatus': 'https://schema.org/EventCancelled' if p.get('status') == 'cancelada' else 'https://schema.org/EventPostponed' if p.get('status') == 'adiada' else 'https://schema.org/EventScheduled',
+          'sport': 'Corrida de rua', 'location': lugar, 'image': [SITE + img], 'description': desc, 'url': SITE + 'prova/' + sl + '/'}
+    if p.get('link'): ev['offers'] = {'@type': 'Offer', 'url': p['link'], 'availability': 'https://schema.org/SoldOut' if p.get('status') == 'esgotada' else 'https://schema.org/InStock'}
+    return ev
+
+
+def sitemap(provas_ativas, hoje):
+    urls = [(SITE, 'daily', '1.0', hoje), (SITE + 'calculadora-de-pace/', 'monthly', '0.9', None)]
+    urls += [(SITE + 'prova/' + sl + '/', 'weekly', '0.6', None) for sl in sorted(provas_ativas)]
+    linhas = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for u, f, pr, lm in urls:
+        linhas.append(f'  <url><loc>{html.escape(u)}</loc>' + (f'<lastmod>{lm}</lastmod>' if lm else '') + f'<changefreq>{f}</changefreq><priority>{pr}</priority></url>')
+    linhas.append('</urlset>')
+    (root / 'sitemap.xml').write_text('\n'.join(linhas) + '\n')
 
 
 def main():
@@ -257,8 +293,10 @@ def main():
             lugar = it.get('local') or ''
             if (it.get('uf') or 'RJ') != 'RJ': lugar = ', '.join(x for x in [lugar, (it.get('cidade') or '') + ' - ' + it['uf']] if x)
             partes = [f'{dd:02d} de {MESF[m - 1]} de {y}', lugar, it.get('distancias'), ST.get(it.get('status'))]
-            desc = ' · '.join(x for x in partes if x) + ('. A Aline vai correr!' if it.get('aline') else '') + ' Achado no Radar de Corrida da Aline.'
-            html_ = pagina('prova', sl, it['nome'], desc, img, f'#prova={sl}', 'Ver inscrição', it.get('link'), True)
+            desc = ' · '.join(x for x in partes if x) + ('. A Aline vai correr!' if it.get('aline') else '.') + ' Achado no Radar de Corrida da Aline.'
+            cidade = it.get('cidade') or ('Rio de Janeiro' if (it.get('uf') or 'RJ') == 'RJ' else '')
+            tb = f"{it['nome']} – {dd} de {MESF[m - 1]} de {y}" + (f", {cidade}" if cidade else '')
+            html_ = pagina('prova', sl, it['nome'], desc, img, f'#prova={sl}', 'Ver inscrição', it.get('link'), True, tb, evento(it, sl, img, desc))
         else:
             off = round((1 - it['preco'] / it['de']) * 100)
             titulo = f"{it['nome']} por {brl(it['preco'])} (-{off}%)"
@@ -278,7 +316,7 @@ def main():
             f = pasta / 'index.html'
             if not f.exists(): continue
             atual = f.read_text()
-            if 'location.replace' not in atual: continue  # já encerrada
+            if 'location.replace' not in atual and 'noindex' in atual: continue  # já encerrada
             img = f'og/{tipo}-{pasta.name}.jpg'
             if (root / img).exists(): novos_man[img] = man.get(img, '')
             tit = html.unescape(re.search(r'<meta property="og:title" content="([^"]*)"', atual).group(1))
@@ -287,6 +325,7 @@ def main():
             encerradas += 1
     for img in man:
         if img not in novos_man and (root / img).exists(): novos_man[img] = man[img]  # imagens de páginas encerradas
+    sitemap(ativos['prova'], hoje)
     manpath.write_text(json.dumps(novos_man, ensure_ascii=False, indent=0, sort_keys=True))
     print(f'páginas: {len(ativos["prova"])} provas, {len(ativos["tenis"])} tênis; imagens novas/alteradas: {gravadas}; encerradas agora: {encerradas}')
 
