@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Painel do Radar</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Painel privado de métricas do Radar de Corrida. Dados em dados.json (gerado por src/painel.py). Mesma paleta do site. */
+:root{
+  --g1:#BBE3E5; --g2:#D9C1D9; --bg:#F6F0F6; --surface:#FFFFFF; --ink:#1D1220; --muted:#6B5A6E; --line:#E7DAE8;
+  --accent:#7A4E7D; --mauve:#B28AB1; --hot:#B4501F; --good:#2E7A55; --soft:#EFE3EF; --bar:#7A4E7D; --bar2:#D9C1D9;
+  --display:"Urbanist","Avenir Next",system-ui,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --g1:#17302F; --g2:#3A2540; --bg:#1D1220; --surface:#2A1D2E; --ink:#F4ECF4; --muted:#BBA9BC; --line:#3E2D43;
+  --accent:#DDB9DD; --hot:#F28A5B; --good:#5FCB94; --soft:#33243A; --bar:#DDB9DD; --bar2:#5A4060; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --g1:#17302F; --g2:#3A2540; --bg:#1D1220; --surface:#2A1D2E; --ink:#F4ECF4; --muted:#BBA9BC; --line:#3E2D43;
+  --accent:#DDB9DD; --hot:#F28A5B; --good:#5FCB94; --soft:#33243A; --bar:#DDB9DD; --bar2:#5A4060; color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg) linear-gradient(180deg,var(--g1) 0,var(--g2) 260px,var(--bg) 560px) no-repeat;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;padding:24px 16px 48px}
+.wrap{max-width:860px;margin:0 auto}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font:800 32px/1.1 var(--display);margin:8px 0 6px;letter-spacing:-.01em}
+h2{font:800 20px/1.2 var(--display);margin:0 0 4px}
+.sub{color:var(--muted);font-size:14px}
+.bar-top{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px var(--body);padding:8px 14px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;margin-top:14px}
+.card .sub{margin-bottom:12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.kpi .v{font:800 30px/1 var(--display);margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.kpi .l{color:var(--muted);font-size:13px;font-weight:500}
+.kpi .d{font-size:13px;font-weight:600}
+.up{color:var(--good)} .down{color:var(--hot)}
+.rows{display:grid;gap:8px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.row .n{font-weight:500;overflow-wrap:anywhere}
+.row .n small{color:var(--muted);font-weight:400}
+.row .c{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;white-space:nowrap}
+.row .c small{color:var(--muted);font-weight:500}
+.track{grid-column:1/-1;height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
+.track i{display:block;height:100%;background:var(--bar);border-radius:99px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:0 14px}
+.empty{color:var(--muted);font-size:14px}
+.chart{width:100%;height:auto;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:8px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--k)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--surface);font-size:13px;padding:6px 10px;border-radius:8px;opacity:0;transition:opacity .1s;z-index:9}
+.note{color:var(--muted);font-size:13px;margin-top:18px}
+.note p+p{margin-top:6px}
+.err{background:var(--soft);border-radius:14px;padding:16px;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Radar de Corrida · privado</div>
+  <h1>Painel do Radar</h1>
+  <p class="sub" id="meta">Carregando…</p>
+  <div class="bar-top" role="group" aria-label="Período">
+    <button class="chip" data-p="hoje">Hoje</button>
+    <button class="chip" data-p="7">7 dias</button>
+    <button class="chip" data-p="30">30 dias</button>
+    <button class="chip" data-p="90">90 dias</button>
+  </div>
+  <div id="app"></div>
+  <div class="note">
+    <p>O painel é atualizado automaticamente algumas vezes por dia, a partir das métricas do site (PostHog). Ele não mede vendas: as compras acontecem nos sites dos parceiros e das lojas.</p>
+    <p>Como o site não usa cookies, cada visita conta como um visitante. Quem volta outro dia conta de novo. Os testes feitos por nós também entram na conta. Cidades fora do Brasil costumam ser robôs e servidores, não pessoas.</p>
+    <p>Este endereço não aparece no Google. Só tem acesso quem recebe o link.</p>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+<script>
+(function(){
+const NOMES_ABA = {provas:'Provas', parceiros:'Parceiros', tenis:'Tênis', treino:'Treine comigo', result:'Resultados'};
+const NOMES_IG = {follow:'Botão do topo', follow2:'Botão do rodapé', 'tr-soon-follow':'Treine comigo', 'sh-wa':'Folha de compartilhar', calculadora_menu:'Calculadora (menu)', calculadora_topo:'Calculadora (topo)', calculadora_rodape:'Calculadora (rodapé)'};
+const NOMES_CANAL = {'nativo-imagem':'Imagem + link (menu do celular)', whatsapp:'WhatsApp', copiar:'Copiou o link', nativo:'Menu do celular'};
+const NOMES_CALC = {pace:'Pace', tempo:'Tempo', dist:'Distância'};
+const NOMES_DISP = {Mobile:'Celular', Desktop:'Computador', Tablet:'Tablet'};
+const NOMES_PER = {hoje:'hoje', '7':'nos últimos 7 dias', '30':'nos últimos 30 dias', '90':'nos últimos 90 dias'};
+
+function origem(s){
+  s = (s||'').toLowerCase();
+  if(s === 'ig' || s.includes('instagram')) return 'Instagram';
+  if(s.includes('facebook')) return 'Facebook';
+  if(s.includes('google')) return 'Google';
+  if(s.includes('whatsapp') || s === 'wa') return 'WhatsApp';
+  if(s.includes('radardecorrida')) return 'Dentro do próprio site';
+  if(s === '$direct' || s === '') return 'Direto (link no WhatsApp, digitado ou favorito)';
+  if(s.includes('bing') || s.includes('duckduckgo') || s.includes('yahoo')) return 'Outros buscadores';
+  return s;
+}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => n.toLocaleString('pt-BR');
+const pct = (a,b) => b ? Math.round(a*100/b) : 0;
+
+let D = null, P = '7';
+try { const q = new URLSearchParams(location.search).get('p'); if(q) P = q; else { const s = localStorage.getItem('painel-p'); if(s) P = s; } } catch(e){}
+
+function lista(per, dim){ return ((D.periodos[per]||{})[dim]) || []; }
+function ev(per, nome){ const r = lista(per,'evento').find(x => x[0] === nome); return r ? {v:r[1], n:r[2]} : {v:0, n:0}; }
+function agrupa(rows, fn){
+  const m = new Map();
+  rows.forEach(([k,v,n]) => { const l = fn(k); if(l === null) return; const o = m.get(l) || [l,0,0]; o[1]+=v; o[2]+=n; m.set(l,o); });
+  return [...m.values()].sort((a,b) => b[1]-a[1] || b[2]-a[2]);
+}
+
+function rowsHTML(rows, opts){
+  opts = opts || {};
+  if(!rows.length) return '<p class="empty">Nada registrado neste período.</p>';
+  const max = Math.max(...rows.map(r => r[1]));
+  return '<div class="rows">' + rows.map(r => {
+    const vezes = opts.vezes && r[2] > r[1] ? ` <small>· ${fmt(r[2])} cliques</small>` : '';
+    const extra = opts.base ? ` <small>${pct(r[1], opts.base)}%</small>` : '';
+    return `<div class="row"><span class="n">${esc(r[0])}</span><span class="c">${fmt(r[1])}${extra}${vezes}</span><span class="track"><i style="width:${Math.max(2, r[1]*100/max)}%"></i></span></div>`;
+  }).join('') + '</div>';
+}
+
+function card(titulo, sub, corpo){ return `<section class="card"><h2>${titulo}</h2>${sub ? `<p class="sub">${sub}</p>` : ''}${corpo}</section>`; }
+
+function kpi(rotulo, valor, delta){ return `<div class="kpi"><div class="l">${rotulo}</div><div class="v">${valor}</div>${delta||''}</div>`; }
+
+function deltaHTML(atual, ant, nomeAnt){
+  if(!ant) return '';
+  const d = Math.round((atual-ant)*100/ant);
+  const cls = d >= 0 ? 'up' : 'down';
+  return `<div class="d ${cls}">${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% <span style="color:var(--muted);font-weight:500">vs. ${nomeAnt}</span></div>`;
+}
+
+function grafico(per){
+  const dias = D.diario;
+  if(!dias.length) return '<p class="empty">Sem dados.</p>';
+  const n = per === 'hoje' ? 14 : Math.min(+per, 90);
+  // completa os dias sem visita
+  const ult = new Date(D.gerado.slice(0,10) + 'T12:00:00');
+  const mapa = new Map(dias.map(d => [d[0], d]));
+  const serie = [];
+  for(let i = n-1; i >= 0; i--){ const t = new Date(ult); t.setDate(t.getDate()-i); const k = t.toISOString().slice(0,10); serie.push(mapa.get(k) || [k,0,0]); }
+  const primeiro = dias[0][0];
+  const vis = serie.filter(d => d[0] >= primeiro);
+  const W = innerWidth < 600 ? 380 : 800, H = innerWidth < 600 ? 200 : 220, pl = 30, pb = 26, pt = 10;
+  const max = Math.max(4, ...vis.map(d => d[1]));
+  const step = (W-pl)/vis.length, bw = Math.max(2, step*0.72);
+  const y = v => pt + (H-pt-pb) * (1 - v/max);
+  const media = vis.reduce((a,d) => a+d[1], 0) / vis.length;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Visitas por dia">`;
+  [0, Math.round(max/2), max].forEach(t => { s += `<line x1="${pl}" x2="${W}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)"/><text x="${pl-6}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="var(--muted)">${t}</text>`; });
+  vis.forEach((d,i) => {
+    const x = pl + i*step + (step-bw)/2;
+    s += `<g data-tip="${d[0].slice(8,10)}/${d[0].slice(5,7)}: ${d[1]} visitas, ${d[2]} do Instagram">`;
+    s += `<rect x="${x}" y="${y(d[1])}" width="${bw}" height="${H-pb-y(d[1])}" rx="3" fill="var(--bar2)"/>`;
+    s += `<rect x="${x}" y="${y(d[2])}" width="${bw}" height="${H-pb-y(d[2])}" rx="3" fill="var(--bar)"/>`;
+    s += `<rect x="${pl+i*step}" y="${pt}" width="${step}" height="${H-pt-pb}" fill="transparent"/></g>`;
+    const cada = Math.ceil(vis.length/(W < 500 ? 5 : 10));
+    if(i % cada === 0 || i === vis.length-1) s += `<text x="${x+bw/2}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--muted)">${d[0].slice(8,10)}/${d[0].slice(5,7)}</text>`;
+  });
+  s += `<line x1="${pl}" x2="${W}" y1="${y(media)}" y2="${y(media)}" stroke="var(--hot)" stroke-dasharray="5 5"/>`;
+  s += `</svg><div class="legend"><span style="--k:var(--bar)">Vindas do Instagram</span><span style="--k:var(--bar2)">Outras origens</span><span style="--k:var(--hot)">Média: ${media.toFixed(1).replace('.',',')} por dia</span></div>`;
+  if(vis.length < n) s += `<p class="sub" style="margin-top:6px">O site começou a medir em ${primeiro.slice(8,10)}/${primeiro.slice(5,7)}.</p>`;
+  return s;
+}
+
+function render(){
+  document.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', b.dataset.p === P));
+  const g = new Date(D.gerado);
+  document.getElementById('meta').textContent = `Atualizado em ${g.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})} às ${g.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})} · horário de Brasília`;
+  const vis = ev(P,'$pageview').v;
+  const ant = P === '7' ? ev('ant7','$pageview').v : P === '30' ? ev('ant30','$pageview').v : 0;
+  const nomeAnt = P === '7' ? '7 dias anteriores' : '30 dias anteriores';
+  const orig = agrupa(lista(P,'origem'), origem);
+  const ig = (orig.find(o => o[0] === 'Instagram') || [0,0])[1];
+  const cel = (lista(P,'disp').find(d => d[0] === 'Mobile') || [0,0])[1];
+  let h = '<div class="kpis">' +
+    kpi('Visitas ' + NOMES_PER[P], fmt(vis), deltaHTML(vis, ant, nomeAnt)) +
+    kpi('Vieram do Instagram', pct(ig, vis) + '%', `<div class="d" style="color:var(--muted);font-weight:500">${fmt(ig)} visitas</div>`) +
+    kpi('Clicaram numa prova', fmt(ev(P,'clique_prova').v), `<div class="d" style="color:var(--muted);font-weight:500">${pct(ev(P,'clique_prova').v, vis)}% das visitas</div>`) +
+    kpi('Pelo celular', pct(cel, vis) + '%', '') +
+    '</div>';
+  if(!vis){ document.getElementById('app').innerHTML = h + card('Sem visitas ' + NOMES_PER[P], '', '<p class="empty">Ainda não há visitas registradas neste período.</p>'); return; }
+
+  const funil = [
+    ['Visitaram o radar', vis],
+    ['Abriram a aba Provas', (lista(P,'aba_aberta').find(a => a[0]==='provas')||[0,0])[1]],
+    ['Clicaram numa prova', ev(P,'clique_prova').v],
+    ['Escolheram um estado no mapa', ev(P,'estado_escolhido').v],
+    ['Abriram a aba Parceiros', (lista(P,'aba_aberta').find(a => a[0]==='parceiros')||[0,0])[1]],
+    ['Clicaram numa marca parceira', ev(P,'clique_parceiro').v],
+    ['Copiaram um cupom', ev(P,'cupom_copiado').v],
+    ['Abriram a aba Tênis', (lista(P,'aba_aberta').find(a => a[0]==='tenis')||[0,0])[1]],
+    ['Clicaram numa oferta de tênis', ev(P,'clique_loja').v],
+    ['Abriram Treine comigo', (lista(P,'aba_aberta').find(a => a[0]==='treino')||[0,0])[1]],
+    ['Clicaram para seguir no Instagram', ev(P,'seguir_instagram').v],
+    ['Compartilharam uma prova ou oferta', Math.max(ev(P,'compartilhar_prova').v + ev(P,'compartilhar_oferta').v, ev(P,'compartilhar_link').v)],
+    ['Abriram um link compartilhado', ev(P,'abriu_link_compartilhado').v],
+    ['Usaram a calculadora de pace', ev(P,'calc_calculo').v],
+  ];
+  h += card('O que as pessoas fazem no radar', 'Visitas em que cada ação aconteceu, e a parte que isso representa do total de visitas.', rowsHTML(funil, {base: vis}));
+  h += card('Visitas por dia', P === 'hoje' ? 'Últimos 14 dias.' : '', grafico(P));
+  h += card('De onde vêm as visitas', 'Pela origem do acesso. Links abertos dentro do app do Instagram aparecem como Instagram.', rowsHTML(orig, {base: vis}));
+  h += '<div class="grid2">' +
+    card('Provas mais clicadas', 'Visitas que clicaram para ver a página oficial da prova.', rowsHTML(lista(P,'clique_prova'), {vezes:true})) +
+    card('Provas mais compartilhadas', '', rowsHTML(lista(P,'compartilhar_prova'))) +
+    card('Marcas parceiras', 'Visitas que clicaram para ir ao site da marca.', rowsHTML(lista(P,'clique_parceiro'), {vezes:true}) + (lista(P,'cupom_copiado').length ? '<h2 style="margin-top:16px;font-size:16px">Cupons copiados</h2>' + rowsHTML(lista(P,'cupom_copiado')) : '')) +
+    card('Ofertas de tênis clicadas', 'Por gênero, marca e loja.', rowsHTML(lista(P,'clique_loja'), {vezes:true})) +
+    card('Abas mais abertas', '', rowsHTML(agrupa(lista(P,'aba_aberta'), k => NOMES_ABA[k] || k), {vezes:true})) +
+    card('Estados escolhidos no mapa', '', rowsHTML(lista(P,'estado_escolhido'))) +
+    card('Seguir no Instagram', 'Qual botão foi usado.', rowsHTML(agrupa(lista(P,'seguir_instagram'), k => NOMES_IG[k] || k))) +
+    card('Como compartilham', '', rowsHTML(agrupa(lista(P,'compartilhar_link'), k => NOMES_CANAL[k] || k))) +
+    card('Calculadora de pace', 'Cálculos feitos, por tipo.', rowsHTML(agrupa(lista(P,'calc_calculo'), k => NOMES_CALC[k] || k), {vezes:true})) +
+    card('Páginas vistas', '', rowsHTML(agrupa(lista(P,'pagina'), k => k === '/' ? 'Radar (página inicial)' : k.startsWith('/calculadora') ? 'Calculadora de pace' : k.startsWith('/prova/') ? 'Página de uma prova' : k.startsWith('/tenis/') ? 'Página de um tênis' : k))) +
+    card('Cidades', 'Pela localização aproximada da conexão.', rowsHTML(agrupa(lista(P,'cidade'), k => k.startsWith('?') ? 'Não identificada' : k.replace(/ - $/, '')))) +
+    card('Aparelhos', '', rowsHTML(agrupa(lista(P,'disp'), k => NOMES_DISP[k] || k), {base: vis})) +
+    '</div>';
+  document.getElementById('app').innerHTML = h;
+}
+
+document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
+  P = b.dataset.p;
+  try { localStorage.setItem('painel-p', P); } catch(e){}
+  try { const u = new URL(location.href); u.searchParams.set('p', P); history.replaceState(null, '', u); } catch(e){}
+  if(D) render();
+}));
+
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if(D) render(); }, 200); });
+const tip = document.getElementById('tip');
+document.addEventListener('pointermove', e => {
+  const g = e.target.closest && e.target.closest('[data-tip]');
+  if(!g){ tip.style.opacity = 0; return; }
+  tip.textContent = g.dataset.tip; tip.style.opacity = 1;
+  const x = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8);
+  tip.style.left = x + 'px'; tip.style.top = (e.clientY - 36) + 'px';
+});
+
+fetch('dados.json?t=' + Date.now(), {cache:'no-store'}).then(r => { if(!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+  D = d; if(!D.periodos[P] && !['hoje','7','30','90'].includes(P)) P = '7'; render();
+}).catch(() => {
+  document.getElementById('meta').textContent = '';
+  document.getElementById('app').innerHTML = '<div class="err">Não consegui carregar os dados do painel. Tente abrir de novo em alguns minutos.</div>';
+});
+})();
+</script>
+</body>
+</html>

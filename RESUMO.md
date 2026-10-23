@@ -58,3 +58,10 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Projeto PostHog do radar, região US (`us.i.posthog.com`), configurado no cabeçalho do `index.html`. Sem cookies (`persistence: memory`) e sem gravação de sessão.
 - Eventos: `compartilhar_link` (canal, tipo, item), `abriu_link_compartilhado` (tipo, item, achou), `$pageview`, `clique_loja` (tênis, loja, preço, url), `compartilhar_oferta`, `compartilhar_imagem`, `clique_prova` (prova, url), `cupom_copiado` (parceiro, cupom), `clique_parceiro`, `seguir_instagram` (botão), `voltar_topo`.
 - Relatórios de métricas para a Aline: e-mail **amcchagas@gmail.com**.
+
+## Painel de métricas privado (desde 22/10/2026)
+- Endereço secreto: **radardecorrida.com.br/painel/rc-5yecuqq3sbbk9h/** (no molde do painel do Mais Mercante). `noindex`, fora do sitemap, sem PostHog na própria página. Atenção: o repositório é público, então o painel é "escondido", não protegido por senha. Não pôr dado pessoal nele.
+- Arquivos: `painel/rc-5yecuqq3sbbk9h/index.html` (visual, períodos Hoje/7/30/90 dias, lê `dados.json` ao abrir) e `painel/rc-5yecuqq3sbbk9h/dados.json` (dados).
+- Atualização: tarefa agendada **Painel de métricas do Radar** roda as duas consultas de `src/painel-consultas.sql` no PostHog (execute-sql), salva a saída em texto e roda `python3 src/painel.py agregado.txt diario.txt`, que grava só o `dados.json`. Depois commit e push. A tarefa nunca mexe em outros arquivos.
+- O endereço do painel está na constante `PAINEL` de `src/painel.py`. Para trocar o link: renomear a pasta e a constante, e atualizar este resumo e a tarefa.
+- Visita = sessão com página vista (sem cookies, quem volta outro dia conta de novo). Inclui testes nossos.
