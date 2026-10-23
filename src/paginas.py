@@ -184,7 +184,8 @@ def pagina(tipo, sl, titulo, desc, img, destino, ext_label, ext_link, ativo, tit
     url = SITE + tipo + '/' + sl + '/'
     e = html.escape
     # Só quem chega por um link compartilhado (?c=1) vai direto para o radar; quem vem do Google vê a página da prova.
-    redir = (f'<script>if(/[?&]c=1(&|$)/.test(location.search))location.replace("/#{tipo}={sl}");</script>' if ativo else '')
+    # O redirecionamento leva junto o ?c=1 e as marcações utm_ (o painel de métricas usa para separar links compartilhados e stories).
+    redir = (f'<script>if(/[?&]c=1(&|$)/.test(location.search))location.replace("/"+location.search+"#{tipo}={sl}");</script>' if ativo else '')
     # Indexar só provas ativas; tênis (preço muda todo dia) e páginas encerradas ficam fora da busca.
     robots = 'index,follow,max-image-preview:large' if (ativo and tipo == 'prova') else 'noindex,follow'
     ldj = ('<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>') if ld else ''

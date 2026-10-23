@@ -8,7 +8,13 @@ WITH base AS (
     toDate(toTimeZone(now(), 'America/Sao_Paulo')) AS hoje,
     event,
     properties.$session_id AS sid,
-    coalesce(nullIf(session.$entry_utm_source, ''), session.$entry_referring_domain, '$direct') AS origem,
+    multiIf(
+      session.$entry_utm_content = 'link_in_bio', 'ig_bio',
+      lower(coalesce(session.$entry_utm_medium, '')) IN ('stories', 'story', 'storie'), concat('ig_stories:', coalesce(session.$entry_utm_campaign, '')),
+      match(coalesce(session.$entry_current_url, ''), '[?&]c=1(&|#|$)'), 'compartilhado',
+      coalesce(session.$entry_utm_source, '') != '', concat('utm:', session.$entry_utm_source, '/', coalesce(session.$entry_utm_medium, ''), '/', coalesce(session.$entry_utm_campaign, '')),
+      position(coalesce(session.$entry_referring_domain, ''), 'instagram') > 0, 'ig_outros',
+      coalesce(session.$entry_referring_domain, '$direct')) AS origem,
     coalesce(properties.$device_type, '?') AS disp,
     concat(coalesce(properties.$geoip_city_name, '?'), ' - ', coalesce(properties.$geoip_subdivision_1_code, '')) AS cidade,
     coalesce(multiIf(

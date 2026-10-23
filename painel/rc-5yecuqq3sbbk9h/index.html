@@ -78,6 +78,7 @@ h2{font:800 20px/1.2 var(--display);margin:0 0 4px}
     <p>O painel é atualizado automaticamente algumas vezes por dia, a partir das métricas do site (PostHog). Ele não mede vendas: as compras acontecem nos sites dos parceiros e das lojas.</p>
     <p>Como o site não usa cookies, cada visita conta como um visitante. Quem volta outro dia conta de novo. Os testes feitos por nós também entram na conta. Cidades fora do Brasil costumam ser robôs e servidores, não pessoas.</p>
     <p>Este endereço não aparece no Google. Só tem acesso quem recebe o link.</p>
+    <p><b>Link para os stories da Aline:</b> radardecorrida.com.br/?utm_medium=stories&amp;utm_campaign=amartinscc. As visitas por esse link aparecem como "Instagram · stories de @amartinscc". Para uma data específica, troque o final, por exemplo utm_campaign=amartinscc-2410. O link de uma prova pode ser marcado do mesmo jeito: …/prova/&lt;nome&gt;/?c=1&amp;utm_medium=stories&amp;utm_campaign=amartinscc.</p>
   </div>
 </div>
 <div class="tip" id="tip"></div>
@@ -92,11 +93,16 @@ const NOMES_PER = {hoje:'hoje', '7':'nos últimos 7 dias', '30':'nos últimos 30
 
 function origem(s){
   s = (s||'').toLowerCase();
+  if(s === 'ig_bio') return 'Instagram · link na bio';
+  if(s.startsWith('ig_stories:')){ const c = s.slice(11); return 'Instagram · stories' + (c ? ' de @' + c.replace(/^@/,'') : ''); }
+  if(s === 'ig_outros') return 'Instagram · stories ou direct (sem marcação)';
+  if(s === 'compartilhado') return 'Link compartilhado de prova ou tênis';
+  if(s.startsWith('utm:')){ const [src, med, camp] = s.slice(4).split('/'); return 'Link marcado: ' + [src, med, camp].filter(Boolean).join(' · '); }
   if(s === 'ig' || s.includes('instagram')) return 'Instagram';
   if(s.includes('facebook')) return 'Facebook';
   if(s.includes('google')) return 'Google';
   if(s.includes('whatsapp') || s === 'wa') return 'WhatsApp';
-  if(s.includes('radardecorrida')) return 'Dentro do próprio site';
+  if(s.includes('radardecorrida')) return 'Link compartilhado de prova ou tênis';
   if(s === '$direct' || s === '') return 'Direto (link no WhatsApp, digitado ou favorito)';
   if(s.includes('bing') || s.includes('duckduckgo') || s.includes('yahoo')) return 'Outros buscadores';
   return s;
@@ -179,7 +185,7 @@ function render(){
   const ant = P === '7' ? ev('ant7','$pageview').v : P === '30' ? ev('ant30','$pageview').v : 0;
   const nomeAnt = P === '7' ? '7 dias anteriores' : '30 dias anteriores';
   const orig = agrupa(lista(P,'origem'), origem);
-  const ig = (orig.find(o => o[0] === 'Instagram') || [0,0])[1];
+  const ig = orig.filter(o => o[0].startsWith('Instagram')).reduce((a,o) => a + o[1], 0);
   const cel = (lista(P,'disp').find(d => d[0] === 'Mobile') || [0,0])[1];
   let h = '<div class="kpis">' +
     kpi('Visitas ' + NOMES_PER[P], fmt(vis), deltaHTML(vis, ant, nomeAnt)) +
@@ -207,7 +213,7 @@ function render(){
   ];
   h += card('O que as pessoas fazem no radar', 'Visitas em que cada ação aconteceu, e a parte que isso representa do total de visitas.', rowsHTML(funil, {base: vis}));
   h += card('Visitas por dia', P === 'hoje' ? 'Últimos 14 dias.' : '', grafico(P));
-  h += card('De onde vêm as visitas', 'Pela origem do acesso. Links abertos dentro do app do Instagram aparecem como Instagram.', rowsHTML(orig, {base: vis}));
+  h += card('De onde vêm as visitas', 'Pela origem do acesso. Para saber o que veio dos stories da Aline, use no adesivo de link o endereço marcado (veja a nota no fim da página).', rowsHTML(orig, {base: vis}));
   h += '<div class="grid2">' +
     card('Provas mais clicadas', 'Visitas que clicaram para ver a página oficial da prova.', rowsHTML(lista(P,'clique_prova'), {vezes:true})) +
     card('Provas mais compartilhadas', '', rowsHTML(lista(P,'compartilhar_prova'))) +
