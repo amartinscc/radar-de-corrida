@@ -38,7 +38,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Mostra as próximas 4 provas do RJ lendo o bloco radar-data do `index.html` (mesma regra de slug do template), com link para `/#prova=<slug>`.
 - Paleta e fontes iguais às do `src/template.html`: se a paleta do radar mudar, mudar também na calculadora.
 - Foto: `fotos/aline-calculadora.jpg/.webp` (recorte pequeno do `hero.jpg`, em círculo). Imagem de compartilhamento: `og-calculadora.jpg`.
-- Links para a calculadora na home: botão discreto no topo (`.calc-link`) e uma linha antes da nota de preços, no `src/template.html`.
+- Links para a calculadora na home: botão no topo (`.calc-link`, desde 22/10/2026 com borda dourada e um brilho que gira ao redor; para quem pede menos movimento no celular, a borda fica parada) e uma linha antes da nota de preços, no `src/template.html`.
 - SEO: título e descrição próprios, canonical, Open Graph, dados estruturados (WebApplication, BreadcrumbList, FAQPage igual ao FAQ visível), tabela de pace em HTML. `sitemap.xml` e `robots.txt` na raiz.
 
 ## SEO (desde 17/10/2026)

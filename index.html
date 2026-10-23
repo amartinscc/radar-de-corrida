@@ -307,7 +307,12 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .sobre details{border-top:1px solid var(--line);padding:10px 0}
 .sobre summary{cursor:pointer;font-weight:600;font-size:14px}
 .sobre details p{margin:6px 0 0}
-.hero .calc-link{display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;font:600 14px var(--body);padding:10px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:rgba(29,18,32,.25);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.hero .calc-link{position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;font:600 14px var(--body);padding:10px 15px;border-radius:999px;border:0;background:rgba(29,18,32,.25);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 0 12px rgba(247,205,90,.35)}
+/* borda dourada com um brilho que gira ao redor do botão da calculadora (só a borda; o fundo continua igual) */
+@property --calc-ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+.hero .calc-link::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;z-index:-1;background:conic-gradient(from var(--calc-ang),#a8780f 0deg,#d4a72c 150deg,#f5cf5f 250deg,#fff4c2 305deg,#ffffff 325deg,#f5cf5f 345deg,#a8780f 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:calc-gira 2.6s linear infinite}
+@keyframes calc-gira{to{--calc-ang:360deg}}
+@media (prefers-reduced-motion:reduce){.hero .calc-link::before{animation:none}}
 .hero .calc-link svg{width:17px;height:17px}
 .hero .down{margin-top:6px;color:#fff;opacity:.8;text-decoration:none;font:600 13px var(--body);display:flex;flex-direction:column;align-items:center;gap:2px}
 .hero .down svg{width:22px;height:22px}
