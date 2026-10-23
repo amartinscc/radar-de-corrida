@@ -284,6 +284,10 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .partner .pcopy{align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);border:1.5px dashed var(--mauve);font:600 13px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
 .partner .pcopy b{letter-spacing:.06em}
 .partner .pcopy small{color:var(--accent);font-weight:700;font-size:11px}
+.deal .rcup{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;font-size:13px;color:var(--accent);font-weight:600}
+.deal .rcup .pcopy{display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);border:1.5px dashed var(--mauve);font:600 13px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
+.deal .rcup .pcopy b{letter-spacing:.06em}
+.deal .rcup .pcopy small{color:var(--accent);font-weight:700;font-size:11px}
 .partner a.arrow{text-decoration:none}
 
 /* Fotos da Aline nos cards */
@@ -822,6 +826,22 @@ __DATA__
       add('Largada:', p.hora ? p.hora.replace(':','h') : null);
       add('Distâncias:', p.distancias);
       add('A partir de:', p.valor===0 ? 'gratuita' : (typeof p.valor==='number' ? brl(p.valor) : null));
+      if(p.cupom){ // cupom da Aline para a inscrição (só manual)
+        const rc = document.createElement('div'); rc.className = 'rcup';
+        const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'pcopy';
+        cp.innerHTML = 'Cupom <b></b> <small>copiar</small>'; cp.querySelector('b').textContent = p.cupom;
+        cp.setAttribute('aria-label', 'Copiar cupom ' + p.cupom);
+        cp.addEventListener('click', async ev => {
+          ev.preventDefault(); ev.stopPropagation();
+          const msg = cp.querySelector('small');
+          try{ await navigator.clipboard.writeText(p.cupom); msg.textContent = 'copiado!'; }
+          catch(e){ const r = document.createRange(); r.selectNodeContents(cp.querySelector('b')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
+          setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
+          if(window.posthog) posthog.capture('cupom_copiado', {parceiro: p.nome, cupom: p.cupom, tipo: 'prova'});
+        });
+        const lb = document.createElement('span'); lb.textContent = 'Desconto com o cupom da Aline na inscrição';
+        rc.append(lb, cp); el.querySelector('.info').insertBefore(rc, el.querySelector('.links'));
+      }
       el.querySelector('.ins').href = p.link;
       const cal = el.querySelector('.cal');
       if(p.status==='esgotada') cal.remove(); else cal.href = calLink(p);
@@ -1010,6 +1030,7 @@ __DATA__
       const stt = ST[p.status] || '';
       const last = [pr, stt].filter(Boolean).join(' · ');
       if(last) info.push(last);
+      if(p.cupom) info.push('Cupom da Aline: ' + p.cupom);
       c.fillStyle = '#6B5A6E'; c.font = '600 38px ' + B;
       info.forEach(line => { const k = wrap(c, line, cx, yy, cw-120, 48, 2); yy += k*48 + 16; });
       if(p.aline){ c.fillStyle = '#B28AB1'; rr(c,cx-300,y0+ch-150,600,70,35); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 34px ' + B; c.fillText('★ A Aline vai correr', cx, y0+ch-100); }
@@ -1054,7 +1075,7 @@ __DATA__
     // link da página do item no radar (a prévia no WhatsApp mostra a imagem e o título; o toque abre o radar)
     shKind = o ? 'tenis' : p ? 'prova' : ''; shSlug = (o||p||{}).slug || '';
     shLink = shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1' : RADAR_URL;
-    if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : ''); }
+    if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : '') + (p.cupom ? ' · cupom ' + p.cupom + ' na inscrição' : ''); }
     else if(o){ shTxt = o.nome + ' por ' + brl(o.preco) + ' (-' + o.off + '%) na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
     else shTxt = 'Provas e ofertas de corrida todos os dias';
     shTxt += '\nAchado no Radar de Corrida da Aline 👉';

@@ -131,6 +131,7 @@ def imagem(item, tipo, perfil, ofertas_em):
         pr = 'Inscrição gratuita' if item.get('valor') == 0 else ('A partir de ' + brl(item['valor']) if isinstance(item.get('valor'), (int, float)) else None)
         ult = ' · '.join(x for x in [pr, ST.get(item.get('status'), '')] if x)
         if ult: info.append(ult)
+        if item.get('cupom'): info.append('Cupom da Aline: ' + item['cupom'])
         for linha in info:
             for l in quebra(dr, linha, M(25), larg, 1):
                 centro(dr, kx, yy, l, M(25), '#6B5A6E'); yy += 34
@@ -293,7 +294,7 @@ def main():
             lugar = it.get('local') or ''
             if (it.get('uf') or 'RJ') != 'RJ': lugar = ', '.join(x for x in [lugar, (it.get('cidade') or '') + ' - ' + it['uf']] if x)
             partes = [f'{dd:02d} de {MESF[m - 1]} de {y}', lugar, it.get('distancias'), ST.get(it.get('status'))]
-            desc = ' · '.join(x for x in partes if x) + ('. A Aline vai correr!' if it.get('aline') else '.') + ' Achado no Radar de Corrida da Aline.'
+            desc = ' · '.join(x for x in partes if x) + ('. A Aline vai correr!' if it.get('aline') else '.') + (f" Cupom da Aline na inscrição: {it['cupom']}." if it.get('cupom') else '') + ' Achado no Radar de Corrida da Aline.'
             cidade = it.get('cidade') or ('Rio de Janeiro' if (it.get('uf') or 'RJ') == 'RJ' else '')
             tb = f"{it['nome']} – {dd} de {MESF[m - 1]} de {y}" + (f", {cidade}" if cidade else '')
             html_ = pagina('prova', sl, it['nome'], desc, img, f'#prova={sl}', 'Ver inscrição', it.get('link'), True, tb, evento(it, sl, img, desc))
