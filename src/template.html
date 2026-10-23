@@ -985,6 +985,23 @@ __DATA__
     });
   })();
   const RADAR_URL = 'https://claude.ai/artifact/4DvQN7bYGcQC9c7SHfqsAJ';
+  // Quem compartilha: o celular da Aline é marcado uma vez (radardecorrida.com.br/?marcar=aline; ?marcar=sair desfaz).
+  // Os links compartilhados levam o canal (o=) e, no celular marcado, quem compartilhou (q=), para o painel de métricas.
+  let shQuem = '';
+  try{
+    const mq = new URLSearchParams(location.search).get('marcar');
+    if(mq === 'sair'){ localStorage.removeItem('radar-quem'); }
+    else if(mq && /^[a-z0-9]{2,20}$/.test(mq)){ localStorage.setItem('radar-quem', mq); }
+    shQuem = localStorage.getItem('radar-quem') || '';
+    if(mq){
+      const n = document.createElement('div');
+      n.textContent = shQuem ? 'Pronto! O que for compartilhado por este aparelho vai aparecer no painel como "Compartilhado ' + (shQuem === 'aline' ? 'pela Aline' : 'por ' + shQuem) + '".' : 'Marcação deste aparelho removida.';
+      n.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:99;background:#1D1220;color:#fff;padding:14px 16px;border-radius:14px;font:600 14px/1.4 system-ui,sans-serif;text-align:center';
+      document.body.appendChild(n); setTimeout(() => n.remove(), 6000);
+      history.replaceState(null, '', location.pathname + location.hash);
+    }
+  }catch(e){}
+  const shLinkCanal = canal => shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1&o=' + canal + (shQuem ? '&q=' + shQuem : '') : RADAR_URL + '?o=' + canal + (shQuem ? '&q=' + shQuem : '');
   const shareEl = document.getElementById('share');
   const shImg = document.getElementById('sh-img');
   let shBlob = null, shUrl = null, dlApi = null;
@@ -1084,16 +1101,17 @@ __DATA__
     else if(o){ shTxt = o.nome + ' por ' + brl(o.preco) + ' (-' + o.off + '%) na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
     else shTxt = 'Provas e ofertas de corrida todos os dias';
     shTxt += '\nAchado no Radar de Corrida da Aline 👉';
-    shMsg = shTxt + ' ' + shLink;
-    document.getElementById('sh-wa').href = 'https://wa.me/?text=' + encodeURIComponent(shMsg);
+    shMsg = shTxt + ' ' + shLinkCanal('st');
+    document.getElementById('sh-wa').href = 'https://wa.me/?text=' + encodeURIComponent(shTxt + ' ' + shLinkCanal('wa'));
     document.getElementById('sh-hint').hidden = true;
   }
-  const shTrack = canal => { if(window.posthog) posthog.capture('compartilhar_link', {canal, tipo: shKind, item: shSlug}); };
+  const shTrack = canal => { if(window.posthog) posthog.capture('compartilhar_link', {canal, tipo: shKind, item: shSlug, quem: shQuem || undefined}); };
   document.getElementById('sh-wa').addEventListener('click', () => shTrack('whatsapp'));
   document.getElementById('sh-copy').addEventListener('click', async () => {
     const b = document.getElementById('sh-copy');
-    try{ await navigator.clipboard.writeText(shLink); b.textContent = 'Link copiado!'; }
-    catch(e){ prompt('Copie o link:', shLink); }
+    const lk = shLinkCanal('lk');
+    try{ await navigator.clipboard.writeText(lk); b.textContent = 'Link copiado!'; }
+    catch(e){ prompt('Copie o link:', lk); }
     setTimeout(() => { b.textContent = 'Copiar link'; }, 2200); shTrack('copiar');
   });
   function closeShare(){ shareEl.hidden = true; }
@@ -1107,7 +1125,7 @@ __DATA__
     try{
       const f = new File([shBlob], shName, {type:'image/png'});
       if(navigator.canShare && navigator.canShare({files:[f], text: shMsg})){ await navigator.share({files:[f], text: shMsg}); shTrack('nativo-imagem'); return; }
-      if(navigator.share){ await navigator.share({title: 'Radar de Corrida da Aline', text: shTxt, url: shLink}); shTrack('nativo-link'); return; }
+      if(navigator.share){ await navigator.share({title: 'Radar de Corrida da Aline', text: shTxt, url: shLinkCanal('sh')}); shTrack('nativo-link'); return; }
     }catch(e){ if(e && e.name === 'AbortError') return; }
     // 2) salvar a imagem
     if(dlApi){

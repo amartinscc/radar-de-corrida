@@ -11,6 +11,13 @@ WITH base AS (
     multiIf(
       session.$entry_utm_content = 'link_in_bio', 'ig_bio',
       lower(coalesce(session.$entry_utm_medium, '')) IN ('stories', 'story', 'storie'), concat('ig_stories:', coalesce(session.$entry_utm_campaign, '')),
+      extract(coalesce(session.$entry_current_url, ''), '[?&]q=([a-z0-9]+)') != '',
+        concat('quem:', extract(session.$entry_current_url, '[?&]q=([a-z0-9]+)'), ':',
+               if(position(coalesce(session.$entry_referring_domain, ''), 'instagram') > 0, 'instagram',
+                  extract(session.$entry_current_url, '[?&]o=([a-z]+)'))),
+      extract(coalesce(session.$entry_current_url, ''), '[?&]o=([a-z]+)') != '',
+        concat('compartilhado:', if(position(coalesce(session.$entry_referring_domain, ''), 'instagram') > 0, 'instagram',
+               extract(session.$entry_current_url, '[?&]o=([a-z]+)'))),
       match(coalesce(session.$entry_current_url, ''), '[?&]c=1(&|#|$)'), 'compartilhado',
       coalesce(session.$entry_utm_source, '') != '', concat('utm:', session.$entry_utm_source, '/', coalesce(session.$entry_utm_medium, ''), '/', coalesce(session.$entry_utm_campaign, '')),
       position(coalesce(session.$entry_referring_domain, ''), 'instagram') > 0, 'ig_outros',
