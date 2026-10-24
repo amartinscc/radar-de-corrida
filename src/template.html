@@ -234,7 +234,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .tp-opts span{background:var(--soft);color:var(--accent);font:700 12px var(--body);padding:5px 10px;border-radius:999px}
 @media (min-width:700px){.modal{align-items:center}}
 /* Modo Aline (só no celular dela; ativado com radardecorrida.com.br/?aline + senha) */
-.admbar{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:inline-flex;align-items:center;gap:6px;background:#1D1220;color:#fff;border:0;border-radius:999px;padding:10px 14px;font:700 13px var(--body);box-shadow:0 6px 20px rgba(29,18,32,.3);cursor:pointer}
+.admwrap{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:flex;gap:8px}
+.admbar{text-decoration:none;display:inline-flex;align-items:center;gap:6px;background:#1D1220;color:#fff;border:0;border-radius:999px;padding:10px 14px;font:700 13px var(--body);box-shadow:0 6px 20px rgba(29,18,32,.3);cursor:pointer}
 .admbar .dot{width:8px;height:8px;border-radius:50%;background:#E9A07E}
 .kitbtn{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:4px;background:#1D1220;color:#fff;border:0;border-radius:999px;font:700 12px var(--body);padding:6px 11px;cursor:pointer}
 .adm-list{display:flex;flex-direction:column;gap:8px}
@@ -1344,9 +1345,13 @@ __DATA__
     if(qs.has('aline')){ history.replaceState(null, '', location.pathname + location.hash); if(!modoAline) telaSenha(); else menuAdm(); }
   }catch(e){}
   if(modoAline){
+    const wrap = document.createElement('div'); wrap.className = 'admwrap';
     const bar = document.createElement('button'); bar.type = 'button'; bar.className = 'admbar';
     bar.innerHTML = '<span class="dot" aria-hidden="true"></span> Modo Aline';
-    bar.addEventListener('click', menuAdm); document.body.appendChild(bar);
+    bar.addEventListener('click', menuAdm);
+    const met = document.createElement('a'); met.className = 'admbar'; met.href = PAINEL_URL; met.target = '_blank'; met.rel = 'noopener';
+    met.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V4M19 20v-6"/></svg> Métricas';
+    wrap.appendChild(bar); wrap.appendChild(met); document.body.appendChild(wrap);
   }
 
   // Textos de cada parceira (na voz da Aline; ela pode editar antes de copiar)
