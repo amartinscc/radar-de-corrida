@@ -1341,8 +1341,11 @@ __DATA__
     abreModal(admEl);
   }
   try{
+    // ativação: radardecorrida.com.br/aline (página que redireciona), /?aline ou /#aline
     const qs = new URLSearchParams(location.search);
-    if(qs.has('aline')){ history.replaceState(null, '', location.pathname + location.hash); if(!modoAline) telaSenha(); else menuAdm(); }
+    let pede = qs.has('aline') || location.hash === '#aline';
+    try{ if(sessionStorage.getItem('radar-ativar') === '1'){ pede = true; sessionStorage.removeItem('radar-ativar'); } }catch(e){}
+    if(pede){ history.replaceState(null, '', location.pathname + (location.hash === '#aline' ? '' : location.hash)); if(!modoAline) telaSenha(); else menuAdm(); }
   }catch(e){}
   if(modoAline){
     const wrap = document.createElement('div'); wrap.className = 'admwrap';
