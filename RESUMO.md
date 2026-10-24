@@ -55,6 +55,15 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Regra: ao mudar o site ou as regras do radar, **atualize também as instruções da tarefa**, para a atualização automática não desfazer a mudança.
 - Por que o envio ao GitHub falhava até 13/10: as instruções mandavam usar a ferramenta add_repo, que não existe nas execuções agendadas; as tarefas paravam ali. O git funciona normalmente quando a tarefa é criada a partir de uma conversa que já tem o repositório ligado.
 
+## Modo Aline (desde 24/10/2026)
+- Funções que só aparecem no celular da Aline. Ativar: abrir `radardecorrida.com.br/?aline` e digitar a senha (com o Leandro). Guarda `radar-aline=1` (e `radar-quem=aline`) no localStorage daquele aparelho. Sair: botão "Modo Aline" (canto de baixo) → "Sair do Modo Aline".
+- A senha é conferida pelo SHA-256 de `radar-aline:<senha>` (constante `ADM_HASH` no `src/template.html`). Para trocar: calcular o novo hash e rodar `python3 src/build.py`. O repositório é público: o Modo Aline esconde funções, não guarda segredo. Não pôr dado pessoal nele.
+- Menu: Kits das parceiras, Métricas (link do painel), Link para os stories, Link dos parceiros (`/#parceiros`), Sair.
+- **Kit para a parceira** (botão em cada marca da aba Parceiros): arte "Aline × Marca" em Story (1080x1920) ou Post/collab (1080x1350), com foto, logo da marca, frase, cupom da marca e `radardecorrida.com.br · @amartinscc`. A Aline escolhe a foto da galeria, arrasta e dá zoom; a foto **não sobe para o site** (fica no IndexedDB `radar-aline` daquele celular, por marca, junto com zoom, enquadramento, frase e formato). Sem foto, usa `hero.jpg`. Traz legenda do post e mensagem para a marca (editáveis) e o link da marca no radar.
+- Textos e frases de cada marca: objeto `KIT_TXT` no `src/template.html` (chave = slug do nome). Marca nova sem entrada usa os textos genéricos da categoria. Ao adicionar parceiro, acrescentar a entrada dele.
+- Logo por URL no kit é carregado com CORS; se o servidor da marca não permitir, a arte mostra a inicial da marca no lugar.
+- Links públicos (servem para qualquer um): `/#parceiros` abre a aba Parceiros; `/#parceiro=<slug>` abre e destaca a marca.
+
 ## Métricas (PostHog)
 - Projeto PostHog do radar, região US (`us.i.posthog.com`), configurado no cabeçalho do `index.html`. Sem cookies (`persistence: memory`) e sem gravação de sessão.
 - Eventos: `compartilhar_link` (canal, tipo, item), `abriu_link_compartilhado` (tipo, item, achou), `$pageview`, `clique_loja` (tênis, loja, preço, url), `compartilhar_oferta`, `compartilhar_imagem`, `clique_prova` (prova, url), `cupom_copiado` (parceiro, cupom), `clique_parceiro`, `seguir_instagram` (botão), `voltar_topo`.

@@ -233,6 +233,29 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .tp-opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
 .tp-opts span{background:var(--soft);color:var(--accent);font:700 12px var(--body);padding:5px 10px;border-radius:999px}
 @media (min-width:700px){.modal{align-items:center}}
+/* Modo Aline (só no celular dela; ativado com radardecorrida.com.br/?aline + senha) */
+.admbar{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:15;display:inline-flex;align-items:center;gap:6px;background:#1D1220;color:#fff;border:0;border-radius:999px;padding:10px 14px;font:700 13px var(--body);box-shadow:0 6px 20px rgba(29,18,32,.3);cursor:pointer}
+.admbar .dot{width:8px;height:8px;border-radius:50%;background:#E9A07E}
+.kitbtn{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin-top:4px;background:#1D1220;color:#fff;border:0;border-radius:999px;font:700 12px var(--body);padding:6px 11px;cursor:pointer}
+.adm-list{display:flex;flex-direction:column;gap:8px}
+.adm-list .follow{justify-content:space-between;width:100%}
+.adm-list .follow{text-align:left}
+.adm-list small{font-weight:500;opacity:.75;white-space:nowrap}
+.kit .seg{display:flex;gap:4px;background:var(--soft);border-radius:999px;padding:4px;align-self:center}
+.kit .seg button{border:0;background:none;color:var(--muted);font:700 13px var(--body);padding:7px 14px;border-radius:999px;cursor:pointer}
+.kit .seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.kit canvas{display:block;width:100%;max-width:280px;margin:0 auto;border-radius:14px;border:1px solid var(--line);touch-action:none;cursor:grab;background:var(--soft)}
+.kit canvas.post{max-width:320px}
+.kit label.lb{font:700 12px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.kit .row{display:flex;gap:8px;align-items:center}
+.kit input[type=range]{flex:1;accent-color:var(--accent)}
+.kit input[type=text],.kit textarea{width:100%;font:500 14px/1.45 var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.kit textarea{min-height:120px;resize:vertical}
+.kit .chips{display:flex;flex-wrap:wrap;gap:6px}
+.kit .chips .chip{font-size:12px;padding:5px 10px}
+.kit .grp{display:flex;flex-direction:column;gap:6px}
+.kit .mini{align-self:flex-end;background:var(--soft);color:var(--accent);border:0;border-radius:999px;font:700 12px var(--body);padding:6px 12px;cursor:pointer}
+.kit .pw{display:flex;flex-direction:column;gap:8px}
 @media (prefers-reduced-motion:no-preference){.deal,.partner{transition:transform .15s}.deal:hover,.partner:hover{transform:translateY(-2px)}}
 
 /* Abertura com foto da Aline */
@@ -513,6 +536,53 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <p class="hint" id="sh-hint" hidden>Toque e segure a imagem para salvar ou enviar. Mande o link junto: é ele que abre o radar.</p>
       <p class="hint">Nos Stories do Instagram: publique a imagem e adicione o adesivo “Link” com o link copiado.</p>
     </div>
+  </div>
+</div>
+
+<div class="modal" id="adm" hidden role="dialog" aria-modal="true" aria-labelledby="adm-t">
+  <div class="sheet kit">
+    <header><h3 id="adm-t">Modo Aline</h3><button class="xbtn" type="button" data-fecha aria-label="Fechar">×</button></header>
+    <div id="adm-body"></div>
+  </div>
+</div>
+
+<div class="modal" id="kit" hidden role="dialog" aria-modal="true" aria-labelledby="kit-t">
+  <div class="sheet kit">
+    <header><h3 id="kit-t">Kit da parceira</h3><button class="xbtn" type="button" data-fecha aria-label="Fechar">×</button></header>
+    <div class="seg" role="group" aria-label="Formato"><button type="button" data-fmt="story" aria-pressed="true">Story</button><button type="button" data-fmt="post" aria-pressed="false">Post / collab</button></div>
+    <canvas id="kit-cv" width="1080" height="1920" aria-label="Prévia da arte"></canvas>
+    <p class="hint" id="kit-dica">Arraste a foto para enquadrar.</p>
+    <div class="row">
+      <button class="follow alt" type="button" id="kit-foto" style="flex:1;justify-content:center">Escolher foto</button>
+      <button class="mini" type="button" id="kit-padrao" hidden>Usar foto padrão</button>
+    </div>
+    <input type="file" id="kit-file" accept="image/*" hidden>
+    <div class="row"><span class="hint">Zoom</span><input type="range" id="kit-zoom" min="1" max="3" step="0.01" value="1" aria-label="Zoom da foto"></div>
+    <div class="grp">
+      <label class="lb" for="kit-frase">Frase da arte</label>
+      <input type="text" id="kit-frase" maxlength="60">
+      <div class="chips" id="kit-frases"></div>
+    </div>
+    <div class="btns">
+      <button class="follow" type="button" id="kit-share" style="justify-content:center">Compartilhar imagem</button>
+      <button class="follow alt" type="button" id="kit-save" style="justify-content:center">Salvar imagem</button>
+    </div>
+    <div class="grp">
+      <label class="lb" for="kit-leg">Legenda do post</label>
+      <textarea id="kit-leg"></textarea>
+      <button class="mini" type="button" data-copia="kit-leg">Copiar legenda</button>
+    </div>
+    <div class="grp">
+      <label class="lb" for="kit-dm">Mensagem para a marca</label>
+      <textarea id="kit-dm"></textarea>
+      <button class="mini" type="button" data-copia="kit-dm">Copiar mensagem</button>
+    </div>
+    <div class="grp">
+      <label class="lb">Link da marca no radar</label>
+      <p class="hint" style="text-align:left" id="kit-link"></p>
+      <button class="mini" type="button" id="kit-copylink">Copiar link</button>
+    </div>
+    <p class="hint">A foto fica só neste celular: não vai para o site.</p>
   </div>
 </div>
 
@@ -1152,6 +1222,11 @@ __DATA__
     if(window.posthog) posthog.capture('abriu_link_compartilhado', {tipo, item: sl, achou: !!el});
   }, 0);
 
+  // Modo Aline: só no aparelho dela (ativado com ?aline + senha; guarda "radar-aline" no localStorage)
+  let modoAline = false;
+  try{ modoAline = localStorage.getItem('radar-aline') === '1'; }catch(e){}
+  const slugMarca = s => slugTxt(s);
+
   // parceiros
   const pc = data.parceiros || {marcas:[]};
   const marcas = pc.marcas || [];
@@ -1190,8 +1265,268 @@ __DATA__
         a.querySelector('.pi').appendChild(cp);
       }
       if(m.campanha){ const c = document.createElement('span'); c.className = 'pc'; c.textContent = m.campanha; a.querySelector('.pi').appendChild(c); }
+      a.id = 'parceiro-' + slugMarca(m.nome);
+      if(modoAline){
+        const kb = document.createElement('button'); kb.type = 'button'; kb.className = 'kitbtn';
+        kb.innerHTML = '<span aria-hidden="true">✦</span> Kit para a parceira';
+        kb.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); abrirKit(m); });
+        a.querySelector('.pi').appendChild(kb);
+      }
       list.appendChild(a);
     });
+  });
+
+  // link para a aba Parceiros (#parceiros) ou para uma marca (#parceiro=<slug>), para mandar às marcas
+  setTimeout(function(){
+    const h = location.hash || '';
+    const mt = h.match(/^#parceiro=([a-z0-9-]+)$/);
+    if(h !== '#parceiros' && !mt) return;
+    const tb = document.getElementById('tab-roupas'); if(tb) tb.click();
+    if(mt){
+      const el = document.getElementById('parceiro-' + mt[1]);
+      if(el){ setTimeout(() => { el.scrollIntoView({behavior:'smooth', block:'center'}); el.style.transition = 'box-shadow .4s'; el.style.boxShadow = '0 0 0 3px var(--mauve)'; setTimeout(() => { el.style.boxShadow = ''; }, 3500); }, 250); }
+    } else { const pg = document.getElementById('pt-groups'); if(pg) setTimeout(() => pg.scrollIntoView({behavior:'smooth', block:'start'}), 250); }
+  }, 0);
+
+  // ---------- Modo Aline ----------
+  const ADM_HASH = 'bc95ba0d8b52ed31693b718b4d7b87c205b2f37767604823dd17dbd100b7739c';
+  const PAINEL_URL = RADAR_URL + 'painel/rc-5yecuqq3sbbk9h/';
+  const STORIES_URL = RADAR_URL + '?utm_medium=stories&utm_campaign=amartinscc';
+  const admEl = document.getElementById('adm'), admBody = document.getElementById('adm-body');
+  const abreModal = el => { el.hidden = false; document.body.style.overflow = 'hidden'; };
+  const fechaModal = el => { el.hidden = true; document.body.style.overflow = ''; };
+  [admEl, document.getElementById('kit')].forEach(el => {
+    el.addEventListener('click', e => { if(e.target === el || e.target.closest('[data-fecha]')) fechaModal(el); });
+  });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape'){ [admEl, document.getElementById('kit')].forEach(el => { if(!el.hidden) fechaModal(el); }); } });
+  async function copiaTxt(t, msg){
+    try{ await navigator.clipboard.writeText(t); toast(msg || 'Copiado!'); return true; }
+    catch(e){ prompt('Copie:', t); return false; }
+  }
+  async function sha256(s){
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('');
+  }
+  function telaSenha(){
+    admBody.innerHTML = '<div class="pw"><p class="hint" style="text-align:left">Digite a senha para ativar o Modo Aline neste celular. Ele mostra funções que só você vê: kits das parceiras, métricas e atalhos.</p><input type="password" id="adm-pw" autocomplete="current-password" placeholder="Senha" style="width:100%;font:500 16px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)"><button class="follow" type="button" id="adm-ok" style="justify-content:center">Ativar</button><p class="hint" id="adm-erro" hidden style="color:var(--hot)">Senha incorreta.</p></div>';
+    abreModal(admEl);
+    const pw = document.getElementById('adm-pw');
+    const vai = async () => {
+      let ok = false;
+      try{ ok = (await sha256('radar-aline:' + pw.value.trim())) === ADM_HASH; }catch(e){}
+      if(!ok){ document.getElementById('adm-erro').hidden = false; return; }
+      try{ localStorage.setItem('radar-aline', '1'); localStorage.setItem('radar-quem', 'aline'); }catch(e){}
+      location.replace(location.pathname + '#parceiros'); location.reload();
+    };
+    document.getElementById('adm-ok').addEventListener('click', vai);
+    pw.addEventListener('keydown', e => { if(e.key === 'Enter') vai(); });
+    setTimeout(() => pw.focus(), 100);
+  }
+  function menuAdm(){
+    admBody.innerHTML = '';
+    const lista = document.createElement('div'); lista.className = 'adm-list';
+    const item = (txt, sub, fn, href) => {
+      const b = document.createElement(href ? 'a' : 'button'); b.className = 'follow alt';
+      if(href){ b.href = href; b.target = '_blank'; b.rel = 'noopener'; } else { b.type = 'button'; b.addEventListener('click', fn); }
+      b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = txt; b.querySelector('small').textContent = sub || '';
+      lista.appendChild(b);
+    };
+    item('Kits das parceiras', 'arte + legenda', () => { fechaModal(admEl); document.getElementById('tab-roupas').click(); setTimeout(() => document.getElementById('pt-groups').scrollIntoView({behavior:'smooth'}), 200); });
+    item('Métricas do radar', 'visitas e cliques', null, PAINEL_URL);
+    item('Link para os stories', 'conta no painel', () => copiaTxt(STORIES_URL, 'Link dos stories copiado!'));
+    item('Link dos parceiros', 'para as marcas', () => copiaTxt(RADAR_URL + '#parceiros', 'Link dos parceiros copiado!'));
+    item('Sair do Modo Aline', 'neste celular', () => { try{ localStorage.removeItem('radar-aline'); }catch(e){} location.replace(location.pathname); });
+    admBody.appendChild(lista);
+    abreModal(admEl);
+  }
+  try{
+    const qs = new URLSearchParams(location.search);
+    if(qs.has('aline')){ history.replaceState(null, '', location.pathname + location.hash); if(!modoAline) telaSenha(); else menuAdm(); }
+  }catch(e){}
+  if(modoAline){
+    const bar = document.createElement('button'); bar.type = 'button'; bar.className = 'admbar';
+    bar.innerHTML = '<span class="dot" aria-hidden="true"></span> Modo Aline';
+    bar.addEventListener('click', menuAdm); document.body.appendChild(bar);
+  }
+
+  // Textos de cada parceira (na voz da Aline; ela pode editar antes de copiar)
+  const KIT_TXT = {
+    'kaisan': {f:['Eu treino de Kaisan','Conforto do treino à rua'], i:'Treino bom começa com roupa confortável, e a Kaisan está comigo nessa! 💜'},
+    'brilho-e-bronze': {f:['Do treino à praia','Brilho e Bronze no meu treino'], i:'Do treino à praia, a Brilho e Bronze acompanha a minha rotina aqui no Rio! ☀️'},
+    'massam-fitness': {f:['Roupa que aguenta o ritmo','Treino de Massam'], i:'Roupa de treino que aguenta o ritmo: Massam Fitness comigo na academia e na corrida! 💪'},
+    'pozze': {f:['Do treino à prova','Corro de Pozze'], i:'Moda fitness e running que eu amo usar nos treinos e nas provas: Pozze! 🏃‍♀️'},
+    'jungle': {f:['Energia natural para correr','Hidratação 100% natural'], i:'Hidratação e energia 100% naturais nos meus treinos longos e nas provas: Jungle! 🌿'},
+    'plant-power': {f:['Força de planta','Suplemento no meu treino'], i:'Suplementação que faz parte da minha rotina de treino: Plant Power! 🌱'},
+    'a-tal-da-castanha': {f:['Pós-treino vegetal','Recarga gostosa pós-treino'], i:'Pós-treino gostoso e vegetal: A Tal da Castanha! 🥛'},
+    'possible': {f:['Prático para a correria','Vegetal no dia a dia'], i:'Bebida vegetal prática para a correria do dia a dia: Possible! 🌾'},
+    'marmitas-da-lulu': {f:['Comida de verdade para quem treina','Rotina puxada, prato caprichado'], i:'Rotina de treino puxada pede comida de verdade: Marmitas da Lulu, com entrega aqui no Rio! 🍱'},
+    'livvan': {f:['Disposição para treinar todo dia','Saúde que acompanha o treino'], i:'Disposição para treinar e cuidar da saúde todos os dias: @livvan! 💊', ig:'livvan'}
+  };
+  const KIT_CAT = {'Roupas':['Do treino à prova','Eu treino com ela'], 'Nutrição':['Energia para treinar','Faz parte do meu treino']};
+
+  const kitEl = document.getElementById('kit'), kcv = document.getElementById('kit-cv'), kctx = kcv.getContext('2d');
+  const kz = document.getElementById('kit-zoom'), kFrase = document.getElementById('kit-frase');
+  const heroImg = new Image(); heroImg.src = 'hero.jpg';
+  let kM = null, kFmt = 'story', kFoto = null, kFotoBlob = null, kZoom = 1, kOx = 0, kOy = 0, kLogo = null, kSalvar = null;
+
+  // fotos guardadas só neste aparelho (IndexedDB)
+  function idb(){ return new Promise((res, rej) => { try{ const r = indexedDB.open('radar-aline', 1); r.onupgradeneeded = () => r.result.createObjectStore('fotos'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }catch(e){ rej(e); } }); }
+  async function fotoLer(k){ try{ const db = await idb(); return await new Promise(res => { const q = db.transaction('fotos').objectStore('fotos').get(k); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); }); }catch(e){ return null; } }
+  async function fotoGravar(k, v){ try{ const db = await idb(); const t = db.transaction('fotos','readwrite'); if(v) t.objectStore('fotos').put(v, k); else t.objectStore('fotos').delete(k); }catch(e){} }
+  const carregaImg = (src, cors) => new Promise(res => { const im = new Image(); if(cors) im.crossOrigin = 'anonymous'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
+  async function encolhe(file){
+    const url = URL.createObjectURL(file); const im = await carregaImg(url); URL.revokeObjectURL(url); if(!im) return null;
+    const mx = 2000, s = Math.min(1, mx / Math.max(im.naturalWidth, im.naturalHeight));
+    const cv = document.createElement('canvas'); cv.width = Math.round(im.naturalWidth*s); cv.height = Math.round(im.naturalHeight*s);
+    cv.getContext('2d').drawImage(im, 0, 0, cv.width, cv.height);
+    return await new Promise(res => cv.toBlob(res, 'image/jpeg', .9));
+  }
+
+  const kDim = () => kFmt === 'story' ? {W:1080, H:1920, top:170, bot:250} : {W:1080, H:1350, top:60, bot:64};
+  function kitDesenha(){
+    const {W, H, top, bot} = kDim(); const c = kctx, m = kM; if(!m) return;
+    const D = "'Urbanist','Avenir Next',system-ui,sans-serif", B = "'Plus Jakarta Sans',system-ui,sans-serif";
+    if(kcv.width !== W || kcv.height !== H){ kcv.width = W; kcv.height = H; }
+    kcv.className = kFmt === 'post' ? 'post' : '';
+    c.clearRect(0,0,W,H);
+    const im = kFoto || (heroImg.complete && heroImg.naturalWidth ? heroImg : null);
+    if(im){
+      const iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height;
+      const s = Math.max(W/iw, H/ih) * kZoom, dw = iw*s, dh = ih*s;
+      const mx = (dw - W)/2, my = (dh - H)/2;
+      kOx = Math.max(-mx, Math.min(mx, kOx)); kOy = Math.max(-my, Math.min(my, kOy));
+      c.drawImage(im, (W-dw)/2 + kOx, (H-dh)/2 + kOy, dw, dh);
+    } else {
+      const g = c.createLinearGradient(0,0,0,H); g.addColorStop(0,'#BBE3E5'); g.addColorStop(.55,'#D9C1D9'); g.addColorStop(1,'#7A4E7D'); c.fillStyle = g; c.fillRect(0,0,W,H);
+    }
+    // sombras para leitura
+    let g = c.createLinearGradient(0,0,0,top+200); g.addColorStop(0,'rgba(29,18,32,.55)'); g.addColorStop(1,'rgba(29,18,32,0)'); c.fillStyle = g; c.fillRect(0,0,W,top+200);
+    const gy = H*(kFmt==='story' ? .42 : .3); g = c.createLinearGradient(0,gy,0,H); g.addColorStop(0,'rgba(29,18,32,0)'); g.addColorStop(.45,'rgba(29,18,32,.72)'); g.addColorStop(1,'rgba(29,18,32,.95)'); c.fillStyle = g; c.fillRect(0,gy,W,H-gy);
+    const cx = W/2; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    // selo do topo
+    c.font = '800 28px ' + B; const sel = 'PARCEIRA DO RADAR DE CORRIDA'; const sw = c.measureText(sel).width + 96;
+    c.fillStyle = 'rgba(255,255,255,.94)'; rr(c, cx-sw/2, top, sw, 64, 32); c.fill();
+    c.fillStyle = '#B28AB1'; c.beginPath(); c.arc(cx-sw/2+38, top+32, 9, 0, Math.PI*2); c.fill();
+    c.strokeStyle = '#B28AB1'; c.lineWidth = 3; c.beginPath(); c.arc(cx-sw/2+38, top+32, 16, 0, Math.PI*2); c.stroke();
+    c.fillStyle = '#1D1220'; c.fillText(sel, cx+14, top+42);
+    // de baixo para cima
+    let y = H - bot;
+    c.fillStyle = 'rgba(255,255,255,.85)'; c.font = '600 32px ' + B; c.fillText('radardecorrida.com.br · @' + (pf.instagram||'amartinscc'), cx, y);
+    const code = m.cupom || pc.cupom;
+    if(code){
+      y -= 64; const ph = 96; c.font = '800 46px ' + B; const ct = 'Cupom ' + code; const pw = c.measureText(ct).width + 110;
+      c.fillStyle = '#B28AB1'; rr(c, cx-pw/2, y-ph, pw, ph, ph/2); c.fill();
+      c.fillStyle = '#1D1220'; c.fillText(ct, cx, y-ph/2+16); y -= ph;
+    }
+    // frase
+    const fr = (kFrase.value || '').trim();
+    if(fr){
+      c.font = '600 46px ' + B; c.fillStyle = '#FFFFFF';
+      const words = fr.split(' '); let line = '', lines = [];
+      words.forEach(w => { const t = line ? line + ' ' + w : w; if(c.measureText(t).width > W-180 && line){ lines.push(line); line = w; } else line = t; }); if(line) lines.push(line);
+      lines = lines.slice(0,2); y -= 56;
+      let prim = y;
+      for(let i = lines.length-1; i >= 0; i--){ c.fillText(lines[i], cx, y); prim = y; y -= 58; }
+      y = prim - 34 - 44;
+    } else y -= 40;
+    // título "Aline × Marca"
+    const nome = m.nome, maxW = W - 140; let fs = 124;
+    c.font = '800 ' + fs + 'px ' + D; const umaLinha = () => c.measureText('Aline × ' + nome).width;
+    while(umaLinha() > maxW && fs > 96){ fs -= 4; c.font = '800 ' + fs + 'px ' + D; }
+    // "Aline", "×" (laranja) e o nome da marca, centralizados na mesma linha
+    const tituloLinha = (marca, yy) => {
+      const ps = [['Aline ', '#FFFFFF'], ['×', '#E9A07E'], [marca ? ' ' + marca : '', '#FFFFFF']];
+      const tw = ps.reduce((s, p) => s + c.measureText(p[0]).width, 0); let x = cx - tw/2;
+      c.textAlign = 'left'; ps.forEach(p => { c.fillStyle = p[1]; c.fillText(p[0], x, yy); x += c.measureText(p[0]).width; }); c.textAlign = 'center';
+    };
+    if(umaLinha() <= maxW){ tituloLinha(nome, y); y -= fs; }
+    else {
+      fs = 116; c.font = '800 ' + fs + 'px ' + D; while(c.measureText(nome).width > maxW && fs > 64){ fs -= 4; c.font = '800 ' + fs + 'px ' + D; }
+      c.fillStyle = '#FFFFFF'; c.fillText(nome, cx, y); y -= fs*1.02; tituloLinha('', y); y -= fs;
+    }
+    // logo da marca num círculo branco
+    const r = kFmt === 'story' ? 104 : 92, ly = y - r - 6;
+    c.save(); c.shadowColor = 'rgba(0,0,0,.25)'; c.shadowBlur = 30; c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(cx, ly, r, 0, Math.PI*2); c.fill(); c.restore();
+    if(kLogo){
+      c.save(); c.beginPath(); c.arc(cx, ly, r-6, 0, Math.PI*2); c.clip();
+      const lw = kLogo.naturalWidth, lh = kLogo.naturalHeight;
+      if(m.logo_ajuste === 'contain'){ const s = Math.min((r*1.5)/lw, (r*1.5)/lh); c.drawImage(kLogo, cx - lw*s/2, ly - lh*s/2, lw*s, lh*s); }
+      else { const s = Math.max((r*2)/lw, (r*2)/lh); c.drawImage(kLogo, cx - lw*s/2, ly - lh*s/2, lw*s, lh*s); }
+      c.restore();
+    } else { c.fillStyle = '#7A4E7D'; c.font = '800 ' + Math.round(r*.95) + 'px ' + D; c.fillText(nome.charAt(0), cx, ly + r*.33); }
+  }
+  function kitTextos(m){
+    const k = slugMarca(m.nome), t = KIT_TXT[k] || {}, code = m.cupom || pc.cupom;
+    const intro = t.i || ('A ' + m.nome + ' faz parte da minha rotina de treino! 💜');
+    document.getElementById('kit-leg').value = intro + '\n\nEla é parceira oficial do meu Radar de Corrida 💜 Entra em radardecorrida.com.br, na aba Parceiros, e usa o meu cupom ' + code + (m.cupom_auto ? ' (pelo link ele já entra sozinho)' : '') + '.\n\nLá também tem o calendário de provas de corrida, ofertas de tênis e a calculadora de pace. 🏃‍♀️\n\n#corrida #corridaderua #treino #radardecorrida';
+    document.getElementById('kit-dm').value = 'Oi, time ' + m.nome + '! 💜\n\nQueria mostrar uma coisa: lancei o Radar de Corrida (radardecorrida.com.br), meu site com calendário de provas, ofertas de tênis e calculadora de pace. Vocês estão lá na aba Parceiros, com destaque e o meu cupom ' + code + ':\n' + RADAR_URL + '#parceiro=' + k + '\n\nFiz também essa arte especial da nossa parceria para postar. Topam fazer um collab comigo no Instagram? Vou adorar! 🏃‍♀️\n\nBeijo, Aline';
+    document.getElementById('kit-link').textContent = RADAR_URL + '#parceiro=' + k;
+    const sugest = [...(t.f || KIT_CAT[m.categoria] || []), 'Eu uso e indico', 'Parceria de verdade'];
+    kFrase.value = sugest[0];
+    const box = document.getElementById('kit-frases'); box.innerHTML = '';
+    sugest.forEach(s => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = s; b.addEventListener('click', () => { kFrase.value = s; kitDesenha(); kitGuarda(); }); box.appendChild(b); });
+  }
+  function kitGuarda(){
+    clearTimeout(kSalvar);
+    kSalvar = setTimeout(() => { if(kM) fotoGravar(slugMarca(kM.nome), {blob: kFotoBlob, zoom: kZoom, ox: kOx, oy: kOy, frase: kFrase.value, fmt: kFmt}); }, 400);
+  }
+  async function abrirKit(m){
+    kM = m; kFoto = null; kFotoBlob = null; kZoom = 1; kOx = 0; kOy = 0; kLogo = null;
+    document.getElementById('kit-t').textContent = 'Kit · ' + m.nome;
+    kitTextos(m);
+    abreModal(kitEl);
+    try{ await Promise.all(['800 60px Urbanist','600 40px "Plus Jakarta Sans"','800 40px "Plus Jakarta Sans"'].map(f => document.fonts.load(f))); }catch(e){}
+    if(!heroImg.complete) await new Promise(r => { heroImg.onload = heroImg.onerror = r; });
+    if(m.logo) kLogo = m.logo.startsWith('data:') ? await carregaImg(m.logo) : await carregaImg(m.logo, true);
+    const sv = await fotoLer(slugMarca(m.nome));
+    if(sv && kM === m){
+      if(sv.blob){ const u = URL.createObjectURL(sv.blob); kFoto = await carregaImg(u); kFotoBlob = sv.blob; }
+      kZoom = sv.zoom || 1; kOx = sv.ox || 0; kOy = sv.oy || 0; if(sv.frase) kFrase.value = sv.frase; if(sv.fmt) kFmt = sv.fmt;
+    }
+    kz.value = kZoom; marcaFmt(); kitEstadoFoto(); kitDesenha();
+  }
+  function kitEstadoFoto(){ document.getElementById('kit-padrao').hidden = !kFoto; document.getElementById('kit-foto').textContent = kFoto ? 'Trocar foto' : 'Escolher foto'; }
+  function marcaFmt(){ kitEl.querySelectorAll('[data-fmt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.fmt === kFmt))); }
+  kitEl.querySelectorAll('[data-fmt]').forEach(b => b.addEventListener('click', () => { kFmt = b.dataset.fmt; kOx = 0; kOy = 0; marcaFmt(); kitDesenha(); kitGuarda(); }));
+  document.getElementById('kit-foto').addEventListener('click', () => document.getElementById('kit-file').click());
+  document.getElementById('kit-file').addEventListener('change', async e => {
+    const f = e.target.files && e.target.files[0]; e.target.value = ''; if(!f) return;
+    const bl = await encolhe(f); if(!bl){ toast('Não consegui abrir essa foto. Tente outra.'); return; }
+    const u = URL.createObjectURL(bl); kFoto = await carregaImg(u); kFotoBlob = bl; kZoom = 1; kOx = 0; kOy = 0; kz.value = 1;
+    kitEstadoFoto(); kitDesenha(); kitGuarda();
+  });
+  document.getElementById('kit-padrao').addEventListener('click', () => { kFoto = null; kFotoBlob = null; kZoom = 1; kOx = 0; kOy = 0; kz.value = 1; kitEstadoFoto(); kitDesenha(); kitGuarda(); });
+  kz.addEventListener('input', () => { kZoom = +kz.value; kitDesenha(); kitGuarda(); });
+  kFrase.addEventListener('input', () => { kitDesenha(); kitGuarda(); });
+  // arrastar para enquadrar
+  let arr = null;
+  kcv.addEventListener('pointerdown', e => { arr = {x:e.clientX, y:e.clientY, ox:kOx, oy:kOy}; kcv.setPointerCapture(e.pointerId); kcv.style.cursor = 'grabbing'; });
+  kcv.addEventListener('pointermove', e => { if(!arr) return; const s = kcv.width / kcv.getBoundingClientRect().width; kOx = arr.ox + (e.clientX-arr.x)*s; kOy = arr.oy + (e.clientY-arr.y)*s; kitDesenha(); });
+  const solta = () => { if(arr){ arr = null; kcv.style.cursor = ''; kitGuarda(); } };
+  kcv.addEventListener('pointerup', solta); kcv.addEventListener('pointercancel', solta);
+  kitEl.querySelectorAll('[data-copia]').forEach(b => b.addEventListener('click', () => copiaTxt(document.getElementById(b.dataset.copia).value, b.dataset.copia === 'kit-leg' ? 'Legenda copiada!' : 'Mensagem copiada!')));
+  document.getElementById('kit-copylink').addEventListener('click', () => copiaTxt(document.getElementById('kit-link').textContent, 'Link copiado!'));
+  const kitNome = () => 'aline-x-' + slugMarca(kM.nome) + '-' + kFmt + '.png';
+  async function kitBlob(){
+    kitDesenha();
+    try{ return await new Promise((res, rej) => kcv.toBlob(b => b ? res(b) : rej(new Error('sem imagem')), 'image/png')); }
+    catch(e){ toast('O logo desta marca não deixou gerar a imagem. Me avise para eu ajustar.'); return null; }
+  }
+  document.getElementById('kit-save').addEventListener('click', async () => {
+    const b = await kitBlob(); if(!b) return;
+    if(dlApi){ try{ await dlApi.save({filename: kitNome(), data: b}); toast('Imagem salva!'); return; }catch(e){} }
+    const u = URL.createObjectURL(b), a = document.createElement('a'); a.href = u; a.download = kitNome(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000);
+    toast('Imagem salva!');
+  });
+  document.getElementById('kit-share').addEventListener('click', async () => {
+    const b = await kitBlob(); if(!b) return;
+    const leg = document.getElementById('kit-leg').value;
+    try{ await navigator.clipboard.writeText(leg); }catch(e){}
+    try{
+      const f = new File([b], kitNome(), {type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[f]})){ toast('Legenda copiada: é só colar no post.'); await navigator.share({files:[f]}); return; }
+    }catch(e){ if(e && e.name === 'AbortError') return; }
+    document.getElementById('kit-save').click();
   });
 
 })();
