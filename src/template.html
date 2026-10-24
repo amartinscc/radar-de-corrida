@@ -1167,7 +1167,10 @@ __DATA__
       a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><a class="arrow" target="_blank" rel="noopener">Ir à loja →</a>';
       a.querySelector('a.arrow').href = m.link;
       a.addEventListener('click', ev => { if(ev.target.closest('.pcopy, a')) return; window.open(m.link, '_blank', 'noopener'); });
-      if(m.logo){ const im = document.createElement('img'); im.src = m.logo; im.alt = ''; a.querySelector('.mono').appendChild(im); a.querySelector('.mono').classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
+      if(m.logo){ const mo = a.querySelector('.mono'); const im = document.createElement('img'); im.src = m.logo; im.alt = '';
+        if(m.logo_ajuste === 'contain'){ im.style.objectFit = 'contain'; im.style.padding = '5px'; im.style.boxSizing = 'border-box'; im.style.background = '#fff'; }
+        im.onerror = () => { mo.classList.remove('logo'); mo.textContent = m.nome.charAt(0); };
+        mo.appendChild(im); mo.classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
       a.querySelector('.pn').textContent = m.nome;
       a.querySelector('.pd').textContent = m.descricao || '';
       if(code){
