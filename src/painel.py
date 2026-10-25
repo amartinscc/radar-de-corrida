@@ -1,7 +1,9 @@
 # Gera os dados do painel de métricas (página privada painel/<PAINEL>/), a partir das duas consultas
 # de src/painel-consultas.sql rodadas no PostHog (saída em texto, colunas separadas por |, com cabeçalho).
-# Uso: python3 src/painel.py agregado.txt diario.txt
+# Uso: python3 src/painel.py agregado.txt diario.txt [--hoje]
 # Grava painel/<PAINEL>/dados.json. Não mexe em mais nada do site.
+# Sem --hoje (atualização diária das 00h10): o painel mostra só dias completos (Ontem, 7, 30, 90 dias, até ontem).
+# Com --hoje (atualização a pedido durante o dia): inclui também o período Hoje e o dia atual no gráfico.
 import datetime, json, pathlib, sys
 
 PAINEL = 'rc-5yecuqq3sbbk9h'  # endereço secreto: radardecorrida.com.br/painel/<PAINEL>/
@@ -36,10 +38,18 @@ def linhas(caminho, colunas):
 
 
 def main():
-    if len(sys.argv) != 3:
-        raise SystemExit('uso: python3 src/painel.py agregado.txt diario.txt')
-    ag = linhas(sys.argv[1], ['p', 'dim', 'rotulo', 'visitas', 'vezes'])
-    di = linhas(sys.argv[2], ['dia', 'visitas', 'instagram'])
+    args = sys.argv[1:]
+    com_hoje = '--hoje' in args
+    args = [a for a in args if a != '--hoje']
+    if len(args) != 2:
+        raise SystemExit('uso: python3 src/painel.py agregado.txt diario.txt [--hoje]')
+    ag = linhas(args[0], ['p', 'dim', 'rotulo', 'visitas', 'vezes'])
+    di = linhas(args[1], ['dia', 'visitas', 'instagram'])
+    agora = datetime.datetime.now(BRT)
+    hoje = agora.strftime('%Y-%m-%d')
+    if not com_hoje:
+        ag = [r for r in ag if r['p'] != 'hoje']
+        di = [r for r in di if r['dia'] < hoje]
     periodos = {}
     for r in ag:
         p = periodos.setdefault(r['p'], {})
@@ -50,7 +60,8 @@ def main():
     if '7' not in periodos or 'evento' not in periodos['7']:
         raise SystemExit('dados sem o período de 7 dias: confira a saída da consulta [1]')
     dados = {
-        'gerado': datetime.datetime.now(BRT).strftime('%Y-%m-%dT%H:%M:%S-03:00'),
+        'gerado': agora.strftime('%Y-%m-%dT%H:%M:%S-03:00'),
+        'ate': hoje if com_hoje else (agora - datetime.timedelta(days=1)).strftime('%Y-%m-%d'),
         'periodos': periodos,
         'diario': [[r['dia'], int(r['visitas']), int(r['instagram'])] for r in di],
     }

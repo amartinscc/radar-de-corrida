@@ -1,5 +1,7 @@
 -- Consultas do painel de métricas (PostHog, ferramenta execute-sql). Rode as duas e salve a saída de texto
 -- (linhas separadas por |, com a linha de cabeçalho) em arquivos, depois: python3 src/painel.py agregado.txt diario.txt
+-- Os períodos ontem/7/30/90 terminam no dia anterior (dias completos). O dia atual vem como 'hoje' e no diário,
+-- mas o painel.py só o mantém com --hoje (atualização feita durante o dia, a pedido).
 
 -- [1] agregado
 WITH base AS (
@@ -52,18 +54,19 @@ FROM (
                    [('evento', event), ('origem', origem), ('disp', disp), ('cidade', cidade), ('pagina', chave)],
                    [('evento', event), (event, chave)]))),
            arrayFilter(q -> (q = 'hoje' AND dia = hoje)
-                         OR (q = '7' AND dia > hoje - 7)
-                         OR (q = '30' AND dia > hoje - 30)
-                         OR (q = '90' AND dia > hoje - 90)
-                         OR (q = 'ant7' AND dia <= hoje - 7 AND dia > hoje - 14)
-                         OR (q = 'ant30' AND dia <= hoje - 30 AND dia > hoje - 60),
-                       ['hoje', '7', '30', '90', 'ant7', 'ant30'])))) AS x
+                         OR (q = 'ontem' AND dia = hoje - 1)
+                         OR (q = '7' AND dia < hoje AND dia >= hoje - 7)
+                         OR (q = '30' AND dia < hoje AND dia >= hoje - 30)
+                         OR (q = '90' AND dia < hoje AND dia >= hoje - 90)
+                         OR (q = 'ant7' AND dia < hoje - 7 AND dia >= hoje - 14)
+                         OR (q = 'ant30' AND dia < hoje - 30 AND dia >= hoje - 60),
+                       ['hoje', 'ontem', '7', '30', '90', 'ant7', 'ant30'])))) AS x
   FROM base
 )
 GROUP BY p, dim, rotulo
 ORDER BY p, dim, visitas DESC, vezes DESC
 LIMIT 20 BY p, dim
-LIMIT 500
+LIMIT 1000
 
 -- [2] diario
 SELECT toDate(toTimeZone(timestamp, 'America/Sao_Paulo')) AS dia, uniq(properties.$session_id) AS visitas, uniqIf(properties.$session_id, coalesce(nullIf(session.$entry_utm_source, ''), session.$entry_referring_domain, '') IN ('ig', 'l.instagram.com', 'instagram.com', 'www.instagram.com')) AS instagram FROM events WHERE timestamp >= now() - INTERVAL 92 DAY AND event = '$pageview' GROUP BY dia ORDER BY dia LIMIT 100
