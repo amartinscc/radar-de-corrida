@@ -3,7 +3,8 @@
 #   e a imagem de prévia 1200x630 de cada item em og/<tipo>-<slug>.jpg.
 # Não altera o index.html. Uso: python3 src/paginas.py
 # O slug é o mesmo que a página calcula em JavaScript (função slugItem do template): mude os dois juntos.
-import base64, hashlib, html, io, json, math, re, unicodedata, pathlib, datetime
+import base64, hashlib, html, io, json, math, re, sys, unicodedata, pathlib, datetime
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from PIL import Image, ImageDraw, ImageFont
 
 VERSAO = 'v1'  # mude para forçar a regravação de todas as imagens
@@ -330,6 +331,12 @@ def main():
     sitemap(ativos['prova'], hoje)
     manpath.write_text(json.dumps(novos_man, ensure_ascii=False, indent=0, sort_keys=True))
     print(f'páginas: {len(ativos["prova"])} provas, {len(ativos["tenis"])} tênis; imagens novas/alteradas: {gravadas}; encerradas agora: {encerradas}')
+    # carrossel "Provas do fim de semana no Rio" (Modo Aline e e-mail de quinta); um erro aqui não impede o resto
+    try:
+        import carrossel
+        carrossel.main()
+    except Exception as e:
+        print(f'carrossel: ERRO ({e}); páginas geradas normalmente')
 
 
 if __name__ == '__main__':

@@ -257,6 +257,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .kit .grp{display:flex;flex-direction:column;gap:6px}
 .kit .mini{align-self:flex-end;background:var(--soft);color:var(--accent);border:0;border-radius:999px;font:700 12px var(--body);padding:6px 12px;cursor:pointer}
 .kit .pw{display:flex;flex-direction:column;gap:8px}
+.carr-strip{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.carr-strip img{flex:none;width:72%;max-width:300px;aspect-ratio:4/5;border-radius:12px;border:1px solid var(--line);scroll-snap-align:center;background:var(--soft)}
 @media (prefers-reduced-motion:no-preference){.deal,.partner{transition:transform .15s}.deal:hover,.partner:hover{transform:translateY(-2px)}}
 
 /* Abertura com foto da Aline */
@@ -544,6 +546,24 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   <div class="sheet kit">
     <header><h3 id="adm-t">Modo Aline</h3><button class="xbtn" type="button" data-fecha aria-label="Fechar">×</button></header>
     <div id="adm-body"></div>
+  </div>
+</div>
+
+<div class="modal" id="carr" hidden role="dialog" aria-modal="true" aria-labelledby="carr-t">
+  <div class="sheet kit">
+    <header><h3 id="carr-t">Carrossel da semana</h3><button class="xbtn" type="button" data-fecha aria-label="Fechar">×</button></header>
+    <p class="hint" id="carr-sub" style="text-align:left"></p>
+    <div class="carr-strip" id="carr-strip"></div>
+    <div class="btns" id="carr-btns">
+      <button class="follow" type="button" id="carr-share" style="justify-content:center">Salvar / compartilhar as imagens</button>
+      <p class="hint">No iPhone, toque em “Salvar imagens”. Depois, no Instagram, crie um post e selecione as imagens na ordem.</p>
+    </div>
+    <div class="grp" id="carr-leg-grp">
+      <label class="lb" for="carr-leg">Legenda</label>
+      <textarea id="carr-leg" style="min-height:180px"></textarea>
+      <button class="mini" type="button" id="carr-copy">Copiar legenda</button>
+    </div>
+    <p class="hint">Atualizado sozinho todo dia com as provas do radar. Toda quinta ele também chega no seu e-mail.</p>
   </div>
 </div>
 
@@ -1296,10 +1316,10 @@ __DATA__
   const admEl = document.getElementById('adm'), admBody = document.getElementById('adm-body');
   const abreModal = el => { el.hidden = false; document.body.style.overflow = 'hidden'; };
   const fechaModal = el => { el.hidden = true; document.body.style.overflow = ''; };
-  [admEl, document.getElementById('kit')].forEach(el => {
+  [admEl, document.getElementById('kit'), document.getElementById('carr')].forEach(el => {
     el.addEventListener('click', e => { if(e.target === el || e.target.closest('[data-fecha]')) fechaModal(el); });
   });
-  document.addEventListener('keydown', e => { if(e.key === 'Escape'){ [admEl, document.getElementById('kit')].forEach(el => { if(!el.hidden) fechaModal(el); }); } });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape'){ [admEl, document.getElementById('kit'), document.getElementById('carr')].forEach(el => { if(!el.hidden) fechaModal(el); }); } });
   async function copiaTxt(t, msg){
     try{ await navigator.clipboard.writeText(t); toast(msg || 'Copiado!'); return true; }
     catch(e){ prompt('Copie:', t); return false; }
@@ -1308,6 +1328,7 @@ __DATA__
     const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
     return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('');
   }
+  let alvoAtivar = '';
   function telaSenha(){
     admBody.innerHTML = '<div class="pw"><p class="hint" style="text-align:left">Digite a senha para ativar o Modo Aline neste celular. Ele mostra funções que só você vê: kits das parceiras, métricas e atalhos.</p><input type="password" id="adm-pw" autocomplete="current-password" placeholder="Senha" style="width:100%;font:500 16px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)"><button class="follow" type="button" id="adm-ok" style="justify-content:center">Ativar</button><p class="hint" id="adm-erro" hidden style="color:var(--hot)">Senha incorreta.</p></div>';
     abreModal(admEl);
@@ -1317,7 +1338,7 @@ __DATA__
       try{ ok = (await sha256('radar-aline:' + pw.value.trim())) === ADM_HASH; }catch(e){}
       if(!ok){ document.getElementById('adm-erro').hidden = false; return; }
       try{ localStorage.setItem('radar-aline', '1'); localStorage.setItem('radar-quem', 'aline'); }catch(e){}
-      location.replace(location.pathname + '#parceiros'); location.reload();
+      location.replace(location.pathname + (alvoAtivar || '#parceiros')); location.reload();
     };
     document.getElementById('adm-ok').addEventListener('click', vai);
     pw.addEventListener('keydown', e => { if(e.key === 'Enter') vai(); });
@@ -1332,6 +1353,7 @@ __DATA__
       b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = txt; b.querySelector('small').textContent = sub || '';
       lista.appendChild(b);
     };
+    item('Carrossel da semana', 'provas do fim de semana', () => { fechaModal(admEl); abrirCarrossel(); });
     item('Kits das parceiras', 'arte + legenda', () => { fechaModal(admEl); document.getElementById('tab-roupas').click(); setTimeout(() => document.getElementById('pt-groups').scrollIntoView({behavior:'smooth'}), 200); });
     item('Métricas do radar', 'visitas e cliques', null, PAINEL_URL);
     item('Link para os stories', 'conta no painel', () => copiaTxt(STORIES_URL, 'Link dos stories copiado!'));
@@ -1345,7 +1367,9 @@ __DATA__
     const qs = new URLSearchParams(location.search);
     let pede = qs.has('aline') || location.hash === '#aline';
     try{ if(sessionStorage.getItem('radar-ativar') === '1'){ pede = true; sessionStorage.removeItem('radar-ativar'); } }catch(e){}
-    if(pede){ history.replaceState(null, '', location.pathname + (location.hash === '#aline' ? '' : location.hash)); if(!modoAline) telaSenha(); else menuAdm(); }
+    if(location.hash === '#carrossel') alvoAtivar = '#carrossel';
+    if(pede){ history.replaceState(null, '', location.pathname + (location.hash === '#aline' ? '' : location.hash)); if(!modoAline) telaSenha(); else if(alvoAtivar) setTimeout(abrirCarrossel, 0); else menuAdm(); }
+    else if(modoAline && location.hash === '#carrossel') setTimeout(abrirCarrossel, 0);
   }catch(e){}
   if(modoAline){
     const wrap = document.createElement('div'); wrap.className = 'admwrap';
@@ -1356,6 +1380,39 @@ __DATA__
     met.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 20V11M12 20V4M19 20v-6"/></svg> Métricas';
     wrap.appendChild(bar); wrap.appendChild(met); document.body.appendChild(wrap);
   }
+
+  // Carrossel "Provas do fim de semana no Rio": imagens geradas pelo src/carrossel.py na pasta carrossel/
+  const carrEl = document.getElementById('carr');
+  let carrInfo = null;
+  async function abrirCarrossel(){
+    const strip = document.getElementById('carr-strip'), sub = document.getElementById('carr-sub');
+    strip.innerHTML = ''; sub.textContent = 'Carregando…';
+    document.getElementById('carr-btns').hidden = true; document.getElementById('carr-leg-grp').hidden = true;
+    abreModal(carrEl);
+    try{ carrInfo = await (await fetch('carrossel/semana.json?t=' + Date.now(), {cache:'no-store'})).json(); }
+    catch(e){ sub.textContent = 'Não consegui carregar o carrossel agora. Tente de novo em instantes.'; return; }
+    if(!carrInfo.total || !(carrInfo.imagens||[]).length){ sub.textContent = 'Ainda não há provas do Rio no radar para este fim de semana.'; return; }
+    document.getElementById('carr-t').textContent = 'Fim de semana · ' + carrInfo.datas;
+    sub.textContent = carrInfo.total + ' prova' + (carrInfo.total > 1 ? 's' : '') + ' no Rio · ' + carrInfo.imagens.length + ' imagens. Arraste para ver.';
+    carrInfo.imagens.forEach((src, i) => { const im = document.createElement('img'); im.src = src; im.alt = 'Imagem ' + (i+1) + ' do carrossel'; im.loading = 'lazy'; strip.appendChild(im); });
+    document.getElementById('carr-leg').value = carrInfo.legenda || '';
+    document.getElementById('carr-btns').hidden = false; document.getElementById('carr-leg-grp').hidden = false;
+  }
+  document.getElementById('carr-copy').addEventListener('click', () => copiaTxt(document.getElementById('carr-leg').value, 'Legenda copiada!'));
+  document.getElementById('carr-share').addEventListener('click', async () => {
+    if(!carrInfo) return;
+    const b = document.getElementById('carr-share'), txt0 = b.textContent; b.textContent = 'Preparando…';
+    try{
+      const fs = await Promise.all(carrInfo.imagens.map(async (src, i) => new File([await (await fetch(src)).blob()], 'radar-fim-de-semana-' + (i+1) + '.jpg', {type:'image/jpeg'})));
+      try{ await navigator.clipboard.writeText(document.getElementById('carr-leg').value); }catch(e){}
+      if(navigator.canShare && navigator.canShare({files: fs})){ toast('Legenda copiada: é só colar no post.'); await navigator.share({files: fs}); }
+      else {
+        for(const f of fs){ const u = URL.createObjectURL(f), a = document.createElement('a'); a.href = u; a.download = f.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); await new Promise(r => setTimeout(r, 300)); }
+        toast('Imagens baixadas. Legenda copiada.');
+      }
+    }catch(e){ if(!(e && e.name === 'AbortError')) toast('Não consegui preparar as imagens. Tente de novo.'); }
+    b.textContent = txt0;
+  });
 
   // Textos de cada parceira (na voz da Aline; ela pode editar antes de copiar)
   const KIT_TXT = {
