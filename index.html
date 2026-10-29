@@ -457,6 +457,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .catbar::-webkit-scrollbar{display:none}
 .catbar .chip{flex:none;white-space:nowrap}
 .catbar .chip small{opacity:.65;font-weight:600;margin-left:3px}
+.afiltag{display:inline-block;align-self:flex-start;margin-bottom:3px;background:#FFF3D6;color:#7A4E00;font:700 11px var(--body);padding:3px 8px;border-radius:999px}
 .tsearch{flex:1;min-width:0;font:500 14px var(--body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .tsearch:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* Parceiros: logos e ofertas */
@@ -553,6 +554,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <div class="row" id="t-gen"><span class="l">Para</span></div>
       <div class="row" id="t-marca"><span class="l">Marca</span></div>
       <div class="row" id="t-loja"><span class="l">Loja</span></div>
+      <div class="row" id="t-afil" hidden><span class="l">Comissão</span></div>
       <button class="fclear" type="button" id="t-clear">Limpar filtros</button>
     </div>
     <div class="list" id="t-list"></div>
@@ -12512,6 +12514,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     }catch(e){}
     return u;
   }
+  const temAfil = u => afil(u) !== u;  // link que rende comissão para a Aline
+  const ehAline = (() => { try{ return localStorage.getItem('radar-aline') === '1'; }catch(e){ return false; } })();
   // Achados: tênis e acessórios de corrida (campo "categoria"; sem campo = Tênis)
   const CATS = ['Tênis','Relógios','Fones','Óculos','Roupas','Meias e bonés','Hidratação','Recuperação','Acessórios'];
   (data.ofertas||[]).forEach(o => { if(!o.categoria) o.categoria = 'Tênis'; });
@@ -12634,6 +12638,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     el.querySelector('.store').textContent = label;
     el.querySelector('.name').textContent = o.nome;
     el.querySelector('.go').href = afil(o.link);
+    if(ehAline && temAfil(o.link)){ const tg = document.createElement('span'); tg.className = 'afiltag'; tg.textContent = '💰 Link da Aline · ' + (o.loja || ''); el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); }
     const cd = el.querySelector('.cond');
     if(o.cupom){ const c = document.createElement('span'); c.className = 'cup'; c.textContent = 'cupom ' + o.cupom; cd.appendChild(c); }
     if(o.condicao){ const c = document.createElement('span'); c.textContent = o.condicao; cd.appendChild(c); }
@@ -12642,7 +12647,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   }
 
   // achados (tênis e acessórios)
-  const ts = {cat:'Todos', gen:'Todas', marca:'Todas', loja:'Todas', sort:'desc', q:''};
+  const ts = {cat:'Todos', gen:'Todas', marca:'Todas', loja:'Todas', afil:'Todas', sort:'desc', q:''};
   const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const catsPresentes = CATS.filter(c => tenis.some(o => o.categoria===c)).concat(sortPt(tenis.map(o=>o.categoria)).filter(c => !CATS.includes(c)));
   (function(){
@@ -12672,18 +12677,20 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     let rows = naCat().filter(o =>
       (ts.gen==='Todas' || !o.genero || o.genero===ts.gen || o.genero==='Unissex') &&
       (ts.marca==='Todas'||o.marca===ts.marca) && (ts.loja==='Todas'||o.loja===ts.loja) &&
+      (ts.afil==='Todas' || temAfil(o.link)) &&
       (!q || q.split(/\s+/).every(w => norm([o.nome,o.marca,o.loja,o.categoria,o.genero].join(' ')).includes(w))));
     rows.sort(ts.sort==='desc' ? (a,b)=>b.off-a.off : (a,b)=>a.preco-b.preco);
-    setCount('t-fbtn', [ts.gen, ts.marca, ts.loja]);
+    setCount('t-fbtn', [ts.gen, ts.marca, ts.loja, ts.afil]);
     fill(document.getElementById('t-list'), rows, o => dealCard(o, [ts.cat==='Todos' && o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), q ? 'Nada encontrado para "' + ts.q.trim() + '" hoje. Tente outra palavra.' : 'Nenhum achado com esse filtro hoje.');
   }
   chips('t-gen', ['Feminino','Masculino'], ts, 'gen', renderT, {Todas:'Todos'});
+  if(ehAline){ document.getElementById('t-afil').hidden = false; chips('t-afil', ['Só com link da Aline'], ts, 'afil', renderT, {Todas:'Todos'}); }
   refazChipsT();
   document.getElementById('t-sort').addEventListener('change', e => { ts.sort = e.target.value; renderT(); });
   let qT = null;
   document.getElementById('t-q').addEventListener('input', e => { ts.q = e.target.value; renderT(); clearTimeout(qT); qT = setTimeout(() => { if(window.posthog && ts.q.trim().length > 2) posthog.capture('achados_busca', {busca: ts.q.trim().slice(0,40)}); }, 1500); });
   renderT();
-  toggler('t-fbtn','t-fpanel'); clearer('t-clear', ['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja'], renderT);
+  toggler('t-fbtn','t-fpanel'); clearer('t-clear', ['t-gen','t-marca','t-loja','t-afil'], ts, ['gen','marca','loja','afil'], renderT);
 
   // geografia das provas
   const PLACES = [
