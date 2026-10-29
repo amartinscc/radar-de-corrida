@@ -130,7 +130,7 @@ def main():
                 L.append(f'<td width="50%" valign="top" style="padding:6px"><a href="{E(url)}" style="display:block;text-decoration:none;border:1px solid {LINE};border-radius:14px;overflow:hidden">{foto}'
                          f'<span style="display:block;padding:10px 12px 12px"><span style="display:block;{FONT}font-size:11px;font-weight:700;color:{MUTED};text-transform:uppercase;letter-spacing:.05em">{E(cab)}</span>'
                          f'<span style="display:block;{FONT}font-size:14px;font-weight:700;color:{INK};margin:3px 0">{E(o["nome"])}</span>'
-                         f'<span style="{FONT}font-size:17px;font-weight:800;color:{HOT}">{E(brl(o["preco"]))}</span> <span style="{FONT}font-size:12px;color:{MUTED};text-decoration:line-through">{E(brl(o["de"]))}</span>'
+                         f'<span style="{FONT}font-size:17px;font-weight:800;color:{HOT}">{E(brl(o["preco"]))}</span> ' + (f'<span style="{FONT}font-size:12px;color:{MUTED};text-decoration:line-through">{E(brl(o["de"]))}</span>' if o['_off'] else '') + '
                          f'<span style="display:block;{FONT}font-size:12px;font-weight:700;color:{ACCENT};margin-top:4px">-{o["_off"]}% · Ver oferta →</span></span></a></td>')
             if len(escolhidos[i:i + 2]) == 1: L.append('<td width="50%"></td>')
             L.append('</tr>')

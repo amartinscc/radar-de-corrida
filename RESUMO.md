@@ -77,6 +77,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Amazon Associados: ID `amartins0b-20` (conta criada; precisa de 3 vendas em 180 dias para aprovação final). Aviso obrigatório no rodapé do site e na política de privacidade.
 - Netshoes (pela Rakuten Advertising): aprovada (SID do site 4767834; token de publisher `7KhHq5G3aIo`); falta o MID da Netshoes (id do anunciante) para montar os deep links (`click.linksynergy.com/deeplink?id=<token>&mid=<MID>&murl=<URL codificada>`). Quando chegar, acrescentar em `afil()` do template e do `paginas.py`.
 - Awin (adidas e outras): candidaturas em andamento.
+- **Escolhas da Aline** nos Achados: item com `"escolha": true` (só manual; produtos que a Aline pediu, geralmente com o link curto dela da Amazon, amzn.to). Aparecem primeiro, com o selo "★ Escolha da Aline". `de` é opcional (sem desconto, o cartão mostra "★ Aline" no lugar da porcentagem). As tarefas nunca tiram, nunca trocam o link e só atualizam preço/foto se conseguirem ler a página do produto.
 - Prioridade da Amazon nos Achados (pedido de 29/10/2026): ~20 a 30 achados da Amazon por dia, com desconto real, sem tirar os maiores descontos das outras lojas.
 - Regra: nunca link de afiliada direto em e-mail (a Amazon proíbe); no e-mail, os links levam para as páginas do radar.
 

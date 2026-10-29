@@ -166,8 +166,8 @@ def imagem(item, tipo, perfil, ofertas_em):
             dr.text((sx + 30, y1 - 103), t, font=B(22), fill='#1D1220')
         centro(dr, kx, y1 - 48, 'Confira a inscrição no radar', M(20), '#6B5A6E')
     else:
-        off = round((1 - item['preco'] / item['de']) * 100)
-        centro(dr, kx, y0 + 50, f'-{off}%', D(72), '#1D1220')
+        off = round((1 - item['preco'] / item['de']) * 100) if item.get('de') and item['de'] > item['preco'] else 0
+        centro(dr, kx, y0 + 50, f'-{off}%' if off else 'Aline indica', D(72) if off else D(44), '#1D1220')
         cab = ' · '.join(dict.fromkeys(x for x in [item.get('genero'), item.get('marca'), item.get('loja')] if x))
         centro(dr, kx, y0 + 172, cab.upper(), B(20), '#6B5A6E')
         yy = y0 + 210
@@ -175,11 +175,12 @@ def imagem(item, tipo, perfil, ofertas_em):
             centro(dr, kx, yy, l, D(46), '#1D1220'); yy += 54
         yy += 16
         centro(dr, kx, yy, brl(item['preco']), D(70), '#B4501F'); yy += 86
-        de = 'de ' + brl(item['de']); f = M(28)
-        centro(dr, kx, yy, de, f, '#6B5A6E')
-        wd, wp = dr.textlength(de, font=f), dr.textlength('de ', font=f)
-        dr.line((kx - wd / 2 + wp, yy + 19, kx + wd / 2, yy + 19), fill='#6B5A6E', width=3)
-        yy += 46
+        if off:
+            de = 'de ' + brl(item['de']); f = M(28)
+            centro(dr, kx, yy, de, f, '#6B5A6E')
+            wd, wp = dr.textlength(de, font=f), dr.textlength('de ', font=f)
+            dr.line((kx - wd / 2 + wp, yy + 19, kx + wd / 2, yy + 19), fill='#6B5A6E', width=3)
+            yy += 46
         cond = ' · '.join(x for x in [('cupom ' + item['cupom']) if item.get('cupom') else None, item.get('condicao')] if x)
         if cond: centro(dr, kx, yy, cond, B(22), '#7A4E7D')
         centro(dr, kx, y1 - 48, 'Preço sujeito a alteração: confira na loja', M(19), '#6B5A6E')
@@ -317,10 +318,10 @@ def main():
             tb = f"{it['nome']} – {dd} de {MESF[m - 1]} de {y}" + (f", {cidade}" if cidade else '')
             html_ = pagina('prova', sl, it['nome'], desc, img, f'#prova={sl}', 'Ver inscrição', it.get('link'), True, tb, evento(it, sl, img, desc))
         else:
-            off = round((1 - it['preco'] / it['de']) * 100)
-            titulo = f"{it['nome']} por {brl(it['preco'])} (-{off}%)"
+            off = round((1 - it['preco'] / it['de']) * 100) if it.get('de') and it['de'] > it['preco'] else 0
+            titulo = f"{it['nome']} por {brl(it['preco'])}" + (f" (-{off}%)" if off else '')
             cond = ' · '.join(x for x in [('cupom ' + it['cupom']) if it.get('cupom') else None, it.get('condicao')] if x)
-            desc = ' · '.join(x for x in [it.get('categoria') if it.get('categoria') not in (None, 'Tênis') else None, it.get('genero')] if x) + f" · de {brl(it['de'])} por {brl(it['preco'])} na {it['loja']}" + (f' ({cond})' if cond else '') + '. Achado no Radar de Corrida da Aline.'
+            desc = ' · '.join(x for x in [it.get('categoria') if it.get('categoria') not in (None, 'Tênis') else None, it.get('genero')] if x) + (f" · de {brl(it['de'])} por {brl(it['preco'])}" if off else f" · {brl(it['preco'])}") + f" na {it['loja']}" + (f' ({cond})' if cond else '') + '. Achado no Radar de Corrida da Aline.'
             html_ = pagina('tenis', sl, titulo, desc, img, f'#tenis={sl}', 'Ver na loja', afil(it.get('link') or ''), True)
         pasta = root / tipo / sl; pasta.mkdir(parents=True, exist_ok=True)
         (pasta / 'index.html').write_text(html_)

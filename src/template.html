@@ -410,6 +410,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .catbar .chip{flex:none;white-space:nowrap}
 .catbar .chip small{opacity:.65;font-weight:600;margin-left:3px}
 .partner .cupt{margin-top:6px;font-size:12px;font-weight:700;color:var(--ink)}
+.escolha{display:inline-block;align-self:flex-start;margin-bottom:3px;background:var(--mauve);color:#1D1220;font:800 11px var(--body);padding:3px 9px;border-radius:999px}
 .afiltag{display:inline-block;align-self:flex-start;margin-bottom:3px;background:#FFF3D6;color:#7A4E00;font:700 11px var(--body);padding:3px 8px;border-radius:999px}
 .tsearch{flex:1;min-width:0;font:500 14px var(--body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .tsearch:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -703,7 +704,7 @@ __DATA__
 (function(){
   const data = JSON.parse(document.getElementById('radar-data').textContent);
   const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  const withOff = a => (a||[]).map(o => ({...o, off: Math.round((1 - o.preco/o.de)*100)}));
+  const withOff = a => (a||[]).map(o => ({...o, off: (typeof o.de === 'number' && o.de > o.preco) ? Math.round((1 - o.preco/o.de)*100) : 0}));
   // links de afiliada da Aline (aplicados ao abrir a loja; os dados guardam o link limpo)
   // Netshoes (Rakuten): token da Aline + MID da Netshoes; enquanto o MID estiver vazio, os links da Netshoes ficam limpos
   const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0'};
@@ -715,7 +716,7 @@ __DATA__
     }catch(e){}
     return u;
   }
-  const temAfil = u => afil(u) !== u;  // link que rende comissão para a Aline
+  const temAfil = u => afil(u) !== u || /^https?:\/\/(amzn\.to|a\.co)\//.test(u||'') || /[?&]tag=amartins0b-20/.test(u||'');  // link que rende comissão para a Aline
   const ehAline = (() => { try{ return localStorage.getItem('radar-aline') === '1'; }catch(e){ return false; } })();
   // Achados: tênis e acessórios de corrida (campo "categoria"; sem campo = Tênis)
   const CATS = ['Tênis','Relógios','Fones','Óculos','Roupas','Meias e bonés','Hidratação','Recuperação','Acessórios'];
@@ -822,14 +823,14 @@ __DATA__
   function dealCard(o, label){
     const el = document.createElement('article');
     el.className = 'deal';
-    el.innerHTML = `<div class="bib"><div class="n">${o.off}%</div><div class="t">off</div></div>
+    el.innerHTML = `<div class="bib">${o.off ? `<div class="n">${o.off}%</div><div class="t">off</div>` : '<div class="n">★</div><div class="t">Aline</div>'}</div>
       <div class="info"><div class="store"></div><div class="name"></div>
-      <div class="price"><span class="now">${brl(o.preco)}</span><s>${brl(o.de)}</s></div><div class="cond"></div>
+      <div class="price"><span class="now">${brl(o.preco)}</span>${o.off ? `<s>${brl(o.de)}</s>` : ''}</div><div class="cond"></div>
       <a class="go" target="_blank" rel="noopener">Ver na loja →</a></div><button class="sharebtn" type="button" aria-label="Compartilhar nos stories" title="Compartilhar nos stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>`;
     if(o.foto){
       const th = document.createElement('div'); th.className = 'thumb';
       const im = new Image(); im.alt = o.nome; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.src = o.foto;
-      const off = document.createElement('span'); off.className = 'off'; off.textContent = '-' + o.off + '%';
+      const off = document.createElement('span'); off.className = 'off'; off.textContent = o.off ? '-' + o.off + '%' : '★ Aline';
       th.append(im, off);
       const bib = el.querySelector('.bib'); bib.replaceWith(th);
       im.onerror = () => th.replaceWith(bib);
@@ -839,6 +840,7 @@ __DATA__
     el.querySelector('.store').textContent = label;
     el.querySelector('.name').textContent = o.nome;
     el.querySelector('.go').href = afil(o.link);
+    if(o.escolha){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; el.querySelector('.info').insertBefore(es, el.querySelector('.store')); }
     if(ehAline && temAfil(o.link)){ const tg = document.createElement('span'); tg.className = 'afiltag'; tg.textContent = '💰 Link da Aline · ' + (o.loja || ''); el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); }
     const cd = el.querySelector('.cond');
     if(o.cupom){ const c = document.createElement('span'); c.className = 'cup'; c.textContent = 'cupom ' + o.cupom; cd.appendChild(c); }
@@ -880,7 +882,7 @@ __DATA__
       (ts.marca==='Todas'||o.marca===ts.marca) && (ts.loja==='Todas'||o.loja===ts.loja) &&
       (ts.afil==='Todas' || temAfil(o.link)) &&
       (!q || q.split(/\s+/).every(w => norm([o.nome,o.marca,o.loja,o.categoria,o.genero].join(' ')).includes(w))));
-    rows.sort(ts.sort==='desc' ? (a,b)=>b.off-a.off : (a,b)=>a.preco-b.preco);
+    rows.sort(ts.sort==='desc' ? (a,b)=>(!!b.escolha - !!a.escolha) || b.off-a.off : (a,b)=>(!!b.escolha - !!a.escolha) || a.preco-b.preco);
     setCount('t-fbtn', [ts.gen, ts.marca, ts.loja, ts.afil]);
     fill(document.getElementById('t-list'), rows, o => dealCard(o, [ts.cat==='Todos' && o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), q ? 'Nada encontrado para "' + ts.q.trim() + '" hoje. Tente outra palavra.' : 'Nenhum achado com esse filtro hoje.');
   }
@@ -1306,13 +1308,13 @@ __DATA__
       }
     } else if(o){
       c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
-      c.fillStyle = '#1D1220'; c.font = '800 130px ' + D; c.fillText('-' + o.off + '%', cx, y0+205);
+      c.fillStyle = '#1D1220'; if(o.off){ c.font = '800 130px ' + D; c.fillText('-' + o.off + '%', cx, y0+205); } else { c.font = '800 56px ' + D; c.fillText('★ A ALINE', cx, y0+150); c.fillText('INDICA', cx, y0+212); }
       c.fillStyle = '#6B5A6E'; c.font = '700 32px ' + B; c.fillText([o.genero, o.marca, o.loja].filter((v,i,a)=>v && a.indexOf(v)===i).join(' · ').toUpperCase(), cx, y0+320);
       c.fillStyle = '#1D1220'; c.font = '800 76px ' + D; const n = wrap(c, o.nome, cx, y0+420, cw-120, 84, 3);
       const py = y0 + 420 + n*84 + 90;
       c.fillStyle = '#B4501F'; c.font = '800 130px ' + D; c.fillText(brl(o.preco), cx, py);
-      c.fillStyle = '#6B5A6E'; c.font = '600 48px ' + B; const de = 'de ' + brl(o.de); c.fillText(de, cx, py+80);
-      const dw = c.measureText(de).width, pw = c.measureText('de ').width; c.strokeStyle = '#6B5A6E'; c.lineWidth = 4; c.beginPath(); c.moveTo(cx-dw/2+pw, py+64); c.lineTo(cx+dw/2, py+64); c.stroke();
+      if(o.off){ c.fillStyle = '#6B5A6E'; c.font = '600 48px ' + B; const de = 'de ' + brl(o.de); c.fillText(de, cx, py+80);
+      const dw = c.measureText(de).width, pw = c.measureText('de ').width; c.strokeStyle = '#6B5A6E'; c.lineWidth = 4; c.beginPath(); c.moveTo(cx-dw/2+pw, py+64); c.lineTo(cx+dw/2, py+64); c.stroke(); }
     } else {
       c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; c.fillText('Achados de corrida', cx, y0+130); c.fillText('em promoção', cx, y0+210);
       const top = [...tenis].sort((a,b)=>b.off-a.off).slice(0,3);
@@ -1346,7 +1348,7 @@ __DATA__
     shLink = shKind === 'parceiro' ? RADAR_URL + '#parceiro=' + shSlug : shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1' : RADAR_URL;
     if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : '') + (p.cupom ? ' · cupom ' + p.cupom + ' na inscrição' : ''); }
     else if(o && o.parceiro){ shTxt = o.nome + (typeof o.preco === 'number' ? ' por ' + brl(o.preco) : '') + ' na ' + o.marca + (o.cupom ? ' · cupom da Aline: ' + o.cupom : ''); }
-    else if(o){ shTxt = o.nome + ' por ' + brl(o.preco) + ' (-' + o.off + '%) na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
+    else if(o){ shTxt = o.nome + ' por ' + brl(o.preco) + (o.off ? ' (-' + o.off + '%)' : '') + ' na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
     else shTxt = 'Provas e ofertas de corrida todos os dias';
     shTxt += '\nAchado no Radar de Corrida da Aline 👉';
     shMsg = shTxt + ' ' + shLinkCanal('st');
