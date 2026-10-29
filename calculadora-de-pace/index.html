@@ -217,19 +217,13 @@ footer a{color:var(--muted)}
 }
 @media (max-width:360px){.r-grid b{font-size:15px}.modes button{font-size:12.5px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-/* Novidades (e-mail semanal do radar) */
-.novidades-btn{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:8px;color:#1D1220;text-decoration:none;font:800 15px var(--body);padding:11px 22px;border-radius:999px;border:0;cursor:pointer;margin-top:10px;
-  background:linear-gradient(110deg,#BBE3E5,#D9C1D9,#B28AB1,#E9A07E,#FFD27A,#BBE3E5,#D9C1D9);background-size:320% 100%;background-position:0% 50%;
-  box-shadow:0 0 0 2px rgba(255,255,255,.55),0 8px 26px rgba(233,160,126,.45),0 0 22px rgba(178,138,177,.45)}
-.novidades-btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%);transform:translateX(-120%)}
+/* Novidades: mesmo estilo do botão do topo do radar (borda dourada com brilho girando) */
+@property --calc-ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes calc-gira{to{--calc-ang:360deg}}
+.novidades-btn{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:220px;min-height:48px;box-sizing:border-box;margin-top:10px;color:#fff;text-decoration:none;font:700 15px var(--body);padding:12px 20px;border-radius:999px;border:0;cursor:pointer;background:rgba(29,18,32,.88);box-shadow:0 0 12px rgba(247,205,90,.45)}
+.novidades-btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;z-index:-1;background:conic-gradient(from var(--calc-ang),#a8780f 0deg,#d4a72c 150deg,#f5cf5f 250deg,#fff4c2 305deg,#ffffff 325deg,#f5cf5f 345deg,#a8780f 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:calc-gira 2.6s linear infinite}
+@media (prefers-reduced-motion:reduce){.novidades-btn::before{animation:none}}
 .novidades-btn svg{width:18px;height:18px}
-@media (prefers-reduced-motion:no-preference){
-  .novidades-btn{animation:novGrad 10s ease-in-out infinite alternate, novGlow 3.2s ease-in-out infinite}
-  .novidades-btn::after{animation:novShine 4.5s ease-in-out infinite}
-}
-@keyframes novGrad{0%{background-position:0% 50%}100%{background-position:100% 50%}}
-@keyframes novShine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
-@keyframes novGlow{0%,100%{box-shadow:0 0 0 2px rgba(255,255,255,.55),0 8px 26px rgba(233,160,126,.40),0 0 18px rgba(178,138,177,.40)}50%{box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 32px rgba(233,160,126,.60),0 0 30px rgba(187,227,229,.65)}}
 .news{background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 70%,var(--surface)),color-mix(in srgb,var(--g2) 70%,var(--surface)));border:1px solid var(--line);border-radius:22px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center;margin-bottom:14px;scroll-margin-top:20px}
 .news .nh{font:800 22px/1.15 var(--display);margin:0;color:var(--ink)}
 .news .np{margin:0;color:var(--ink);font-size:14px;max-width:44ch}
