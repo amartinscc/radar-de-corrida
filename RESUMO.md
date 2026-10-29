@@ -62,6 +62,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - **Kit para a parceira** (botão em cada marca da aba Parceiros): arte "Aline × Marca" em Story (1080x1920) ou Post/collab (1080x1350), com foto, logo da marca, frase, cupom da marca e `radardecorrida.com.br · @amartinscc`. A Aline escolhe a foto da galeria, arrasta e dá zoom; a foto **não sobe para o site** (fica no IndexedDB `radar-aline` daquele celular, por marca, junto com zoom, enquadramento, frase e formato). Sem foto, usa `hero.jpg`. Traz legenda do post e mensagem para a marca (editáveis) e o link da marca no radar.
 - Textos e frases de cada marca: objeto `KIT_TXT` no `src/template.html` (chave = slug do nome). Marca nova sem entrada usa os textos genéricos da categoria. Ao adicionar parceiro, acrescentar a entrada dele.
 - Logo por URL no kit é carregado com CORS; se o servidor da marca não permitir, a arte mostra a inicial da marca no lugar.
+- Nos Achados, só no Modo Aline: selo amarelo "💰 Link da Aline · <loja>" nos achados cujo link rende comissão (hoje, Amazon) e, em Filtros, a linha "Comissão" com "Só com link da Aline".
 - Links públicos (servem para qualquer um): `/#parceiros` abre a aba Parceiros; `/#parceiro=<slug>` abre e destaca a marca.
 
 ## Carrossel da semana (desde 27/10/2026)
