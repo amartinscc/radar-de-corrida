@@ -6,7 +6,8 @@
  {"@type":"FAQPage","mainEntity":[
   {"@type":"Question","name":"Com que frequência o calendário de corridas é atualizado?","acceptedAnswer":{"@type":"Answer","text":"Todos os dias. As provas do Rio de Janeiro são conferidas diariamente e as dos outros estados, em rodízio semanal. Cada prova fica no radar até a data do evento."}},
   {"@type":"Question","name":"Como me inscrevo numa corrida do radar?","acceptedAnswer":{"@type":"Answer","text":"Toque na prova para abrir a página oficial do evento ou do organizador. A inscrição, os valores e o regulamento são sempre os do site oficial."}},
-  {"@type":"Question","name":"As ofertas de tênis de corrida são confiáveis?","acceptedAnswer":{"@type":"Answer","text":"As ofertas levam direto à loja e são revisadas todos os dias, mas preço e estoque mudam rápido. Confira o valor final e a sua numeração na loja antes de comprar."}},
+  {"@type":"Question","name":"Os achados de corrida são confiáveis?","acceptedAnswer":{"@type":"Answer","text":"Os achados (tênis, relógios, fones, roupas e acessórios de corrida) levam direto à loja e são revisados todos os dias, mas preço e estoque mudam rápido. Confira o valor final e o tamanho na loja antes de comprar."}},
+  {"@type":"Question","name":"Como recebo as provas e os achados por e-mail?","acceptedAnswer":{"@type":"Answer","text":"Deixe seu e-mail em qualquer caixa \"Receba toda quinta\" do radar e confirme no e-mail que chegar. Toda quinta você recebe as provas do fim de semana no Rio, os melhores achados e as ofertas dos parceiros. Dá para cancelar quando quiser."}},
   {"@type":"Question","name":"Como uso o cupom AMARTINS?","acceptedAnswer":{"@type":"Answer","text":"Na aba Parceiros, copie o cupom da marca e aplique no carrinho do site parceiro. Algumas marcas têm um cupom próprio, mostrado no cartão de cada uma."}}
  ]}
 ]}
@@ -397,6 +398,49 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 @keyframes pglow{0%,100%{opacity:.45;transform:scale(.97)}50%{opacity:.95;transform:scale(1.06)}}
 @keyframes pspin{to{rotate:360deg}}
 @keyframes psparkle{0%,60%,100%{opacity:0}75%{opacity:1}}
+/* Achados: categorias e busca */
+.catbar{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.catbar::-webkit-scrollbar{display:none}
+.catbar .chip{flex:none;white-space:nowrap}
+.catbar .chip small{opacity:.65;font-weight:600;margin-left:3px}
+.tsearch{flex:1;min-width:0;font:500 14px var(--body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.tsearch:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Parceiros: logos e ofertas */
+.plogos{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.plogos::-webkit-scrollbar{display:none}
+.plogo{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px;width:66px;background:none;border:0;padding:0;cursor:pointer;color:var(--muted);font:600 11px/1.2 var(--body);text-align:center}
+.plogo .lg{width:56px;height:56px;border-radius:50%;background:var(--surface);box-shadow:0 0 0 1px var(--line);display:grid;place-items:center;overflow:hidden;color:var(--accent);font:800 20px/1 var(--display);transition:box-shadow .2s}
+.plogo .lg img{width:100%;height:100%;object-fit:cover}
+.plogo .lg img.ct{object-fit:contain;padding:6px;box-sizing:border-box;background:#fff}
+.plogo[aria-pressed="true"]{color:var(--ink)}
+.plogo[aria-pressed="true"] .lg{box-shadow:0 0 0 3px var(--mauve)}
+.poffers{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.poffers::-webkit-scrollbar{display:none}
+.poffers.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));overflow:visible}
+.poff{flex:none;width:150px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}
+.poffers.grid .poff{width:auto}
+.poff .ph{aspect-ratio:1;background:#fff;display:grid;place-items:center;overflow:hidden;color:var(--accent);font:800 28px/1 var(--display)}
+.poff .ph img{width:100%;height:100%;object-fit:contain}
+.poff .pb{padding:9px 10px 11px;display:flex;flex-direction:column;gap:3px}
+.poff .pn{font:600 13px/1.3 var(--body);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.poff .pp{font:800 15px var(--display);color:var(--hot)}
+.poff .pp s{font:500 12px var(--body);color:var(--muted);margin-left:5px}
+.poff .pd2{font:600 12px/1.3 var(--body);color:var(--accent)}
+.psub{font:700 12px var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:2px 0 -4px}
+/* Caixa de e-mail */
+.news{background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 70%,var(--surface)),color-mix(in srgb,var(--g2) 70%,var(--surface)));border:1px solid var(--line);border-radius:22px;padding:18px 16px;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center}
+.news .nh{font:800 20px/1.15 var(--display);margin:0;color:var(--ink)}
+.news .np{margin:0;color:var(--ink);font-size:14px;max-width:44ch}
+.news form{display:flex;gap:8px;width:100%;max-width:420px;flex-wrap:wrap;justify-content:center}
+.news input[type=email]{flex:1 1 200px;min-width:0;font:500 15px var(--body);padding:11px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.news button{flex:none}
+.news .nl{margin:0;color:var(--muted);font-size:12px}
+.news .nl a{color:var(--accent)}
+.news .ok{font:700 14px var(--body);color:var(--good);margin:0}
+.news .er{font:600 13px var(--body);color:var(--hot);margin:0}
+.hero .news-link{display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;font:600 14px var(--body);padding:10px 15px;border-radius:999px;border:0;background:rgba(29,18,32,.25);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);cursor:pointer}
+.legal{color:var(--muted);font-size:12px;text-align:center;margin:0 auto;max-width:65ch}
+.legal a{color:var(--accent)}
 </style>
 
 <section class="hero" id="topo">
@@ -406,6 +450,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   <div class="byline">por <b id="pname">Aline</b>, personal trainer e corredora</div>
   <div class="actions">
     <a class="follow" id="follow" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span id="follow-label">Seguir no Instagram</span></a>
+    <button class="news-link" type="button" id="news-hero"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Receber toda quinta</button>
     <a class="calc-link" href="calculadora-de-pace/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2h5"/></svg>Calculadora de pace</a>
   </div>
   <div class="meta" id="meta"></div>
@@ -417,15 +462,19 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <button class="tab" role="tab" id="tab-provas" aria-controls="p-provas" aria-selected="true"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor"/></svg></span><span class="c" id="c-provas"></span></span><span class="lb">Provas</span></button>
     <button class="tab" role="tab" id="tab-result" aria-controls="p-result" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-2.2 6.2M8 3l2.2 6.2M10.2 3 12 8.3 13.8 3"/><circle cx="12" cy="15" r="5.5"/><path d="M12 12.4l.8 1.6 1.8.3-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.3z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-result"></span></span><span class="lb">Resultados</span></button>
     <button class="tab" role="tab" id="tab-roupas" aria-controls="p-roupas" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M10.5 15.5l5-5"/><circle cx="11.2" cy="11.4" r=".9" fill="currentColor"/><circle cx="14.8" cy="14.6" r=".9" fill="currentColor"/></svg></span><span class="c" id="c-roupas"></span></span><span class="lb">Parceiros</span></button>
-    <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5V12l3-5 3 2.2 2.4 1.8 5.4 1.6c2 .6 3.2 1.9 3.2 3.4v.5"/><path d="M3 16.5h18v1.2a1.3 1.3 0 0 1-1.3 1.3H4.3A1.3 1.3 0 0 1 3 17.7z"/><path d="M9.5 10.5l1.4-1.6M12 12l1.3-1.6"/></svg></span><span class="c" id="c-tenis"></span></span><span class="lb">Tênis</span></button>
+    <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M17.5 2.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-tenis"></span></span><span class="lb">Achados</span></button>
     <button class="tab" role="tab" id="tab-treino" aria-controls="p-treino" aria-selected="false"><span class="ring"><span class="ic"><span class="sil" aria-hidden="true"></span></span></span><span class="lb">Treine comigo</span></button>
   </div>
 
   <div class="panel" id="p-tenis" role="tabpanel" aria-labelledby="tab-tenis" hidden>
     <div class="t-fresh" id="t-fresh" hidden><span class="live" aria-hidden="true"></span><span id="t-fresh-txt"></span></div>
+    <div class="catbar" id="t-cat" role="group" aria-label="Categorias"></div>
+    <div class="toolbar">
+      <input class="tsearch" id="t-q" type="search" placeholder="Buscar: Garmin, Pegasus, fone…" aria-label="Buscar nos achados" autocomplete="off">
+    </div>
     <div class="toolbar">
       <button class="fbtn" type="button" id="t-fbtn" aria-expanded="false" aria-controls="t-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
-      <select id="t-sort" aria-label="Ordenar tênis">
+      <select id="t-sort" aria-label="Ordenar achados">
         <option value="desc">Maior desconto</option>
         <option value="price">Menor preço</option>
       </select>
@@ -437,6 +486,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <button class="fclear" type="button" id="t-clear">Limpar filtros</button>
     </div>
     <div class="list" id="t-list"></div>
+    <div class="news" data-origem="achados" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: os maiores descontos em tênis e acessórios de corrida, as provas do fim de semana no Rio e as ofertas dos parceiros."></div>
   </div>
 
   <div class="panel" id="p-provas" role="tabpanel" aria-labelledby="tab-provas">
@@ -460,6 +510,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     </div>
     <div class="list" id="e-list"></div>
     <p class="note">Datas, locais e valores vêm dos sites de inscrição e podem mudar. Confirme sempre na página oficial da prova antes de se inscrever.</p>
+    <div class="news" data-origem="provas" data-h="As provas do fim de semana no seu e-mail" data-p="Toda quinta: as corridas de sábado e domingo no Rio, com link de inscrição, mais os achados e as ofertas dos parceiros da semana."></div>
   </div>
 
   <div class="panel" id="p-result" role="tabpanel" aria-labelledby="tab-result" hidden>
@@ -472,14 +523,18 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     </div>
   </section>
     <p class="note" style="text-align:center;margin:0 auto">Tempos líquidos (chip) dos resultados oficiais de cada prova.</p>
+    <div class="news" data-origem="resultados" data-h="Corra junto com a Aline" data-p="Toda quinta no seu e-mail: as provas do fim de semana no Rio (e as que a Aline vai correr), os achados e as ofertas dos parceiros."></div>
   </div>
 
   <div class="panel" id="p-roupas" role="tabpanel" aria-labelledby="tab-roupas" hidden>
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
       <p class="note" id="pt-intro" style="margin:0"></p>
     </div>
+    <div class="plogos" id="pt-logos" role="group" aria-label="Escolha um parceiro"></div>
+    <div id="pt-sel" style="display:flex;flex-direction:column;gap:12px" hidden></div>
     <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px"></div>
     <p class="note" style="text-align:center;margin:0 auto">Parcerias da Aline. Os destaques em laranja são campanhas das próprias lojas, conferidas no dia da atualização, e nem sempre acumulam com o cupom: confira no carrinho.</p>
+    <div class="news" data-origem="parceiros" data-h="Ofertas dos parceiros no seu e-mail" data-p="Toda quinta: as promoções das marcas parceiras da Aline com o cupom dela, os achados da semana e as provas do fim de semana no Rio."></div>
   </div>
 
   <div class="panel" id="p-treino" role="tabpanel" aria-labelledby="tab-treino" hidden>
@@ -508,6 +563,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <a class="follow tr-cta" id="tr-cta" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span>Chamar a Aline no Instagram</span></a>
     <p class="note" style="text-align:center;margin:0 auto">Ao tocar, sua mensagem é copiada e a conversa com a Aline abre no Instagram: é só colar e enviar.</p>
     </div>
+    <div class="news" data-origem="treine" data-h="Treino e provas toda quinta" data-p="Receba no e-mail as provas do fim de semana no Rio para colocar no seu plano, os achados de corrida e as ofertas dos parceiros."></div>
   </div>
 
   <div class="cta" id="cta-follow">
@@ -517,15 +573,24 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 
   <section class="sobre" aria-labelledby="sobre-t">
     <h2 id="sobre-t">Calendário de corridas de rua no Rio e no Brasil</h2>
-    <p>O Radar de Corrida reúne as <strong>provas de corrida de rua do Rio de Janeiro</strong> e dos outros estados num mapa, com data, local, distâncias e link para a inscrição oficial. Junto com as provas, traz <strong>ofertas de tênis de corrida</strong> revisadas todos os dias e os <strong>cupons dos parceiros</strong> da Aline Martins, personal trainer e corredora no Rio.</p>
+    <p>O Radar de Corrida reúne as <strong>provas de corrida de rua do Rio de Janeiro</strong> e dos outros estados num mapa, com data, local, distâncias e link para a inscrição oficial. Junto com as provas, traz <strong>achados de corrida</strong> (tênis, relógios, fones, roupas e acessórios em promoção) revisados todos os dias e os <strong>cupons dos parceiros</strong> da Aline Martins, personal trainer e corredora no Rio.</p>
     <details><summary>Com que frequência o calendário é atualizado?</summary><p>Todos os dias. As provas do Rio de Janeiro são conferidas diariamente e as dos outros estados, em rodízio semanal. Cada prova fica no radar até a data do evento.</p></details>
     <details><summary>Como me inscrevo numa corrida do radar?</summary><p>Toque na prova para abrir a página oficial do evento ou do organizador. A inscrição, os valores e o regulamento são sempre os do site oficial.</p></details>
-    <details><summary>As ofertas de tênis de corrida são confiáveis?</summary><p>As ofertas levam direto à loja e são revisadas todos os dias, mas preço e estoque mudam rápido. Confira o valor final e a sua numeração na loja antes de comprar.</p></details>
+    <details><summary>Os achados de corrida são confiáveis?</summary><p>Os achados (tênis, relógios, fones, roupas e acessórios de corrida) levam direto à loja e são revisados todos os dias, mas preço e estoque mudam rápido. Confira o valor final e o tamanho na loja antes de comprar.</p></details>
+    <details><summary>Como recebo as provas e os achados por e-mail?</summary><p>Deixe seu e-mail em qualquer caixa "Receba toda quinta" do radar e confirme no e-mail que chegar. Toda quinta você recebe as provas do fim de semana no Rio, os melhores achados e as ofertas dos parceiros. Dá para cancelar quando quiser.</p></details>
     <details><summary>Como uso o cupom AMARTINS?</summary><p>Na aba Parceiros, copie o cupom da marca e aplique no carrinho do site parceiro. Algumas marcas têm um cupom próprio, mostrado no cartão de cada uma.</p></details>
   </section>
 
   <p class="note" style="text-align:center;margin:0 auto 10px">Treinando para uma prova? Use a <a href="calculadora-de-pace/">calculadora de pace</a> para ver seu ritmo, a previsão de tempo e as zonas de treino.</p>
-  <p class="note" id="nota-precos" style="text-align:center;margin:0 auto">Preços e estoque mudam ao longo do dia: confira o valor final e a sua numeração na loja antes de comprar.</p>
+  <p class="note" id="nota-precos" style="text-align:center;margin:0 auto">Preços e estoque mudam ao longo do dia: confira o valor final e o tamanho na loja antes de comprar.</p>
+  <p class="legal">Alguns links do radar são de afiliada: a Aline pode receber uma comissão pela compra, sem custo extra para você. Como Associada da Amazon, ganho com compras qualificadas. · <a href="privacidade/">Política de privacidade</a></p>
+</div>
+
+<div class="modal" id="news-modal" hidden role="dialog" aria-modal="true" aria-labelledby="nm-t">
+  <div class="sheet">
+    <header><h3 id="nm-t">Receba toda quinta</h3><button class="xbtn" type="button" id="nm-x" aria-label="Fechar">×</button></header>
+    <div class="news" data-origem="topo" data-h="Provas e achados da semana" data-p="Toda quinta no seu e-mail: as provas do fim de semana no Rio, os melhores achados de corrida e as ofertas dos parceiros da Aline. Grátis."></div>
+  </div>
 </div>
 
 <div class="modal" id="share" hidden role="dialog" aria-modal="true" aria-labelledby="sh-t">
@@ -618,6 +683,18 @@ __DATA__
   const data = JSON.parse(document.getElementById('radar-data').textContent);
   const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
   const withOff = a => (a||[]).map(o => ({...o, off: Math.round((1 - o.preco/o.de)*100)}));
+  // links de afiliada da Aline (aplicados ao abrir a loja; os dados guardam o link limpo)
+  const AFIL = {amazon: 'amartins0b-20'};
+  function afil(u){
+    try{
+      const x = new URL(u);
+      if(/(^|\.)amazon\.com\.br$/.test(x.hostname) && AFIL.amazon){ x.searchParams.set('tag', AFIL.amazon); return x.toString(); }
+    }catch(e){}
+    return u;
+  }
+  // Achados: tênis e acessórios de corrida (campo "categoria"; sem campo = Tênis)
+  const CATS = ['Tênis','Relógios','Fones','Óculos','Roupas','Meias e bonés','Hidratação','Recuperação','Acessórios'];
+  (data.ofertas||[]).forEach(o => { if(!o.categoria) o.categoria = 'Tênis'; });
   const tenis = withOff(data.ofertas), roupas = withOff(data.artigos);
   const sortPt = arr => [...new Set(arr)].sort((a,b)=>a.localeCompare(b,'pt-BR',{sensitivity:'base'}));
 
@@ -627,7 +704,7 @@ __DATA__
   const slugTxt = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70).replace(/-+$/,'');
   function slugAll(arr, base, extra){ const b = arr.map(base); arr.forEach((x,i) => { x.slug = b.filter(v => v===b[i]).length > 1 ? b[i] + '-' + slugTxt(extra(x)) : b[i]; }); }
   slugAll(data.provas||[], p => slugTxt(p.nome) + '-' + p.data, p => (p.cidade||'') + ' ' + (p.uf||'RJ'));
-  slugAll(tenis, o => slugTxt(o.marca + ' ' + o.nome + ' ' + o.genero), o => o.loja||'');
+  slugAll(tenis, o => slugTxt([o.marca, o.nome, o.genero].filter(Boolean).join(' ')), o => o.loja||'');
   const provas = (data.provas||[]).filter(p => p.data >= hoje).sort((a,b)=> (a.data+(a.aline?'0':'1')+(a.hora||'')).localeCompare(b.data+(b.aline?'0':'1')+(b.hora||'')));
 
   // perfil
@@ -661,12 +738,13 @@ __DATA__
   document.getElementById('meta').innerHTML =
     'Atualizado em <b>' + dt.toLocaleDateString('pt-BR',{day:'2-digit',month:'long'}) + ', ' +
     dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}) + '</b> · ' +
-    provas.length + ' provas de corrida · ' + tenis.length + ' tênis em oferta';
+    provas.length + ' provas de corrida · ' + tenis.length + ' achados em oferta';
   document.getElementById('c-tenis').textContent = tenis.length;
   document.getElementById('c-provas').textContent = provas.length;
   
   // abas
   const tabs = ['provas','result','roupas','tenis','treino'];
+  if(location.hash === '#achados') history.replaceState(null, '', location.pathname + location.search + '#tenis');
   function show(name){
     tabs.forEach(t => {
       document.getElementById('tab-'+t).setAttribute('aria-selected', String(t===name));
@@ -735,7 +813,7 @@ __DATA__
     el.querySelector('.sharebtn').addEventListener('click', () => openShare(o));
     el.querySelector('.store').textContent = label;
     el.querySelector('.name').textContent = o.nome;
-    el.querySelector('.go').href = o.link;
+    el.querySelector('.go').href = afil(o.link);
     const cd = el.querySelector('.cond');
     if(o.cupom){ const c = document.createElement('span'); c.className = 'cup'; c.textContent = 'cupom ' + o.cupom; cd.appendChild(c); }
     if(o.condicao){ const c = document.createElement('span'); c.textContent = o.condicao; cd.appendChild(c); }
@@ -743,20 +821,47 @@ __DATA__
     return el;
   }
 
-  // tênis
-  const ts = {gen:'Todas', marca:'Todas', loja:'Todas', sort:'desc'};
+  // achados (tênis e acessórios)
+  const ts = {cat:'Todos', gen:'Todas', marca:'Todas', loja:'Todas', sort:'desc', q:''};
+  const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const catsPresentes = CATS.filter(c => tenis.some(o => o.categoria===c)).concat(sortPt(tenis.map(o=>o.categoria)).filter(c => !CATS.includes(c)));
+  (function(){
+    const box = document.getElementById('t-cat');
+    ['Todos', ...catsPresentes].forEach(c => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.v = c;
+      const n = c==='Todos' ? tenis.length : tenis.filter(o=>o.categoria===c).length;
+      b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = c; b.querySelector('small').textContent = n;
+      b.setAttribute('aria-pressed', String(c==='Todos'));
+      b.addEventListener('click', () => { ts.cat = c; box.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v===c))); refazChipsT(); renderT(); if(window.posthog) posthog.capture('achados_categoria', {categoria: c}); });
+      box.appendChild(b);
+    });
+    if(catsPresentes.length < 2) box.hidden = true;
+  })();
+  const naCat = () => tenis.filter(o => ts.cat==='Todos' || o.categoria===ts.cat);
+  function refazChipsT(){
+    const base = naCat();
+    ['t-marca','t-loja'].forEach(id => document.getElementById(id).querySelectorAll('.chip').forEach(c => c.remove()));
+    ts.marca = 'Todas'; ts.loja = 'Todas';
+    chips('t-marca', sortPt(base.map(o=>o.marca).filter(Boolean)), ts, 'marca', renderT);
+    chips('t-loja', sortPt(base.map(o=>o.loja).filter(Boolean)), ts, 'loja', renderT);
+    const temGen = base.some(o => o.genero==='Feminino' || o.genero==='Masculino');
+    document.getElementById('t-gen').hidden = !temGen; if(!temGen) ts.gen = 'Todas';
+  }
   function renderT(){
-    let rows = tenis.filter(o =>
-      (ts.gen==='Todas' || o.genero===ts.gen || o.genero==='Unissex') &&
-      (ts.marca==='Todas'||o.marca===ts.marca) && (ts.loja==='Todas'||o.loja===ts.loja));
+    const q = norm(ts.q).trim();
+    let rows = naCat().filter(o =>
+      (ts.gen==='Todas' || !o.genero || o.genero===ts.gen || o.genero==='Unissex') &&
+      (ts.marca==='Todas'||o.marca===ts.marca) && (ts.loja==='Todas'||o.loja===ts.loja) &&
+      (!q || q.split(/\s+/).every(w => norm([o.nome,o.marca,o.loja,o.categoria,o.genero].join(' ')).includes(w))));
     rows.sort(ts.sort==='desc' ? (a,b)=>b.off-a.off : (a,b)=>a.preco-b.preco);
     setCount('t-fbtn', [ts.gen, ts.marca, ts.loja]);
-    fill(document.getElementById('t-list'), rows, o => dealCard(o, [o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), 'Nenhuma oferta com esse filtro hoje.');
+    fill(document.getElementById('t-list'), rows, o => dealCard(o, [ts.cat==='Todos' && o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), q ? 'Nada encontrado para "' + ts.q.trim() + '" hoje. Tente outra palavra.' : 'Nenhum achado com esse filtro hoje.');
   }
   chips('t-gen', ['Feminino','Masculino'], ts, 'gen', renderT, {Todas:'Todos'});
-  chips('t-marca', sortPt(tenis.map(o=>o.marca)), ts, 'marca', renderT);
-  chips('t-loja', sortPt(tenis.map(o=>o.loja)), ts, 'loja', renderT);
+  refazChipsT();
   document.getElementById('t-sort').addEventListener('change', e => { ts.sort = e.target.value; renderT(); });
+  let qT = null;
+  document.getElementById('t-q').addEventListener('input', e => { ts.q = e.target.value; renderT(); clearTimeout(qT); qT = setTimeout(() => { if(window.posthog && ts.q.trim().length > 2) posthog.capture('achados_busca', {busca: ts.q.trim().slice(0,40)}); }, 1500); });
   renderT();
   toggler('t-fbtn','t-fpanel'); clearer('t-clear', ['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja'], renderT);
 
@@ -1158,7 +1263,7 @@ __DATA__
       c.fillStyle = '#6B5A6E'; c.font = '600 48px ' + B; const de = 'de ' + brl(o.de); c.fillText(de, cx, py+80);
       const dw = c.measureText(de).width, pw = c.measureText('de ').width; c.strokeStyle = '#6B5A6E'; c.lineWidth = 4; c.beginPath(); c.moveTo(cx-dw/2+pw, py+64); c.lineTo(cx+dw/2, py+64); c.stroke();
     } else {
-      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; c.fillText('Tênis de corrida', cx, y0+130); c.fillText('em promoção', cx, y0+210);
+      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; c.fillText('Achados de corrida', cx, y0+130); c.fillText('em promoção', cx, y0+210);
       const top = [...tenis].sort((a,b)=>b.off-a.off).slice(0,3);
       top.forEach((t,i) => {
         const yy = y0 + 280 + i*160;
@@ -1236,7 +1341,7 @@ __DATA__
       const p = provas.find(x => x.slug === sl);
       if(p){ zera(['e-mes','e-st','e-al'], es, ['mes','st','al']); es.reg = 'Todas'; if(es.uf !== (p.uf||'RJ')){ es.uf = p.uf||'RJ'; ufSel.value = es.uf; drawBase(es.uf); } buildReg(); renderE(); }
       show('provas');
-    } else { zera(['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja']); renderT(); show('tenis'); }
+    } else { ts.cat = 'Todos'; ts.q = ''; document.getElementById('t-q').value = ''; document.getElementById('t-cat').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.v==='Todos'))); refazChipsT(); zera(['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja']); renderT(); show('tenis'); }
     const el = document.querySelector((tipo==='prova' ? '#e-list' : '#t-list') + ' [data-slug="' + sl + '"]');
     if(el){ el.scrollIntoView({block:'center'}); el.classList.add('hilite'); }
     else toast(tipo === 'prova' ? 'Essa prova não está mais no radar. Veja as próximas!' : 'Essa oferta acabou. Veja as ofertas de hoje!');
@@ -1254,48 +1359,108 @@ __DATA__
   document.getElementById('c-roupas').textContent = marcas.length;
   document.getElementById('pt-intro').textContent = 'Cada marca tem o seu cupom: toque no cupom para copiar.';
   const groups = document.getElementById('pt-groups');
+  const ev = (nome, props) => { if(window.posthog) posthog.capture(nome, props); };
+  function partnerCard(m, comId){
+    const code = m.cupom || pc.cupom;
+    const a = document.createElement('div'); a.className = 'partner hascup';
+    a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><a class="arrow" target="_blank" rel="noopener">Ir à loja →</a>';
+    a.querySelector('a.arrow').href = afil(m.link);
+    a.querySelector('a.arrow').addEventListener('click', () => ev('clique_parceiro', {parceiro: m.nome, onde: 'cartao'}));
+    a.addEventListener('click', e => { if(e.target.closest('.pcopy, a, button')) return; ev('clique_parceiro', {parceiro: m.nome, onde: 'cartao'}); window.open(afil(m.link), '_blank', 'noopener'); });
+    if(m.logo){ const mo = a.querySelector('.mono'); const im = document.createElement('img'); im.src = m.logo; im.alt = '';
+      if(m.logo_ajuste === 'contain'){ im.style.objectFit = 'contain'; im.style.padding = '5px'; im.style.boxSizing = 'border-box'; im.style.background = '#fff'; }
+      im.onerror = () => { mo.classList.remove('logo'); mo.textContent = m.nome.charAt(0); };
+      mo.appendChild(im); mo.classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
+    a.querySelector('.pn').textContent = m.nome;
+    a.querySelector('.pd').textContent = m.descricao || '';
+    if(code){
+      const cl = document.createElement('span'); cl.className = 'pd'; cl.style.fontWeight = '600'; cl.style.color = 'var(--accent)';
+      cl.textContent = m.cupom_auto ? 'O cupom já entra sozinho pelo link' : 'Use o cupom no carrinho';
+      a.querySelector('.pi').appendChild(cl);
+      const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'pcopy';
+      cp.innerHTML = 'Cupom <b></b> <small>copiar</small>'; cp.querySelector('b').textContent = code;
+      cp.setAttribute('aria-label', 'Copiar cupom ' + code);
+      cp.addEventListener('click', async e => {
+        e.preventDefault(); e.stopPropagation();
+        const msg = cp.querySelector('small');
+        try{ await navigator.clipboard.writeText(code); msg.textContent = 'copiado!'; }
+        catch(err){ const r = document.createRange(); r.selectNodeContents(cp.querySelector('b')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
+        ev('cupom_copiado', {parceiro: m.nome, cupom: code});
+        setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
+      });
+      a.querySelector('.pi').appendChild(cp);
+    }
+    if(m.campanha){ const c = document.createElement('span'); c.className = 'pc'; c.textContent = m.campanha; a.querySelector('.pi').appendChild(c); }
+    if(comId) a.id = 'parceiro-' + slugMarca(m.nome);
+    if(modoAline){
+      const kb = document.createElement('button'); kb.type = 'button'; kb.className = 'kitbtn';
+      kb.innerHTML = '<span aria-hidden="true">✦</span> Kit para a parceira';
+      kb.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); abrirKit(m); });
+      a.querySelector('.pi').appendChild(kb);
+    }
+    return a;
+  }
+  // ofertas de cada parceiro (campo "ofertas" de cada marca, conferido na atualização diária)
+  function ofertasDe(m, grade){
+    const ofs = (m.ofertas || []).filter(o => o && o.nome && o.link);
+    if(!ofs.length) return null;
+    const box = document.createElement('div'); box.className = 'poffers' + (grade ? ' grid' : '');
+    (grade ? ofs : ofs.slice(0, 8)).forEach(o => {
+      const c = document.createElement('a'); c.className = 'poff'; c.target = '_blank'; c.rel = 'noopener'; c.href = afil(o.link);
+      c.innerHTML = '<span class="ph"></span><span class="pb"><span class="pn"></span></span>';
+      const ph = c.querySelector('.ph');
+      if(o.foto){ const im = new Image(); im.alt = ''; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.src = o.foto; im.onerror = () => { im.remove(); ph.textContent = m.nome.charAt(0); }; ph.appendChild(im); }
+      else ph.textContent = m.nome.charAt(0);
+      c.querySelector('.pn').textContent = o.nome;
+      const pb = c.querySelector('.pb');
+      if(typeof o.preco === 'number'){ const pp = document.createElement('span'); pp.className = 'pp'; pp.textContent = brl(o.preco); if(typeof o.de === 'number' && o.de > o.preco){ const s = document.createElement('s'); s.textContent = brl(o.de); pp.appendChild(s); } pb.appendChild(pp); }
+      if(o.detalhe){ const d = document.createElement('span'); d.className = 'pd2'; d.textContent = o.detalhe; pb.appendChild(d); }
+      c.addEventListener('click', () => ev('oferta_parceiro', {parceiro: m.nome, oferta: o.nome}));
+      box.appendChild(c);
+    });
+    return box;
+  }
   [...new Set(marcas.map(m=>m.categoria))].forEach(cat => {
     const h = document.createElement('h3'); h.className='ptitle'; h.textContent = cat; groups.appendChild(h);
     const list = document.createElement('div'); list.className='list'; groups.appendChild(list);
     marcas.filter(m=>m.categoria===cat).forEach(m => {
-      const code = m.cupom || pc.cupom;
-      const a = document.createElement('div'); a.className = 'partner hascup';
-      a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><a class="arrow" target="_blank" rel="noopener">Ir à loja →</a>';
-      a.querySelector('a.arrow').href = m.link;
-      a.addEventListener('click', ev => { if(ev.target.closest('.pcopy, a')) return; window.open(m.link, '_blank', 'noopener'); });
-      if(m.logo){ const mo = a.querySelector('.mono'); const im = document.createElement('img'); im.src = m.logo; im.alt = '';
-        if(m.logo_ajuste === 'contain'){ im.style.objectFit = 'contain'; im.style.padding = '5px'; im.style.boxSizing = 'border-box'; im.style.background = '#fff'; }
-        im.onerror = () => { mo.classList.remove('logo'); mo.textContent = m.nome.charAt(0); };
-        mo.appendChild(im); mo.classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
-      a.querySelector('.pn').textContent = m.nome;
-      a.querySelector('.pd').textContent = m.descricao || '';
-      if(code){
-        const cl = document.createElement('span'); cl.className = 'pd'; cl.style.fontWeight = '600'; cl.style.color = 'var(--accent)';
-        cl.textContent = m.cupom_auto ? 'O cupom já entra sozinho pelo link' : 'Use o cupom no carrinho';
-        a.querySelector('.pi').appendChild(cl);
-        const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'pcopy';
-        cp.innerHTML = 'Cupom <b></b> <small>copiar</small>'; cp.querySelector('b').textContent = code;
-        cp.setAttribute('aria-label', 'Copiar cupom ' + code);
-        cp.addEventListener('click', async ev => {
-          ev.preventDefault(); ev.stopPropagation();
-          const msg = cp.querySelector('small');
-          try{ await navigator.clipboard.writeText(code); msg.textContent = 'copiado!'; }
-          catch(e){ const r = document.createRange(); r.selectNodeContents(cp.querySelector('b')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
-          setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
-        });
-        a.querySelector('.pi').appendChild(cp);
-      }
-      if(m.campanha){ const c = document.createElement('span'); c.className = 'pc'; c.textContent = m.campanha; a.querySelector('.pi').appendChild(c); }
-      a.id = 'parceiro-' + slugMarca(m.nome);
-      if(modoAline){
-        const kb = document.createElement('button'); kb.type = 'button'; kb.className = 'kitbtn';
-        kb.innerHTML = '<span aria-hidden="true">✦</span> Kit para a parceira';
-        kb.addEventListener('click', ev => { ev.preventDefault(); ev.stopPropagation(); abrirKit(m); });
-        a.querySelector('.pi').appendChild(kb);
-      }
-      list.appendChild(a);
+      list.appendChild(partnerCard(m, true));
+      const of = ofertasDe(m, false); if(of) list.appendChild(of);
     });
   });
+  // fileira de logos: toque numa marca para ver só ela e tudo o que ela oferece
+  const ptSel = document.getElementById('pt-sel'), ptLogos = document.getElementById('pt-logos');
+  let ptAtual = '';
+  function escolheParceiro(sl, rolar){
+    ptAtual = sl;
+    ptLogos.querySelectorAll('.plogo').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.s === sl)));
+    if(!sl){ ptSel.hidden = true; ptSel.innerHTML = ''; groups.hidden = false; return; }
+    const m = marcas.find(x => slugMarca(x.nome) === sl); if(!m){ escolheParceiro(''); return; }
+    groups.hidden = true; ptSel.innerHTML = ''; ptSel.hidden = false;
+    ptSel.appendChild(partnerCard(m, true));
+    const of = ofertasDe(m, true);
+    if(of){ const h = document.createElement('p'); h.className = 'psub'; h.textContent = 'Ofertas de ' + m.nome; ptSel.append(h, of); }
+    else { const p = document.createElement('p'); p.className = 'note'; p.style.margin = '0 auto'; p.style.textAlign = 'center'; p.textContent = 'Toque em "Ir à loja" para ver tudo o que a ' + m.nome + ' tem hoje, e use o cupom da Aline no carrinho.'; ptSel.appendChild(p); }
+    ev('parceiro_filtro', {parceiro: m.nome});
+    if(rolar) setTimeout(() => ptLogos.scrollIntoView({behavior:'smooth', block:'start'}), 200);
+  }
+  (function(){
+    const mk = (s, nome, logo, ajuste) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'plogo'; b.dataset.s = s;
+      b.innerHTML = '<span class="lg"></span><span class="nm"></span>'; b.querySelector('.nm').textContent = nome;
+      const lg = b.querySelector('.lg');
+      if(logo){ const im = new Image(); im.alt = ''; im.src = logo; if(ajuste === 'contain') im.className = 'ct'; im.onerror = () => { im.remove(); lg.textContent = nome.charAt(0); }; lg.appendChild(im); }
+      else if(!s){ lg.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg>'; }
+      else lg.textContent = nome.charAt(0);
+      b.setAttribute('aria-pressed', String(!s));
+      b.addEventListener('click', () => escolheParceiro(s));
+      ptLogos.appendChild(b);
+    };
+    mk('', 'Todas');
+    marcas.forEach(m => mk(slugMarca(m.nome), m.nome, m.logo, m.logo_ajuste));
+  })();
+  const nOfertasParc = marcas.reduce((s, m) => s + ((m.ofertas||[]).length), 0);
+  document.getElementById('pt-intro').textContent = nOfertasParc ? 'Toque numa marca para ver as ofertas dela. Cada marca tem o seu cupom: toque no cupom para copiar.' : 'Toque numa marca para ver só ela. Cada marca tem o seu cupom: toque no cupom para copiar.';
 
   // link para a aba Parceiros (#parceiros) ou para uma marca (#parceiro=<slug>), para mandar às marcas
   setTimeout(function(){
@@ -1303,11 +1468,46 @@ __DATA__
     const mt = h.match(/^#parceiro=([a-z0-9-]+)$/);
     if(h !== '#parceiros' && !mt) return;
     const tb = document.getElementById('tab-roupas'); if(tb) tb.click();
-    if(mt){
-      const el = document.getElementById('parceiro-' + mt[1]);
-      if(el){ setTimeout(() => { el.scrollIntoView({behavior:'smooth', block:'center'}); el.style.transition = 'box-shadow .4s'; el.style.boxShadow = '0 0 0 3px var(--mauve)'; setTimeout(() => { el.style.boxShadow = ''; }, 3500); }, 250); }
-    } else { const pg = document.getElementById('pt-groups'); if(pg) setTimeout(() => pg.scrollIntoView({behavior:'smooth', block:'start'}), 250); }
+    if(mt){ escolheParceiro(mt[1], true); }
+    else { const pg = document.getElementById('pt-logos'); if(pg) setTimeout(() => pg.scrollIntoView({behavior:'smooth', block:'start'}), 250); }
   }, 0);
+
+  // ---------- Caixas de e-mail (MailerLite: formulário "Radar de Corrida · caixa do site", com confirmação dupla) ----------
+  const ML_SUB = 'https://assets.mailerlite.com/jsonp/2751750/forms/202624491460757155/subscribe';
+  function montaNews(box){
+    const origem = box.dataset.origem || 'site';
+    box.innerHTML = '<p class="nh"></p><p class="np"></p><form novalidate><input type="email" name="fields[email]" required placeholder="seu@email.com" autocomplete="email" aria-label="Seu e-mail"><button class="follow" type="submit">Quero receber</button></form><p class="nl">Grátis, toda quinta. Você confirma no e-mail e cancela quando quiser. <a href="privacidade/">Privacidade</a></p>';
+    box.querySelector('.nh').textContent = box.dataset.h || 'Receba toda quinta';
+    box.querySelector('.np').textContent = box.dataset.p || '';
+    const f = box.querySelector('form'), inp = f.querySelector('input'), bt = f.querySelector('button');
+    f.addEventListener('submit', async e => {
+      e.preventDefault();
+      box.querySelectorAll('.er').forEach(x => x.remove());
+      const em = inp.value.trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){ const er = document.createElement('p'); er.className = 'er'; er.textContent = 'Confira o e-mail digitado.'; f.after(er); inp.focus(); return; }
+      bt.disabled = true; bt.textContent = 'Enviando…';
+      const fd = new FormData(); fd.append('fields[email]', em); fd.append('ml-submit', '1'); fd.append('anticsrf', 'true');
+      let ok = false;
+      try{ const r = await fetch(ML_SUB, {method:'POST', body: fd}); const j = await r.json().catch(() => ({})); ok = r.ok && j.success !== false; }
+      catch(err){ try{ await fetch(ML_SUB, {method:'POST', body: fd, mode:'no-cors'}); ok = true; }catch(e2){ ok = false; } }
+      if(ok){
+        f.remove(); box.querySelector('.nl').remove();
+        const o = document.createElement('p'); o.className = 'ok'; o.textContent = 'Quase lá! Abra o e-mail que acabamos de enviar e toque em confirmar. (Se não achar, olhe em Promoções ou Spam.)';
+        box.appendChild(o);
+        ev('newsletter_inscricao', {origem});
+        try{ localStorage.setItem('radar-news', '1'); }catch(e3){}
+      } else {
+        bt.disabled = false; bt.textContent = 'Quero receber';
+        const er = document.createElement('p'); er.className = 'er'; er.textContent = 'Não deu certo agora. Tente de novo em instantes.'; f.after(er);
+      }
+    });
+  }
+  document.querySelectorAll('.news[data-origem]').forEach(montaNews);
+  const nModal = document.getElementById('news-modal');
+  document.getElementById('news-hero').addEventListener('click', () => { nModal.hidden = false; ev('newsletter_abrir', {origem: 'topo'}); setTimeout(() => { const i = nModal.querySelector('input'); if(i) i.focus(); }, 100); });
+  document.getElementById('nm-x').addEventListener('click', () => { nModal.hidden = true; });
+  nModal.addEventListener('click', e => { if(e.target === nModal) nModal.hidden = true; });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && !nModal.hidden) nModal.hidden = true; });
 
   // ---------- Modo Aline ----------
   const ADM_HASH = 'bc95ba0d8b52ed31693b718b4d7b87c205b2f37767604823dd17dbd100b7739c';

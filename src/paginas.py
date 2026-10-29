@@ -32,7 +32,23 @@ def slugs(itens, base, extra):
 
 def prova_base(p): return slug(p['nome']) + '-' + p['data']
 def prova_extra(p): return (p.get('cidade') or '') + ' ' + (p.get('uf') or 'RJ')
-def tenis_base(o): return slug(o['marca'] + ' ' + o['nome'] + ' ' + o['genero'])
+def tenis_base(o): return slug(' '.join(x for x in [o.get('marca') or '', o['nome'], o.get('genero') or ''] if x))
+
+
+AFIL_AMAZON = 'amartins0b-20'  # mesmo código da constante AFIL do template
+
+
+def afil(u):
+    """link de afiliada da Aline (Amazon): acrescenta tag=; os dados guardam o link limpo."""
+    try:
+        from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+        x = urlsplit(u)
+        if re.search(r'(^|\.)amazon\.com\.br$', x.hostname or ''):
+            q = [(k, v) for k, v in parse_qsl(x.query, keep_blank_values=True) if k != 'tag'] + [('tag', AFIL_AMAZON)]
+            return urlunsplit((x.scheme, x.netloc, x.path, urlencode(q), x.fragment))
+    except Exception:
+        pass
+    return u
 def tenis_extra(o): return o.get('loja') or ''
 
 
@@ -304,8 +320,8 @@ def main():
             off = round((1 - it['preco'] / it['de']) * 100)
             titulo = f"{it['nome']} por {brl(it['preco'])} (-{off}%)"
             cond = ' · '.join(x for x in [('cupom ' + it['cupom']) if it.get('cupom') else None, it.get('condicao')] if x)
-            desc = f"{it['genero']} · de {brl(it['de'])} por {brl(it['preco'])} na {it['loja']}" + (f' ({cond})' if cond else '') + '. Achado no Radar de Corrida da Aline.'
-            html_ = pagina('tenis', sl, titulo, desc, img, f'#tenis={sl}', 'Ver na loja', it.get('link'), True)
+            desc = ' · '.join(x for x in [it.get('categoria') if it.get('categoria') not in (None, 'Tênis') else None, it.get('genero')] if x) + f" · de {brl(it['de'])} por {brl(it['preco'])} na {it['loja']}" + (f' ({cond})' if cond else '') + '. Achado no Radar de Corrida da Aline.'
+            html_ = pagina('tenis', sl, titulo, desc, img, f'#tenis={sl}', 'Ver na loja', afil(it.get('link') or ''), True)
         pasta = root / tipo / sl; pasta.mkdir(parents=True, exist_ok=True)
         (pasta / 'index.html').write_text(html_)
 
