@@ -63,6 +63,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - **Kit para a parceira** (botão em cada marca da aba Parceiros): arte "Aline × Marca" em Story (1080x1920) ou Post/collab (1080x1350), com foto, logo da marca, frase, cupom da marca e `radardecorrida.com.br · @amartinscc`. A Aline escolhe a foto da galeria, arrasta e dá zoom; a foto **não sobe para o site** (fica no IndexedDB `radar-aline` daquele celular, por marca, junto com zoom, enquadramento, frase e formato). Sem foto, usa `hero.jpg`. Traz legenda do post e mensagem para a marca (editáveis) e o link da marca no radar.
 - Textos e frases de cada marca: objeto `KIT_TXT` no `src/template.html` (chave = slug do nome). Marca nova sem entrada usa os textos genéricos da categoria. Ao adicionar parceiro, acrescentar a entrada dele.
 - Logo por URL no kit é carregado com CORS; se o servidor da marca não permitir, a arte mostra a inicial da marca no lugar.
+- Modo Aline → **Meus links de loja**: abrir/copiar a Amazon e a Netshoes com o código dela e gerar o link de afiliada de qualquer produto da Amazon colado (Netshoes quando houver MID; constante `AFIL.netshoesMid` no template).
 - Nos Achados, só no Modo Aline: selo amarelo "💰 Link da Aline · <loja>" nos achados cujo link rende comissão (hoje, Amazon) e, em Filtros, a linha "Comissão" com "Só com link da Aline".
 - Links públicos (servem para qualquer um): `/#parceiros` abre a aba Parceiros; `/#parceiro=<slug>` abre e destaca a marca.
 
@@ -76,6 +77,7 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Amazon Associados: ID `amartins0b-20` (conta criada; precisa de 3 vendas em 180 dias para aprovação final). Aviso obrigatório no rodapé do site e na política de privacidade.
 - Netshoes (pela Rakuten Advertising): aprovada (SID do site 4767834; token de publisher `7KhHq5G3aIo`); falta o MID da Netshoes (id do anunciante) para montar os deep links (`click.linksynergy.com/deeplink?id=<token>&mid=<MID>&murl=<URL codificada>`). Quando chegar, acrescentar em `afil()` do template e do `paginas.py`.
 - Awin (adidas e outras): candidaturas em andamento.
+- Prioridade da Amazon nos Achados (pedido de 29/10/2026): ~20 a 30 achados da Amazon por dia, com desconto real, sem tirar os maiores descontos das outras lojas.
 - Regra: nunca link de afiliada direto em e-mail (a Amazon proíbe); no e-mail, os links levam para as páginas do radar.
 
 ## E-mail semanal (MailerLite, desde 29/10/2026)

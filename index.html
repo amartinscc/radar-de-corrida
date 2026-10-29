@@ -12878,11 +12878,13 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
   const withOff = a => (a||[]).map(o => ({...o, off: Math.round((1 - o.preco/o.de)*100)}));
   // links de afiliada da Aline (aplicados ao abrir a loja; os dados guardam o link limpo)
-  const AFIL = {amazon: 'amartins0b-20'};
+  // Netshoes (Rakuten): token da Aline + MID da Netshoes; enquanto o MID estiver vazio, os links da Netshoes ficam limpos
+  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0'};
   function afil(u){
     try{
       const x = new URL(u);
       if(/(^|\.)amazon\.com\.br$/.test(x.hostname) && AFIL.amazon){ x.searchParams.set('tag', AFIL.amazon); return x.toString(); }
+      if(/(^|\.)netshoes\.com\.br$/.test(x.hostname) && AFIL.netshoesMid){ return 'https://click.linksynergy.com/deeplink?id=' + AFIL.rakutenId + '&mid=' + AFIL.netshoesMid + '&murl=' + encodeURIComponent(u); }
     }catch(e){}
     return u;
   }
@@ -13788,6 +13790,52 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     pw.addEventListener('keydown', e => { if(e.key === 'Enter') vai(); });
     setTimeout(() => pw.focus(), 100);
   }
+  // Meus links de loja: lojas com o código de afiliada da Aline + gerador de link de produto
+  function telaLinks(){
+    const amzHome = 'https://www.amazon.com.br/?tag=' + AFIL.amazon;
+    admBody.innerHTML = `<div class="adm-list">
+      <p class="lb" style="margin:0">Amazon</p>
+      <a class="follow alt" href="${amzHome}" target="_blank" rel="noopener"><span>Abrir a Amazon com meu link</span><small>código ${AFIL.amazon}</small></a>
+      <button class="follow alt" type="button" data-cp="${amzHome}"><span>Copiar link da Amazon</span><small>para bio e stories</small></button>
+      <p class="hint" style="text-align:left">Dica: logada na Amazon, aparece no topo de cada produto a barra <b>SiteStripe</b>, que gera o link curto (amzn.to) já com o seu código.</p>
+      <p class="lb" style="margin:6px 0 0">Netshoes</p>
+      <a class="follow alt" href="${AFIL.netshoesHome}" target="_blank" rel="noopener"><span>Abrir a Netshoes com meu link</span><small>Rakuten</small></a>
+      <button class="follow alt" type="button" data-cp="${AFIL.netshoesHome}"><span>Copiar link da Netshoes</span><small>para bio e stories</small></button>
+      <p class="lb" style="margin:6px 0 0">Link de um produto</p>
+      <p class="hint" style="text-align:left">Cole o endereço de um produto da Amazon${AFIL.netshoesMid ? ' ou da Netshoes' : ''} e toque em Gerar: sai o link com o seu código, pronto para compartilhar.</p>
+      <input type="url" id="lk-in" placeholder="https://www.amazon.com.br/..." style="width:100%;font:500 15px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
+      <button class="follow" type="button" id="lk-go" style="justify-content:center">Gerar meu link</button>
+      <div id="lk-out"></div>
+      <button class="mini" type="button" id="lk-volta">← Voltar ao menu</button>
+    </div>`;
+    admBody.querySelectorAll('[data-cp]').forEach(b => b.addEventListener('click', () => copiaTxt(b.dataset.cp, 'Link copiado!')));
+    document.getElementById('lk-volta').addEventListener('click', menuAdm);
+    document.getElementById('lk-go').addEventListener('click', () => {
+      const out = document.getElementById('lk-out'); out.innerHTML = '';
+      const msg = (txt, cor) => { const p = document.createElement('p'); p.className = 'hint'; p.style.textAlign = 'left'; if(cor) p.style.color = cor; p.textContent = txt; out.appendChild(p); };
+      let u = document.getElementById('lk-in').value.trim();
+      const m = u.match(/https?:\/\/\S+/); if(m) u = m[0];
+      let x; try{ x = new URL(u); }catch(e){ msg('Cole o endereço completo do produto (começando com https://).', 'var(--hot)'); return; }
+      let link = '';
+      if(/(^|\.)amazon\.com\.br$/.test(x.hostname)){
+        const asin = (x.pathname.match(/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})/i) || [])[1];
+        link = asin ? 'https://www.amazon.com.br/dp/' + asin.toUpperCase() + '?tag=' + AFIL.amazon : afil(x.origin + x.pathname);
+      } else if(/(^|\.)amzn\.to$|(^|\.)a\.co$/.test(x.hostname)){
+        msg('Esse é um link curto. Abra o produto no navegador e cole aqui o endereço completo da página (amazon.com.br/...).', 'var(--hot)'); return;
+      } else if(/(^|\.)netshoes\.com\.br$/.test(x.hostname)){
+        if(!AFIL.netshoesMid){ msg('Para produtos da Netshoes ainda falta o código da Netshoes na Rakuten (MID). Por enquanto, use o link geral da Netshoes acima.', 'var(--hot)'); return; }
+        link = afil(x.origin + x.pathname);
+      } else { msg('Por enquanto o gerador funciona com produtos da Amazon' + (AFIL.netshoesMid ? ' e da Netshoes' : '') + '.', 'var(--hot)'); return; }
+      const box = document.createElement('div'); box.className = 'adm-list';
+      box.innerHTML = '<p class="hint" style="text-align:left;word-break:break-all;user-select:all"></p><button class="follow" type="button" style="justify-content:center">Copiar meu link</button><button class="follow alt" type="button" style="justify-content:center">Compartilhar</button>';
+      box.querySelector('p').textContent = link;
+      const [bc, bs] = box.querySelectorAll('button');
+      bc.addEventListener('click', () => copiaTxt(link, 'Link copiado!'));
+      bs.addEventListener('click', async () => { try{ if(navigator.share){ await navigator.share({url: link}); return; } }catch(e){ if(e && e.name === 'AbortError') return; } copiaTxt(link, 'Link copiado!'); });
+      out.appendChild(box);
+      if(window.posthog) posthog.capture('aline_gerou_link', {loja: /amazon/.test(link) ? 'amazon' : 'netshoes'});
+    });
+  }
   function menuAdm(){
     admBody.innerHTML = '';
     const lista = document.createElement('div'); lista.className = 'adm-list';
@@ -13797,6 +13845,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = txt; b.querySelector('small').textContent = sub || '';
       lista.appendChild(b);
     };
+    item('Meus links de loja', 'Amazon e Netshoes', () => telaLinks());
     item('Carrossel da semana', 'provas do fim de semana', () => { fechaModal(admEl); abrirCarrossel(); });
     item('Kits das parceiras', 'arte + legenda', () => { fechaModal(admEl); document.getElementById('tab-roupas').click(); setTimeout(() => document.getElementById('pt-groups').scrollIntoView({behavior:'smooth'}), 200); });
     item('Métricas do radar', 'visitas e cliques', null, PAINEL_URL);
