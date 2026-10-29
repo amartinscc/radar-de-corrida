@@ -217,6 +217,29 @@ footer a{color:var(--muted)}
 }
 @media (max-width:360px){.r-grid b{font-size:15px}.modes button{font-size:12.5px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* Novidades (e-mail semanal do radar) */
+.novidades-btn{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:8px;color:#1D1220;text-decoration:none;font:800 15px var(--body);padding:11px 22px;border-radius:999px;border:0;cursor:pointer;margin-top:10px;
+  background:linear-gradient(110deg,#BBE3E5,#D9C1D9,#B28AB1,#E9A07E,#FFD27A,#BBE3E5,#D9C1D9);background-size:320% 100%;background-position:0% 50%;
+  box-shadow:0 0 0 2px rgba(255,255,255,.55),0 8px 26px rgba(233,160,126,.45),0 0 22px rgba(178,138,177,.45)}
+.novidades-btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%);transform:translateX(-120%)}
+.novidades-btn svg{width:18px;height:18px}
+@media (prefers-reduced-motion:no-preference){
+  .novidades-btn{animation:novGrad 10s ease-in-out infinite alternate, novGlow 3.2s ease-in-out infinite}
+  .novidades-btn::after{animation:novShine 4.5s ease-in-out infinite}
+}
+@keyframes novGrad{0%{background-position:0% 50%}100%{background-position:100% 50%}}
+@keyframes novShine{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+@keyframes novGlow{0%,100%{box-shadow:0 0 0 2px rgba(255,255,255,.55),0 8px 26px rgba(233,160,126,.40),0 0 18px rgba(178,138,177,.40)}50%{box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 32px rgba(233,160,126,.60),0 0 30px rgba(187,227,229,.65)}}
+.news{background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 70%,var(--surface)),color-mix(in srgb,var(--g2) 70%,var(--surface)));border:1px solid var(--line);border-radius:22px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center;margin-bottom:14px;scroll-margin-top:20px}
+.news .nh{font:800 22px/1.15 var(--display);margin:0;color:var(--ink)}
+.news .np{margin:0;color:var(--ink);font-size:14px;max-width:44ch}
+.news form{display:flex;gap:8px;width:100%;max-width:420px;flex-wrap:wrap;justify-content:center}
+.news input[type=email]{flex:1 1 200px;min-width:0;font:500 15px var(--body);padding:11px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.news .nb{border:0;border-radius:999px;padding:11px 18px;font:700 15px var(--body);background:var(--mauve);color:var(--mauve-ink);cursor:pointer}
+.news .nl{margin:0;color:var(--muted);font-size:12px}
+.news .nl a{color:var(--accent)}
+.news .ok{font:700 14px var(--body);color:var(--good);margin:0}
+.news .er{font:600 13px var(--body);color:var(--hot);margin:0}
 </style>
 
 <!-- Métricas (PostHog), sem cookies e sem gravação de sessão. Idade, frequência cardíaca e peso não são enviados. -->
@@ -249,6 +272,7 @@ if (location.hostname === 'radardecorrida.com.br') {
       <div class="eyebrow">Ferramenta grátis</div>
       <h1>Calculadora de pace</h1>
       <p>Ritmo, tempo de prova, parciais e zonas de treino em segundos.</p>
+      <a class="novidades-btn" href="#novidades" id="nov-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Novidades</a>
     </div>
     <a class="avatar" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener" data-ev="ig" data-origem="avatar">
       <img src="/fotos/aline-calculadora.webp" alt="Aline Martins, personal trainer e corredora" width="78" height="78">
@@ -456,6 +480,13 @@ if (location.hostname === 'radardecorrida.com.br') {
     <details><summary>A previsão de tempo para a maratona é confiável?</summary><p>É uma estimativa feita pela fórmula de Riegel a partir de uma prova sua. Funciona melhor entre distâncias próximas e quando você tem treino para a distância prevista. Para meia e maratona, o volume de treino pesa muito no resultado real.</p></details>
     <details><summary>O que é split negativo?</summary><p>É correr a segunda metade da prova mais rápido que a primeira. Começar um pouco mais contido poupa energia e costuma render tempos melhores em provas longas.</p></details>
   </section>
+
+  <section class="news" id="novidades" aria-labelledby="nov-t">
+    <h2 class="nh" id="nov-t">Novidades do Radar</h2>
+    <p class="np">Toda quinta no seu e-mail: as provas do fim de semana no Rio para colocar no seu plano, os melhores achados de corrida e as ofertas dos parceiros da Aline. Grátis.</p>
+    <form novalidate><input type="email" name="fields[email]" required placeholder="seu@email.com" autocomplete="email" aria-label="Seu e-mail"><button class="nb" type="submit">Quero receber</button></form>
+    <p class="nl">Você confirma no e-mail e cancela quando quiser. <a href="/privacidade/">Privacidade</a></p>
+  </section>
   </main>
 </div>
 
@@ -475,6 +506,27 @@ if (location.hostname === 'radardecorrida.com.br') {
   const st = { mode:'pace', unit:'km', split:'igual', allSplits:false, r:null };
 
   const ev = (nome, props) => { try { if (window.posthog && posthog.capture) posthog.capture(nome, props||{}); } catch(e){} };
+  // Novidades: inscrição no e-mail semanal (MailerLite, formulário "Radar de Corrida · caixa do site", confirmação dupla)
+  (function(){
+    const ML_SUB = 'https://assets.mailerlite.com/jsonp/2751750/forms/202624491460757155/subscribe';
+    const box = document.getElementById('novidades'); if(!box) return;
+    const nb = document.getElementById('nov-btn');
+    if(nb) nb.addEventListener('click', e => { e.preventDefault(); ev('newsletter_abrir', {origem: 'calculadora'}); box.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(() => { const i = box.querySelector('input'); if(i) i.focus({preventScroll:true}); }, 700); });
+    const f = box.querySelector('form'), inp = f.querySelector('input'), bt = f.querySelector('button');
+    f.addEventListener('submit', async e => {
+      e.preventDefault();
+      box.querySelectorAll('.er').forEach(x => x.remove());
+      const em = inp.value.trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){ const er = document.createElement('p'); er.className = 'er'; er.textContent = 'Confira o e-mail digitado.'; f.after(er); inp.focus(); return; }
+      bt.disabled = true; bt.textContent = 'Enviando…';
+      const fd = new FormData(); fd.append('fields[email]', em); fd.append('ml-submit', '1'); fd.append('anticsrf', 'true');
+      let ok = false;
+      try{ const r = await fetch(ML_SUB, {method:'POST', body: fd}); const j = await r.json().catch(() => ({})); ok = r.ok && j.success !== false; }
+      catch(err){ try{ await fetch(ML_SUB, {method:'POST', body: fd, mode:'no-cors'}); ok = true; }catch(e2){ ok = false; } }
+      if(ok){ f.remove(); const nl = box.querySelector('.nl'); if(nl) nl.remove(); const o = document.createElement('p'); o.className = 'ok'; o.textContent = 'Quase lá! Abra o e-mail que acabamos de enviar e toque em confirmar. (Se não achar, olhe em Promoções ou Spam.)'; box.appendChild(o); ev('newsletter_inscricao', {origem: 'calculadora'}); }
+      else { bt.disabled = false; bt.textContent = 'Quero receber'; const er = document.createElement('p'); er.className = 'er'; er.textContent = 'Não deu certo agora. Tente de novo em instantes.'; f.after(er); }
+    });
+  })();
   const num = v => { const n = parseFloat(String(v).replace(',', '.').trim()); return isFinite(n) ? n : NaN; };
   const int0 = v => { const s = String(v).trim(); if (s === '') return 0; const n = parseInt(s, 10); return isFinite(n) ? n : NaN; };
   const dec = (n, d=1) => n.toFixed(d).replace('.', ',');
