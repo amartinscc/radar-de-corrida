@@ -409,6 +409,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .catbar::-webkit-scrollbar{display:none}
 .catbar .chip{flex:none;white-space:nowrap}
 .catbar .chip small{opacity:.65;font-weight:600;margin-left:3px}
+.partner .cupt{margin-top:6px;font-size:12px;font-weight:700;color:var(--ink)}
 .afiltag{display:inline-block;align-self:flex-start;margin-bottom:3px;background:#FFF3D6;color:#7A4E00;font:700 11px var(--body);padding:3px 8px;border-radius:999px}
 .tsearch{flex:1;min-width:0;font:500 14px var(--body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .tsearch:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -1422,22 +1423,27 @@ __DATA__
       mo.appendChild(im); mo.classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
     a.querySelector('.pn').textContent = m.nome;
     a.querySelector('.pd').textContent = m.descricao || '';
-    if(code){
+    // cupons: um geral (campo "cupom") ou vários com regra (campo "cupons": [{cupom, texto}], ex.: um para a primeira compra)
+    const lista = (m.cupons && m.cupons.length) ? m.cupons.filter(x => x && x.cupom) : (code ? [{cupom: code}] : []);
+    if(lista.length){
       const cl = document.createElement('span'); cl.className = 'pd'; cl.style.fontWeight = '600'; cl.style.color = 'var(--accent)';
-      cl.textContent = m.cupom_auto ? 'O cupom já entra sozinho pelo link' : 'Use o cupom no carrinho';
+      cl.textContent = m.cupom_auto ? 'O cupom já entra sozinho pelo link' : (lista.length > 1 ? 'Use um dos cupons no carrinho' : 'Use o cupom no carrinho');
       a.querySelector('.pi').appendChild(cl);
-      const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'pcopy';
-      cp.innerHTML = 'Cupom <b></b> <small>copiar</small>'; cp.querySelector('b').textContent = code;
-      cp.setAttribute('aria-label', 'Copiar cupom ' + code);
-      cp.addEventListener('click', async e => {
-        e.preventDefault(); e.stopPropagation();
-        const msg = cp.querySelector('small');
-        try{ await navigator.clipboard.writeText(code); msg.textContent = 'copiado!'; }
-        catch(err){ const r = document.createRange(); r.selectNodeContents(cp.querySelector('b')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
-        ev('cupom_copiado', {parceiro: m.nome, cupom: code});
-        setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
+      lista.forEach(cu => {
+        if(cu.texto){ const tx = document.createElement('span'); tx.className = 'pd cupt'; tx.textContent = cu.texto; a.querySelector('.pi').appendChild(tx); }
+        const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'pcopy';
+        cp.innerHTML = 'Cupom <b></b> <small>copiar</small>'; cp.querySelector('b').textContent = cu.cupom;
+        cp.setAttribute('aria-label', 'Copiar cupom ' + cu.cupom + (cu.texto ? ' (' + cu.texto + ')' : ''));
+        cp.addEventListener('click', async e => {
+          e.preventDefault(); e.stopPropagation();
+          const msg = cp.querySelector('small');
+          try{ await navigator.clipboard.writeText(cu.cupom); msg.textContent = 'copiado!'; }
+          catch(err){ const r = document.createRange(); r.selectNodeContents(cp.querySelector('b')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = 'selecionado'; }
+          ev('cupom_copiado', {parceiro: m.nome, cupom: cu.cupom});
+          setTimeout(()=>{ msg.textContent = 'copiar'; }, 2200);
+        });
+        a.querySelector('.pi').appendChild(cp);
       });
-      a.querySelector('.pi').appendChild(cp);
     }
     if(m.campanha){ const c = document.createElement('span'); c.className = 'pc'; c.textContent = m.campanha; a.querySelector('.pi').appendChild(c); }
     if(comId) a.id = 'parceiro-' + slugMarca(m.nome);
