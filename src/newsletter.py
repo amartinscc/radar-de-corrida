@@ -40,46 +40,56 @@ def main():
     d = json.loads(re.search(r'<script id="radar-data" type="application/json">(.*?)</script>', s, re.S).group(1))
     hj = hoje.isoformat()
 
-    # provas do fim de semana (mesma regra do carrossel: sexta a domingo da semana, só RJ, sem canceladas)
+    # provas das próximas 4 semanas (a partir de 3 dias, para dar tempo de se inscrever), só RJ, sem canceladas/esgotadas
     provas = d.get('provas') or []
     ps = dict(zip(map(id, provas), slugs(provas, prova_base, prova_extra)))
-    domingo = hoje + datetime.timedelta(days=6 - hoje.weekday())
-    ini = max(hoje, domingo - datetime.timedelta(days=2))
-    fds = [p for p in provas if (p.get('uf') or 'RJ') == 'RJ' and p.get('status') != 'cancelada' and ini.isoformat() <= p['data'] <= domingo.isoformat()]
-    fds.sort(key=lambda p: (p['data'], not p.get('aline'), not p.get('cupom'), p.get('hora') or '99', p['nome']))
-    dias = sorted({p['data'] for p in fds})
+    ini = hoje + datetime.timedelta(days=3)
+    fim = hoje + datetime.timedelta(days=31)
+    prox = [p for p in provas if (p.get('uf') or 'RJ') == 'RJ' and p.get('status') not in ('cancelada', 'esgotada')
+            and ini.isoformat() <= p['data'] <= fim.isoformat()]
+    prox.sort(key=lambda p: (p['data'], not p.get('aline'), not p.get('cupom'), p.get('status') == 'confira', p.get('hora') or '99', p['nome']))
+    def semana(dt):  # segunda-feira da semana
+        x = datetime.date.fromisoformat(dt); return x - datetime.timedelta(days=x.weekday())
+    semanas = []
+    for p in prox:
+        s = semana(p['data'])
+        if not semanas or semanas[-1][0] != s: semanas.append((s, []))
+        semanas[-1][1].append(p)
+    fds = prox  # compatibilidade com o relatório
+    dias = sorted({p['data'] for p in prox})
 
-    # achados: os maiores descontos, variando categoria e marca
+    # achados: primeiro os que rendem comissão para a Aline (escolhas dela e Amazon), depois os maiores descontos
     ofs = d.get('ofertas') or []
     os_ = dict(zip(map(id, ofs), slugs(ofs, tenis_base, tenis_extra)))
     for o in ofs:
-        o['_off'] = round((1 - o['preco'] / o['de']) * 100) if o.get('de') else 0
-    ordem = sorted(ofs, key=lambda o: -o['_off'])
-    escolhidos, cats, marcas = [], {}, {}
-    for o in ordem:  # 1ª passada: no máximo 2 por categoria e 1 por marca
-        c = o.get('categoria') or 'Tênis'
-        if cats.get(c, 0) < 2 and not marcas.get(o.get('marca')):
-            escolhidos.append(o); cats[c] = cats.get(c, 0) + 1; marcas[o.get('marca')] = 1
-        if len(escolhidos) == 6: break
-    for o in ordem:
-        if len(escolhidos) >= 6: break
-        if o not in escolhidos: escolhidos.append(o)
+        o['_off'] = round((1 - o['preco'] / o['de']) * 100) if o.get('de') and o['de'] > o['preco'] else 0
+    def comissao(o):
+        u = o.get('link') or ''
+        return bool(o.get('escolha') or re.search(r'(^|//)(www\.)?(amazon\.com\.br|amzn\.to|a\.co)/', u) or 'tag=amartins0b-20' in u)
+    def variado(lista, n, por_cat=2):
+        sel, cats, marcas = [], {}, {}
+        for o in lista:
+            c = o.get('categoria') or 'Tênis'
+            if cats.get(c, 0) < por_cat and not marcas.get(o.get('marca')):
+                sel.append(o); cats[c] = cats.get(c, 0) + 1; marcas[o.get('marca')] = 1
+            if len(sel) == n: break
+        for o in lista:
+            if len(sel) >= n: break
+            if o not in sel: sel.append(o)
+        return sel
+    com = sorted([o for o in ofs if comissao(o)], key=lambda o: (not o.get('escolha'), -o['_off']))
+    destaques = [o for o in com if o.get('escolha')][:4]
+    destaques += variado([o for o in com if o not in destaques], 8 - len(destaques))
+    outros = variado(sorted([o for o in ofs if o not in destaques], key=lambda o: -o['_off']), 4)
+    escolhidos = destaques + outros
 
     # parceiros com campanha ou ofertas
     pc = d.get('parceiros') or {}
     parc = [m for m in (pc.get('marcas') or []) if m.get('campanha') or m.get('ofertas')]
 
-    carr = {}
-    try: carr = json.loads((root / 'carrossel' / 'semana.json').read_text())
-    except Exception: pass
-    capa = SITE + carr['imagens'][0] if carr.get('imagens') and carr.get('total') else ''
-
-    datas = carr.get('datas') if carr.get('total') and carr.get('de') == ini.isoformat() else ''
-    if not datas and dias:
-        ds = [datetime.date.fromisoformat(x) for x in dias]
-        datas = ' e '.join(f'{x.day}/{x.month:02d}' for x in ds)
-    assunto = (f'🏃‍♀️ {len(fds)} provas no Rio neste fim de semana + achados da semana' if fds else '🏃‍♀️ Achados da semana e ofertas dos parceiros')
-    pre = (f'Provas de {datas}, os maiores descontos em corrida e os cupons da Aline.' if fds else 'Os maiores descontos em corrida e os cupons da Aline.')
+    datas = f'{ini.day}/{ini.month:02d} a {fim.day}/{fim.month:02d}'
+    assunto = (f'🏃‍♀️ {len(prox)} provas no Rio nas próximas semanas + indicações da Aline' if prox else '🏃‍♀️ Indicações da Aline e achados de corrida da semana')
+    pre = (f'Corridas de {datas} com inscrições abertas, as indicações da Aline e os cupons dos parceiros.' if prox else 'As indicações da Aline, os maiores descontos em corrida e os cupons dos parceiros.')
 
     L = []
     L.append(f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(assunto)}</title></head>')
@@ -89,54 +99,69 @@ def main():
     # topo
     L.append(f'<tr><td style="padding:22px 24px 6px;background:linear-gradient(135deg,#BBE3E5,#D9C1D9)"><p style="margin:0;{FONT}font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:{ACCENT}">Radar de Corrida · {DIAS[hoje.weekday()]}, {hoje.day} de {MESF[hoje.month - 1]}</p>'
              f'<h1 style="margin:6px 0 4px;{FONT}font-size:28px;line-height:1.15;color:{INK}">Sua semana de corrida 🏃‍♀️</h1>'
-             f'<p style="margin:0 0 16px;{FONT}font-size:15px;color:{INK}">Oi! Aqui é a Aline. Separei as provas do fim de semana no Rio, os melhores achados de corrida e as ofertas dos meus parceiros.</p></td></tr>')
-    if capa:
-        L.append(f'<tr><td style="padding:0"><a href="{E(utm(SITE, hj, "capa"))}"><img src="{E(capa)}" width="600" alt="Provas do fim de semana no Rio" style="display:block;width:100%;height:auto;border:0"></a></td></tr>')
+             f'<p style="margin:0 0 16px;{FONT}font-size:15px;color:{INK}">Oi! Aqui é a Aline. Separei o que eu indico para quem corre, as provas no Rio das próximas semanas (ainda dá tempo de se inscrever) e os cupons dos meus parceiros.</p></td></tr>')
 
-    # provas
-    if fds:
-        L.append(titulo_secao('Provas do fim de semana no Rio', datas))
-        for dd in dias:
-            x = datetime.date.fromisoformat(dd)
-            L.append(f'<tr><td style="padding:14px 24px 4px;{FONT}font-size:13px;font-weight:700;color:{HOT};text-transform:uppercase;letter-spacing:.06em">{DIAS[x.weekday()]}, {x.day:02d}/{x.month:02d}</td></tr>')
-            for p in [p for p in fds if p['data'] == dd][:12]:
+    def grade(itens, destaque):
+        if not itens: return
+        borda = f'2px solid #E2B13C' if destaque else f'1px solid {LINE}'
+        L.append('<tr><td style="padding:6px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">')
+        for i in range(0, len(itens), 2):
+            L.append('<tr>')
+            for o in itens[i:i + 2]:
+                url = utm(f'{SITE}tenis/{os_[id(o)]}/?c=1', hj, 'indicacao' if destaque else 'achado')
+                selo = (f'<span style="display:inline-block;margin-bottom:5px;background:#FFF3D6;color:#7A4E00;{FONT}font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px">★ {"Escolha da Aline" if o.get("escolha") else "Indicação da Aline"}</span><br>') if destaque else ''
+                tag = f'-{o["_off"]}%' if o['_off'] else '★'
+                foto = (f'<img src="{E(o["foto"])}" width="250" alt="" style="display:block;width:100%;height:170px;object-fit:contain;background:#fff;border:0">' if o.get('foto')
+                        else f'<div style="height:110px;background:{SOFT};{FONT}font-size:40px;font-weight:800;color:{ACCENT};text-align:center;line-height:110px">{tag}</div>')
+                cab = ' · '.join(v for v in [o.get('categoria') if o.get('categoria') not in (None, 'Tênis') else None, o.get('marca'), o.get('loja') if o.get('loja') != o.get('marca') else None] if v)
+                de = f' <span style="{FONT}font-size:12px;color:{MUTED};text-decoration:line-through">{E(brl(o["de"]))}</span>' if o['_off'] else ''
+                rot = (f'-{o["_off"]}% · ' if o['_off'] else '') + ('Quero esse →' if destaque else 'Ver oferta →')
+                L.append(f'<td width="50%" valign="top" style="padding:6px"><a href="{E(url)}" style="display:block;text-decoration:none;border:{borda};border-radius:14px;overflow:hidden">{foto}'
+                         f'<span style="display:block;padding:10px 12px 12px">{selo}<span style="display:block;{FONT}font-size:11px;font-weight:700;color:{MUTED};text-transform:uppercase;letter-spacing:.05em">{E(cab)}</span>'
+                         f'<span style="display:block;{FONT}font-size:14px;font-weight:700;color:{INK};margin:3px 0">{E(o["nome"])}</span>'
+                         f'<span style="{FONT}font-size:17px;font-weight:800;color:{HOT}">{E(brl(o["preco"]))}</span>{de}'
+                         f'<span style="display:block;{FONT}font-size:12px;font-weight:700;color:{ACCENT};margin-top:4px">{rot}</span></span></a></td>')
+            if len(itens[i:i + 2]) == 1: L.append('<td width="50%"></td>')
+            L.append('</tr>')
+        L.append('</table></td></tr>')
+
+    # 1) indicações da Aline (produtos que rendem comissão): primeiro e em destaque
+    if destaques:
+        L.append(titulo_secao('Indicações da Aline', 'O que eu uso e recomendo'))
+        L.append(f'<tr><td style="padding:2px 24px 4px;{FONT}font-size:14px;color:{INK}">Comprando por estes links você apoia o Radar de Corrida, sem pagar nada a mais. 💜</td></tr>')
+        grade(destaques, True)
+
+    # 2) provas das próximas semanas
+    if prox:
+        L.append(titulo_secao('Próximas provas no Rio', f'{datas} · inscrições abertas'))
+        for seg, lista in semanas:
+            dom = seg + datetime.timedelta(days=6)
+            L.append(f'<tr><td style="padding:16px 24px 4px;{FONT}font-size:13px;font-weight:800;color:{HOT};text-transform:uppercase;letter-spacing:.06em">Semana de {seg.day:02d}/{seg.month:02d} a {dom.day:02d}/{dom.month:02d}</td></tr>')
+            for p in lista[:6]:
+                x = datetime.date.fromisoformat(p['data'])
                 url = utm(f'{SITE}prova/{ps[id(p)]}/?c=1', hj, 'prova')
                 info = ' · '.join(v for v in [p.get('local'), p['hora'].replace(':', 'h') if p.get('hora') else None, p.get('distancias')] if v)
                 ext = ' · '.join(v for v in ['Gratuita' if p.get('valor') == 0 else (f"a partir de {brl(p['valor'])}" if isinstance(p.get('valor'), (int, float)) else None), ST.get(p.get('status'))] if v)
                 dest = ''
                 if p.get('aline'): dest += f'<span style="color:{HOT};font-weight:700">★ A Aline vai correr</span> '
                 if p.get('cupom'): dest += f'<span style="color:{HOT};font-weight:700">Cupom da Aline: {E(p["cupom"])}</span>'
-                L.append(f'<tr><td style="padding:6px 24px"><a href="{E(url)}" style="display:block;text-decoration:none;border:1px solid {LINE};border-radius:14px;padding:12px 14px">'
-                         f'<span style="display:block;{FONT}font-size:16px;font-weight:700;color:{INK}">{E(p["nome"])}</span>'
+                L.append(f'<tr><td style="padding:5px 24px"><a href="{E(url)}" style="display:block;text-decoration:none;border:1px solid {LINE};border-radius:14px;padding:10px 14px">'
+                         f'<span style="display:block;{FONT}font-size:12px;font-weight:800;color:{ACCENT};text-transform:uppercase">{DIAS[x.weekday()]}, {x.day:02d}/{x.month:02d}</span>'
+                         f'<span style="display:block;{FONT}font-size:16px;font-weight:700;color:{INK};margin-top:2px">{E(p["nome"])}</span>'
                          f'<span style="display:block;{FONT}font-size:13px;color:{MUTED};margin-top:2px">{E(info)}</span>'
                          + (f'<span style="display:block;{FONT}font-size:13px;color:{MUTED}">{E(ext)}</span>' if ext else '')
                          + (f'<span style="display:block;{FONT}font-size:13px;margin-top:3px">{dest}</span>' if dest else '')
-                         + f'<span style="display:block;{FONT}font-size:13px;font-weight:700;color:{ACCENT};margin-top:6px">Ver inscrição →</span></a></td></tr>')
-            resto = len([p for p in fds if p['data'] == dd]) - 12
-            if resto > 0:
-                L.append(f'<tr><td style="padding:4px 24px;{FONT}font-size:13px;color:{MUTED}">+{resto} provas neste dia no radar</td></tr>')
-        L.append(f'<tr><td align="center" style="padding:14px 24px 4px">{botao("Ver todas as provas no radar", utm(SITE + "#provas", hj, "provas"))}</td></tr>')
+                         + f'<span style="display:block;{FONT}font-size:13px;font-weight:700;color:{ACCENT};margin-top:5px">Ver inscrição →</span></a></td></tr>')
+            if len(lista) > 6:
+                L.append(f'<tr><td style="padding:2px 24px;{FONT}font-size:13px;color:{MUTED}">+{len(lista) - 6} provas nesta semana no radar</td></tr>')
+        L.append(f'<tr><td align="center" style="padding:14px 24px 4px">{botao("Ver o calendário completo", utm(SITE + "#provas", hj, "provas"))}</td></tr>')
 
-    # achados
-    if escolhidos:
-        L.append(titulo_secao('Achados da semana', 'Maiores descontos'))
-        L.append('<tr><td style="padding:6px 16px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">')
-        for i in range(0, len(escolhidos), 2):
-            L.append('<tr>')
-            for o in escolhidos[i:i + 2]:
-                url = utm(f'{SITE}tenis/{os_[id(o)]}/?c=1', hj, 'achado')
-                foto = f'<img src="{E(o["foto"])}" width="250" alt="" style="display:block;width:100%;height:170px;object-fit:contain;background:#fff;border:0">' if o.get('foto') else f'<div style="height:110px;background:{SOFT};{FONT}font-size:40px;font-weight:800;color:{ACCENT};text-align:center;line-height:110px">-{o["_off"]}%</div>'
-                cab = ' · '.join(v for v in [o.get('categoria') if o.get('categoria') not in (None, 'Tênis') else None, o.get('marca'), o.get('loja') if o.get('loja') != o.get('marca') else None] if v)
-                L.append(f'<td width="50%" valign="top" style="padding:6px"><a href="{E(url)}" style="display:block;text-decoration:none;border:1px solid {LINE};border-radius:14px;overflow:hidden">{foto}'
-                         f'<span style="display:block;padding:10px 12px 12px"><span style="display:block;{FONT}font-size:11px;font-weight:700;color:{MUTED};text-transform:uppercase;letter-spacing:.05em">{E(cab)}</span>'
-                         f'<span style="display:block;{FONT}font-size:14px;font-weight:700;color:{INK};margin:3px 0">{E(o["nome"])}</span>'
-                         f'<span style="{FONT}font-size:17px;font-weight:800;color:{HOT}">{E(brl(o["preco"]))}</span> ' + (f'<span style="{FONT}font-size:12px;color:{MUTED};text-decoration:line-through">{E(brl(o["de"]))}</span>' if o['_off'] else '') + '
-                         f'<span style="display:block;{FONT}font-size:12px;font-weight:700;color:{ACCENT};margin-top:4px">-{o["_off"]}% · Ver oferta →</span></span></a></td>')
-            if len(escolhidos[i:i + 2]) == 1: L.append('<td width="50%"></td>')
-            L.append('</tr>')
-        L.append('</table></td></tr>')
+    # 3) outros achados (maiores descontos)
+    if outros:
+        L.append(titulo_secao('Mais achados da semana', 'Maiores descontos'))
+        grade(outros, False)
         L.append(f'<tr><td align="center" style="padding:10px 24px 4px">{botao("Ver todos os achados", utm(SITE + "#achados", hj, "achados"))}</td></tr>')
-        L.append(f'<tr><td style="padding:6px 24px 0;{FONT}font-size:12px;color:{MUTED};text-align:center">Preços conferidos hoje de manhã; podem mudar ao longo do dia.</td></tr>')
+        L.append(f'<tr><td style="padding:6px 24px 0;{FONT}font-size:12px;color:{MUTED};text-align:center">Preços conferidos pelo radar; podem mudar ao longo do dia.</td></tr>')
 
     # parceiros
     if parc:
@@ -165,7 +190,7 @@ def main():
              f'<a href="{{$unsubscribe}}" style="color:{ACCENT}">Cancelar inscrição</a> · <a href="{E(SITE)}privacidade/" style="color:{ACCENT}">Privacidade</a></td></tr>')
     L.append('</table></td></tr></table></body></html>')
     saida.write_text(''.join(L))
-    print(json.dumps({'assunto': assunto, 'pre_cabecalho': pre, 'provas': len(fds), 'achados': len(escolhidos), 'parceiros': len(parc),
+    print(json.dumps({'assunto': assunto, 'pre_cabecalho': pre, 'provas': len(fds), 'achados': len(escolhidos), 'indicacoes': len(destaques), 'parceiros': len(parc),
                       'datas': datas, 'bytes': saida.stat().st_size}, ensure_ascii=False))
 
 

@@ -197,6 +197,7 @@ function render(){
     kpi('Vieram do Instagram', pct(ig, vis) + '%', `<div class="d" style="color:var(--muted);font-weight:500">${fmt(ig)} visitas</div>`) +
     kpi('Clicaram numa prova', fmt(ev(P,'clique_prova').v), `<div class="d" style="color:var(--muted);font-weight:500">${pct(ev(P,'clique_prova').v, vis)}% das visitas</div>`) +
     kpi('Pelo celular', pct(cel, vis) + '%', '') +
+    (INS ? kpi('Inscritos no e-mail semanal', fmt(INS.ativos), `<div class="d" style="color:var(--muted);font-weight:500">${INS.pendentes ? fmt(INS.pendentes) + ' aguardando confirmar · ' : ''}${INS.cancelados ? fmt(INS.cancelados) + ' cancelaram · ' : ''}conferido ${new Date(INS.conferido).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</div>`) : '') +
     '</div>';
   if(!vis){ document.getElementById('app').innerHTML = h + card('Sem visitas ' + NOMES_PER[P], '', '<p class="empty">Ainda não há visitas registradas neste período.</p>'); return; }
 
@@ -253,6 +254,8 @@ document.addEventListener('pointermove', e => {
   tip.style.left = x + 'px'; tip.style.top = (e.clientY - 36) + 'px';
 });
 
+let INS = null;
+fetch('inscritos.json?t=' + Date.now(), {cache:'no-store'}).then(r => r.ok ? r.json() : null).then(j => { INS = j; if(D) render(); }).catch(() => {});
 fetch('dados.json?t=' + Date.now(), {cache:'no-store'}).then(r => { if(!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
   D = d; if(!['ontem','7','30','90'].includes(P) && !(P === 'hoje' && D.periodos.hoje)) P = '7'; render();
 }).catch(() => {
