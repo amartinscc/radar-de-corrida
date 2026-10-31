@@ -830,8 +830,8 @@ __DATA__
     if(o.foto){
       const th = document.createElement('div'); th.className = 'thumb';
       const im = new Image(); im.alt = o.nome; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.src = o.foto;
-      const off = document.createElement('span'); off.className = 'off'; off.textContent = o.off ? '-' + o.off + '%' : '★ Aline';
-      th.append(im, off);
+      th.append(im);
+      if(o.off){ const off = document.createElement('span'); off.className = 'off'; off.textContent = '-' + o.off + '%'; th.append(off); }
       const bib = el.querySelector('.bib'); bib.replaceWith(th);
       im.onerror = () => th.replaceWith(bib);
     }

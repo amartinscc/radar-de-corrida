@@ -65,6 +65,15 @@
 *{box-sizing:border-box}
 html,body{margin:0}
 [hidden]{display:none!important}
+.c-hint{margin:14px 0 2px;color:var(--muted);font-weight:600;font-size:14px}
+.c-hint.r-err{color:var(--hot)}
+.sem-r{display:none}
+body.sem-calc .sem-r{display:block}
+body.sem-calc #previsao .scroll,body.sem-calc #previsao .note:not(.sem-r),body.sem-calc #parciais .toggle,body.sem-calc #parciais .scroll,body.sem-calc #b-more,body.sem-calc #n-split,body.sem-calc #vdot-ok,body.sem-calc #vdot-no{display:none!important}
+/* Voltar ao topo (igual ao radar) */
+.totop{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:15;width:46px;height:46px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;color:#1D1220;background:linear-gradient(135deg,#7FC8CC,var(--mauve) 55%,#E8774A);box-shadow:0 6px 18px rgba(29,18,32,.25);opacity:0;transform:translateY(12px) scale(.9);pointer-events:none;transition:opacity .25s,transform .25s}
+.totop.on{opacity:1;transform:none;pointer-events:auto}
+.totop svg{width:22px;height:22px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 body{background:var(--bg) linear-gradient(180deg,var(--g1) 0,var(--g2) 300px,var(--bg) 620px) no-repeat;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
 a{color:var(--accent)}
@@ -284,14 +293,16 @@ if (location.hostname === 'radardecorrida.com.br') {
       </div>
     </div>
     <div class="modes" role="group" aria-label="Modo de cálculo">
-      <button type="button" data-mode="pace" aria-pressed="true">Pace</button>
+      <button type="button" data-mode="pace" aria-pressed="false">Pace</button>
       <button type="button" data-mode="tempo" aria-pressed="false">Tempo</button>
       <button type="button" data-mode="dist" aria-pressed="false">Distância</button>
     </div>
 
-    <div class="field" id="f-dist">
+    <p class="c-hint" id="c-hint">Escolha acima o que você quer descobrir.</p>
+
+    <div class="field" id="f-dist" hidden>
       <label for="dist">Distância</label>
-      <div class="unitbox"><input id="dist" type="text" inputmode="decimal" value="10" autocomplete="off"><span class="u-dist">km</span></div>
+      <div class="unitbox"><input id="dist" type="text" inputmode="decimal" placeholder="ex.: 10" autocomplete="off"><span class="u-dist">km</span></div>
       <div class="chips" id="chips" role="group" aria-label="Distâncias de prova">
         <button type="button" data-km="5">5 km</button>
         <button type="button" data-km="10">10 km</button>
@@ -301,24 +312,24 @@ if (location.hostname === 'radardecorrida.com.br') {
       </div>
     </div>
 
-    <div class="field" id="f-tempo">
+    <div class="field" id="f-tempo" hidden>
       <span class="lbl">Tempo total</span>
       <div class="split t3">
-        <div class="unitbox"><input id="th" type="text" inputmode="numeric" value="0" aria-label="Horas" autocomplete="off"><span>h</span></div>
-        <div class="unitbox"><input id="tm" type="text" inputmode="numeric" value="55" aria-label="Minutos" autocomplete="off"><span>min</span></div>
-        <div class="unitbox"><input id="ts" type="text" inputmode="numeric" value="0" aria-label="Segundos" autocomplete="off"><span>s</span></div>
+        <div class="unitbox"><input id="th" type="text" inputmode="numeric" placeholder="0" aria-label="Horas" autocomplete="off"><span>h</span></div>
+        <div class="unitbox"><input id="tm" type="text" inputmode="numeric" placeholder="0" aria-label="Minutos" autocomplete="off"><span>min</span></div>
+        <div class="unitbox"><input id="ts" type="text" inputmode="numeric" placeholder="0" aria-label="Segundos" autocomplete="off"><span>s</span></div>
       </div>
     </div>
 
     <div class="field" id="f-pace" hidden>
       <span class="lbl">Pace <small>(minutos por <span class="u-word">km</span>)</small></span>
       <div class="split t2">
-        <div class="unitbox"><input id="pm" type="text" inputmode="numeric" value="5" aria-label="Minutos do pace" autocomplete="off"><span>min</span></div>
-        <div class="unitbox"><input id="ps" type="text" inputmode="numeric" value="30" aria-label="Segundos do pace" autocomplete="off"><span>s</span></div>
+        <div class="unitbox"><input id="pm" type="text" inputmode="numeric" placeholder="0" aria-label="Minutos do pace" autocomplete="off"><span>min</span></div>
+        <div class="unitbox"><input id="ps" type="text" inputmode="numeric" placeholder="0" aria-label="Segundos do pace" autocomplete="off"><span>s</span></div>
       </div>
     </div>
 
-    <div class="result" aria-live="polite">
+    <div class="result" id="result" aria-live="polite" hidden>
       <div class="r-label" id="r-label">Seu pace</div>
       <div class="r-main"><b id="r-main">5:30</b><span id="r-unit">/km</span></div>
       <div class="r-grid">
@@ -329,7 +340,7 @@ if (location.hostname === 'radardecorrida.com.br') {
       <p class="r-err" id="r-err" hidden></p>
     </div>
 
-    <div class="actions">
+    <div class="actions" id="c-actions" hidden>
       <button type="button" class="btn pri grow" id="b-share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M16 6l-4-4-4 4M12 2v14"/></svg>Compartilhar resultado</button>
       <button type="button" class="btn line" id="b-link" aria-label="Copiar link do resultado"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>Link</button>
     </div>
@@ -338,6 +349,7 @@ if (location.hostname === 'radardecorrida.com.br') {
   <section class="card" id="previsao" aria-labelledby="t-prev">
     <h2 id="t-prev">Previsão para outras provas</h2>
     <p class="sub">Quanto você faria em outras distâncias com o mesmo nível de hoje.</p>
+    <p class="note sem-r">Faça um cálculo acima para ver a previsão.</p>
     <div class="scroll"><table>
       <thead><tr><th>Prova</th><th>Tempo</th><th>Pace</th></tr></thead>
       <tbody id="t-pred"></tbody>
@@ -348,6 +360,7 @@ if (location.hostname === 'radardecorrida.com.br') {
   <section class="card" id="parciais" aria-labelledby="t-split">
     <h2 id="t-split">Parciais por <span class="u-word">km</span></h2>
     <p class="sub">Use como plano de prova ou cole na pulseira.</p>
+    <p class="note sem-r">Faça um cálculo acima para ver as parciais.</p>
     <div class="toggle" role="group" aria-label="Estratégia">
       <button type="button" data-split="igual" aria-pressed="true">Ritmo constante</button>
       <button type="button" data-split="neg" aria-pressed="false">Split negativo</button>
@@ -363,6 +376,7 @@ if (location.hostname === 'radardecorrida.com.br') {
   <section class="card" id="ritmos" aria-labelledby="t-ritmo">
     <h2 id="t-ritmo">Seus ritmos de treino</h2>
     <p class="sub">Faixas de pace para cada tipo de treino, a partir do seu resultado.</p>
+    <p class="note sem-r">Faça um cálculo acima para ver os ritmos.</p>
     <div id="vdot-ok">
       <div class="vdot">Índice de condicionamento (VDOT) <b id="vdot">0</b></div>
       <div class="zones" id="z-pace"></div>
@@ -489,6 +503,7 @@ if (location.hostname === 'radardecorrida.com.br') {
   Estimativas para orientar o treino. Não substituem avaliação profissional.
 </footer>
 <div class="toast" id="toast" role="status"></div>
+<button class="totop" id="totop" type="button" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
 
 <script>
 (function(){
@@ -497,7 +512,7 @@ if (location.hostname === 'radardecorrida.com.br') {
   const MI = 1.609344;
   const SITE = 'https://radardecorrida.com.br/';
   const URL_CALC = SITE + 'calculadora-de-pace/';
-  const st = { mode:'pace', unit:'km', split:'igual', allSplits:false, r:null };
+  const st = { mode:null, unit:'km', split:'igual', allSplits:false, r:null };
 
   const ev = (nome, props) => { try { if (window.posthog && posthog.capture) posthog.capture(nome, props||{}); } catch(e){} };
   // Novidades: inscrição no e-mail semanal (MailerLite, formulário "Radar de Corrida · caixa do site", confirmação dupla)
@@ -553,7 +568,19 @@ if (location.hostname === 'radardecorrida.com.br') {
   }
 
   /* ---------- cálculo principal ---------- */
+  function semResultado(txt, erro){
+    st.r = null; st.vdot = null;
+    document.body.classList.add('sem-calc');
+    $('result').hidden = true; $('c-actions').hidden = true;
+    document.querySelectorAll('#chips button').forEach(b => b.classList.remove('on'));
+    const h = $('c-hint'); h.hidden = !txt; h.textContent = txt || ''; h.classList.toggle('r-err', !!erro);
+    fc();
+  }
   function calc(){
+    if (!st.mode){ semResultado('Escolha acima o que você quer descobrir.'); return; }
+    const vz = id => $(id).value.trim() === '';
+    const precisa = { pace:['dist',['th','tm','ts']], tempo:['dist',['pm','ps']], dist:[['th','tm','ts'],['pm','ps']] }[st.mode];
+    if (precisa.some(g => (Array.isArray(g) ? g : [g]).every(vz))){ semResultado(st.mode === 'pace' ? 'Preencha a distância e o tempo.' : st.mode === 'tempo' ? 'Preencha a distância e o pace.' : 'Preencha o tempo e o pace.'); return; }
     const err = $('r-err'); err.hidden = true;
     const dIn = num($('dist').value);
     const h = int0($('th').value), m = int0($('tm').value), s = int0($('ts').value);
@@ -568,9 +595,10 @@ if (location.hostname === 'radardecorrida.com.br') {
     if (st.mode === 'pace'){ if (!dOk) msg = 'Informe a distância.'; else if (!tOk || tSec <= 0) msg = 'Confira o tempo: minutos e segundos vão de 0 a 59.'; else { km = dIn*fator; t = tSec; pk = t/km; } }
     if (st.mode === 'tempo'){ if (!dOk) msg = 'Informe a distância.'; else if (!pOk) msg = 'Confira o pace: segundos vão de 0 a 59.'; else { km = dIn*fator; pk = (pm*60+ps)/fator; t = pk*km; } }
     if (st.mode === 'dist'){ if (!tOk || tSec <= 0) msg = 'Confira o tempo: minutos e segundos vão de 0 a 59.'; else if (!pOk) msg = 'Confira o pace: segundos vão de 0 a 59.'; else { t = tSec; pk = (pm*60+ps)/fator; km = t/pk; } }
-    if (msg){ err.textContent = msg; err.hidden = false; st.r = null; return; }
+    if (msg){ semResultado(msg, true); return; }
     if (pk < 120 || pk > 1800){ err.textContent = pk < 120 ? 'Esse pace está rápido demais para corrida. Confira os números.' : 'Pace acima de 30 min/km. Confira os números.'; err.hidden = false; }
     st.r = { km, t, pk };
+    document.body.classList.remove('sem-calc'); $('c-hint').hidden = true; $('result').hidden = false; $('c-actions').hidden = false;
     const pu = pk*fator;
     const kmh = 3600/pk;
     const vel = st.unit === 'mi' ? dec(kmh/MI) + ' mph' : dec(kmh) + ' km/h';
@@ -696,7 +724,7 @@ if (location.hostname === 'radardecorrida.com.br') {
     if (q.get('d') && isFinite(num(q.get('d')))) $('dist').value = String(num(q.get('d'))).replace('.', ',');
     const t = (q.get('t')||'').split('-'); if (t.length === 3 && t.every(x => /^\d+$/.test(x))){ $('th').value = +t[0]; $('tm').value = +t[1]; $('ts').value = +t[2]; }
     const p = (q.get('p')||'').split('-'); if (p.length === 2 && p.every(x => /^\d+$/.test(x))){ $('pm').value = +p[0]; $('ps').value = String(+p[1]).padStart(2,'0'); }
-    return ['pace','tempo','dist'].includes(q.get('m')) ? q.get('m') : 'pace';
+    return ['pace','tempo','dist'].includes(q.get('m')) ? q.get('m') : null;
   }
 
   /* ---------- métricas (só o tipo de cálculo, nunca dados pessoais) ---------- */
@@ -794,7 +822,14 @@ if (location.hostname === 'radardecorrida.com.br') {
     if (a.dataset.ev === 'radar') ev('clique_radar', { origem: 'calculadora_' + a.dataset.origem });
     if (a.dataset.ev === 'prova') ev('clique_prova', { origem: 'calculadora', prova: (a.querySelector('.rn')||{}).textContent }); });
 
-  setMode(lerURL());
+  { const m0 = lerURL(); if (m0) setMode(m0); else calc(); }
+  // botão de voltar ao topo
+  (function(){
+    const b = $('totop'); if (!b) return;
+    const upd = () => b.classList.toggle('on', window.scrollY > window.innerHeight * 1.2);
+    window.addEventListener('scroll', upd, {passive:true}); upd();
+    b.addEventListener('click', () => { window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); ev('voltar_topo', {pagina: 'calculadora'}); });
+  })();
   if ('IntersectionObserver' in window){ const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)){ io.disconnect(); provas(); } }, { rootMargin: '600px' }); io.observe($('zonas')); } else provas();
 })();
 </script>
