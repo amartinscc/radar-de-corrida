@@ -410,6 +410,10 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .catbar .chip{flex:none;white-space:nowrap}
 .catbar .chip small{opacity:.65;font-weight:600;margin-left:3px}
 .partner .cupt{margin-top:6px;font-size:12px;font-weight:700;color:var(--ink)}
+.escbtn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font:700 12px var(--body);padding:6px 11px;border-radius:999px;border:1.5px dashed var(--mauve);background:transparent;color:var(--accent);cursor:pointer}
+.escbtn[aria-pressed="true"]{border-style:solid;background:var(--mauve);color:#1D1220}
+.poff .escbtn{margin:0 8px 8px}
+.poff .escolha{margin-bottom:4px}
 .escolha{display:inline-block;align-self:flex-start;margin-bottom:3px;background:var(--mauve);color:#1D1220;font:800 11px var(--body);padding:3px 9px;border-radius:999px}
 .afiltag{display:inline-block;align-self:flex-start;margin-bottom:3px;background:#FFF3D6;color:#7A4E00;font:700 11px var(--body);padding:3px 8px;border-radius:999px}
 .tsearch{flex:1;min-width:0;font:500 14px var(--body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
@@ -512,7 +516,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <button class="fclear" type="button" id="t-clear">Limpar filtros</button>
     </div>
     <div class="list" id="t-list"></div>
-    <div class="news" data-origem="achados" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: os maiores descontos em tênis e acessórios de corrida, as provas do fim de semana no Rio e as ofertas dos parceiros."></div>
+    <div class="news" data-origem="achados" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: os maiores descontos em tênis e acessórios de corrida e as ofertas dos parceiros da Aline, com o cupom dela. Grátis."></div>
   </div>
 
   <div class="panel" id="p-provas" role="tabpanel" aria-labelledby="tab-provas">
@@ -536,7 +540,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     </div>
     <div class="list" id="e-list"></div>
     <p class="note">Datas, locais e valores vêm dos sites de inscrição e podem mudar. Confirme sempre na página oficial da prova antes de se inscrever.</p>
-    <div class="news" data-origem="provas" data-h="As provas do fim de semana no seu e-mail" data-p="Toda quinta: as corridas de sábado e domingo no Rio, com link de inscrição, mais os achados e as ofertas dos parceiros da semana."></div>
+    <div class="news" data-origem="provas" data-h="As provas do fim de semana no seu e-mail" data-p="Toda quinta: as corridas de sábado e domingo no Rio, com o link de inscrição, para você colocar no seu plano. Grátis."></div>
   </div>
 
   <div class="panel" id="p-result" role="tabpanel" aria-labelledby="tab-result" hidden>
@@ -549,7 +553,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     </div>
   </section>
     <p class="note" style="text-align:center;margin:0 auto">Tempos líquidos (chip) dos resultados oficiais de cada prova.</p>
-    <div class="news" data-origem="resultados" data-h="Corra junto com a Aline" data-p="Toda quinta no seu e-mail: as provas do fim de semana no Rio (e as que a Aline vai correr), os achados e as ofertas dos parceiros."></div>
+    <div class="news" data-origem="resultados" data-h="As provas do fim de semana no seu e-mail" data-p="Toda quinta: as corridas de sábado e domingo no Rio, com o link de inscrição, para você colocar no seu plano. Grátis."></div>
   </div>
 
   <div class="panel" id="p-roupas" role="tabpanel" aria-labelledby="tab-roupas" hidden>
@@ -560,7 +564,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <div id="pt-sel" style="display:flex;flex-direction:column;gap:12px" hidden></div>
     <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px"></div>
     <p class="note" style="text-align:center;margin:0 auto">Parcerias da Aline. Os destaques em laranja são campanhas das próprias lojas, conferidas no dia da atualização, e nem sempre acumulam com o cupom: confira no carrinho.</p>
-    <div class="news" data-origem="parceiros" data-h="Ofertas dos parceiros no seu e-mail" data-p="Toda quinta: as promoções das marcas parceiras da Aline com o cupom dela, os achados da semana e as provas do fim de semana no Rio."></div>
+    <div class="news" data-origem="parceiros" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: os maiores descontos em tênis e acessórios de corrida e as ofertas dos parceiros da Aline, com o cupom dela. Grátis."></div>
   </div>
 
   <div class="panel" id="p-treino" role="tabpanel" aria-labelledby="tab-treino" hidden>
@@ -589,7 +593,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <a class="follow tr-cta" id="tr-cta" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span>Chamar a Aline no Instagram</span></a>
     <p class="note" style="text-align:center;margin:0 auto">Ao tocar, sua mensagem é copiada e a conversa com a Aline abre no Instagram: é só colar e enviar.</p>
     </div>
-    <div class="news" data-origem="treine" data-h="Treino e provas toda quinta" data-p="Receba no e-mail as provas do fim de semana no Rio para colocar no seu plano, os achados de corrida e as ofertas dos parceiros."></div>
+    <div class="news" data-origem="treine" data-h="As provas do fim de semana no seu e-mail" data-p="Toda quinta: as corridas de sábado e domingo no Rio, com o link de inscrição, para você colocar no seu plano. Grátis."></div>
   </div>
 
   <div class="cta" id="cta-follow">
@@ -597,7 +601,6 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <a class="follow" id="follow2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span id="follow2-label">Seguir no Instagram</span></a>
   </div>
 
-  <div class="news final" id="novidades" data-origem="final" data-h="Novidades do Radar" data-p="Toda quinta no seu e-mail: as provas do fim de semana no Rio, os melhores achados de corrida e as ofertas dos parceiros da Aline, com o cupom dela. Grátis."></div>
 
   <section class="sobre" aria-labelledby="sobre-t">
     <h2 id="sobre-t">Calendário de corridas de rua no Rio e no Brasil</h2>
@@ -718,6 +721,51 @@ __DATA__
   }
   const temAfil = u => afil(u) !== u || /^https?:\/\/(amzn\.to|a\.co)\//.test(u||'') || /[?&]tag=amartins0b-20/.test(u||'');  // link que rende comissão para a Aline
   const ehAline = (() => { try{ return localStorage.getItem('radar-aline') === '1'; }catch(e){ return false; } })();
+  // Escolhas da Aline: links de achados e de ofertas de parceiros que ela marcou no Modo Aline (arquivo escolhas.json no site)
+  const ESC = new Set();
+  try{ JSON.parse(localStorage.getItem('radar-esc') || '[]').forEach(l => ESC.add(l)); }catch(e){}
+  const ehEsc = o => !!(o && o.link && ESC.has(o.link));
+  const GH_ESC = 'https://api.github.com/repos/amartinscc/radar-de-corrida/contents/escolhas.json';
+  const ghToken = () => { try{ return localStorage.getItem('radar-gh') || ''; }catch(e){ return ''; } };
+  function guardaEsc(pend){ try{ localStorage.setItem('radar-esc', JSON.stringify([...ESC])); if(pend) localStorage.setItem('radar-esc-pend', String(Date.now())); }catch(e){} }
+  // selo na hora, sem esperar o site publicar
+  function marcaSelo(card, on){
+    if(!card) return;
+    const alvo = card.classList.contains('poff') ? card.querySelector('.pb') : card.querySelector('.info');
+    const velho = alvo && alvo.querySelector(':scope > .escolha'); if(velho) velho.remove();
+    if(on && alvo){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; alvo.insertBefore(es, alvo.firstChild); }
+  }
+  function botaoEsc(o){
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'escbtn';
+    const upd = () => { const on = ESC.has(o.link); b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★ Escolha da Aline · tirar' : '☆ Marcar como Escolha da Aline'; };
+    upd();
+    b.addEventListener('click', e => {
+      e.preventDefault(); e.stopPropagation();
+      if(!ghToken()){ telaEscolhas(); return; }
+      const on = !ESC.has(o.link);
+      if(on) ESC.add(o.link); else ESC.delete(o.link);
+      guardaEsc(true); upd(); marcaSelo(b.closest('.poff, .deal'), on); salvaEsc();
+      if(window.posthog) posthog.capture('aline_escolha', {marcou: on});
+    });
+    return b;
+  }
+  let escT = null;
+  function salvaEsc(tent){
+    clearTimeout(escT);
+    escT = setTimeout(async () => {
+      const h = {Authorization: 'Bearer ' + ghToken(), Accept: 'application/vnd.github+json'};
+      try{
+        let sha;
+        const r = await fetch(GH_ESC + '?ref=main&t=' + Date.now(), {headers: h, cache: 'no-store'});
+        if(r.ok) sha = (await r.json()).sha; else if(r.status !== 404) throw new Error(String(r.status));
+        const txt = JSON.stringify({links: [...ESC].sort(), atualizado: new Date().toISOString()}, null, 1) + '\n';
+        const pr = await fetch(GH_ESC, {method: 'PUT', headers: h, body: JSON.stringify({message: 'Escolhas da Aline (Modo Aline)', content: btoa(unescape(encodeURIComponent(txt))), sha, branch: 'main'})});
+        if(pr.status === 409 && !tent) return salvaEsc(1);
+        if(!pr.ok) throw new Error(String(pr.status));
+        toast('Salvo! Aparece para todo mundo em 1 ou 2 minutos.');
+      }catch(err){ toast(/^40[13]$/.test(err.message) ? 'A chave do GitHub não funcionou. Confira em Modo Aline → Escolhas da Aline.' : 'Não deu para salvar agora. Toque de novo em instantes.'); }
+    }, tent ? 800 : 1500);
+  }
   // Achados: tênis e acessórios de corrida (campo "categoria"; sem campo = Tênis)
   const CATS = ['Tênis','Relógios','Fones','Óculos','Roupas','Meias e bonés','Hidratação','Recuperação','Acessórios'];
   (data.ofertas||[]).forEach(o => { if(!o.categoria) o.categoria = 'Tênis'; });
@@ -823,7 +871,7 @@ __DATA__
   function dealCard(o, label){
     const el = document.createElement('article');
     el.className = 'deal';
-    el.innerHTML = `<div class="bib">${o.off ? `<div class="n">${o.off}%</div><div class="t">off</div>` : '<div class="n">★</div><div class="t">Aline</div>'}</div>
+    el.innerHTML = `<div class="bib">${o.off ? `<div class="n">${o.off}%</div><div class="t">off</div>` : '<div class="n">✓</div><div class="t">achado</div>'}</div>
       <div class="info"><div class="store"></div><div class="name"></div>
       <div class="price"><span class="now">${brl(o.preco)}</span>${o.off ? `<s>${brl(o.de)}</s>` : ''}</div><div class="cond"></div>
       <a class="go" target="_blank" rel="noopener">Ver na loja →</a></div><button class="sharebtn" type="button" aria-label="Compartilhar nos stories" title="Compartilhar nos stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>`;
@@ -840,7 +888,8 @@ __DATA__
     el.querySelector('.store').textContent = label;
     el.querySelector('.name').textContent = o.nome;
     el.querySelector('.go').href = afil(o.link);
-    if(o.escolha){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; el.querySelector('.info').insertBefore(es, el.querySelector('.store')); }
+    if(ehEsc(o)){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; el.querySelector('.info').insertBefore(es, el.querySelector('.store')); }
+    if(ehAline) el.querySelector('.info').appendChild(botaoEsc(o));
     if(ehAline && temAfil(o.link)){ const tg = document.createElement('span'); tg.className = 'afiltag'; tg.textContent = '💰 Link da Aline · ' + (o.loja || ''); el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); }
     const cd = el.querySelector('.cond');
     if(o.cupom){ const c = document.createElement('span'); c.className = 'cup'; c.textContent = 'cupom ' + o.cupom; cd.appendChild(c); }
@@ -882,7 +931,7 @@ __DATA__
       (ts.marca==='Todas'||o.marca===ts.marca) && (ts.loja==='Todas'||o.loja===ts.loja) &&
       (ts.afil==='Todas' || temAfil(o.link)) &&
       (!q || q.split(/\s+/).every(w => norm([o.nome,o.marca,o.loja,o.categoria,o.genero].join(' ')).includes(w))));
-    rows.sort(ts.sort==='desc' ? (a,b)=>(!!b.escolha - !!a.escolha) || b.off-a.off : (a,b)=>(!!b.escolha - !!a.escolha) || a.preco-b.preco);
+    rows.sort(ts.sort==='desc' ? (a,b)=>(ehEsc(b) - ehEsc(a)) || b.off-a.off : (a,b)=>(ehEsc(b) - ehEsc(a)) || a.preco-b.preco);
     setCount('t-fbtn', [ts.gen, ts.marca, ts.loja, ts.afil]);
     fill(document.getElementById('t-list'), rows, o => dealCard(o, [ts.cat==='Todos' && o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), q ? 'Nada encontrado para "' + ts.q.trim() + '" hoje. Tente outra palavra.' : 'Nenhum achado com esse filtro hoje.');
   }
@@ -1461,11 +1510,11 @@ __DATA__
   }
   // ofertas de cada parceiro (campo "ofertas" de cada marca, conferido na atualização diária)
   function ofertasDe(m, grade){
-    const ofs = (m.ofertas || []).filter(o => o && o.nome && o.link);
+    const ofs = (m.ofertas || []).filter(o => o && o.nome && o.link).map((o, i) => [o, i]).sort((a, b) => (ehEsc(b[0]) - ehEsc(a[0])) || a[1] - b[1]).map(x => x[0]);
     if(!ofs.length) return null;
     const box = document.createElement('div'); box.className = 'poffers' + (grade ? ' grid' : '');
     (grade ? ofs : ofs.slice(0, 8)).forEach(o => {
-      const w = document.createElement('div'); w.className = 'poff';
+      const w = document.createElement('div'); w.className = 'poff'; w.dataset.link = o.link;
       const c = document.createElement('a'); c.className = 'pl'; c.target = '_blank'; c.rel = 'noopener'; c.href = afil(o.link);
       c.innerHTML = '<span class="ph"></span><span class="pb"><span class="pn"></span></span>';
       const sb = document.createElement('button'); sb.type = 'button'; sb.className = 'psh'; sb.setAttribute('aria-label', 'Compartilhar ' + o.nome); sb.title = 'Compartilhar nos stories';
@@ -1477,6 +1526,8 @@ __DATA__
       else ph.textContent = m.nome.charAt(0);
       c.querySelector('.pn').textContent = o.nome;
       const pb = c.querySelector('.pb');
+      if(ehEsc(o)){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; pb.insertBefore(es, pb.firstChild); }
+      if(ehAline) w.appendChild(botaoEsc(o));
       if(typeof o.preco === 'number'){ const pp = document.createElement('span'); pp.className = 'pp'; pp.textContent = brl(o.preco); if(typeof o.de === 'number' && o.de > o.preco){ const s = document.createElement('s'); s.textContent = brl(o.de); pp.appendChild(s); } pb.appendChild(pp); }
       if(o.detalhe){ const d = document.createElement('span'); d.className = 'pd2'; d.textContent = o.detalhe; pb.appendChild(d); }
       c.addEventListener('click', () => ev('oferta_parceiro', {parceiro: m.nome, oferta: o.nome}));
@@ -1579,10 +1630,26 @@ __DATA__
   document.querySelectorAll('.news[data-origem]').forEach(montaNews);
   document.getElementById('news-hero').addEventListener('click', e => {
     e.preventDefault(); ev('newsletter_abrir', {origem: 'topo'});
-    const alvo = document.getElementById('novidades'); alvo.scrollIntoView({behavior:'smooth', block:'center'});
+    const alvo = caixaAtual(); if(!alvo) return; alvo.scrollIntoView({behavior:'smooth', block:'center'});
     setTimeout(() => { const i = alvo.querySelector('input'); if(i) i.focus({preventScroll:true}); }, 700);
   });
-  if(location.hash === '#novidades') setTimeout(() => document.getElementById('novidades').scrollIntoView({block:'center'}), 300);
+  // a caixa de e-mail da aba aberta (cada aba tem a sua: provas/resultados/treine = corridas; parceiros/achados = achados)
+  function caixaAtual(){ return document.querySelector('[role=tabpanel]:not([hidden]) .news') || document.querySelector('.news[data-origem]'); }
+  if(location.hash === '#novidades') setTimeout(() => { const a = caixaAtual(); if(a) a.scrollIntoView({block:'center'}); }, 300);
+
+  // ---------- Escolhas da Aline: lê o escolhas.json publicado ----------
+  (async function(){
+    try{
+      const pend = +(localStorage.getItem('radar-esc-pend') || 0);
+      if(Date.now() - pend < 5*60*1000) return; // acabou de salvar: o site ainda está publicando, vale o que está neste celular
+      const r = await fetch('escolhas.json?v=' + Date.now(), {cache: 'no-store'}); if(!r.ok) return;
+      const novo = (await r.json()).links || [];
+      if(novo.length === ESC.size && novo.every(l => ESC.has(l))) return;
+      ESC.clear(); novo.forEach(l => ESC.add(l)); guardaEsc(false);
+      renderT();
+      document.querySelectorAll('.poff[data-link]').forEach(w => marcaSelo(w, ESC.has(w.dataset.link)));
+    }catch(e){}
+  })();
 
   // ---------- Modo Aline ----------
   const ADM_HASH = 'bc95ba0d8b52ed31693b718b4d7b87c205b2f37767604823dd17dbd100b7739c';
@@ -1665,6 +1732,31 @@ __DATA__
       if(window.posthog) posthog.capture('aline_gerou_link', {loja: /amazon/.test(link) ? 'amazon' : 'netshoes'});
     });
   }
+  function telaEscolhas(){
+    admBody.innerHTML = `<div class="adm-list" style="text-align:left">
+      <p class="hint" style="text-align:left">Marque como <b>★ Escolha da Aline</b> os achados e as ofertas dos parceiros que você realmente indica. Com o Modo Aline ligado, cada cartão tem o botão <b>☆ Marcar como Escolha da Aline</b>; toque de novo para tirar. As escolhas aparecem primeiro e com o selo para todo mundo, 1 ou 2 minutos depois.</p>
+      <p class="hint" style="text-align:left" id="esc-n"></p>
+      <p class="hint" style="text-align:left">Para salvar no site, este celular precisa de uma <b>chave do GitHub</b> (só uma vez). Ela fica guardada só aqui.</p>
+      <input type="password" id="esc-tk" autocomplete="off" placeholder="Cole a chave aqui (github_pat_…)" style="width:100%;font:500 15px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
+      <button class="follow" type="button" id="esc-ok" style="justify-content:center">Guardar chave</button>
+      <button class="follow alt" type="button" id="esc-ver"><span>Ver os achados</span><small>para marcar</small></button>
+      <button class="follow alt" type="button" id="esc-volta"><span>Voltar</span><small>menu</small></button>
+    </div>`;
+    document.getElementById('esc-n').textContent = ESC.size ? 'Hoje você tem ' + ESC.size + (ESC.size === 1 ? ' escolha marcada.' : ' escolhas marcadas.') : 'Nenhuma escolha marcada ainda.';
+    const tk = document.getElementById('esc-tk'); if(ghToken()) tk.placeholder = 'Chave já guardada neste celular';
+    document.getElementById('esc-ok').addEventListener('click', async () => {
+      const v = tk.value.trim(); if(!v){ toast('Cole a chave primeiro.'); return; }
+      try{
+        const r = await fetch('https://api.github.com/repos/amartinscc/radar-de-corrida', {headers: {Authorization: 'Bearer ' + v, Accept: 'application/vnd.github+json'}});
+        const j = r.ok ? await r.json() : null;
+        if(!j || !j.permissions || !j.permissions.push){ toast('Essa chave não tem permissão para salvar no site.'); return; }
+        localStorage.setItem('radar-gh', v); tk.value = ''; tk.placeholder = 'Chave já guardada neste celular'; toast('Chave guardada! Já pode marcar as escolhas.');
+      }catch(e){ toast('Não deu para conferir a chave agora.'); }
+    });
+    document.getElementById('esc-ver').addEventListener('click', () => { fechaModal(admEl); document.getElementById('tab-tenis').click(); });
+    document.getElementById('esc-volta').addEventListener('click', menuAdm);
+    abreModal(admEl);
+  }
   function menuAdm(){
     admBody.innerHTML = '';
     const lista = document.createElement('div'); lista.className = 'adm-list';
@@ -1674,6 +1766,7 @@ __DATA__
       b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = txt; b.querySelector('small').textContent = sub || '';
       lista.appendChild(b);
     };
+    item('Escolhas da Aline', 'marcar o que você indica', () => telaEscolhas());
     item('Meus links de loja', 'Amazon e Netshoes', () => telaLinks());
     item('Carrossel da semana', 'provas do fim de semana', () => { fechaModal(admEl); abrirCarrossel(); });
     item('Kits das parceiras', 'arte + legenda', () => { fechaModal(admEl); document.getElementById('tab-roupas').click(); setTimeout(() => document.getElementById('pt-groups').scrollIntoView({behavior:'smooth'}), 200); });

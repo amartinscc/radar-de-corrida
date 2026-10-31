@@ -63,9 +63,14 @@ def main():
     os_ = dict(zip(map(id, ofs), slugs(ofs, tenis_base, tenis_extra)))
     for o in ofs:
         o['_off'] = round((1 - o['preco'] / o['de']) * 100) if o.get('de') and o['de'] > o['preco'] else 0
+    try:
+        ESC = set(json.loads((root / 'escolhas.json').read_text(encoding='utf-8')).get('links') or [])
+    except Exception:
+        ESC = set()
+    esc = lambda o: (o.get('link') or '') in ESC  # Escolhas da Aline: marcadas por ela no Modo Aline
     def comissao(o):
         u = o.get('link') or ''
-        return bool(o.get('escolha') or re.search(r'(^|//)(www\.)?(amazon\.com\.br|amzn\.to|a\.co)/', u) or 'tag=amartins0b-20' in u)
+        return bool(esc(o) or re.search(r'(^|//)(www\.)?(amazon\.com\.br|amzn\.to|a\.co)/', u) or 'tag=amartins0b-20' in u)
     def variado(lista, n, por_cat=2):
         sel, cats, marcas = [], {}, {}
         for o in lista:
@@ -77,8 +82,8 @@ def main():
             if len(sel) >= n: break
             if o not in sel: sel.append(o)
         return sel
-    com = sorted([o for o in ofs if comissao(o)], key=lambda o: (not o.get('escolha'), -o['_off']))
-    destaques = [o for o in com if o.get('escolha')][:4]
+    com = sorted([o for o in ofs if comissao(o)], key=lambda o: (not esc(o), -o['_off']))
+    destaques = [o for o in com if esc(o)][:4]
     destaques += variado([o for o in com if o not in destaques], 8 - len(destaques))
     outros = variado(sorted([o for o in ofs if o not in destaques], key=lambda o: -o['_off']), 4)
     escolhidos = destaques + outros
@@ -109,7 +114,7 @@ def main():
             L.append('<tr>')
             for o in itens[i:i + 2]:
                 url = utm(f'{SITE}tenis/{os_[id(o)]}/?c=1', hj, 'indicacao' if destaque else 'achado')
-                selo = (f'<span style="display:inline-block;margin-bottom:5px;background:#FFF3D6;color:#7A4E00;{FONT}font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px">★ {"Escolha da Aline" if o.get("escolha") else "Indicação da Aline"}</span><br>') if destaque else ''
+                selo = (f'<span style="display:inline-block;margin-bottom:5px;background:#FFF3D6;color:#7A4E00;{FONT}font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px">★ {"Escolha da Aline" if esc(o) else "Indicação da Aline"}</span><br>') if destaque else ''
                 tag = f'-{o["_off"]}%' if o['_off'] else '★'
                 foto = (f'<img src="{E(o["foto"])}" width="250" alt="" style="display:block;width:100%;height:170px;object-fit:contain;background:#fff;border:0">' if o.get('foto')
                         else f'<div style="height:110px;background:{SOFT};{FONT}font-size:40px;font-weight:800;color:{ACCENT};text-align:center;line-height:110px">{tag}</div>')
