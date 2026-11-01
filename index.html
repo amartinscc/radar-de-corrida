@@ -13952,8 +13952,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
   const withOff = a => (a||[]).map(o => ({...o, off: (typeof o.de === 'number' && o.de > o.preco) ? Math.round((1 - o.preco/o.de)*100) : 0}));
   // links de afiliada da Aline (aplicados ao abrir a loja; os dados guardam o link limpo)
-  // Netshoes (Rakuten): token da Aline + MID da Netshoes; enquanto o MID estiver vazio, os links da Netshoes ficam limpos
-  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0'};
+  // Netshoes (Rakuten): token da Aline + MID da Netshoes; com o MID vazio, os links da Netshoes ficam limpos
+  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0'};
   function afil(u){
     try{
       const x = new URL(u);
