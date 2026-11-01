@@ -1,0 +1,40 @@
+[
+  {
+    "skills": [
+      "reviewing-code"
+    ],
+    "query": "Pode mergear?",
+    "files": [
+      "evals/files/change.diff"
+    ],
+    "expected_behavior": [
+      "Executa scripts/diff_hotspots.py e confirma o segredo literal sk-live como achado Crítico",
+      "Aponta retry de cobrança sem idempotência como Alto com cenário de cobrança duplicada",
+      "Conclui 'Solicitar mudanças' e lista o que não foi verificado"
+    ]
+  },
+  {
+    "skills": [
+      "reviewing-code"
+    ],
+    "query": "Revise este endpoint novo de download de arquivos: def download(name): return open('/data/' + name).read()",
+    "files": [],
+    "expected_behavior": [
+      "Identifica path traversal como Crítico com entrada '../../etc/passwd'",
+      "Aponta ausência de verificação de autorização e de fechamento do arquivo",
+      "Sugere correção mínima concreta"
+    ]
+  },
+  {
+    "skills": [
+      "reviewing-code"
+    ],
+    "query": "Faça code review deste PR de 3.000 linhas que mistura refatoração e feature nova.",
+    "files": [],
+    "expected_behavior": [
+      "Recomenda dividir a mudança",
+      "Prioriza a revisão das partes de maior risco usando o mapa de hotspots",
+      "Declara explicitamente o que não foi revisado"
+    ]
+  }
+]

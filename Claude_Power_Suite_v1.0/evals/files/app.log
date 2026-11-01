@@ -1,0 +1,12 @@
+2026-03-01T10:00:00Z INFO server started on port 8080
+2026-03-01T10:05:12Z WARN pool usage 85% (17/20 connections)
+2026-03-01T10:05:40Z WARN pool usage 95% (19/20 connections)
+2026-03-01T10:06:01Z ERROR timeout acquiring connection after 3000ms request_id=8f3a2c1e-1111-4a2b-9c3d-000000000001
+2026-03-01T10:06:01Z ERROR timeout acquiring connection after 3000ms request_id=8f3a2c1e-1111-4a2b-9c3d-000000000002
+2026-03-01T10:06:02Z ERROR GET /orders/9912 failed status=503
+2026-03-01T10:06:03Z ERROR timeout acquiring connection after 3000ms request_id=8f3a2c1e-1111-4a2b-9c3d-000000000003
+2026-03-01T10:06:03Z ERROR GET /orders/1177 failed status=503
+Traceback (most recent call last):
+  File "/app/report.py", line 41, in export
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 20 overflow 0 reached
+2026-03-01T10:06:30Z INFO report job started job=monthly_export rows=2400000

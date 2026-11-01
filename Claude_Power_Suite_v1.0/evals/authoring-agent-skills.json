@@ -1,0 +1,38 @@
+[
+  {
+    "skills": [
+      "authoring-agent-skills"
+    ],
+    "query": "Crie uma skill para gerar notas de release a partir do git log no padrão da nossa empresa.",
+    "files": [],
+    "expected_behavior": [
+      "Escreve 3 cenários de avaliação antes do corpo da skill",
+      "Usa scripts/scaffold_skill.py ou cria estrutura equivalente com name em kebab-case sem 'claude'/'anthropic'",
+      "Executa scripts/validate_skill.py --strict e itera até [APROVADA]"
+    ]
+  },
+  {
+    "skills": [
+      "authoring-agent-skills"
+    ],
+    "query": "Minha skill nunca é acionada. A description é 'Ajuda com relatórios'.",
+    "files": [],
+    "expected_behavior": [
+      "Identifica description vaga e sem gatilho de 'quando usar'",
+      "Reescreve em 3ª pessoa com verbos, artefatos e termos que o usuário digita",
+      "Propõe teste de acionamento com 3 pedidos que devem acionar e 2 que não devem"
+    ]
+  },
+  {
+    "skills": [
+      "authoring-agent-skills"
+    ],
+    "query": "Como empacoto minhas skills para usar no claude.ai e no Claude Code do time?",
+    "files": [],
+    "expected_behavior": [
+      "Explica ZIP com a pasta da skill para claude.ai e .claude/skills/ versionado ou plugin para o Claude Code",
+      "Informa que skills não sincronizam entre superfícies",
+      "Não inventa comandos ou endpoints que não constam na referência da skill"
+    ]
+  }
+]

@@ -1,0 +1,15 @@
+diff --git a/src/payments/charge.py b/src/payments/charge.py
+index 1111111..2222222 100644
+--- a/src/payments/charge.py
++++ b/src/payments/charge.py
+@@ -10,6 +10,14 @@ def charge(order, gateway):
+     amount = order.total
++    for attempt in range(3):
++        try:
++            return gateway.charge(order.customer_id, amount)
++        except TimeoutError:
++            print("retrying", attempt)
++            continue
++    API_KEY = "sk-live-abcdefghijklmnopqrstuvwx"
++    # TODO handle permanent failure
+     return None

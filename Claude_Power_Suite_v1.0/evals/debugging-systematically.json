@@ -1,0 +1,40 @@
+[
+  {
+    "skills": [
+      "debugging-systematically"
+    ],
+    "query": "A API começou a devolver 503 às 10h06. Log em anexo. Qual a causa?",
+    "files": [
+      "evals/files/app.log"
+    ],
+    "expected_behavior": [
+      "Executa scripts/log_signatures.py e destaca timeouts de conexão precedidos de uso crescente do pool",
+      "Formula hipóteses falsificáveis (ex.: job de relatório segurando conexões) com experimento para cada uma",
+      "Não declara causa comprovada sem experimento; descreve o próximo experimento se não puder executá-lo"
+    ]
+  },
+  {
+    "skills": [
+      "debugging-systematically"
+    ],
+    "query": "Nosso teste test_checkout falha uma vez a cada 20 execuções no CI.",
+    "files": [],
+    "expected_behavior": [
+      "Propõe reproduzir em laço e medir a taxa",
+      "Lista hipóteses de intermitência (ordem de testes, tempo, concorrência, estado compartilhado)",
+      "Exige teste de regressão que falha antes da correção"
+    ]
+  },
+  {
+    "skills": [
+      "debugging-systematically"
+    ],
+    "query": "Depois do deploy de ontem o relatório mensal mostra valores 100 vezes maiores.",
+    "files": [],
+    "expected_behavior": [
+      "Sugere git bisect entre a versão boa e a ruim",
+      "Considera conversão de centavos/unidades e formato decimal",
+      "Relata no formato Resumo/Causa-raiz/Reprodução/Correção/Verificação/Prevenção"
+    ]
+  }
+]

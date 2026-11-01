@@ -1,0 +1,15 @@
+{
+  "name": "power-suite-marketplace",
+  "description": "Marketplace local para instalar o plugin Power Suite v1.0.",
+  "owner": {
+    "name": "Leandro Simas"
+  },
+  "plugins": [
+    {
+      "name": "power-suite",
+      "source": "./",
+      "description": "Oito Agent Skills especialistas para engenharia de software com Claude.",
+      "category": "productivity"
+    }
+  ]
+}

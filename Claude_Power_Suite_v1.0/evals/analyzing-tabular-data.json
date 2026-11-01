@@ -1,0 +1,44 @@
+[
+  {
+    "skills": [
+      "analyzing-tabular-data"
+    ],
+    "query": "Qual região vendeu mais em janeiro? Desconsidere pedidos cancelados.",
+    "files": [
+      "evals/files/vendas.csv"
+    ],
+    "expected_behavior": [
+      "Executa scripts/profile_csv.py e detecta separador ';', decimal brasileiro, duplicatas, valor nulo e outlier de 95.000,00",
+      "Decide e declara o tratamento de duplicatas e do outlier, mostrando o resultado com e sem tratamento se a conclusão mudar",
+      "Responde com números calculados por código, filtros explícitos e n por região"
+    ]
+  },
+  {
+    "skills": [
+      "analyzing-tabular-data"
+    ],
+    "query": "Esse arquivo está bom para carregar no data warehouse?",
+    "files": [
+      "evals/files/vendas.csv"
+    ],
+    "expected_behavior": [
+      "Lista problemas de qualidade com contagens (duplicatas, nulos, espaço/maiúsculas em 'bruno')",
+      "Propõe regra de tratamento para cada problema",
+      "Não afirma que o arquivo está limpo"
+    ]
+  },
+  {
+    "skills": [
+      "analyzing-tabular-data"
+    ],
+    "query": "As vendas de fevereiro caíram em relação a janeiro?",
+    "files": [
+      "evals/files/vendas.csv"
+    ],
+    "expected_behavior": [
+      "Compara períodos com valores absolutos e variação percentual",
+      "Alerta que fevereiro pode estar parcial e normaliza ou declara a limitação",
+      "Declara amostra pequena como limitação"
+    ]
+  }
+]

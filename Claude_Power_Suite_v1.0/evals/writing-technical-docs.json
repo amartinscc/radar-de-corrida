@@ -1,0 +1,40 @@
+[
+  {
+    "skills": [
+      "writing-technical-docs"
+    ],
+    "query": "Escreva o README deste projeto.",
+    "files": [],
+    "expected_behavior": [
+      "Lê manifesto, scripts e variáveis de ambiente antes de escrever",
+      "Segue o template de README com início rápido e resultado esperado",
+      "Executa scripts/check_markdown.py e informa quais comandos foram executados e quais não"
+    ]
+  },
+  {
+    "skills": [
+      "writing-technical-docs"
+    ],
+    "query": "Crie um runbook para o alerta 'pool de conexões do banco esgotado'.",
+    "files": [
+      "evals/files/app.log"
+    ],
+    "expected_behavior": [
+      "Usa o template de runbook com diagnóstico ramificado, ações com verificação e escalonamento",
+      "Coloca aviso antes de ações arriscadas (ex.: reiniciar serviço)",
+      "Não marca como verificados comandos que não executou"
+    ]
+  },
+  {
+    "skills": [
+      "writing-technical-docs"
+    ],
+    "query": "Revise nossa pasta docs/ e diga o que está quebrado.",
+    "files": [],
+    "expected_behavior": [
+      "Executa scripts/check_markdown.py docs/ e relata erros com arquivo:linha",
+      "Compara comandos documentados com o código atual",
+      "Ordena achados por correção, completude, encontrabilidade, clareza, estrutura"
+    ]
+  }
+]

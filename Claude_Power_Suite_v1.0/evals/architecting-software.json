@@ -1,0 +1,38 @@
+[
+  {
+    "skills": [
+      "architecting-software"
+    ],
+    "query": "Nosso e-commerce processa pedidos de forma síncrona e cai na Black Friday. Devemos migrar para microsserviços?",
+    "files": [],
+    "expected_behavior": [
+      "Pergunta ou supõe explicitamente números de pico e restrições da equipe",
+      "Compara ao menos 3 opções incluindo a de menor mudança (ex.: fila + workers no monólito) em matriz ponderada",
+      "Gera ADR com scripts/new_adr.py ou com as mesmas seções, incluindo critério de revisão mensurável"
+    ]
+  },
+  {
+    "skills": [
+      "architecting-software"
+    ],
+    "query": "PostgreSQL ou MongoDB para um sistema de agendamento de consultas médicas?",
+    "files": [],
+    "expected_behavior": [
+      "Liga a escolha a padrões de acesso e requisitos de consistência (evitar dupla marcação)",
+      "Considera LGPD/dados sensíveis de saúde",
+      "Declara custos e riscos da opção escolhida"
+    ]
+  },
+  {
+    "skills": [
+      "architecting-software"
+    ],
+    "query": "Registre a decisão de trocar o cache local por Redis, substituindo o ADR 3.",
+    "files": [],
+    "expected_behavior": [
+      "Usa new_adr.py com --supersedes 3",
+      "O ADR 3 passa a indicar 'Substituído por ADR-NNNN'",
+      "O novo ADR descreve invalidação de cache e falha do Redis"
+    ]
+  }
+]

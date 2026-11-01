@@ -1,0 +1,40 @@
+[
+  {
+    "skills": [
+      "engineering-prompts"
+    ],
+    "query": "Melhore este prompt que usamos para responder e-mails de clientes; as respostas saem inconsistentes.",
+    "files": [
+      "evals/files/prompt_ruim.txt"
+    ],
+    "expected_behavior": [
+      "Executa scripts/lint_prompt.py e reporta a tag <email> não fechada e a variável {{email_do_cliente}} como template esperado",
+      "Remove a ênfase em maiúsculas e converte as proibições em instruções positivas com motivo",
+      "Entrega o prompt reescrito com tags XML, formato de saída explícito e ao menos 5 casos de teste marcados como simulados se não forem executados"
+    ]
+  },
+  {
+    "skills": [
+      "engineering-prompts"
+    ],
+    "query": "Escreva um prompt de sistema para extrair nome, CPF e valor de notas fiscais em texto livre e devolver JSON.",
+    "files": [],
+    "expected_behavior": [
+      "Define schema com tipos e regra de null para campos ausentes, proibindo inventar valores",
+      "Inclui exemplos variados, incluindo um caso com campo faltando",
+      "Escreve casos de teste antes do prompt, incluindo caso adversarial de injeção dentro do texto da nota"
+    ]
+  },
+  {
+    "skills": [
+      "engineering-prompts"
+    ],
+    "query": "Meu classificador de sentimento às vezes segue instruções escritas dentro das avaliações dos clientes. Como corrijo?",
+    "files": [],
+    "expected_behavior": [
+      "Diagnostica injeção de prompt por entrada não delimitada",
+      "Propõe envolver a entrada em tag própria declarada como dado, mais casos de teste adversariais",
+      "Explica que instruções no prompt reduzem mas não eliminam o risco"
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "name": "power-suite",
+  "displayName": "Power Suite",
+  "version": "1.0.0",
+  "description": "Oito Agent Skills especialistas: orquestração, engenharia de prompts, autoria de skills, arquitetura, revisão de código, depuração, documentação técnica e análise de dados tabulares.",
+  "author": {
+    "name": "Leandro Simas"
+  },
+  "keywords": ["agent-skills", "prompt-engineering", "architecture", "code-review", "debugging", "documentation", "data-analysis"]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "skills": [
+      "orchestrating-power-suite"
+    ],
+    "query": "Temos um incidente: a API de pedidos devolveu 503 hoje às 10h. Anexei o log. Descubra a causa, proponha a correção e escreva o postmortem.",
+    "files": [
+      "evals/files/app.log"
+    ],
+    "expected_behavior": [
+      "Declara um plano curto com a ordem debugging-systematically -> reviewing-code (da correção) -> writing-technical-docs (postmortem) antes de executar",
+      "Passa um pacote de contexto entre etapas com objetivo, artefatos, decisões e restrições",
+      "O postmortem final usa a causa-raiz da etapa de depuração sem contradizê-la"
+    ]
+  },
+  {
+    "skills": [
+      "orchestrating-power-suite"
+    ],
+    "query": "Quero criar um prompt que classifica tickets de suporte e depois transformar isso numa skill reutilizável pela equipe.",
+    "files": [],
+    "expected_behavior": [
+      "Roteia para engineering-prompts primeiro e authoring-agent-skills depois",
+      "Os casos de teste do prompt são reaproveitados como cenários de avaliação da skill",
+      "Não executa trabalho técnico sem aplicar a skill do especialista correspondente"
+    ]
+  },
+  {
+    "skills": [
+      "orchestrating-power-suite"
+    ],
+    "query": "Revise este diff para mim.",
+    "files": [
+      "evals/files/change.diff"
+    ],
+    "expected_behavior": [
+      "Reconhece que só um especialista se aplica e aplica reviewing-code diretamente, sem montar pipeline",
+      "Não declara plano multi-etapas desnecessário",
+      "Entrega achados no formato do especialista de revisão"
+    ]
+  }
+]
