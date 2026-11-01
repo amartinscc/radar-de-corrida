@@ -32,6 +32,10 @@ conseguem responder.
 
 ### 2. Perfil
 
+Execute o perfil **antes de qualquer cálculo**, mesmo para perguntas
+simples e arquivos pequenos: ele revela duplicatas, nulos e outliers que
+mudam a resposta.
+
 ```bash
 python3 scripts/profile_csv.py dados.csv            # relatório Markdown
 python3 scripts/profile_csv.py dados.csv --json     # para processamento

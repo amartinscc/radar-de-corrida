@@ -32,6 +32,10 @@ preferência pessoal só entram se o projeto tiver regra explícita.
 
 ### 2. Hotspots
 
+Execute o script sempre que o diff estiver disponível (arquivo, stdin ou
+`git`), mesmo em diffs pequenos: a detecção de segredos e de arquivos
+sensíveis é mecânica e não deve depender de leitura atenta.
+
 ```bash
 git diff main...HEAD | python3 scripts/diff_hotspots.py -
 # ou

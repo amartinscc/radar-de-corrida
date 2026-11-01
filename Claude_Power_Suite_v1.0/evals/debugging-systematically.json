@@ -8,7 +8,7 @@
       "evals/files/app.log"
     ],
     "expected_behavior": [
-      "Executa scripts/log_signatures.py e destaca timeouts de conexão precedidos de uso crescente do pool",
+      "Identifica pelos padrões do log (ou com scripts/log_signatures.py, se o log for volumoso) os timeouts de conexão precedidos de uso crescente do pool",
       "Formula hipóteses falsificáveis (ex.: job de relatório segurando conexões) com experimento para cada uma",
       "Não declara causa comprovada sem experimento; descreve o próximo experimento se não puder executá-lo"
     ]

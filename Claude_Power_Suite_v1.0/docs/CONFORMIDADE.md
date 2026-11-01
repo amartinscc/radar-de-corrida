@@ -41,6 +41,8 @@ reprova a validação.
 ## Itens do checklist oficial que dependem de uso real
 
 O checklist oficial pede testes com os modelos Haiku, Sonnet e Opus e com
-uso real. Esses testes exigem sessões do Claude com as skills instaladas e
-**não foram executados** na construção desta versão; os cenários em
-`evals/` são o roteiro para fazê-los.
+uso real. Os 24 cenários foram executados com o Claude Code usando apenas o
+modelo padrão da sessão (resultados em
+[RELATORIO_DE_VALIDACAO.md](RELATORIO_DE_VALIDACAO.md)). Os testes com cada
+modelo separadamente e o uso real por pessoas do time **não foram
+executados**. Para fazê-los, use `tools/run_trigger_evals.py --model <id>`.
