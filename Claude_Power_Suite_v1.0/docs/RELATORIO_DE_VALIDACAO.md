@@ -38,15 +38,15 @@ Tamanho do corpo do SKILL.md (limite recomendado: 500 linhas):
 | `orchestrating-power-suite` | 92 | ~1,9k tokens |
 | `writing-technical-docs` | 100 | ~1,7k |
 | `reviewing-code` | 108 | ~1,7k |
-| `analyzing-tabular-data` | 109 | ~1,7k |
-| `debugging-systematically` | 134 | ~2,0k |
+| `analyzing-tabular-data` | 112 | ~1,7k |
+| `debugging-systematically` | 139 | ~2,0k |
 | `architecting-software` | 136 | ~2,1k |
 | `engineering-prompts` | 145 | ~2,4k |
-| `authoring-agent-skills` | 155 | ~2,7k |
+| `authoring-agent-skills` | 159 | ~2,7k |
 
 Custo fixo da suíte inteira em toda sessão (metadados): ~1,7k tokens.
-As estimativas de tokens são do primeiro carregamento, feito antes do
-ajuste de descriptions descrito abaixo.
+As estimativas de tokens são do primeiro carregamento; os ajustes
+posteriores acrescentaram poucas linhas a cada skill.
 
 ## Testes unitários
 
