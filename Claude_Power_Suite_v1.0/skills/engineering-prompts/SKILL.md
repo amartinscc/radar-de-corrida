@@ -1,6 +1,6 @@
 ---
 name: engineering-prompts
-description: Projeta, reescreve e depura prompts para modelos Claude (prompts de sistema, prompts de tarefa, templates com variáveis, instruções de agentes e de ferramentas), com estrutura em tags XML, exemplos, formato de saída verificável e um conjunto de casos de teste. Inclui um linter que detecta tags desbalanceadas, variáveis não preenchidas e instruções vagas. Use quando o usuário pedir para criar, melhorar, revisar ou diagnosticar um prompt, ou quando um LLM estiver respondendo de forma inconsistente. Prompt engineering for Claude.
+description: "Projeta, reescreve e depura prompts para modelos Claude e outros LLMs (prompts de sistema, prompts de tarefa, templates com variáveis, instruções de agentes e de ferramentas), com tags XML, exemplos, formato de saída verificável e casos de teste, além de um linter de tags, variáveis e instruções vagas. Use sempre que o usuário pedir para criar, melhorar, revisar ou diagnosticar um prompt, ou quando um LLM, classificador ou agente estiver respondendo de forma inconsistente, alucinando, ignorando regras ou sofrendo prompt injection (seguindo instruções contidas na entrada). Prompt engineering."
 ---
 
 # Engenharia de Prompts

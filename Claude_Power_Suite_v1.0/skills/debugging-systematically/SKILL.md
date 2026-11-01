@@ -1,6 +1,6 @@
 ---
 name: debugging-systematically
-description: Investiga erros, falhas, regressões e comportamentos inesperados com método científico — reproduzir, isolar, formular hipóteses falsificáveis, testá-las uma a uma e comprovar a causa-raiz antes de corrigir — e agrupa logs volumosos por assinatura para revelar os erros dominantes. Use quando o usuário relatar bug, exceção, stack trace, teste falhando ou intermitente, "funcionava ontem", lentidão, crash, incidente em produção ou pedir análise de logs. Root-cause debugging.
+description: "Investiga erros, falhas, regressões e comportamentos inesperados com método científico — reproduzir, isolar, hipóteses falsificáveis testadas uma a uma, causa-raiz comprovada antes de corrigir — e agrupa logs volumosos por assinatura para revelar os erros dominantes. Use sempre que o usuário relatar bug, exceção, stack trace, erro HTTP 4xx/5xx, teste falhando ou intermitente, \"funcionava ontem\", lentidão, crash ou incidente, ou anexar um arquivo de log e perguntar a causa (\"qual a causa?\", \"por que quebrou?\", \"o que aconteceu?\"). Root-cause debugging and log analysis."
 ---
 
 # Depuração Sistemática

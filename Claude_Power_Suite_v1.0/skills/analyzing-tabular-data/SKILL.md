@@ -1,6 +1,6 @@
 ---
 name: analyzing-tabular-data
-description: Analisa dados tabulares (CSV, TSV e exportações de planilhas ou bancos) — perfil de qualidade por coluna, detecção de nulos, duplicatas, tipos inconsistentes, outliers e números no formato brasileiro — e conduz análises que respondem a perguntas de negócio com números verificáveis, suposições explícitas e limitações declaradas. Use quando o usuário enviar ou mencionar um arquivo .csv/.tsv, pedir para explorar, limpar, validar ou resumir dados, calcular métricas, comparar períodos ou encontrar padrões em uma tabela. Data profiling and analysis.
+description: "Analisa dados tabulares (CSV, TSV e exportações de planilhas ou bancos) — perfil de qualidade por coluna, nulos, duplicatas, tipos inconsistentes, outliers e números no formato brasileiro — e responde perguntas de negócio com números calculados por código, suposições explícitas e limitações declaradas. Use sempre que houver um arquivo .csv/.tsv no pedido ou no diretório e o usuário fizer qualquer pergunta sobre os dados (quem vendeu mais, totais, médias, comparação entre meses/períodos, queda ou crescimento, ranking, tendência), mesmo que não peça \"análise\" explicitamente; e também para explorar, limpar, validar ou checar se um arquivo está pronto para carga. Data profiling and analysis."
 ---
 
 # Análise de Dados Tabulares

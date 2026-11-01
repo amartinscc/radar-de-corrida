@@ -6,7 +6,10 @@ Verifica:
   2. Unicidade dos nomes de skill.
   3. Independência: nenhum SKILL.md/referência aponta para arquivo de outra skill.
   4. Avaliações: evals/<skill>.json existe, tem >= 3 cenários no formato
-     {skills, query, files, expected_behavior} e os arquivos citados existem.
+     {skills, query, files, expected_behavior}, os arquivos citados existem,
+     `skills` lista a(s) skill(s) que DEVEM ser acionadas (pode ser outra
+     skill, para testar que a skill do arquivo NÃO é acionada à toa) e ao
+     menos um cenário espera acionar a própria skill.
   5. Manifesto do plugin e marketplace: JSON válido, campos obrigatórios,
      nome de plugin fora dos prefixos reservados e versão coerente com
      o CHANGELOG.
@@ -108,13 +111,15 @@ def check_evals(res: Results, names: list[str]) -> None:
             if set(c) != {"skills", "query", "files", "expected_behavior"}:
                 problems.append(f"cenário {i}: chaves {sorted(c)}")
                 continue
-            if c["skills"] != [name]:
-                problems.append(f"cenário {i}: skills={c['skills']}")
+            if not c["skills"] or not set(c["skills"]) <= set(names):
+                problems.append(f"cenário {i}: skills desconhecidas {c['skills']}")
             if not c["query"].strip() or not c["expected_behavior"]:
                 problems.append(f"cenário {i}: query/expected_behavior vazio")
             for f in c["files"]:
                 if not (ROOT / f).is_file():
                     problems.append(f"cenário {i}: arquivo {f} não existe")
+        if not any(c.get("skills") == [name] for c in cases if isinstance(c, dict)):
+            problems.append(f"nenhum cenário espera acionar {name}")
         res.add("avaliações", not problems,
                 f"{name}: {len(cases)} cenários" + ("" if not problems else " — " + "; ".join(problems)))
 

@@ -1,6 +1,6 @@
 ---
 name: architecting-software
-description: Conduz decisões de arquitetura de software — levantamento de requisitos e atributos de qualidade, comparação de opções com matriz de trade-offs, desenho de componentes e fluxos de dados, identificação de riscos e registro da decisão em ADR (Architecture Decision Record) numerado. Use quando o usuário pedir para projetar um sistema ou módulo, escolher entre tecnologias, padrões ou bancos de dados, planejar migração, avaliar escalabilidade, ou documentar uma decisão técnica. Software architecture and ADRs.
+description: "Conduz decisões de arquitetura de software — requisitos e atributos de qualidade, comparação de opções com matriz de trade-offs, desenho de componentes e fluxos de dados, riscos e registro da decisão em ADR (Architecture Decision Record) numerado. Use sempre que o usuário pedir para projetar um sistema ou módulo, perguntar \"X ou Y para Z?\" sobre bancos de dados, linguagens, frameworks, filas, nuvem ou padrões (monólito vs. microsserviços), planejar migração, avaliar escalabilidade ou registrar uma decisão técnica — inclusive em perguntas curtas de escolha de tecnologia. Software architecture, technology choice and ADRs."
 ---
 
 # Arquitetura de Software

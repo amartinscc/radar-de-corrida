@@ -42,7 +42,7 @@ def load_cases(skills: list[str] | None) -> list[dict]:
     cases = []
     for path in sorted(EVALS.glob("*.json")):
         for i, case in enumerate(json.loads(path.read_text(encoding="utf-8"))):
-            if skills and case["skills"][0] not in skills:
+            if skills and path.stem not in skills:
                 continue
             cases.append({**case, "id": f"{path.stem}#{i + 1}"})
     return cases
@@ -85,8 +85,9 @@ def run_case(case: dict, args) -> dict:
         except subprocess.TimeoutExpired as exc:
             out, rc = (exc.stdout or b"").decode() if isinstance(exc.stdout, bytes) else (exc.stdout or ""), -1
     parsed = parse_stream(out)
-    expected = case["skills"][0]
-    triggered = any(s == expected or s.endswith(":" + expected) for s in parsed["skills_loaded"])
+    # `skills` lista as skills que DEVEM ser acionadas; basta uma delas carregar.
+    expected = case["skills"]
+    triggered = any(s == e or s.endswith(":" + e) for s in parsed["skills_loaded"] for e in expected)
     return {"id": case["id"], "expected": expected, "triggered": triggered, "exit_code": rc,
             "seconds": round(time.time() - start, 1), **parsed,
             "expected_behavior": case["expected_behavior"]}

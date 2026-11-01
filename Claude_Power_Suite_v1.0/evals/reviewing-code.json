@@ -29,7 +29,7 @@
     "skills": [
       "reviewing-code"
     ],
-    "query": "Faça code review deste PR de 3.000 linhas que mistura refatoração e feature nova.",
+    "query": "Recebi um PR de 3.000 linhas que mistura refatoração e feature nova. Como devo fazer o code review dele para não deixar passar bug?",
     "files": [],
     "expected_behavior": [
       "Recomenda dividir a mudança",
