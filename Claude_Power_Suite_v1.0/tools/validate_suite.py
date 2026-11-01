@@ -116,8 +116,8 @@ def check_evals(res: Results, names: list[str]) -> None:
             if not c["query"].strip() or not c["expected_behavior"]:
                 problems.append(f"cenário {i}: query/expected_behavior vazio")
             for f in c["files"]:
-                if not (ROOT / f).is_file():
-                    problems.append(f"cenário {i}: arquivo {f} não existe")
+                if not (ROOT / f).exists():
+                    problems.append(f"cenário {i}: arquivo/diretório {f} não existe")
         if not any(c.get("skills") == [name] for c in cases if isinstance(c, dict)):
             problems.append(f"nenhum cenário espera acionar {name}")
         res.add("avaliações", not problems,

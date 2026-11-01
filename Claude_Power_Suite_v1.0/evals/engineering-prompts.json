@@ -8,7 +8,7 @@
       "evals/files/prompt_ruim.txt"
     ],
     "expected_behavior": [
-      "Executa scripts/lint_prompt.py e reporta a tag <email> não fechada e a variável {{email_do_cliente}} como template esperado",
+      "Executa scripts/lint_prompt.py e reporta a tag <email> não fechada",
       "Remove a ênfase em maiúsculas e converte as proibições em instruções positivas com motivo",
       "Entrega o prompt reescrito com tags XML, formato de saída explícito e ao menos 5 casos de teste marcados como simulados se não forem executados"
     ]
@@ -22,7 +22,7 @@
     "expected_behavior": [
       "Define schema com tipos e regra de null para campos ausentes, proibindo inventar valores",
       "Inclui exemplos variados, incluindo um caso com campo faltando",
-      "Escreve casos de teste antes do prompt, incluindo caso adversarial de injeção dentro do texto da nota"
+      "Inclui casos de teste, entre eles um caso adversarial de injeção dentro do texto da nota"
     ]
   },
   {

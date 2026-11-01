@@ -454,6 +454,7 @@ class SuiteToolTests(TempDirTest):
     def test_trigger_runner_parsing_and_case_loading(self):
         stream = "\n".join([
             json.dumps({"type": "assistant", "message": {"content": [
+                {"type": "text", "text": "Plano: revisar o diff."},
                 {"type": "tool_use", "name": "Skill", "input": {"skill": "power-suite:reviewing-code"}},
                 {"type": "tool_use", "name": "Bash", "input": {"command": "python3 scripts/diff_hotspots.py -"}}]}}),
             "linha que não é JSON",
@@ -463,9 +464,23 @@ class SuiteToolTests(TempDirTest):
         self.assertEqual(parsed["skills_loaded"], ["power-suite:reviewing-code"])
         self.assertEqual(parsed["bash_commands"], ["python3 scripts/diff_hotspots.py -"])
         self.assertEqual(parsed["final"], "Solicitar mudanças")
+        self.assertEqual(parsed["assistant_text"], "Plano: revisar o diff.")
         cases = runner.load_cases(["reviewing-code"])
         self.assertEqual([c["id"] for c in cases], [f"reviewing-code#{i}" for i in (1, 2, 3)])
         self.assertEqual(len(runner.load_cases(None)), 24)
+
+    def test_trigger_runner_change_tracking(self):
+        (self.tmp / "a.txt").write_text("1")
+        before = runner.snapshot(self.tmp)
+        (self.tmp / "a.txt").write_text("2")
+        (self.tmp / "sub").mkdir()
+        (self.tmp / "sub" / "b.md").write_text("novo")
+        (self.tmp / "__pycache__").mkdir()
+        (self.tmp / "__pycache__" / "x.pyc").write_bytes(b"0")
+        self.assertEqual(runner.changed_files(before, self.tmp), {"a.txt": "2", "sub/b.md": "novo"})
+        tools = runner.ALLOWED_TOOLS.split()
+        self.assertIn("Write(./**)", tools)
+        self.assertNotIn("Write", tools)  # escrita nunca liberada sem restrição de caminho
 
     def test_install_script_respects_existing(self):
         if shutil.which("bash") is None:

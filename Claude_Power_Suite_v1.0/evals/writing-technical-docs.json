@@ -4,11 +4,13 @@
       "writing-technical-docs"
     ],
     "query": "Escreva o README deste projeto.",
-    "files": [],
+    "files": [
+      "evals/files/projeto-exemplo"
+    ],
     "expected_behavior": [
-      "Lê manifesto, scripts e variáveis de ambiente antes de escrever",
-      "Segue o template de README com início rápido e resultado esperado",
-      "Executa scripts/check_markdown.py e informa quais comandos foram executados e quais não"
+      "Lê pyproject.toml e app/main.py e documenta as variáveis ENCURTADOR_PORT, ENCURTADOR_BASE_URL e ENCURTADOR_CACHE_TTL com seus padrões",
+      "Segue o template de README com início rápido e resultado esperado, usando a porta 8080 e o endpoint /shorten do código",
+      "Executa scripts/check_markdown.py no README e informa quais comandos foram executados e quais não"
     ]
   },
   {
@@ -30,10 +32,12 @@
       "writing-technical-docs"
     ],
     "query": "Revise nossa pasta docs/ e diga o que está quebrado.",
-    "files": [],
+    "files": [
+      "evals/files/projeto-exemplo"
+    ],
     "expected_behavior": [
-      "Executa scripts/check_markdown.py docs/ e relata erros com arquivo:linha",
-      "Compara comandos documentados com o código atual",
+      "Executa scripts/check_markdown.py docs/ e relata o bloco não fechado em api.md, a âncora inexistente e o link para configuracao.md com arquivo:linha",
+      "Compara a documentação com o código e aponta porta 5000 vs 8080, /encurtar vs /shorten, server.py inexistente e versão 0.2.0 vs 0.3.0",
       "Ordena achados por correção, completude, encontrabilidade, clareza, estrutura"
     ]
   }

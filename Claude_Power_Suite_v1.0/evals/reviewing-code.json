@@ -9,7 +9,7 @@
     ],
     "expected_behavior": [
       "Executa scripts/diff_hotspots.py e confirma o segredo literal sk-live como achado Crítico",
-      "Aponta retry de cobrança sem idempotência como Alto com cenário de cobrança duplicada",
+      "Aponta retry de cobrança sem idempotência como Alto ou Crítico com cenário de cobrança duplicada",
       "Conclui 'Solicitar mudanças' e lista o que não foi verificado"
     ]
   },

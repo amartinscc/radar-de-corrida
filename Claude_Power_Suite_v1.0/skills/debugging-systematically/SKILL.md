@@ -1,6 +1,7 @@
 ---
 name: debugging-systematically
 description: "Investiga erros, falhas, regressões e comportamentos inesperados com método científico — reproduzir, isolar, hipóteses falsificáveis testadas uma a uma, causa-raiz comprovada antes de corrigir — e agrupa logs volumosos por assinatura para revelar os erros dominantes. Use sempre que o usuário relatar bug, exceção, stack trace, erro HTTP 4xx/5xx, teste falhando ou intermitente, \"funcionava ontem\", lentidão, crash ou incidente, ou anexar um arquivo de log e perguntar a causa (\"qual a causa?\", \"por que quebrou?\", \"o que aconteceu?\"). Root-cause debugging and log analysis."
+license: MIT
 ---
 
 # Depuração Sistemática
@@ -34,8 +35,10 @@ dependência, dado, infraestrutura).
 - Busque o menor passo a passo que reproduz. Escreva-o como teste
   automatizado sempre que possível — ele vira o teste de regressão.
 - Falha intermitente: aumente a frequência (laço com centenas de execuções,
-  paralelismo, carga, semente aleatória fixa vs. variada) e registre a
-  taxa. Intermitência costuma indicar concorrência, tempo, ordem de testes,
+  paralelismo, carga, semente aleatória fixa vs. variada) e **meça a taxa**
+  (falhas / execuções) rodando todas as repetições até o fim — não use
+  opções que param na primeira falha (`-x`, `--exitfirst`, `--failfast`),
+  pois elas impedem medir a taxa e comparar antes/depois da correção. Intermitência costuma indicar concorrência, tempo, ordem de testes,
   estado compartilhado ou dependência externa.
 - Sem reprodução (produção): colete logs, métricas, traces, IDs de
   requisição afetadas e compare com requisições que funcionaram.
@@ -60,7 +63,10 @@ Técnicas, em ordem de custo:
 - **Comparar** caminho que funciona vs. que falha (entrada, ambiente,
   versão) e listar todas as diferenças.
 - **Bisseção no histórico**: `git bisect start <ruim> <bom>` com
-  `git bisect run <comando-de-teste>` quando há versão boa conhecida.
+  `git bisect run <comando-de-teste>`. Sempre que o sintoma for uma
+  regressão com versão boa conhecida ("funcionava antes do deploy",
+  "desde ontem"), proponha o bisect explicitamente, mesmo que ainda faltem
+  dados para executá-lo.
 - **Bisseção na entrada**: cortar a entrada pela metade até o mínimo que
   falha.
 - **Instrumentar** a fronteira entre componentes: logar valores na entrada

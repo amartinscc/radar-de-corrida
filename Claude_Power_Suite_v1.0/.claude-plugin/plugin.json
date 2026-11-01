@@ -6,5 +6,15 @@
   "author": {
     "name": "Leandro Simas"
   },
-  "keywords": ["agent-skills", "prompt-engineering", "architecture", "code-review", "debugging", "documentation", "data-analysis"]
+  "keywords": [
+    "agent-skills",
+    "prompt-engineering",
+    "architecture",
+    "code-review",
+    "debugging",
+    "documentation",
+    "data-analysis"
+  ],
+  "icon": "./.claude-plugin/icon.png",
+  "license": "MIT"
 }

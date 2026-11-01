@@ -28,11 +28,13 @@
       "architecting-software"
     ],
     "query": "Registre a decisão de trocar o cache local por Redis, substituindo o ADR 3.",
-    "files": [],
+    "files": [
+      "evals/files/projeto-exemplo"
+    ],
     "expected_behavior": [
-      "Usa new_adr.py com --supersedes 3",
-      "O ADR 3 passa a indicar 'Substituído por ADR-NNNN'",
-      "O novo ADR descreve invalidação de cache e falha do Redis"
+      "Usa scripts/new_adr.py com --supersedes 3 no diretório docs/adr",
+      "O ADR 0003 passa a indicar 'Substituído por ADR-0004'",
+      "O novo ADR descreve invalidação de cache e o comportamento quando o Redis falha"
     ]
   }
 ]

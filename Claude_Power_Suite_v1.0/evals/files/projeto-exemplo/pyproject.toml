@@ -1,0 +1,9 @@
+[project]
+name = "encurtador"
+version = "0.3.0"
+description = "Serviço HTTP que encurta URLs"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+encurtador = "app.main:run"

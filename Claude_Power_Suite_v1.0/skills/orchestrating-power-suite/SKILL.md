@@ -1,6 +1,7 @@
 ---
 name: orchestrating-power-suite
 description: "Roteia pedidos de várias etapas para os especialistas da Power Suite (prompts, skills, arquitetura, revisão de código, depuração, documentação técnica, dados tabulares) e coordena a passagem de contexto entre eles. Use sempre que um único pedido combinar duas ou mais dessas entregas — por exemplo \"descubra a causa, corrija e escreva o postmortem\", \"crie o prompt e transforme em skill\", \"projete, implemente e documente\" — ou quando o usuário pedir um plano completo, um pipeline ou \"do zero até a entrega\". Routes multi-step software requests across the suite specialists."
+license: MIT
 ---
 
 # Orquestrador da Power Suite

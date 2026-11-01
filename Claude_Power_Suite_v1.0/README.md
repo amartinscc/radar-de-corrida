@@ -90,4 +90,7 @@ Claude_Power_Suite_v1.0/
   roteiro de teste manual ou para um harness próprio.
 - Os scripts são heurísticos onde indicado (linter de prompt, hotspots de
   diff, assinaturas de log): orientam a análise, não a substituem.
-- Licença ainda não definida: escolha uma antes de distribuir publicamente.
+
+## Licença
+
+[MIT](LICENSE).

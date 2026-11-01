@@ -1,6 +1,7 @@
 ---
 name: analyzing-tabular-data
 description: "Analisa dados tabulares (CSV, TSV e exportações de planilhas ou bancos) — perfil de qualidade por coluna, nulos, duplicatas, tipos inconsistentes, outliers e números no formato brasileiro — e responde perguntas de negócio com números calculados por código, suposições explícitas e limitações declaradas. Use sempre que houver um arquivo .csv/.tsv no pedido ou no diretório e o usuário fizer qualquer pergunta sobre os dados (quem vendeu mais, totais, médias, comparação entre meses/períodos, queda ou crescimento, ranking, tendência), mesmo que não peça \"análise\" explicitamente; e também para explorar, limpar, validar ou checar se um arquivo está pronto para carga. Data profiling and analysis."
+license: MIT
 ---
 
 # Análise de Dados Tabulares
@@ -63,8 +64,11 @@ Para cada problema encontrado, escolha e **registre** a decisão:
 | Outliers | manter, limitar (winsorizar), excluir | erro de digitação vs. evento real; consulte o usuário se mudar a conclusão |
 | Variação de grafia | normalizar (trim, minúsculas, sem acento) | colunas categóricas usadas em agrupamento |
 
-Se uma decisão alterar materialmente o resultado, mostre o resultado
-**com e sem** o tratamento.
+Sempre **decida e recomende** um tratamento padrão para cada problema, com
+o motivo; não devolva a decisão ao usuário sem uma recomendação. Se o
+tratamento alterar materialmente o resultado, mostre o resultado **com e
+sem** ele, diga qual você recomenda e o que o usuário precisaria confirmar
+para mudar essa escolha.
 
 ### 4. Calcular
 

@@ -1,6 +1,7 @@
 ---
 name: writing-technical-docs
 description: Escreve e revisa documentação técnica — README, guias de instalação, tutoriais, runbooks operacionais, referências de API, postmortems e changelogs — escolhendo o tipo de documento pelo objetivo do leitor, verificando comandos e exemplos contra o código real e validando links, âncoras, títulos e blocos de código com script. Use quando o usuário pedir para documentar um projeto, criar ou melhorar README, escrever guia, runbook, postmortem, changelog ou revisar documentação existente. Technical writing.
+license: MIT
 ---
 
 # Documentação Técnica

@@ -1,6 +1,7 @@
 ---
 name: reviewing-code
 description: "Revisa código como engenheiro sênior — diffs, pull requests, commits, arquivos ou trechos colados na conversa — priorizando defeitos de correção, segurança, concorrência, tratamento de erros e testes ausentes, com cada achado classificado por severidade, localizado e acompanhado de cenário de falha concreto e correção sugerida. Inclui script que aponta hotspots no diff (segredos, arquivos sensíveis, código sem teste). Use sempre que o usuário pedir revisão de código, code review, \"revise este código/endpoint/função\", análise de PR, \"pode mergear?\", \"está bom?\", auditoria de qualidade ou de segurança, ou orientação sobre como revisar uma mudança grande."
+license: MIT
 ---
 
 # Revisão de Código

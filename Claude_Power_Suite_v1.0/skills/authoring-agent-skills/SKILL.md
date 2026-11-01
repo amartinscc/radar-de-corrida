@@ -1,6 +1,7 @@
 ---
 name: authoring-agent-skills
 description: Cria, revisa, valida e empacota Agent Skills (diretórios com SKILL.md, frontmatter YAML, arquivos de referência e scripts) seguindo as regras oficiais da Anthropic para a API, claude.ai e Claude Code. Inclui gerador de esqueleto e validador que checa name, description, limites de tamanho, links quebrados, profundidade de referências e sintaxe dos scripts. Use quando o usuário quiser criar uma skill nova, transformar um processo repetido em skill, corrigir uma skill que não é acionada ou preparar skills para upload. Authoring and validating Claude Agent Skills.
+license: MIT
 ---
 
 # Autoria de Agent Skills
@@ -109,6 +110,10 @@ datada; se precisar, coloque em seção "padrões antigos".
   `Servidor:ferramenta`.
 
 ### 6. Validar
+
+Esta etapa é obrigatória antes de entregar qualquer skill criada ou
+alterada; reserve tempo para ela em vez de gastá-lo testando scripts
+auxiliares além do necessário.
 
 ```bash
 python3 scripts/validate_skill.py CAMINHO/nome-da-skill --strict
