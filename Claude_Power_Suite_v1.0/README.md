@@ -37,7 +37,7 @@ Medir o acionamento real das skills com o Claude Code (consome tokens;
 requer a suíte instalada e o `claude` autenticado):
 
 ```bash
-python3 tools/run_trigger_evals.py --skill reviewing-code
+python3 tools/run_trigger_evals.py --skill reviewing-code --judge
 ```
 
 Instalar no Claude Code como skills pessoais:
@@ -75,6 +75,19 @@ Claude_Power_Suite_v1.0/
 - [Conformidade com a especificação oficial](docs/CONFORMIDADE.md)
 - [Relatório de validação](docs/RELATORIO_DE_VALIDACAO.md)
 - [Histórico de versões](CHANGELOG.md)
+
+## Escolha de modelo
+
+Nos testes (24 cenários por modelo), o Opus acionou as skills sozinho em
+24/24 casos; o Sonnet em 18/24 e o Haiku em 4/24. Com Sonnet ou Haiku,
+invoque a skill explicitamente, por exemplo:
+
+```text
+/power-suite:reviewing-code Pode mergear esta branch?
+```
+
+Com invocação explícita, o Haiku cumpriu 9/9 comportamentos esperados nos
+cenários testados. Detalhes em [docs/RELATORIO_DE_VALIDACAO.md](docs/RELATORIO_DE_VALIDACAO.md).
 
 ## Requisitos
 

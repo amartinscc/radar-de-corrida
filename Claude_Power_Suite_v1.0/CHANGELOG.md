@@ -26,4 +26,8 @@ Formato baseado em Keep a Changelog; versionamento semântico.
 - Ferramentas `tools/validate_suite.py`, `tools/package_skills.py`,
   `tools/install.sh` e `tools/run_trigger_evals.py` (mede acionamento real
   das skills via `claude -p`).
+- Avaliação dos comportamentos esperados por LLM como juiz
+  (`run_trigger_evals.py --judge`) e projeto de exemplo com defeitos
+  plantados em `evals/files/projeto-exemplo/`.
+- Ícone do plugin e licença MIT.
 - Testes unitários em `tests/test_scripts.py`.

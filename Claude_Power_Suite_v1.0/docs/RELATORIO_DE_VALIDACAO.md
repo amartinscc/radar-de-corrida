@@ -21,10 +21,12 @@ efetivamente executados; o que não foi executado está na última seção.
 |---|---|---|
 | Regras oficiais em modo estrito | `validate_skill.py --strict skills/*/` | 8/8 aprovadas |
 | Suíte completa | `python3 tools/validate_suite.py` | 28/28 verificações |
-| Testes unitários | `python3 -m unittest discover -s tests` | 45 testes, todos aprovados |
-| Manifesto do plugin e marketplace | `claude plugin validate .` | Validation passed |
+| Testes unitários | `python3 -m unittest discover -s tests` | 46 testes, todos aprovados |
+| Manifesto do plugin e marketplace | `claude plugin validate .` | Validation passed; verificações do diretório de publicação sem nenhum apontamento |
 | Instalação do plugin | `claude plugin marketplace add` + `install` | instalado e habilitado, 8 skills carregadas |
-| Acionamento com o modelo, 2ª rodada | `tools/run_trigger_evals.py` | 24/24 cenários |
+| Acionamento automático (Opus / Sonnet / Haiku) | `tools/run_trigger_evals.py --model ... --judge` | 24/24 · 18/24 · 4/24 |
+| Comportamentos esperados, juiz LLM (Opus / Sonnet / Haiku) | idem | 64/72 · 46/72 · 40/72 |
+| Haiku com invocação explícita `/power-suite:<skill>` | 3 cenários | 9/9 comportamentos |
 | Empacotamento | `tools/package_skills.py` | 8 ZIPs gerados |
 
 ## Validação estrutural das skills
@@ -48,7 +50,7 @@ ajuste de descriptions descrito abaixo.
 
 ## Testes unitários
 
-45 testes em `tests/test_scripts.py` cobrem todos os scripts e ferramentas:
+46 testes em `tests/test_scripts.py` cobrem todos os scripts e ferramentas:
 regras de `name`/`description`, links e referências, parser YAML
 alternativo, criação de esqueleto sem sobrescrita, lint de prompt (tags,
 variáveis, ênfase, negativas), numeração e substituição de ADR, detecção de
@@ -56,7 +58,8 @@ segredos e arquivos sensíveis em diff (inclusive via `git` em repositório
 temporário), agrupamento de logs, âncoras e cercas aninhadas em Markdown,
 perfil de CSV com codificação cp1252 e decimal brasileiro, empacotamento
 ZIP, instalador (com HOME temporário, verificando que skill existente não é
-sobrescrita sem `--force`) e o parser do executor de avaliações.
+sobrescrita sem `--force`) e o executor de avaliações (parser da transcrição,
+rastreamento de arquivos alterados e restrição de escrita).
 
 ## Validação oficial do plugin
 
@@ -64,12 +67,8 @@ sobrescrita sem `--force`) e o parser do executor de avaliações.
 .claude-plugin/marketplace.json`: **Validation passed**.
 
 O mesmo comando também roda as verificações do diretório de plugins da
-Anthropic, que não mudam o resultado acima e só importam para publicação
-nesse diretório:
-- **LICENSE_MISSING** (impediria a submissão): nenhuma licença foi escolhida.
-  A escolha é do autor; adicione `LICENSE` ou o campo `license` em
-  `plugin.json` antes de publicar.
-- **ICON_MISSING** (aviso): sem ícone.
+Anthropic (licença, ícone etc.): **"These checks found nothing to report"**,
+depois da adição da licença MIT e do ícone `.claude-plugin/icon.png`.
 
 ## Instalação e carregamento reais
 
@@ -88,49 +87,67 @@ O evento `init` de uma sessão `claude -p` listou as 8 skills como
 ## Avaliações com o modelo (acionamento)
 
 `tools/run_trigger_evals.py` executa cada cenário de `evals/` com
-`claude -p` num diretório temporário contendo só os arquivos do cenário e
-registra quais skills foram carregadas. O modelo foi o padrão da sessão.
+`claude -p` num diretório temporário contendo só os insumos do cenário e
+registra quais skills foram carregadas pela ferramenta Skill.
 
-| Rodada | Descriptions | Acionamento correto |
+Evolução com o modelo padrão da sessão (Opus):
+
+| Rodada | Mudança | Acionamento |
 |---|---|---|
-| 1ª | versão inicial | 15/24 |
-| 2ª | reescritas com as formulações que falharam | **24/24** |
+| 1ª | descriptions iniciais | 15/24 |
+| 2ª | descriptions com as formulações que falharam | 24/24 |
 
-Falhas da 1ª rodada e causa:
-- Perguntas diretas sobre um CSV ("Qual região vendeu mais?"), escolha de
-  tecnologia ("PostgreSQL ou MongoDB?"), log + "qual a causa?", pergunta
-  sobre prompt injection e código colado na conversa: o modelo respondeu
-  sem a skill, porque as descriptions não citavam essas formulações.
-- Incidente com várias entregas: só a skill de documentação foi carregada.
-- 2 falhas eram do próprio cenário (um pedia revisão de um PR não
-  fornecido; outro esperava acionar o orquestrador quando o correto era
-  aplicar `reviewing-code` direto). Os cenários foram corrigidos e o campo
-  `skills` passou a indicar a skill que **deve** ser acionada.
+Rodada final por modelo (após todas as correções; limite de 25 turnos;
+juiz fixo `claude-opus-5-5`):
 
-Cada cenário foi executado uma vez por rodada. Como a saída do modelo
-varia, 24/24 é o resultado medido nessa rodada, não uma garantia.
+| Modelo | Acionamento automático | Comportamentos esperados (juiz) |
+|---|---|---|
+| `claude-opus-5-5` | **24/24** | **64/72** (89%) |
+| `claude-sonnet-5-5` | 18/24 | 46/72 (64%) |
+| `claude-haiku-5-5` | 4/24 | 40/72 (56%) |
+
+Por skill (acionamento | comportamentos):
+
+| Skill | Opus | Sonnet | Haiku |
+|---|---|---|---|
+| analyzing-tabular-data | 3/3 \| 9/9 | 3/3 \| 6/9 | 1/3 \| 6/9 |
+| architecting-software | 3/3 \| 9/9 | 3/3 \| 6/9 | 0/3 \| 4/9 |
+| authoring-agent-skills | 3/3 \| 8/9 | 3/3 \| 6/9 | 1/3 \| 5/9 |
+| debugging-systematically | 3/3 \| 7/9 | 1/3 \| 6/9 | 1/3 \| 5/9 |
+| engineering-prompts | 3/3 \| 9/9 | 2/3 \| 6/9 | 1/3 \| 6/9 |
+| orchestrating-power-suite | 3/3 \| 5/9 | 1/3 \| 3/9 | 0/3 \| 4/9 |
+| reviewing-code | 3/3 \| 9/9 | 3/3 \| 7/9 | 0/3 \| 5/9 |
+| writing-technical-docs | 3/3 \| 8/9 | 2/3 \| 6/9 | 0/3 \| 5/9 |
+
+**Invocação explícita com Haiku.** Repetindo 3 cenários com o prefixo
+`/power-suite:<skill>` (reviewing-code#1, analyzing-tabular-data#1,
+architecting-software#2), o Haiku seguiu a skill, executou os scripts e
+cumpriu **9/9** comportamentos. Na invocação por `/`, o conteúdo da skill é
+injetado diretamente, sem chamada à ferramenta Skill, por isso o detector
+de acionamento não a registra.
+
+**Conclusão operacional:** com Opus, o acionamento automático é confiável
+nestes cenários. Com Sonnet e, sobretudo, Haiku, invoque a skill
+explicitamente (`/power-suite:reviewing-code ...`) ou mencione o nome da
+skill no pedido.
+
+Sobre o juiz: é outro modelo avaliando a evidência (texto do assistente,
+skills carregadas, comandos e arquivos alterados), não verificação humana.
+Na rodada anterior ele gerou falsos negativos quando recebia só a resposta
+final, o que foi corrigido; na rodada final, todas as 216 decisões tiveram
+veredito. Cada cenário rodou uma vez por modelo: as diferenças pequenas entre
+rodadas (por exemplo Sonnet 49 → 46) estão dentro da variação esperada.
 
 ## Avaliações com o modelo (execução de scripts)
 
-Na 2ª rodada, entre os cenários cujo `expected_behavior` pede um script:
-- executaram: `scaffold_skill.py`, `validate_skill.py`, `lint_prompt.py`;
-- **não executaram, por defeito do cenário**: `new_adr.py` e
-  `check_markdown.py` (2 cenários). O cenário não fornece repositório nem
-  pasta `docs/`;
-- **não executou, por expectativa errada**: `log_signatures.py`. A skill
-  manda agrupar só logs volumosos e o log do cenário tem 11 linhas. A
-  expectativa foi corrigida;
-- **não executaram, por lacuna da skill**: `diff_hotspots.py` e
-  `profile_csv.py`. As duas skills passaram a exigir a execução mesmo em
-  entradas pequenas. Esses 2 cenários foram reexecutados e os dois scripts
-  rodaram.
-
-Os demais itens de `expected_behavior` foram conferidos por leitura em 5
-respostas (reviewing-code#1, debugging#1, analyzing#1, engineering-prompts#1,
-orchestrating#1): achados com severidade e cenário de falha, causa imediata
-separada de hipótese não comprovada, resultado com e sem tratamento do
-outlier, prompt reescrito com linter, pipeline com postmortem coerente com
-o diagnóstico. As outras 19 respostas não foram conferidas item a item.
+Os cenários que dependem de insumos (ADR existente, projeto para
+documentar, pasta `docs/` com defeitos) passaram a usar o projeto de
+exemplo `evals/files/projeto-exemplo/`, que tem defeitos plantados (bloco
+de código não fechado, âncora inexistente, link quebrado, porta/endpoint/
+versão divergentes do código). Na rodada final com Opus, os scripts
+`new_adr.py`, `check_markdown.py`, `scaffold_skill.py`, `validate_skill.py`,
+`lint_prompt.py`, `diff_hotspots.py` e `profile_csv.py` foram executados nos
+cenários correspondentes.
 
 ## Problemas encontrados e corrigidos durante a validação
 
@@ -142,12 +159,21 @@ o diagnóstico. As outras 19 respostas não foram conferidas item a item.
 3. Blocos de código sem linguagem e `TODO` citado em prosa geravam avisos
    nas próprias skills. Corrigido.
 4. Descriptions e cenários ajustados, conforme as seções acima.
+5. Rodada por modelo revelou lacunas reais nas instruções, corrigidas:
+   `analyzing-tabular-data` devolvia a decisão de tratamento ao usuário
+   (agora recomenda um tratamento e mostra com/sem); `debugging-systematically`
+   não exigia medir a taxa de falha nem propor `git bisect` em regressões;
+   `authoring-agent-skills` podia entregar sem validar (agora obrigatório).
+6. Executor de avaliações: limite de 25 turnos (com 15, um cenário longo era
+   cortado antes da validação), escrita liberada só dentro do diretório do
+   cenário, e juiz recebendo a transcrição completa.
 
 ## O que não foi verificado
 
-- Testes com Haiku, Sonnet e Opus separadamente. As rodadas usaram apenas
-  o modelo padrão da sessão.
 - Upload no claude.ai e na API: os ZIPs foram gerados e inspecionados, mas
-  não enviados.
-- Execução repetida dos cenários para medir variância.
-- Conferência item a item do `expected_behavior` em 19 das 24 respostas.
+  não enviados (exige a conta do usuário na interface/API).
+- Medição de variância com várias execuções do mesmo cenário por modelo:
+  cada cenário rodou uma vez por modelo na rodada final.
+- Conferência humana item a item das 216 decisões do juiz; foram lidas por
+  amostragem as respostas citadas neste relatório.
+- Uso real por pessoas do time.
