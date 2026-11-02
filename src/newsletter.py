@@ -58,7 +58,7 @@ def main():
     fds = prox  # compatibilidade com o relatório
     dias = sorted({p['data'] for p in prox})
 
-    # achados: primeiro os que rendem comissão para a Aline (escolhas dela e Amazon), depois os maiores descontos
+    # achados: primeiro os que rendem comissão para a Aline (escolhas dela; Amazon, Netshoes e Mercado Livre), depois os maiores descontos
     ofs = d.get('ofertas') or []
     os_ = dict(zip(map(id, ofs), slugs(ofs, tenis_base, tenis_extra)))
     for o in ofs:
@@ -70,7 +70,7 @@ def main():
     esc = lambda o: (o.get('link') or '') in ESC  # Escolhas da Aline: marcadas por ela no Modo Aline
     def comissao(o):
         u = o.get('link') or ''
-        return bool(esc(o) or re.search(r'(^|//)(www\.)?(amazon\.com\.br|amzn\.to|a\.co)/', u) or 'tag=amartins0b-20' in u)
+        return bool(esc(o) or re.search(r'(^|//)([\w-]+\.)?(amazon\.com\.br|amzn\.to|a\.co|netshoes\.com\.br|mercadolivre\.com\.br)/', u) or 'tag=amartins0b-20' in u)
     def variado(lista, n, por_cat=2):
         sel, cats, marcas = [], {}, {}
         for o in lista:
@@ -190,7 +190,6 @@ def main():
              f'{botao("Seguir @amartinscc no Instagram", "https://www.instagram.com/amartinscc/", INK, "#ffffff")}</td></tr>')
     L.append(f'<tr><td style="padding:18px 24px 24px;{FONT}font-size:12px;line-height:1.5;color:{MUTED};text-align:center">'
              f'Este e-mail não recebe respostas. Para falar com a Aline, chame no Instagram <a href="https://www.instagram.com/amartinscc/" style="color:{ACCENT}">@amartinscc</a>.<br>'
-             f'Alguns links levam a ofertas com link de afiliada: a Aline pode receber comissão, sem custo extra para você.<br>'
              f'Você recebe este e-mail porque se inscreveu no <a href="{E(SITE)}" style="color:{ACCENT}">radardecorrida.com.br</a>. '
              f'<a href="{{$unsubscribe}}" style="color:{ACCENT}">Cancelar inscrição</a> · <a href="{E(SITE)}privacidade/" style="color:{ACCENT}">Privacidade</a></td></tr>')
     L.append('</table></td></tr></table></body></html>')

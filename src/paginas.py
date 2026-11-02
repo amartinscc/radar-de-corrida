@@ -38,15 +38,19 @@ def tenis_base(o): return slug(' '.join(x for x in [o.get('marca') or '', o['nom
 AFIL_AMAZON = 'amartins0b-20'  # mesmo código da constante AFIL do template
 AFIL_RAKUTEN_ID = '7KhHq5G3aIo'  # token de publisher da Aline na Rakuten
 AFIL_NETSHOES_MID = '43984'  # MID da Netshoes (Netshoes WL) na Rakuten
+AFIL_ML_WORD, AFIL_ML_TOOL = 'amartins', '42642259'  # Mercado Livre: matt_word e matt_tool do link meli.la da Aline (mesmos do template)
 
 
 def afil(u):
-    """link de afiliada da Aline: Amazon recebe tag=; Netshoes vira deep link da Rakuten. Os dados guardam o link limpo."""
+    """link de afiliada da Aline: Amazon recebe tag=; Mercado Livre recebe matt_word/matt_tool; Netshoes vira deep link da Rakuten. Os dados guardam o link limpo."""
     try:
         from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, quote
         x = urlsplit(u)
         if re.search(r'(^|\.)netshoes\.com\.br$', x.hostname or '') and AFIL_NETSHOES_MID:
             return 'https://click.linksynergy.com/deeplink?id=' + AFIL_RAKUTEN_ID + '&mid=' + AFIL_NETSHOES_MID + '&murl=' + quote(u, safe='')
+        if re.search(r'(^|\.)mercadolivre\.com\.br$', x.hostname or '') and AFIL_ML_WORD:
+            q = [(k, v) for k, v in parse_qsl(x.query, keep_blank_values=True) if k not in ('matt_word', 'matt_tool')] + [('matt_word', AFIL_ML_WORD), ('matt_tool', AFIL_ML_TOOL)]
+            return urlunsplit((x.scheme, x.netloc, x.path, urlencode(q), x.fragment))
         if re.search(r'(^|\.)amazon\.com\.br$', x.hostname or ''):
             q = [(k, v) for k, v in parse_qsl(x.query, keep_blank_values=True) if k != 'tag'] + [('tag', AFIL_AMAZON)]
             return urlunsplit((x.scheme, x.netloc, x.path, urlencode(q), x.fragment))
