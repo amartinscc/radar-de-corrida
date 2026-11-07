@@ -1488,6 +1488,7 @@ __DATA__
         a.querySelector('.pi').appendChild(cp);
       });
     }
+    if(m.cupom_regra){ const rg = document.createElement('span'); rg.className = 'pd cupt'; rg.textContent = m.cupom_regra; a.querySelector('.pi').appendChild(rg); }  // regra do cupom (campo "cupom_regra", manual)
     if(comId) a.id = 'parceiro-' + slugMarca(m.nome);
     if(modoAline){
       const kb = document.createElement('button'); kb.type = 'button'; kb.className = 'kitbtn';
@@ -2131,7 +2132,7 @@ __DATA__
   function legendaArte(){
     const o = aItem;
     if(aTipo === 'achado') return o.nome + (o.off ? ' com ' + o.off + '% de desconto' : '') + ' na ' + o.loja + ': ' + (o.off ? 'de ' + brl(o.de) + ' por ' : '') + brl(o.preco) + ' 🏃‍♀️\n' + (o.cupom ? (o.cupomAline ? 'Use o meu cupom ' : 'Cupom da loja: ') + o.cupom + '\n' : '') + '\nO link está na bio, na aba Achados do radardecorrida.com.br. Preço conferido hoje pelo radar; pode mudar ao longo do dia.\n\n#achados #promocao ' + tagK(o.loja) + ' ' + HT;
-    if(aTipo === 'cupom'){ const code = cupomDe(o) || ((o.cupons || [])[0] || {}).cupom || ''; return code ? 'Cupom da Aline na ' + o.nome + ': ' + code + ' 💜\n' + (o.cupom_auto ? 'Pelo link ele já entra sozinho.' : 'É só usar no carrinho.') + '\n\nO link está na bio, na aba Parceiros do radardecorrida.com.br.\n\n#cupom ' + tagK(o.nome) + ' ' + HT : 'Minhas compras de corrida na ' + o.nome + ' 💜\nO link está na bio, na aba Parceiros do radardecorrida.com.br, junto com os achados do dia.\n\n#achados ' + tagK(o.nome) + ' ' + HT; }
+    if(aTipo === 'cupom'){ const code = cupomDe(o) || ((o.cupons || [])[0] || {}).cupom || ''; return code ? 'Cupom da Aline na ' + o.nome + ': ' + code + ' 💜\n' + (o.cupom_auto ? 'Pelo link ele já entra sozinho.' : 'É só usar no carrinho.') + (o.cupom_regra ? ' ' + o.cupom_regra : '') + '\n\nO link está na bio, na aba Parceiros do radardecorrida.com.br.\n\n#cupom ' + tagK(o.nome) + ' ' + HT : 'Minhas compras de corrida na ' + o.nome + ' 💜\nO link está na bio, na aba Parceiros do radardecorrida.com.br, junto com os achados do dia.\n\n#achados ' + tagK(o.nome) + ' ' + HT; }
     if(aTipo === 'top'){ const l = o || []; return 'Top achados da semana 🏃‍♀️ Separei ' + l.length + ' ofertas de corrida:\n\n' + l.map((x, i) => (i+1) + '. ' + x.nome + ' (' + x.loja + '): ' + brl(x.preco) + (x.off ? ', ' + x.off + '% off' : '')).join('\n') + '\n\nOs links estão na bio, na aba Achados do radardecorrida.com.br. Preços conferidos pelo radar; podem mudar.\n\n#achados #promocao ' + HT; }
     if(aTipo === 'vou'){ const n = faltam(o); return (aVar === 'contagem' && n > 1 ? 'Faltam ' + n + ' dias para a ' + o.nome + '! ⏳' : 'Eu vou correr a ' + o.nome + '! 🏃‍♀️') + '\n\n📅 ' + dataLonga(o) + '\n📍 ' + [o.local, o.cidade].filter(Boolean).join(', ') + (o.distancias ? '\n🏁 ' + o.distancias : '') + '\n\nBora junto? A inscrição está no link da bio (radardecorrida.com.br)' + (o.cupom ? ', e com o meu cupom ' + o.cupom + ' tem desconto' : '') + '. 💜\n\n#euvoucorrer ' + HT; }
     if(aTipo === 'pos'){ const r = dadosPos(); return 'Prova concluída! ✅ ' + (r.nome || '') + (r.km ? '\n🏁 ' + fmtKm(r.km) + ' km' : '') + (r.t ? ' em ' + fmtT(r.t) : '') + (r.km && r.t ? ' (pace ' + fmtP(r.t/r.km) + '/km)' : '') + '\n\nQuer saber o seu pace? Tem calculadora no radardecorrida.com.br (link na bio). 💜\n\n#posprova #pace ' + HT; }

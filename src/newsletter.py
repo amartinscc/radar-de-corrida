@@ -168,6 +168,7 @@ def main():
                      f'<span style="display:block;{FONT}font-size:16px;font-weight:700;color:{INK}">{E(m["nome"])}'
                      + (f' <span style="{FONT}font-size:12px;font-weight:700;color:{ACCENT};border:1.5px dashed {MAUVE};border-radius:999px;padding:2px 8px;margin-left:4px">cupom {E(code)}</span>' if code else '') + '</span>'
                      + (f'<span style="display:block;{FONT}font-size:13px;color:{MUTED};margin-top:2px">{E(m["descricao"])}</span>' if m.get('descricao') else '')
+                     + (f'<span style="display:block;{FONT}font-size:12px;color:{MUTED};margin-top:2px">{E(m["cupom_regra"])}</span>' if code and m.get('cupom_regra') else '')
                      + f'<span style="display:block;{FONT}font-size:13px;font-weight:700;color:{ACCENT};margin-top:6px">Ir à loja pelo radar →</span></a></td></tr>')
     else:
         L.append(titulo_secao('Dos parceiros da Aline', 'Com o meu cupom'))
