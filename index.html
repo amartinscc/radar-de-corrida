@@ -718,18 +718,21 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <header><h3 id="kit-t">Kit da parceira</h3><button class="xbtn" type="button" data-fecha aria-label="Fechar">×</button></header>
     <div class="seg" role="group" aria-label="Formato"><button type="button" data-fmt="story" aria-pressed="true">Story</button><button type="button" data-fmt="post" aria-pressed="false">Post / collab</button></div>
     <canvas id="kit-cv" width="1080" height="1920" aria-label="Prévia da arte"></canvas>
-    <p class="hint" id="kit-dica">Arraste a foto para enquadrar.</p>
+    <p class="hint" id="kit-dica">Arraste a foto ou o vídeo para enquadrar.</p>
     <div class="row">
-      <button class="follow alt" type="button" id="kit-foto" style="flex:1;justify-content:center">Escolher foto</button>
+      <button class="follow alt" type="button" id="kit-foto" style="flex:1;justify-content:center">Escolher foto ou vídeo</button>
       <button class="mini" type="button" id="kit-padrao" hidden>Usar foto padrão</button>
     </div>
-    <input type="file" id="kit-file" accept="image/*" hidden>
+    <input type="file" id="kit-file" accept="image/*,video/*" hidden>
     <div class="row"><span class="hint">Zoom</span><input type="range" id="kit-zoom" min="1" max="3" step="0.01" value="1" aria-label="Zoom da foto"></div>
+    <label class="row hint" id="kit-som-l" hidden style="justify-content:flex-start;text-align:left"><input type="checkbox" id="kit-som" checked style="accent-color:var(--accent);width:18px;height:18px"> Manter o som original do vídeo</label>
     <div class="grp">
       <label class="lb" for="kit-frase">Frase da arte</label>
       <input type="text" id="kit-frase" maxlength="60">
       <div class="chips" id="kit-frases"></div>
     </div>
+    <button class="follow" type="button" id="kit-gerar" hidden style="justify-content:center">Gerar vídeo</button>
+    <p class="hint" id="kit-prog" hidden aria-live="polite"></p>
     <div class="btns">
       <button class="follow" type="button" id="kit-share" style="justify-content:center">Compartilhar imagem</button>
       <button class="follow alt" type="button" id="kit-save" style="justify-content:center">Salvar imagem</button>
@@ -749,7 +752,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <p class="hint" style="text-align:left" id="kit-link"></p>
       <button class="mini" type="button" id="kit-copylink">Copiar link</button>
     </div>
-    <p class="hint">A foto fica só neste celular: não vai para o site.</p>
+    <p class="hint">A foto ou o vídeo fica só neste celular: não vai para o site.</p>
   </div>
 </div>
 
@@ -15781,6 +15784,10 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   const kz = document.getElementById('kit-zoom'), kFrase = document.getElementById('kit-frase');
   const heroImg = new Image(); heroImg.src = 'hero.jpg';
   let kM = null, kFmt = 'story', kFoto = null, kFotoBlob = null, kZoom = 1, kOx = 0, kOy = 0, kLogo = null, kSalvar = null;
+  // vídeo no kit parceria: fica só na memória deste aparelho; limite de 60 s
+  const K_MAX = 60;
+  let kVid = null, kVidUrl = null, kVidBlob = null, kGrav = false, kRaf = 0, kAC = null, kAud = null;
+  const kSom = document.getElementById('kit-som'), kProg = document.getElementById('kit-prog');
 
   // fotos guardadas só neste aparelho (IndexedDB)
   function idb(){ return new Promise((res, rej) => { try{ const r = indexedDB.open('radar-aline', 1); r.onupgradeneeded = () => r.result.createObjectStore('fotos'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }catch(e){ rej(e); } }); }
@@ -15802,9 +15809,9 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     if(kcv.width !== W || kcv.height !== H){ kcv.width = W; kcv.height = H; }
     kcv.className = kFmt === 'post' ? 'post' : '';
     c.clearRect(0,0,W,H);
-    const im = kFoto || (heroImg.complete && heroImg.naturalWidth ? heroImg : null);
+    const im = (kVid && kVid.readyState >= 2) ? kVid : kFoto || (heroImg.complete && heroImg.naturalWidth ? heroImg : null);
     if(im){
-      const iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height;
+      const iw = im.videoWidth || im.naturalWidth || im.width, ih = im.videoHeight || im.naturalHeight || im.height;
       const s = Math.max(W/iw, H/ih) * kZoom, dw = iw*s, dh = ih*s;
       const mx = (dw - W)/2, my = (dh - H)/2;
       kOx = Math.max(-mx, Math.min(mx, kOx)); kOy = Math.max(-my, Math.min(my, kOy));
@@ -15882,10 +15889,12 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     sugest.forEach(s => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = s; b.addEventListener('click', () => { kFrase.value = s; kitDesenha(); kitGuarda(); }); box.appendChild(b); });
   }
   function kitGuarda(){
+    if(kVidBlob){ kVidBlob = null; kitBotoes(); }
     clearTimeout(kSalvar);
     kSalvar = setTimeout(() => { if(kM) fotoGravar(slugMarca(kM.nome), {blob: kFotoBlob, zoom: kZoom, ox: kOx, oy: kOy, frase: kFrase.value, fmt: kFmt}); }, 400);
   }
   async function abrirKit(m){
+    kitSemVideo();
     kM = m; kFoto = null; kFotoBlob = null; kZoom = 1; kOx = 0; kOy = 0; kLogo = null;
     document.getElementById('kit-t').textContent = 'Kit · ' + m.nome;
     kitTextos(m);
@@ -15900,22 +15909,126 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     }
     kz.value = kZoom; marcaFmt(); kitEstadoFoto(); kitDesenha();
   }
-  function kitEstadoFoto(){ document.getElementById('kit-padrao').hidden = !kFoto; document.getElementById('kit-foto').textContent = kFoto ? 'Trocar foto' : 'Escolher foto'; }
+  function kitEstadoFoto(){
+    document.getElementById('kit-padrao').hidden = !kFoto && !kVid;
+    document.getElementById('kit-foto').textContent = (kFoto || kVid) ? 'Trocar foto ou vídeo' : 'Escolher foto ou vídeo';
+    document.getElementById('kit-som-l').hidden = !kVid;
+    kitBotoes();
+  }
+  function kitBotoes(){
+    const sh = document.getElementById('kit-share'), sv = document.getElementById('kit-save'), gr = document.getElementById('kit-gerar');
+    gr.hidden = !kVid; gr.disabled = kGrav;
+    if(!kVid){ sh.textContent = 'Compartilhar imagem'; sv.textContent = 'Salvar imagem'; sh.disabled = sv.disabled = false; kProg.hidden = true; return; }
+    gr.textContent = kGrav ? 'Gerando vídeo…' : (kVidBlob ? 'Gerar de novo' : 'Gerar vídeo');
+    sh.textContent = 'Compartilhar vídeo'; sv.textContent = 'Salvar vídeo';
+    sh.disabled = sv.disabled = !kVidBlob || kGrav;
+    if(!kGrav && !kVidBlob){ kProg.hidden = false; kProg.textContent = 'Toque em Gerar vídeo. A geração leva o mesmo tempo do vídeo (até 60 s): mantenha esta tela aberta.'; }
+  }
+  function kitSemVideo(){
+    kGrav = false; kVidBlob = null;
+    if(kVid){ try{ kVid.pause(); }catch(e){} kVid.removeAttribute('src'); try{ kVid.load(); }catch(e){} }
+    if(kVidUrl) URL.revokeObjectURL(kVidUrl);
+    kVid = null; kVidUrl = null; kAud = null; kProg.hidden = true;
+  }
+  // prévia do vídeo em loop (só os primeiros 60 s) enquanto o kit está aberto
+  function kitLoop(){
+    if(!kVid || kitEl.hidden){ if(kVid && !kGrav) try{ kVid.pause(); }catch(e){} kRaf = 0; return; }
+    if(!kGrav){ if(kVid.currentTime >= K_MAX) kVid.currentTime = 0; kitDesenha(); }
+    kRaf = requestAnimationFrame(kitLoop);
+  }
+  function kitPrevia(){ if(!kVid) return; kVid.muted = true; kVid.play().catch(()=>{}); if(!kRaf) kRaf = requestAnimationFrame(kitLoop); }
+  async function kitAbreVideo(f){
+    kitSemVideo();
+    const v = document.createElement('video'), u = URL.createObjectURL(f);
+    v.muted = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'auto'; v.src = u;
+    v.addEventListener('ended', () => { if(!kGrav && kVid === v){ v.currentTime = 0; v.play().catch(()=>{}); } });
+    const ok = await new Promise(res => { v.onloadeddata = () => res(true); v.onerror = () => res(false); v.play().catch(()=>{}); setTimeout(() => res(v.readyState >= 2), 10000); });
+    if(!ok || !v.videoWidth){ URL.revokeObjectURL(u); toast('Não consegui abrir esse vídeo. Tente outro.'); return; }
+    kVid = v; kVidUrl = u; kFoto = null; kFotoBlob = null; kZoom = 1; kOx = 0; kOy = 0; kz.value = 1;
+    if(isFinite(v.duration) && v.duration > K_MAX + .5) toast('O vídeo tem mais de 60 s: vou usar só os primeiros 60 s.');
+    kitEstadoFoto(); kitGuarda(); kitPrevia();
+  }
+  // MP4 primeiro (o Instagram aceita); sem MP4, não gera outro formato
+  function kitRecorder(st, comSom){
+    if(typeof MediaRecorder === 'undefined') return null;
+    // sempre H.264 (avc1); áudio AAC (mp4a) ou, se o navegador não tiver, Opus. "video/mp4" sem codec só no Safari, que grava MP4 em H.264
+    const v = ['avc1.640028', 'avc1.4D0028', 'avc1.42E028', 'avc1'];
+    const aud = comSom ? [',mp4a.40.2', ',mp4a', ',opus'] : [''];
+    const tipos = aud.flatMap(x => v.map(c => 'video/mp4;codecs=' + c + x));
+    let soMp4 = false; try{ soMp4 = !MediaRecorder.isTypeSupported('video/webm'); }catch(e){}
+    if(soMp4) tipos.push('video/mp4');
+    for(const t of tipos){
+      try{ if(!MediaRecorder.isTypeSupported(t)) continue; return new MediaRecorder(st, {mimeType: t, videoBitsPerSecond: 8000000, audioBitsPerSecond: 128000}); }catch(e){}
+    }
+    return null;
+  }
+  async function kitGerarVideo(){
+    if(!kVid || kGrav) return;
+    const semMp4 = 'Este celular não consegue gerar vídeo em MP4 pelo navegador. Abra o Modo Aline no Safari (iPhone) ou no Chrome atualizado (Android).';
+    if(!kcv.captureStream){ toast(semMp4); kProg.hidden = false; kProg.textContent = semMp4; return; }
+    const v = kVid, comSom = kSom.checked;
+    const st = kcv.captureStream(30);
+    if(comSom){
+      try{
+        kAC = kAC || new (window.AudioContext || window.webkitAudioContext)();
+        if(!kAud){ kAud = {src: kAC.createMediaElementSource(v), dst: kAC.createMediaStreamDestination()}; kAud.src.connect(kAud.dst); }
+        await kAC.resume();
+        kAud.dst.stream.getAudioTracks().forEach(t => st.addTrack(t));
+      }catch(e){}
+    }
+    const rec = kitRecorder(st, comSom && st.getAudioTracks().length > 0);
+    if(!rec){ st.getVideoTracks().forEach(t => t.stop()); toast(semMp4); kProg.hidden = false; kProg.textContent = semMp4; return; }
+    kGrav = true; kVidBlob = null; kitBotoes();
+    const fim = Math.min(isFinite(v.duration) && v.duration > 0 ? v.duration : K_MAX, K_MAX);
+    const partes = []; rec.ondataavailable = e => { if(e.data && e.data.size) partes.push(e.data); };
+    const parou = new Promise(r => { rec.onstop = r; rec.onerror = r; });
+    try{
+      v.pause(); v.currentTime = 0; await new Promise(r => { v.onseeked = r; setTimeout(r, 1500); }); v.onseeked = null;
+      v.muted = !comSom; kitDesenha();
+      rec.start(1000); await v.play();
+      await new Promise(res => {
+        const passo = () => {
+          if(!kGrav || kVid !== v) return res();
+          kitDesenha();
+          const t = Math.min(v.currentTime, fim);
+          kProg.hidden = false; kProg.textContent = 'Gerando vídeo… ' + Math.round(t / fim * 100) + '% (' + Math.round(t) + ' de ' + Math.round(fim) + ' s). Mantenha esta tela aberta.';
+          if(v.ended || v.currentTime >= fim) return res();
+          requestAnimationFrame(passo);
+        };
+        passo();
+      });
+    }catch(e){}
+    try{ v.pause(); }catch(e){}
+    try{ if(rec.state !== 'inactive') rec.stop(); }catch(e){}
+    await parou; st.getVideoTracks().forEach(t => t.stop()); v.muted = true;
+    const ok = kGrav && kVid === v && partes.length;
+    kGrav = false;
+    if(ok){
+      kVidBlob = new Blob(partes, {type: 'video/mp4'});
+      kProg.hidden = false; kProg.textContent = 'Vídeo pronto (MP4, ' + (kFmt === 'story' ? 'story' : 'feed') + '). Agora é só compartilhar ou salvar.';
+      toast('Vídeo pronto!');
+    } else if(kVid === v){ kProg.hidden = false; kProg.textContent = 'Não consegui gerar o vídeo. Tente de novo com a tela aberta.'; }
+    kitBotoes(); kitPrevia();
+  }
+  document.getElementById('kit-gerar').addEventListener('click', kitGerarVideo);
+  kSom.addEventListener('change', () => kitGuarda());
   function marcaFmt(){ kitEl.querySelectorAll('[data-fmt]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.fmt === kFmt))); }
-  kitEl.querySelectorAll('[data-fmt]').forEach(b => b.addEventListener('click', () => { kFmt = b.dataset.fmt; kOx = 0; kOy = 0; marcaFmt(); kitDesenha(); kitGuarda(); }));
+  kitEl.querySelectorAll('[data-fmt]').forEach(b => b.addEventListener('click', () => { if(kGrav) return; kFmt = b.dataset.fmt; kOx = 0; kOy = 0; marcaFmt(); kitDesenha(); kitGuarda(); }));
   document.getElementById('kit-foto').addEventListener('click', () => document.getElementById('kit-file').click());
   document.getElementById('kit-file').addEventListener('change', async e => {
-    const f = e.target.files && e.target.files[0]; e.target.value = ''; if(!f) return;
+    const f = e.target.files && e.target.files[0]; e.target.value = ''; if(!f || kGrav) return;
+    if((f.type || '').startsWith('video/') || /\.(mp4|mov|m4v|webm)$/i.test(f.name || '')){ await kitAbreVideo(f); return; }
+    kitSemVideo();
     const bl = await encolhe(f); if(!bl){ toast('Não consegui abrir essa foto. Tente outra.'); return; }
     const u = URL.createObjectURL(bl); kFoto = await carregaImg(u); kFotoBlob = bl; kZoom = 1; kOx = 0; kOy = 0; kz.value = 1;
     kitEstadoFoto(); kitDesenha(); kitGuarda();
   });
-  document.getElementById('kit-padrao').addEventListener('click', () => { kFoto = null; kFotoBlob = null; kZoom = 1; kOx = 0; kOy = 0; kz.value = 1; kitEstadoFoto(); kitDesenha(); kitGuarda(); });
-  kz.addEventListener('input', () => { kZoom = +kz.value; kitDesenha(); kitGuarda(); });
+  document.getElementById('kit-padrao').addEventListener('click', () => { if(kGrav) return; kitSemVideo(); kFoto = null; kFotoBlob = null; kZoom = 1; kOx = 0; kOy = 0; kz.value = 1; kitEstadoFoto(); kitDesenha(); kitGuarda(); });
+  kz.addEventListener('input', () => { if(kGrav){ kz.value = kZoom; return; } kZoom = +kz.value; kitDesenha(); kitGuarda(); });
   kFrase.addEventListener('input', () => { kitDesenha(); kitGuarda(); });
   // arrastar para enquadrar
   let arr = null;
-  kcv.addEventListener('pointerdown', e => { arr = {x:e.clientX, y:e.clientY, ox:kOx, oy:kOy}; kcv.setPointerCapture(e.pointerId); kcv.style.cursor = 'grabbing'; });
+  kcv.addEventListener('pointerdown', e => { if(kGrav) return; arr = {x:e.clientX, y:e.clientY, ox:kOx, oy:kOy}; kcv.setPointerCapture(e.pointerId); kcv.style.cursor = 'grabbing'; });
   kcv.addEventListener('pointermove', e => { if(!arr) return; const s = kcv.width / kcv.getBoundingClientRect().width; kOx = arr.ox + (e.clientX-arr.x)*s; kOy = arr.oy + (e.clientY-arr.y)*s; kitDesenha(); });
   const solta = () => { if(arr){ arr = null; kcv.style.cursor = ''; kitGuarda(); } };
   kcv.addEventListener('pointerup', solta); kcv.addEventListener('pointercancel', solta);
@@ -15927,13 +16040,29 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     try{ return await new Promise((res, rej) => kcv.toBlob(b => b ? res(b) : rej(new Error('sem imagem')), 'image/png')); }
     catch(e){ toast('O logo desta marca não deixou gerar a imagem. Me avise para eu ajustar.'); return null; }
   }
+  const kitNomeVid = () => 'aline-x-' + slugMarca(kM.nome) + '-' + kFmt + '.mp4';
   document.getElementById('kit-save').addEventListener('click', async () => {
+    if(kVid){
+      if(!kVidBlob) return;
+      if(dlApi){ try{ await dlApi.save({filename: kitNomeVid(), data: kVidBlob}); toast('Vídeo salvo!'); return; }catch(e){} }
+      const u = URL.createObjectURL(kVidBlob), a = document.createElement('a'); a.href = u; a.download = kitNomeVid(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 60000);
+      toast('Vídeo salvo!'); return;
+    }
     const b = await kitBlob(); if(!b) return;
     if(dlApi){ try{ await dlApi.save({filename: kitNome(), data: b}); toast('Imagem salva!'); return; }catch(e){} }
     const u = URL.createObjectURL(b), a = document.createElement('a'); a.href = u; a.download = kitNome(); document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000);
     toast('Imagem salva!');
   });
   document.getElementById('kit-share').addEventListener('click', async () => {
+    if(kVid){
+      if(!kVidBlob) return;
+      try{ await navigator.clipboard.writeText(document.getElementById('kit-leg').value); }catch(e){}
+      try{
+        const f = new File([kVidBlob], kitNomeVid(), {type:'video/mp4'});
+        if(navigator.canShare && navigator.canShare({files:[f]})){ toast('Legenda copiada: é só colar no post.'); await navigator.share({files:[f]}); return; }
+      }catch(e){ if(e && e.name === 'AbortError') return; }
+      document.getElementById('kit-save').click(); return;
+    }
     const b = await kitBlob(); if(!b) return;
     const leg = document.getElementById('kit-leg').value;
     try{ await navigator.clipboard.writeText(leg); }catch(e){}
