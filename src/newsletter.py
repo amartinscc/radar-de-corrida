@@ -165,7 +165,8 @@ def main():
             code = (m.get('cupom') or '') if 'cupom' in m else (pc.get('cupom') or '')
             url = utm(f'{SITE}#parceiro={slug(m["nome"])}', hj, 'parceiro')
             L.append(f'<tr><td style="padding:5px 24px"><a href="{E(url)}" style="display:block;text-decoration:none;border:1px solid {LINE};border-radius:14px;padding:12px 14px">'
-                     f'<span style="display:block;{FONT}font-size:16px;font-weight:700;color:{INK}">{E(m["nome"])}'
+                     + (f'<span style="display:inline-block;{FONT}font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#D9AE6E;background:#0E0B09;border-radius:999px;padding:4px 11px;margin-bottom:6px">{E(m["selo"])}</span>' if m.get('selo') else '')
+                     + f'<span style="display:block;{FONT}font-size:16px;font-weight:700;color:{INK}">{E(m["nome"])}'
                      + (f' <span style="{FONT}font-size:12px;font-weight:700;color:{ACCENT};border:1.5px dashed {MAUVE};border-radius:999px;padding:2px 8px;margin-left:4px">cupom {E(code)}</span>' if code else '') + '</span>'
                      + (f'<span style="display:block;{FONT}font-size:13px;color:{MUTED};margin-top:2px">{E(m["descricao"])}</span>' if m.get('descricao') else '')
                      + (f'<span style="display:block;{FONT}font-size:12px;color:{MUTED};margin-top:2px">{E(m["cupom_regra"])}</span>' if code and m.get('cupom_regra') else '')

@@ -410,6 +410,11 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .catbar .chip{flex:none;white-space:nowrap}
 .catbar .chip small{opacity:.65;font-weight:600;margin-left:3px}
 .partner .cupt{margin-top:6px;font-size:12px;font-weight:700;color:var(--ink)}
+/* selo de campanha no banner do parceiro (campo "selo", ex.: Black Friday): fundo preto, letras em bronze e dourado */
+.partner.camp{border-color:#8A5A2B;box-shadow:0 0 0 1px rgba(201,150,90,.35)}
+.pselo{align-self:flex-start;display:inline-block;margin:0 0 4px;padding:4px 11px;border-radius:999px;background:#0E0B09;box-shadow:inset 0 0 0 1px rgba(214,170,110,.55);font:800 11px/1.1 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.pselo span{background:linear-gradient(100deg,#7A4A22 0%,#B07A44 22%,#E8C98F 45%,#C99A5E 60%,#8A5A2B 82%,#D9AE6E 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pselo small{display:block;margin-top:2px;font:600 10px/1.2 var(--body);letter-spacing:.04em;text-transform:none;color:#D9B27A}
 .artbtn{display:inline-flex;align-items:center;gap:6px;margin-top:6px;margin-right:6px;background:#1D1220;color:#fff;border:0;border-radius:999px;font:700 12px var(--body);padding:6px 11px;cursor:pointer}
 .artrow{display:flex;flex-wrap:wrap}
 .art-strip canvas{flex:none;width:72%;max-width:280px;margin:0;cursor:default;scroll-snap-align:center}
@@ -490,9 +495,9 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 
   <div class="tabs" id="radar-abas" role="tablist" aria-label="Seções do radar">
     <button class="tab" role="tab" id="tab-provas" aria-controls="p-provas" aria-selected="true"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor"/></svg></span><span class="c" id="c-provas"></span></span><span class="lb">Provas</span></button>
-    <button class="tab" role="tab" id="tab-result" aria-controls="p-result" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-2.2 6.2M8 3l2.2 6.2M10.2 3 12 8.3 13.8 3"/><circle cx="12" cy="15" r="5.5"/><path d="M12 12.4l.8 1.6 1.8.3-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.3z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-result"></span></span><span class="lb">Resultados</span></button>
-    <button class="tab" role="tab" id="tab-roupas" aria-controls="p-roupas" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M10.5 15.5l5-5"/><circle cx="11.2" cy="11.4" r=".9" fill="currentColor"/><circle cx="14.8" cy="14.6" r=".9" fill="currentColor"/></svg></span><span class="c" id="c-roupas"></span></span><span class="lb">Parceiros</span></button>
     <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M17.5 2.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-tenis"></span></span><span class="lb">Achados</span></button>
+    <button class="tab" role="tab" id="tab-roupas" aria-controls="p-roupas" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M10.5 15.5l5-5"/><circle cx="11.2" cy="11.4" r=".9" fill="currentColor"/><circle cx="14.8" cy="14.6" r=".9" fill="currentColor"/></svg></span><span class="c" id="c-roupas"></span></span><span class="lb">Parceiros</span></button>
+    <button class="tab" role="tab" id="tab-result" aria-controls="p-result" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-2.2 6.2M8 3l2.2 6.2M10.2 3 12 8.3 13.8 3"/><circle cx="12" cy="15" r="5.5"/><path d="M12 12.4l.8 1.6 1.8.3-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.3z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-result"></span></span><span class="lb">Resultados</span></button>
     <button class="tab" role="tab" id="tab-treino" aria-controls="p-treino" aria-selected="false"><span class="ring"><span class="ic"><span class="sil" aria-hidden="true"></span></span></span><span class="lb">Treine comigo</span></button>
   </div>
 
@@ -809,7 +814,7 @@ __DATA__
   document.getElementById('c-provas').textContent = provas.length;
   
   // abas
-  const tabs = ['provas','result','roupas','tenis','treino'];
+  const tabs = ['provas','tenis','roupas','result','treino'];  // ordem das abas (07/11/2026: Achados e Resultados trocaram de lugar)
   if(location.hash === '#achados') history.replaceState(null, '', location.pathname + location.search + '#tenis');
   function show(name){
     tabs.forEach(t => {
@@ -1468,6 +1473,10 @@ __DATA__
       im.onerror = () => { mo.classList.remove('logo'); mo.textContent = m.nome.charAt(0); };
       mo.appendChild(im); mo.classList.add('logo'); } else a.querySelector('.mono').textContent = m.nome.charAt(0);
     a.querySelector('.pn').textContent = m.nome;
+    // selo de campanha (campo "selo", manual; ex.: "Black Friday"): destaque preto com letras bronze/douradas acima do nome; "selo_texto" opcional logo abaixo
+    if(m.selo){ a.classList.add('camp'); const sl = document.createElement('span'); sl.className = 'pselo'; sl.innerHTML = '<span></span>'; sl.querySelector('span').textContent = m.selo;
+      if(m.selo_texto){ const st = document.createElement('small'); st.textContent = m.selo_texto; sl.appendChild(st); }
+      a.querySelector('.pi').insertBefore(sl, a.querySelector('.pn')); }
     a.querySelector('.pd').textContent = m.descricao || '';
     // cupons: um geral (campo "cupom") ou vários com regra (campo "cupons": [{cupom, texto}], ex.: um para a primeira compra)
     const lista = (m.cupons && m.cupons.length) ? m.cupons.filter(x => x && x.cupom) : (code ? [{cupom: code}] : []);
