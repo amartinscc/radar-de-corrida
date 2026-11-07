@@ -120,6 +120,24 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .fbtn[aria-expanded="true"]{border-color:var(--mauve);background:var(--soft)}
 .fbtn .n{background:var(--mauve);color:var(--mauve-ink);border-radius:999px;font-size:12px;padding:1px 7px}
 .toolbar select{margin-left:auto}
+/* destaques manuais (campo "destaques" nos dados; ex.: cadastro do sorteio dos 21K da Maratona do Rio) */
+.dest{display:grid;gap:12px;margin:0 0 16px}
+.dcard{position:relative;overflow:hidden;border-radius:20px;padding:18px 18px 16px;color:#fff;background:#E5203A;box-shadow:0 10px 28px rgba(229,32,58,.28)}
+.dcard::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(115deg,transparent 0 34px,rgba(120,8,24,.28) 34px 58px)}
+.dcard>*{position:relative}
+.dtop{display:flex;align-items:center;gap:8px;font:800 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.dping{position:relative;width:10px;height:10px;border-radius:50%;background:#fff;flex:none}
+.dping::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #fff;animation:dping 1.6s ease-out infinite}
+@keyframes dping{from{transform:scale(.4);opacity:1}to{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.dping::after{animation:none;opacity:.5}}
+.dcard h3{margin:10px 0 4px;font:800 24px/1.12 var(--display,'Urbanist',system-ui,sans-serif);letter-spacing:-.01em}
+.dcard p{margin:0;font:500 14px/1.45 var(--body);opacity:.95}
+.ddatas{display:flex;align-items:baseline;gap:8px;margin:12px 0 2px;font:800 40px/1 'Urbanist',system-ui,sans-serif}
+.ddatas small{font:700 15px/1 var(--body);opacity:.9}
+.dst{display:inline-block;margin-top:8px;padding:6px 11px;border-radius:999px;background:#120A0C;color:#fff;font:800 12px/1.1 var(--body);letter-spacing:.04em}
+.dst.on{background:#fff;color:#B3122A}
+.dbtn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:11px 16px;border-radius:999px;background:#fff;color:#B3122A;font:800 14px/1 var(--body);text-decoration:none}
+.dmini{display:block;margin-top:10px;font:500 12px/1.35 var(--body);opacity:.85}
 .fpanel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
 .fclear{align-self:flex-start;background:none;border:0;color:var(--accent);font:700 13px var(--body);cursor:pointer;padding:0}
 .deal .links{align-items:center}
@@ -526,6 +544,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   </div>
 
   <div class="panel" id="p-provas" role="tabpanel" aria-labelledby="tab-provas">
+    <div class="dest" id="e-dest" hidden></div>
     <div class="toolbar">
       <button class="fbtn" type="button" id="e-fbtn" aria-expanded="false" aria-controls="e-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
       <select id="e-uf" aria-label="Estado"></select>
@@ -775,6 +794,28 @@ __DATA__
 
   // data de hoje no Rio (AAAA-MM-DD)
   const hoje = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date());
+  // destaques no topo da aba Provas (campo manual "destaques": [{titulo, selo?, texto?, inicio, fim, link, botao?, nota?}]);
+  // aparecem até o dia "fim" e somem sozinhos depois; as tarefas automáticas nunca mexem nesse campo
+  (function(){
+    const box = document.getElementById('e-dest'); if(!box) return;
+    const dd = (a, b) => Math.round((Date.parse(b + 'T12:00:00Z') - Date.parse(a + 'T12:00:00Z')) / 864e5);
+    const br = s => s.slice(8,10) + '/' + s.slice(5,7);
+    const esc = s => String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    (data.destaques||[]).filter(d => d.fim && d.fim >= hoje).forEach(d => {
+      let st, on = false;
+      if(d.inicio && hoje < d.inicio){ const n = dd(hoje, d.inicio); st = n === 1 ? 'Abre amanhã, ' + br(d.inicio) : 'Abre em ' + n + ' dias, ' + br(d.inicio); }
+      else { on = true; const n = dd(hoje, d.fim); st = n === 0 ? 'Aberto · último dia!' : n === 1 ? 'Aberto · termina amanhã' : 'Aberto · faltam ' + n + ' dias'; }
+      const c = document.createElement('article'); c.className = 'dcard';
+      c.innerHTML = '<div class="dtop"><span class="dping" aria-hidden="true"></span>' + esc(d.selo || 'O radar detectou') + '</div>'
+        + '<h3>' + esc(d.titulo) + '</h3>' + (d.texto ? '<p>' + esc(d.texto) + '</p>' : '')
+        + (d.inicio ? '<div class="ddatas">' + br(d.inicio) + ' <small>a</small> ' + br(d.fim) + '</div>' : '')
+        + '<span class="dst' + (on ? ' on' : '') + '">' + st + '</span><br>'
+        + (d.link ? '<a class="dbtn" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.botao || 'Ver página oficial') + ' →</a>' : '')
+        + (d.nota ? '<span class="dmini">' + esc(d.nota) + '</span>' : '');
+      const a = c.querySelector('.dbtn'); if(a) a.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_destaque', {destaque: d.titulo, status: on ? 'aberto' : 'em_breve'}); });
+      box.appendChild(c); box.hidden = false;
+    });
+  })();
   // endereço próprio de cada prova e tênis (mesma regra de src/paginas.py: mude os dois juntos)
   const slugTxt = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70).replace(/-+$/,'');
   function slugAll(arr, base, extra){ const b = arr.map(base); arr.forEach((x,i) => { x.slug = b.filter(v => v===b[i]).length > 1 ? b[i] + '-' + slugTxt(extra(x)) : b[i]; }); }
