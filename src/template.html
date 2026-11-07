@@ -410,11 +410,12 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .catbar .chip{flex:none;white-space:nowrap}
 .catbar .chip small{opacity:.65;font-weight:600;margin-left:3px}
 .partner .cupt{margin-top:6px;font-size:12px;font-weight:700;color:var(--ink)}
-.escbtn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font:700 12px var(--body);padding:6px 11px;border-radius:999px;border:1.5px dashed var(--mauve);background:transparent;color:var(--accent);cursor:pointer}
-.escbtn[aria-pressed="true"]{border-style:solid;background:var(--mauve);color:#1D1220}
-.poff .escbtn{margin:0 8px 8px}
-.poff .escolha{margin-bottom:4px}
-.escolha{display:inline-block;align-self:flex-start;margin-bottom:3px;background:var(--mauve);color:#1D1220;font:800 11px var(--body);padding:3px 9px;border-radius:999px}
+.artbtn{display:inline-flex;align-items:center;gap:6px;margin-top:6px;margin-right:6px;background:#1D1220;color:#fff;border:0;border-radius:999px;font:700 12px var(--body);padding:6px 11px;cursor:pointer}
+.artrow{display:flex;flex-wrap:wrap}
+.art-strip canvas{flex:none;width:72%;max-width:280px;margin:0;cursor:default;scroll-snap-align:center}
+.art-strip canvas:only-child{margin:0 auto}
+.kit .campo{display:flex;flex-direction:column;gap:4px}
+.kit input[type=number]{width:100%;font:500 14px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
 .afiltag{display:inline-block;align-self:flex-start;margin-bottom:3px;background:#FFF3D6;color:#7A4E00;font:700 11px var(--body);padding:3px 8px;border-radius:999px}
 .tsearch{flex:1;min-width:0;font:500 14px var(--body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .tsearch:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -563,7 +564,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <div class="plogos" id="pt-logos" role="group" aria-label="Escolha um parceiro"></div>
     <div id="pt-sel" style="display:flex;flex-direction:column;gap:12px" hidden></div>
     <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px"></div>
-    <p class="note" style="text-align:center;margin:0 auto">Parcerias da Aline. Os destaques em laranja são campanhas das próprias lojas, conferidas no dia da atualização, e nem sempre acumulam com o cupom: confira no carrinho.</p>
+    <p class="note" style="text-align:center;margin:0 auto">Parcerias da Aline. Cada cupom segue as regras da loja e nem sempre acumula com outras promoções: confira no carrinho.</p>
     <div class="news" data-origem="parceiros" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: os maiores descontos em tênis e acessórios de corrida e as ofertas dos parceiros da Aline, com o cupom dela. Grátis."></div>
   </div>
 
@@ -642,8 +643,9 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 <div class="modal" id="carr" hidden role="dialog" aria-modal="true" aria-labelledby="carr-t">
   <div class="sheet kit">
     <header><h3 id="carr-t">Carrossel da semana</h3><button class="xbtn" type="button" data-fecha aria-label="Fechar">×</button></header>
+    <div class="seg" role="group" aria-label="Formato"><button type="button" data-cfmt="feed" aria-pressed="true">Feed</button><button type="button" data-cfmt="story" aria-pressed="false">Story</button></div>
     <p class="hint" id="carr-sub" style="text-align:left"></p>
-    <div class="carr-strip" id="carr-strip"></div>
+    <div class="carr-strip art-strip" id="carr-strip"></div>
     <div class="btns" id="carr-btns">
       <button class="follow" type="button" id="carr-share" style="justify-content:center">Salvar / compartilhar as imagens</button>
       <p class="hint">No iPhone, toque em “Salvar imagens”. Depois, no Instagram, crie um post e selecione as imagens na ordem.</p>
@@ -697,6 +699,27 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   </div>
 </div>
 
+<div class="modal" id="arte" hidden role="dialog" aria-modal="true" aria-labelledby="arte-t">
+  <div class="sheet kit">
+    <header><h3 id="arte-t">Arte</h3><button class="xbtn" type="button" data-fecha aria-label="Fechar">×</button></header>
+    <div class="seg" role="group" aria-label="Formato"><button type="button" data-afmt="story" aria-pressed="true">Story</button><button type="button" data-afmt="feed" aria-pressed="false">Feed</button></div>
+    <div class="seg" id="arte-var" role="group" aria-label="Versão" hidden></div>
+    <div class="grp" id="arte-campos"></div>
+    <input type="file" id="arte-file" accept="image/*" hidden>
+    <div class="carr-strip art-strip" id="arte-strip"></div>
+    <div class="btns">
+      <button class="follow" type="button" id="arte-share" style="justify-content:center">Compartilhar</button>
+      <button class="follow alt" type="button" id="arte-save" style="justify-content:center">Salvar imagem</button>
+    </div>
+    <div class="grp">
+      <label class="lb" for="arte-leg">Legenda</label>
+      <textarea id="arte-leg"></textarea>
+      <button class="mini" type="button" id="arte-copy">Copiar legenda</button>
+    </div>
+    <p class="hint">No story, use o adesivo de Link com radardecorrida.com.br. A foto escolhida fica só neste celular.</p>
+  </div>
+</div>
+
 <button class="totop" id="totop" type="button" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
 <div class="toast" id="toast" role="status" hidden></div>
 <script id="radar-data" type="application/json">
@@ -711,66 +734,30 @@ __DATA__
   // links de afiliada da Aline (aplicados ao abrir a loja; os dados guardam o link limpo)
   // Netshoes (Rakuten): token da Aline + MID da Netshoes; com o MID vazio, os links da Netshoes ficam limpos
   // Mercado Livre: parâmetros do link de afiliada da Aline (matt_word = etiqueta, matt_tool = ferramenta), tirados do link meli.la dela
-  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0', mlWord: 'amartins', mlTool: '42642259', mlHome: 'https://meli.la/2HAaDz4'};
+  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0', mlWord: 'amartins', mlTool: '42642259', mlHome: 'https://meli.la/2HAaDz4', puma: 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma', zattini: ''};
+  // Puma (Awin): o ued leva a URL codificada da página; Zattini: pôr em AFIL.zattini o link com {URL} quando a Aline informar
   function afil(u){
     try{
       const x = new URL(u);
       if(/(^|\.)amazon\.com\.br$/.test(x.hostname) && AFIL.amazon){ x.searchParams.set('tag', AFIL.amazon); return x.toString(); }
       if(/(^|\.)mercadolivre\.com\.br$/.test(x.hostname) && AFIL.mlWord){ x.searchParams.set('matt_word', AFIL.mlWord); x.searchParams.set('matt_tool', AFIL.mlTool); return x.toString(); }
+      if(/(^|\.)puma\.com$/.test(x.hostname) && AFIL.puma){ return AFIL.puma.replace('{URL}', encodeURIComponent(u)); }
+      if(/(^|\.)zattini\.com\.br$/.test(x.hostname) && AFIL.zattini){ return AFIL.zattini.replace('{URL}', encodeURIComponent(u)); }
       if(/(^|\.)netshoes\.com\.br$/.test(x.hostname) && AFIL.netshoesMid){ return 'https://click.linksynergy.com/deeplink?id=' + AFIL.rakutenId + '&mid=' + AFIL.netshoesMid + '&murl=' + encodeURIComponent(u); }
     }catch(e){}
     return u;
   }
   const temAfil = u => afil(u) !== u || /^https?:\/\/(amzn\.to|a\.co)\//.test(u||'') || /[?&]tag=amartins0b-20/.test(u||'');  // link que rende comissão para a Aline
   const ehAline = (() => { try{ return localStorage.getItem('radar-aline') === '1'; }catch(e){ return false; } })();
-  // Escolhas da Aline: links de achados e de ofertas de parceiros que ela marcou no Modo Aline (arquivo escolhas.json no site)
-  const ESC = new Set();
-  try{ JSON.parse(localStorage.getItem('radar-esc') || '[]').forEach(l => ESC.add(l)); }catch(e){}
-  const ehEsc = o => !!(o && o.link && ESC.has(o.link));
-  const GH_ESC = 'https://api.github.com/repos/amartinscc/radar-de-corrida/contents/escolhas.json';
-  const ghToken = () => { try{ return localStorage.getItem('radar-gh') || ''; }catch(e){ return ''; } };
-  function guardaEsc(pend){ try{ localStorage.setItem('radar-esc', JSON.stringify([...ESC])); if(pend) localStorage.setItem('radar-esc-pend', String(Date.now())); }catch(e){} }
-  // selo na hora, sem esperar o site publicar
-  function marcaSelo(card, on){
-    if(!card) return;
-    const alvo = card.classList.contains('poff') ? card.querySelector('.pb') : card.querySelector('.info');
-    const velho = alvo && alvo.querySelector(':scope > .escolha'); if(velho) velho.remove();
-    if(on && alvo){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; alvo.insertBefore(es, alvo.firstChild); }
-  }
-  function botaoEsc(o){
-    const b = document.createElement('button'); b.type = 'button'; b.className = 'escbtn';
-    const upd = () => { const on = ESC.has(o.link); b.setAttribute('aria-pressed', String(on)); b.textContent = on ? '★ Escolha da Aline · tirar' : '☆ Marcar como Escolha da Aline'; };
-    upd();
-    b.addEventListener('click', e => {
-      e.preventDefault(); e.stopPropagation();
-      if(!ghToken()){ telaEscolhas(); return; }
-      const on = !ESC.has(o.link);
-      if(on) ESC.add(o.link); else ESC.delete(o.link);
-      guardaEsc(true); upd(); marcaSelo(b.closest('.poff, .deal'), on); salvaEsc();
-      if(window.posthog) posthog.capture('aline_escolha', {marcou: on});
-    });
-    return b;
-  }
-  let escT = null;
-  function salvaEsc(tent){
-    clearTimeout(escT);
-    escT = setTimeout(async () => {
-      const h = {Authorization: 'Bearer ' + ghToken(), Accept: 'application/vnd.github+json'};
-      try{
-        let sha;
-        const r = await fetch(GH_ESC + '?ref=main&t=' + Date.now(), {headers: h, cache: 'no-store'});
-        if(r.ok) sha = (await r.json()).sha; else if(r.status !== 404) throw new Error(String(r.status));
-        const txt = JSON.stringify({links: [...ESC].sort(), atualizado: new Date().toISOString()}, null, 1) + '\n';
-        const pr = await fetch(GH_ESC, {method: 'PUT', headers: h, body: JSON.stringify({message: 'Escolhas da Aline (Modo Aline)', content: btoa(unescape(encodeURIComponent(txt))), sha, branch: 'main'})});
-        if(pr.status === 409 && !tent) return salvaEsc(1);
-        if(!pr.ok) throw new Error(String(pr.status));
-        toast('Salvo! Aparece para todo mundo em 1 ou 2 minutos.');
-      }catch(err){ toast(/^40[13]$/.test(err.message) ? 'A chave do GitHub não funcionou. Confira em Modo Aline → Escolhas da Aline.' : 'Não deu para salvar agora. Toque de novo em instantes.'); }
-    }, tent ? 800 : 1500);
-  }
   // Achados: tênis e acessórios de corrida (campo "categoria"; sem campo = Tênis)
-  const CATS = ['Tênis','Relógios','Fones','Óculos','Roupas','Meias e bonés','Hidratação','Suplementos','Recuperação','Acessórios'];
+  const CATS = ['Tênis','Relógios','Fones','Óculos','Roupas','Meias e bonés','Hidratação','Suplementos','Nutrição','Recuperação','Acessórios'];
   (data.ofertas||[]).forEach(o => { if(!o.categoria) o.categoria = 'Tênis'; });
+  // parceiros da aba Parceiros: os achados só mostram lojas ativas (link de afiliada da Aline ou cupom dela); mesma regra de achados_ativos() em src/paginas.py
+  const nomeK = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'');
+  const LOJAS = {}; ((data.parceiros||{}).marcas||[]).forEach(m => { LOJAS[nomeK(m.nome)] = m; });
+  const lojaDe = o => LOJAS[nomeK(o && o.loja)] || null;
+  data.ofertas = (data.ofertas||[]).filter(o => { const m = lojaDe(o); return m && !m.oculto && o.link && typeof o.preco === 'number'; })
+    .map(o => { const m = lojaDe(o); return (!m.afiliada && !o.cupom && m.cupom) ? {...o, cupom: m.cupom, cupomAline: true} : o; });
   const tenis = withOff(data.ofertas), roupas = withOff(data.artigos);
   const sortPt = arr => [...new Set(arr)].sort((a,b)=>a.localeCompare(b,'pt-BR',{sensitivity:'base'}));
 
@@ -890,11 +877,10 @@ __DATA__
     el.querySelector('.store').textContent = label;
     el.querySelector('.name').textContent = o.nome;
     el.querySelector('.go').href = afil(o.link);
-    if(ehEsc(o)){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; el.querySelector('.info').insertBefore(es, el.querySelector('.store')); }
-    if(ehAline) el.querySelector('.info').appendChild(botaoEsc(o));
+    if(ehAline){ const ab = document.createElement('button'); ab.type = 'button'; ab.className = 'artbtn'; ab.innerHTML = '<span aria-hidden="true">✦</span> Criar arte'; ab.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); abrirArte('achado', o); }); el.querySelector('.info').appendChild(ab); }
     if(ehAline && temAfil(o.link)){ const tg = document.createElement('span'); tg.className = 'afiltag'; tg.textContent = '💰 Link da Aline · ' + (o.loja || ''); el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); }
     const cd = el.querySelector('.cond');
-    if(o.cupom){ const c = document.createElement('span'); c.className = 'cup'; c.textContent = 'cupom ' + o.cupom; cd.appendChild(c); }
+    if(o.cupom){ const c = document.createElement('span'); c.className = 'cup'; c.textContent = (o.cupomAline ? 'cupom da Aline ' : 'cupom ') + o.cupom; cd.appendChild(c); }
     if(o.condicao){ const c = document.createElement('span'); c.textContent = o.condicao; cd.appendChild(c); }
     if(!cd.children.length) cd.remove();
     return el;
@@ -933,7 +919,7 @@ __DATA__
       (ts.marca==='Todas'||o.marca===ts.marca) && (ts.loja==='Todas'||o.loja===ts.loja) &&
       (ts.afil==='Todas' || temAfil(o.link)) &&
       (!q || q.split(/\s+/).every(w => norm([o.nome,o.marca,o.loja,o.categoria,o.genero].join(' ')).includes(w))));
-    rows.sort(ts.sort==='desc' ? (a,b)=>(ehEsc(b) - ehEsc(a)) || b.off-a.off : (a,b)=>(ehEsc(b) - ehEsc(a)) || a.preco-b.preco);
+    rows.sort(ts.sort==='desc' ? (a,b)=>b.off-a.off : (a,b)=>a.preco-b.preco);
     setCount('t-fbtn', [ts.gen, ts.marca, ts.loja, ts.afil]);
     fill(document.getElementById('t-list'), rows, o => dealCard(o, [ts.cat==='Todos' && o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), q ? 'Nada encontrado para "' + ts.q.trim() + '" hoje. Tente outra palavra.' : 'Nenhum achado com esse filtro hoje.');
   }
@@ -1096,6 +1082,7 @@ __DATA__
       }
       const pill = el.querySelector('.pill'); pill.textContent = ST[p.status] || ST.confira; pill.classList.add(p.status||'confira');
       if(p.aline){ const b = document.createElement('span'); b.className = 'alinebadge'; b.textContent = 'A Aline vai correr'; el.querySelector('.info').insertBefore(b, pill); }
+      if(p.aline && ehAline){ const rw = document.createElement('div'); rw.className = 'artrow'; [['Eu vou correr', 'vou'], ['Pós-prova', 'pos']].forEach(([tx, tp]) => { const ab = document.createElement('button'); ab.type = 'button'; ab.className = 'artbtn'; ab.innerHTML = '<span aria-hidden="true">✦</span> '; ab.append(tx); ab.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); abrirArte(tp, p); }); rw.appendChild(ab); }); el.querySelector('.info').appendChild(rw); }
       const shb = document.createElement('button'); shb.className = 'sharebtn'; shb.type = 'button'; shb.setAttribute('aria-label','Compartilhar prova'); shb.title = 'Compartilhar prova';
       shb.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
       shb.addEventListener('click', () => { if(window.posthog) posthog.capture('compartilhar_prova', {prova: p.nome}); openShare(null, p); });
@@ -1460,14 +1447,15 @@ __DATA__
 
   // parceiros
   const pc = data.parceiros || {marcas:[]};
-  const marcas = pc.marcas || [];
+  const marcas = (pc.marcas || []).filter(m => !m.oculto && m.link);  // oculto: parceiro preparado mas escondido (ex.: Zattini até ter o link de afiliada)
   document.getElementById('c-roupas').textContent = marcas.length;
-  document.getElementById('pt-intro').textContent = 'Cada marca tem o seu cupom: toque no cupom para copiar.';
   const groups = document.getElementById('pt-groups');
   const ev = (nome, props) => { if(window.posthog) posthog.capture(nome, props); };
+  // cupom da Aline no parceiro: campo "cupom" (vazio = banner sem cupom); patrocinadoras sem o campo usam o cupom geral
+  const cupomDe = m => ('cupom' in m) ? (m.cupom || '') : (pc.cupom || '');
   function partnerCard(m, comId){
-    const code = m.cupom || pc.cupom;
-    const a = document.createElement('div'); a.className = 'partner hascup';
+    const code = cupomDe(m);
+    const a = document.createElement('div'); a.className = 'partner' + (code || (m.cupons && m.cupons.length) ? ' hascup' : '');
     a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><a class="arrow" target="_blank" rel="noopener">Ir à loja →</a>';
     a.querySelector('a.arrow').href = afil(m.link);
     a.querySelector('a.arrow').addEventListener('click', () => ev('clique_parceiro', {parceiro: m.nome, onde: 'cartao'}));
@@ -1500,59 +1488,23 @@ __DATA__
         a.querySelector('.pi').appendChild(cp);
       });
     }
-    if(m.campanha){ const c = document.createElement('span'); c.className = 'pc'; c.textContent = m.campanha; a.querySelector('.pi').appendChild(c); }
     if(comId) a.id = 'parceiro-' + slugMarca(m.nome);
     if(modoAline){
       const kb = document.createElement('button'); kb.type = 'button'; kb.className = 'kitbtn';
       kb.innerHTML = '<span aria-hidden="true">✦</span> Kit para a parceira';
       kb.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); abrirKit(m); });
-      a.querySelector('.pi').appendChild(kb);
+      const sb = document.createElement('button'); sb.type = 'button'; sb.className = 'kitbtn'; sb.innerHTML = '<span aria-hidden="true">✦</span> ' + (code ? 'Story do cupom' : 'Story do link');
+      sb.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); abrirArte('cupom', m); });
+      const rw = document.createElement('div'); rw.className = 'artrow'; rw.style.gap = '6px'; rw.append(kb, sb);
+      a.querySelector('.pi').appendChild(rw);
     }
     return a;
-  }
-  // ofertas de cada parceiro (campo "ofertas" de cada marca, conferido na atualização diária)
-  function ofertasDe(m, grade){
-    const ofs = (m.ofertas || []).filter(o => o && o.nome && o.link).map((o, i) => [o, i]).sort((a, b) => (ehEsc(b[0]) - ehEsc(a[0])) || a[1] - b[1]).map(x => x[0]);
-    if(!ofs.length) return null;
-    const box = document.createElement('div'); box.className = 'poffers' + (grade ? ' grid' : '');
-    (grade ? ofs : ofs.slice(0, 8)).forEach(o => {
-      const w = document.createElement('div'); w.className = 'poff'; w.dataset.link = o.link;
-      const c = document.createElement('a'); c.className = 'pl'; c.target = '_blank'; c.rel = 'noopener'; c.href = afil(o.link);
-      c.innerHTML = '<span class="ph"></span><span class="pb"><span class="pn"></span></span>';
-      const sb = document.createElement('button'); sb.type = 'button'; sb.className = 'psh'; sb.setAttribute('aria-label', 'Compartilhar ' + o.nome); sb.title = 'Compartilhar nos stories';
-      sb.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
-      sb.addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); compartilhaOfertaParceiro(m, o); });
-      w.append(c, sb);
-      const ph = c.querySelector('.ph');
-      if(o.foto){ const im = new Image(); im.alt = ''; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.src = o.foto; im.onerror = () => { im.remove(); ph.textContent = m.nome.charAt(0); }; ph.appendChild(im); }
-      else ph.textContent = m.nome.charAt(0);
-      c.querySelector('.pn').textContent = o.nome;
-      const pb = c.querySelector('.pb');
-      if(ehEsc(o)){ const es = document.createElement('span'); es.className = 'escolha'; es.textContent = '★ Escolha da Aline'; pb.insertBefore(es, pb.firstChild); }
-      if(ehAline) w.appendChild(botaoEsc(o));
-      if(typeof o.preco === 'number'){ const pp = document.createElement('span'); pp.className = 'pp'; pp.textContent = brl(o.preco); if(typeof o.de === 'number' && o.de > o.preco){ const s = document.createElement('s'); s.textContent = brl(o.de); pp.appendChild(s); } pb.appendChild(pp); }
-      if(o.detalhe){ const d = document.createElement('span'); d.className = 'pd2'; d.textContent = o.detalhe; pb.appendChild(d); }
-      c.addEventListener('click', () => ev('oferta_parceiro', {parceiro: m.nome, oferta: o.nome}));
-      box.appendChild(w);
-    });
-    return box;
-  }
-  const logoCache = {};
-  function compartilhaOfertaParceiro(m, o){
-    const sl = slugMarca(m.nome);
-    let im = logoCache[sl];
-    if(!im && m.logo && m.logo.startsWith('data:')){ im = new Image(); im.src = m.logo; logoCache[sl] = im; }
-    const po = {parceiro: true, pslug: sl, nome: o.nome, marca: m.nome, loja: m.nome, preco: o.preco, de: o.de, detalhe: o.detalhe, cupom: m.cupom || pc.cupom, logoImg: im || null, logoContain: m.logo_ajuste === 'contain'};
-    const vai = () => openShare(po);
-    if(im && !im.complete){ im.onload = im.onerror = vai; } else vai();
-    ev('compartilhar_oferta_parceiro', {parceiro: m.nome, oferta: o.nome});
   }
   [...new Set(marcas.map(m=>m.categoria))].forEach(cat => {
     const h = document.createElement('h3'); h.className='ptitle'; h.textContent = cat; groups.appendChild(h);
     const list = document.createElement('div'); list.className='list'; groups.appendChild(list);
     marcas.filter(m=>m.categoria===cat).forEach(m => {
       list.appendChild(partnerCard(m, true));
-      const of = ofertasDe(m, false); if(of) list.appendChild(of);
     });
   });
   // fileira de logos: toque numa marca para ver só ela e tudo o que ela oferece
@@ -1565,9 +1517,7 @@ __DATA__
     const m = marcas.find(x => slugMarca(x.nome) === sl); if(!m){ escolheParceiro(''); return; }
     groups.hidden = true; ptSel.innerHTML = ''; ptSel.hidden = false;
     ptSel.appendChild(partnerCard(m, true));
-    const of = ofertasDe(m, true);
-    if(of){ const h = document.createElement('p'); h.className = 'psub'; h.textContent = 'Ofertas de ' + m.nome; ptSel.append(h, of); }
-    else { const p = document.createElement('p'); p.className = 'note'; p.style.margin = '0 auto'; p.style.textAlign = 'center'; p.textContent = 'Toque em "Ir à loja" para ver tudo o que a ' + m.nome + ' tem hoje, e use o cupom da Aline no carrinho.'; ptSel.appendChild(p); }
+    const p = document.createElement('p'); p.className = 'note'; p.style.margin = '0 auto'; p.style.textAlign = 'center'; p.textContent = 'Toque em "Ir à loja" para ver tudo o que a ' + m.nome + ' tem hoje' + (cupomDe(m) || (m.cupons && m.cupons.length) ? ' e use o cupom da Aline no carrinho.' : ' pelo link da Aline.'); ptSel.appendChild(p);
     ev('parceiro_filtro', {parceiro: m.nome});
     if(rolar) setTimeout(() => ptLogos.scrollIntoView({behavior:'smooth', block:'start'}), 200);
   }
@@ -1586,8 +1536,7 @@ __DATA__
     mk('', 'Todas');
     marcas.forEach(m => mk(slugMarca(m.nome), m.nome, m.logo, m.logo_ajuste));
   })();
-  const nOfertasParc = marcas.reduce((s, m) => s + ((m.ofertas||[]).length), 0);
-  document.getElementById('pt-intro').textContent = nOfertasParc ? 'Toque numa marca para ver as ofertas dela. Cada marca tem o seu cupom: toque no cupom para copiar.' : 'Toque numa marca para ver só ela. Cada marca tem o seu cupom: toque no cupom para copiar.';
+  document.getElementById('pt-intro').textContent = 'Toque no cupom para copiar e em "Ir à loja" para comprar pelo link da Aline. As ofertas do dia estão em Achados.';
 
   // link para a aba Parceiros (#parceiros) ou para uma marca (#parceiro=<slug>), para mandar às marcas
   setTimeout(function(){
@@ -1639,20 +1588,6 @@ __DATA__
   function caixaAtual(){ return document.querySelector('[role=tabpanel]:not([hidden]) .news') || document.querySelector('.news[data-origem]'); }
   if(location.hash === '#novidades') setTimeout(() => { const a = caixaAtual(); if(a) a.scrollIntoView({block:'center'}); }, 300);
 
-  // ---------- Escolhas da Aline: lê o escolhas.json publicado ----------
-  (async function(){
-    try{
-      const pend = +(localStorage.getItem('radar-esc-pend') || 0);
-      if(Date.now() - pend < 5*60*1000) return; // acabou de salvar: o site ainda está publicando, vale o que está neste celular
-      const r = await fetch('escolhas.json?v=' + Date.now(), {cache: 'no-store'}); if(!r.ok) return;
-      const novo = (await r.json()).links || [];
-      if(novo.length === ESC.size && novo.every(l => ESC.has(l))) return;
-      ESC.clear(); novo.forEach(l => ESC.add(l)); guardaEsc(false);
-      renderT();
-      document.querySelectorAll('.poff[data-link]').forEach(w => marcaSelo(w, ESC.has(w.dataset.link)));
-    }catch(e){}
-  })();
-
   // ---------- Modo Aline ----------
   const ADM_HASH = 'bc95ba0d8b52ed31693b718b4d7b87c205b2f37767604823dd17dbd100b7739c';
   const PAINEL_URL = RADAR_URL + 'painel/rc-5yecuqq3sbbk9h/';
@@ -1702,8 +1637,12 @@ __DATA__
       <p class="lb" style="margin:6px 0 0">Mercado Livre</p>
       <a class="follow alt" href="${AFIL.mlHome}" target="_blank" rel="noopener"><span>Abrir minha vitrine no Mercado Livre</span><small>meli.la</small></a>
       <button class="follow alt" type="button" data-cp="${AFIL.mlHome}"><span>Copiar link da vitrine</span><small>para bio e stories</small></button>
+      <p class="lb" style="margin:6px 0 0">Puma</p>
+      <a class="follow alt" href="${afil('https://br.puma.com/')}" target="_blank" rel="noopener"><span>Abrir a Puma com meu link</span><small>Awin</small></a>
+      <button class="follow alt" type="button" data-cp="${afil('https://br.puma.com/')}"><span>Copiar link da Puma</span><small>para bio e stories</small></button>
+      ${AFIL.zattini ? `<p class="lb" style="margin:6px 0 0">Zattini</p><button class="follow alt" type="button" data-cp="${afil('https://www.zattini.com.br/')}"><span>Copiar link da Zattini</span><small>para bio e stories</small></button>` : ''}
       <p class="lb" style="margin:6px 0 0">Link de um produto</p>
-      <p class="hint" style="text-align:left">Cole o endereço de um produto da Amazon, da Netshoes ou do Mercado Livre e toque em Gerar: sai o link com o seu código, pronto para compartilhar.</p>
+      <p class="hint" style="text-align:left">Cole o endereço de um produto da Amazon, da Netshoes, do Mercado Livre ou da Puma e toque em Gerar: sai o link com o seu código, pronto para compartilhar.</p>
       <input type="url" id="lk-in" placeholder="https://www.amazon.com.br/..." style="width:100%;font:500 15px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
       <button class="follow" type="button" id="lk-go" style="justify-content:center">Gerar meu link</button>
       <div id="lk-out"></div>
@@ -1730,7 +1669,9 @@ __DATA__
         link = afil(x.origin + x.pathname);
       } else if(/(^|\.)meli\.la$/.test(x.hostname)){
         msg('Esse é um link curto. Abra o produto e cole aqui o endereço completo da página (mercadolivre.com.br/...).', 'var(--hot)'); return;
-      } else { msg('O gerador funciona com produtos da Amazon, da Netshoes e do Mercado Livre.', 'var(--hot)'); return; }
+      } else if(/(^|\.)puma\.com$/.test(x.hostname) || (/(^|\.)zattini\.com\.br$/.test(x.hostname) && AFIL.zattini)){
+        link = afil(x.origin + x.pathname);
+      } else { msg('O gerador funciona com produtos da Amazon, da Netshoes, do Mercado Livre e da Puma.', 'var(--hot)'); return; }
       const box = document.createElement('div'); box.className = 'adm-list';
       box.innerHTML = '<p class="hint" style="text-align:left;word-break:break-all;user-select:all"></p><button class="follow" type="button" style="justify-content:center">Copiar meu link</button><button class="follow alt" type="button" style="justify-content:center">Compartilhar</button>';
       box.querySelector('p').textContent = link;
@@ -1738,33 +1679,8 @@ __DATA__
       bc.addEventListener('click', () => copiaTxt(link, 'Link copiado!'));
       bs.addEventListener('click', async () => { try{ if(navigator.share){ await navigator.share({url: link}); return; } }catch(e){ if(e && e.name === 'AbortError') return; } copiaTxt(link, 'Link copiado!'); });
       out.appendChild(box);
-      if(window.posthog) posthog.capture('aline_gerou_link', {loja: /amazon/.test(link) ? 'amazon' : 'netshoes'});
+      if(window.posthog) posthog.capture('aline_gerou_link', {loja: /amazon/.test(link) ? 'amazon' : /awin/.test(link) ? 'puma' : /matt_word/.test(link) ? 'mercadolivre' : 'netshoes'});
     });
-  }
-  function telaEscolhas(){
-    admBody.innerHTML = `<div class="adm-list" style="text-align:left">
-      <p class="hint" style="text-align:left">Marque como <b>★ Escolha da Aline</b> os achados e as ofertas dos parceiros que você realmente indica. Com o Modo Aline ligado, cada cartão tem o botão <b>☆ Marcar como Escolha da Aline</b>; toque de novo para tirar. As escolhas aparecem primeiro e com o selo para todo mundo, 1 ou 2 minutos depois.</p>
-      <p class="hint" style="text-align:left" id="esc-n"></p>
-      <p class="hint" style="text-align:left">Para salvar no site, este celular precisa de uma <b>chave do GitHub</b> (só uma vez). Ela fica guardada só aqui.</p>
-      <input type="password" id="esc-tk" autocomplete="off" placeholder="Cole a chave aqui (github_pat_…)" style="width:100%;font:500 15px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
-      <button class="follow" type="button" id="esc-ok" style="justify-content:center">Guardar chave</button>
-      <button class="follow alt" type="button" id="esc-ver"><span>Ver os achados</span><small>para marcar</small></button>
-      <button class="follow alt" type="button" id="esc-volta"><span>Voltar</span><small>menu</small></button>
-    </div>`;
-    document.getElementById('esc-n').textContent = ESC.size ? 'Hoje você tem ' + ESC.size + (ESC.size === 1 ? ' escolha marcada.' : ' escolhas marcadas.') : 'Nenhuma escolha marcada ainda.';
-    const tk = document.getElementById('esc-tk'); if(ghToken()) tk.placeholder = 'Chave já guardada neste celular';
-    document.getElementById('esc-ok').addEventListener('click', async () => {
-      const v = tk.value.trim(); if(!v){ toast('Cole a chave primeiro.'); return; }
-      try{
-        const r = await fetch('https://api.github.com/repos/amartinscc/radar-de-corrida', {headers: {Authorization: 'Bearer ' + v, Accept: 'application/vnd.github+json'}});
-        const j = r.ok ? await r.json() : null;
-        if(!j || !j.permissions || !j.permissions.push){ toast('Essa chave não tem permissão para salvar no site.'); return; }
-        localStorage.setItem('radar-gh', v); tk.value = ''; tk.placeholder = 'Chave já guardada neste celular'; toast('Chave guardada! Já pode marcar as escolhas.');
-      }catch(e){ toast('Não deu para conferir a chave agora.'); }
-    });
-    document.getElementById('esc-ver').addEventListener('click', () => { fechaModal(admEl); document.getElementById('tab-tenis').click(); });
-    document.getElementById('esc-volta').addEventListener('click', menuAdm);
-    abreModal(admEl);
   }
   function menuAdm(){
     admBody.innerHTML = '';
@@ -1775,8 +1691,11 @@ __DATA__
       b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = txt; b.querySelector('small').textContent = sub || '';
       lista.appendChild(b);
     };
-    item('Escolhas da Aline', 'marcar o que você indica', () => telaEscolhas());
-    item('Meus links de loja', 'Amazon e Netshoes', () => telaLinks());
+    item('Meus links de loja', 'links de afiliada', () => telaLinks());
+    item('Top achados da semana', 'carrossel', () => { fechaModal(admEl); abrirArte('top'); });
+    item('Stories de cupom', 'um por parceiro', () => telaCupons());
+    item('Eu vou correr', 'provas com o seu selo', () => telaProvasAline());
+    item('Card pós-prova', 'tempo e pace', () => { fechaModal(admEl); abrirArte('pos', null); });
     item('Carrossel da semana', 'provas do fim de semana', () => { fechaModal(admEl); abrirCarrossel(); });
     item('Kits das parceiras', 'arte + legenda', () => { fechaModal(admEl); document.getElementById('tab-roupas').click(); setTimeout(() => document.getElementById('pt-groups').scrollIntoView({behavior:'smooth'}), 200); });
     item('Métricas do radar', 'visitas e cliques', null, PAINEL_URL);
@@ -1821,13 +1740,16 @@ __DATA__
     carrInfo.imagens.forEach((src, i) => { const im = document.createElement('img'); im.src = src; im.alt = 'Imagem ' + (i+1) + ' do carrossel'; im.loading = 'lazy'; strip.appendChild(im); });
     document.getElementById('carr-leg').value = carrInfo.legenda || '';
     document.getElementById('carr-btns').hidden = false; document.getElementById('carr-leg-grp').hidden = false;
+    if(carrFmt === 'story') carrMostra();
   }
   document.getElementById('carr-copy').addEventListener('click', () => copiaTxt(document.getElementById('carr-leg').value, 'Legenda copiada!'));
   document.getElementById('carr-share').addEventListener('click', async () => {
     if(!carrInfo) return;
     const b = document.getElementById('carr-share'), txt0 = b.textContent; b.textContent = 'Preparando…';
     try{
-      const fs = await Promise.all(carrInfo.imagens.map(async (src, i) => new File([await (await fetch(src)).blob()], 'radar-fim-de-semana-' + (i+1) + '.jpg', {type:'image/jpeg'})));
+      const fs = carrFmt === 'story'
+        ? await Promise.all(carrInfo.imagens.map(async (src, i) => { const cv = await carrStory(src); return new File([await new Promise(r => cv.toBlob(r, 'image/jpeg', .92))], 'radar-fim-de-semana-story-' + (i+1) + '.jpg', {type:'image/jpeg'}); }))
+        : await Promise.all(carrInfo.imagens.map(async (src, i) => new File([await (await fetch(src)).blob()], 'radar-fim-de-semana-' + (i+1) + '.jpg', {type:'image/jpeg'})));
       try{ await navigator.clipboard.writeText(document.getElementById('carr-leg').value); }catch(e){}
       if(navigator.canShare && navigator.canShare({files: fs})){ toast('Legenda copiada: é só colar no post.'); await navigator.share({files: fs}); }
       else {
@@ -1849,9 +1771,14 @@ __DATA__
     'a-tal-da-castanha': {f:['Pós-treino vegetal','Recarga gostosa pós-treino'], i:'Pós-treino gostoso e vegetal: A Tal da Castanha! 🥛'},
     'possible': {f:['Prático para a correria','Vegetal no dia a dia'], i:'Bebida vegetal prática para a correria do dia a dia: Possible! 🌾'},
     'marmitas-da-lulu': {f:['Comida de verdade para quem treina','Rotina puxada, prato caprichado'], i:'Rotina de treino puxada pede comida de verdade: Marmitas da Lulu, com entrega aqui no Rio! 🍱'},
+    'netshoes': {f:['Meu tênis vem da Netshoes','Pronta para correr'], i:'Tênis, roupa e acessório de corrida: muita coisa do meu treino vem da Netshoes! 👟'},
+    'amazon': {f:['Achados de corrida na Amazon','O que eu uso para correr'], i:'Meus achados de corrida na Amazon: gel, meia, fone, relógio e tudo o que facilita o treino! 📦'},
+    'mercado-livre': {f:['Minha vitrine de corrida','Achados no Mercado Livre'], i:'Montei a minha vitrine de corrida no Mercado Livre com o que eu uso e indico! 💛'},
+    'puma': {f:['Corro de Puma','Pronta para a próxima prova'], i:'Tênis e roupa de corrida da Puma no meu treino! 🐆'},
+    'zattini': {f:['Do treino ao dia a dia','Achados da Zattini'], i:'Do treino ao dia a dia, meus achados na Zattini! 🛍️'},
     'livvan': {f:['Disposição para treinar todo dia','Saúde que acompanha o treino'], i:'Disposição para treinar e cuidar da saúde todos os dias: @livvan! 💊', ig:'livvan'}
   };
-  const KIT_CAT = {'Roupas':['Do treino à prova','Eu treino com ela'], 'Nutrição':['Energia para treinar','Faz parte do meu treino']};
+  const KIT_CAT = {'Lojas parceiras':['Achados de corrida','O que eu uso para correr'], 'Roupas':['Do treino à prova','Eu treino com ela'], 'Nutrição':['Energia para treinar','Faz parte do meu treino']};
 
   const kitEl = document.getElementById('kit'), kcv = document.getElementById('kit-cv'), kctx = kcv.getContext('2d');
   const kz = document.getElementById('kit-zoom'), kFrase = document.getElementById('kit-frase');
@@ -1901,7 +1828,7 @@ __DATA__
     // de baixo para cima
     let y = H - bot;
     c.fillStyle = 'rgba(255,255,255,.85)'; c.font = '600 32px ' + B; c.fillText('radardecorrida.com.br · @' + (pf.instagram||'amartinscc'), cx, y);
-    const code = m.cupom || pc.cupom;
+    const code = cupomDe(m);
     if(code){
       y -= 64; const ph = 96; c.font = '800 46px ' + B; const ct = 'Cupom ' + code; const pw = c.measureText(ct).width + 110;
       c.fillStyle = '#B28AB1'; rr(c, cx-pw/2, y-ph, pw, ph, ph/2); c.fill();
@@ -1945,10 +1872,12 @@ __DATA__
     } else { c.fillStyle = '#7A4E7D'; c.font = '800 ' + Math.round(r*.95) + 'px ' + D; c.fillText(nome.charAt(0), cx, ly + r*.33); }
   }
   function kitTextos(m){
-    const k = slugMarca(m.nome), t = KIT_TXT[k] || {}, code = m.cupom || pc.cupom;
+    const k = slugMarca(m.nome), t = KIT_TXT[k] || {}, code = cupomDe(m);
+    const comCupom = code ? ', e usa o meu cupom ' + code + (m.cupom_auto ? ' (pelo link ele já entra sozinho)' : '') : ', e compra pelo meu link';
+    const doCupom = code ? ' e o meu cupom ' + code : ' e o meu link';
     const intro = t.i || ('A ' + m.nome + ' faz parte da minha rotina de treino! 💜');
-    document.getElementById('kit-leg').value = intro + '\n\nEla é parceira oficial do meu Radar de Corrida 💜 Entra em radardecorrida.com.br, na aba Parceiros, e usa o meu cupom ' + code + (m.cupom_auto ? ' (pelo link ele já entra sozinho)' : '') + '.\n\nLá também tem o calendário de provas de corrida, ofertas de tênis e a calculadora de pace. 🏃‍♀️\n\n#corrida #corridaderua #treino #radardecorrida';
-    document.getElementById('kit-dm').value = 'Oi, time ' + m.nome + '! 💜\n\nQueria mostrar uma coisa: lancei o Radar de Corrida (radardecorrida.com.br), meu site com calendário de provas, ofertas de tênis e calculadora de pace. Vocês estão lá na aba Parceiros, com destaque e o meu cupom ' + code + ':\n' + RADAR_URL + '#parceiro=' + k + '\n\nFiz também essa arte especial da nossa parceria para postar. Topam fazer um collab comigo no Instagram? Vou adorar! 🏃‍♀️\n\nBeijo, Aline';
+    document.getElementById('kit-leg').value = intro + '\n\nEla é parceira oficial do meu Radar de Corrida 💜 Entra em radardecorrida.com.br, na aba Parceiros' + comCupom + '.\n\nLá também tem o calendário de provas de corrida, os achados do dia e a calculadora de pace. 🏃‍♀️\n\n#corrida #corridaderua #treino #radardecorrida';
+    document.getElementById('kit-dm').value = 'Oi, time ' + m.nome + '! 💜\n\nQueria mostrar uma coisa: lancei o Radar de Corrida (radardecorrida.com.br), meu site com calendário de provas, achados de corrida e calculadora de pace. Vocês estão lá na aba Parceiros, com destaque' + doCupom + ':\n' + RADAR_URL + '#parceiro=' + k + '\n\nFiz também essa arte especial da nossa parceria para postar. Topam fazer um collab comigo no Instagram? Vou adorar! 🏃‍♀️\n\nBeijo, Aline';
     document.getElementById('kit-link').textContent = RADAR_URL + '#parceiro=' + k;
     const sugest = [...(t.f || KIT_CAT[m.categoria] || []), 'Eu uso e indico', 'Parceria de verdade'];
     kFrase.value = sugest[0];
@@ -2017,6 +1946,301 @@ __DATA__
     }catch(e){ if(e && e.name === 'AbortError') return; }
     document.getElementById('kit-save').click();
   });
+
+  // ---------- Artes do Modo Aline para o Instagram: story 1080x1920 e feed 1080x1350, sempre com legenda pronta ----------
+  // achado (botão em cada achado), story do cupom (cada parceiro), top achados da semana (carrossel), eu vou correr (provas com o selo, com contagem regressiva) e card pós-prova
+  const arteEl = document.getElementById('arte'), aStrip = document.getElementById('arte-strip'), aLeg = document.getElementById('arte-leg'), aCampos = document.getElementById('arte-campos'), aVarEl = document.getElementById('arte-var');
+  arteEl.addEventListener('click', e => { if(e.target === arteEl || e.target.closest('[data-fecha]')) fechaModal(arteEl); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && !arteEl.hidden) fechaModal(arteEl); });
+  const AD = "'Urbanist','Avenir Next',system-ui,sans-serif", AB = "'Plus Jakarta Sans',system-ui,sans-serif";
+  const A_INK = '#1D1220', A_MUT = '#6B5A6E', A_ACC = '#7A4E7D', A_MAU = '#B28AB1', A_HOT = '#B4501F';
+  let aTipo = '', aItem = null, aFmt = 'story', aVar = '', aFoto = null, aLegEditada = false, aCvs = [], aRend = 0, aTimer = null;
+  const imgCache = {};
+  // foto do produto: carregada com CORS para a arte poder ser salva; se não vier, a arte usa o logo da loja
+  const imgDe = (src, cors) => { if(!src) return Promise.resolve(null); const k = (cors ? 'c:' : '') + src; if(!imgCache[k]) imgCache[k] = carregaImg(src, cors).then(im => im || (cors ? carregaImg(src + (src.includes('?') ? '&' : '?') + 'radar=1', true) : null)); return imgCache[k]; };
+  const logoDe = m => m && m.logo ? imgDe(m.logo, !m.logo.startsWith('data:')) : Promise.resolve(null);
+  const novoCv = () => { const cv = document.createElement('canvas'); cv.width = 1080; cv.height = aFmt === 'story' ? 1920 : 1350; return cv; };
+  function aFundo(c, W, H){ const g = c.createLinearGradient(0,0,0,H); g.addColorStop(0,'#BBE3E5'); g.addColorStop(.55,'#D9C1D9'); g.addColorStop(.85,'#E9A07E'); g.addColorStop(1,'#3B2A40'); c.fillStyle = g; c.fillRect(0,0,W,H); }
+  function aEscurece(c, W, H, de){ const g = c.createLinearGradient(0, H*de, 0, H); g.addColorStop(0,'rgba(29,18,32,0)'); g.addColorStop(.4,'rgba(29,18,32,.72)'); g.addColorStop(1,'rgba(29,18,32,.96)'); c.fillStyle = g; c.fillRect(0, H*de, W, H*(1-de)); const t = c.createLinearGradient(0,0,0,360); t.addColorStop(0,'rgba(29,18,32,.5)'); t.addColorStop(1,'rgba(29,18,32,0)'); c.fillStyle = t; c.fillRect(0,0,W,360); }
+  function aPilula(c, txt, cx, y, o){
+    o = Object.assign({fs:30, bg:'rgba(255,255,255,.94)', fg:A_INK, h:64, dot:false}, o || {});
+    c.font = '800 ' + o.fs + 'px ' + AB; const w = c.measureText(txt).width + (o.dot ? 100 : 72);
+    c.fillStyle = o.bg; rr(c, cx-w/2, y, w, o.h, o.h/2); c.fill();
+    if(o.dot){ c.fillStyle = A_MAU; c.beginPath(); c.arc(cx-w/2+38, y+o.h/2, 9, 0, Math.PI*2); c.fill(); }
+    c.fillStyle = o.fg; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(txt, cx + (o.dot ? 14 : 0), y + o.h/2 + 2); c.textBaseline = 'alphabetic';
+    return o.h;
+  }
+  function aLinhas(c, txt, maxW, max){
+    const ws = String(txt || '').split(/\s+/).filter(Boolean); let l = '', out = [];
+    ws.forEach(w => { const t2 = l ? l + ' ' + w : w; if(c.measureText(t2).width > maxW && l){ out.push(l); l = w; } else l = t2; }); if(l) out.push(l);
+    if(out.length > max){ out = out.slice(0, max); out[max-1] = out[max-1].replace(/\s*\S*$/, '') + '…'; }
+    return out;
+  }
+  // texto centralizado; y = linha de base da 1ª linha; devolve a altura usada
+  function aTexto(c, txt, cx, y, maxW, fs, lh, max, peso, fam, cor){ c.font = peso + ' ' + fs + 'px ' + fam; c.fillStyle = cor; c.textAlign = 'center'; const ls = aLinhas(c, txt, maxW, max); ls.forEach((l, i) => c.fillText(l, cx, y + i*lh)); return ls.length * lh; }
+  function aRodape(c, W, H){ c.font = '600 30px ' + AB; c.fillStyle = 'rgba(255,255,255,.92)'; c.textAlign = 'center'; c.fillText('radardecorrida.com.br · @' + (pf.instagram || 'amartinscc'), W/2, H - (H > 1500 ? 110 : 52)); }
+  function aBio(c, W, H){ const st = H > 1500; aPilula(c, '🔗 LINK NA BIO', W/2, H - (st ? 270 : 160), {bg:A_INK, fg:'#fff', fs: st ? 38 : 32, h: st ? 88 : 72}); }
+  function aLogo(c, im, m, cx, cy, r){
+    c.save(); c.shadowColor = 'rgba(0,0,0,.18)'; c.shadowBlur = 30; c.fillStyle = '#fff'; c.beginPath(); c.arc(cx, cy, r, 0, Math.PI*2); c.fill(); c.restore();
+    if(im){
+      c.save(); c.beginPath(); c.arc(cx, cy, r - Math.max(3, r*.04), 0, Math.PI*2); c.clip();
+      const lw = im.naturalWidth, lh = im.naturalHeight, s = m && m.logo_ajuste === 'contain' ? Math.min(r*1.5/lw, r*1.5/lh) : Math.max(2*r/lw, 2*r/lh);
+      c.drawImage(im, cx - lw*s/2, cy - lh*s/2, lw*s, lh*s); c.restore();
+    } else { c.fillStyle = A_ACC; c.font = '800 ' + Math.round(r) + 'px ' + AD; c.textAlign = 'center'; c.fillText(((m && m.nome) || '?').charAt(0), cx, cy + r*.35); }
+  }
+  function aCover(c, im, W, H, fy){ const iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height, s = Math.max(W/iw, H/ih); c.drawImage(im, (W - iw*s)/2, (H - ih*s)*fy, iw*s, ih*s); }
+  function aContain(c, im, x, y, w, h){ const iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height, s = Math.min(w/iw, h/ih); c.drawImage(im, x + (w - iw*s)/2, y + (h - ih*s)/2, iw*s, ih*s); }
+  // blocos empilhados de baixo para cima até yFim (artes com foto de fundo)
+  function aPilha(c, blocos, yFim){ let y = yFim - blocos.reduce((s, b) => s + b.h, 0); blocos.forEach(b => { if(b.d) b.d(y); y += b.h; }); }
+  const bGap = h => ({h});
+  function bTxt(c, txt, fs, peso, fam, cor, max, lh, maxW){ c.font = peso + ' ' + fs + 'px ' + fam; const ls = aLinhas(c, txt, maxW || 920, max || 1); return {h: ls.length * lh, d: y => { c.font = peso + ' ' + fs + 'px ' + fam; c.fillStyle = cor; c.textAlign = 'center'; ls.forEach((l, i) => c.fillText(l, 540, y + fs*.82 + i*lh)); }}; }
+  const DIASL = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  const dataLonga = p => { const [y, m, d] = p.data.split('-').map(Number); return DIASL[new Date(Date.UTC(y, m-1, d)).getUTCDay()] + ', ' + String(d).padStart(2,'0') + '/' + String(m).padStart(2,'0') + (p.hora ? ' · ' + p.hora.replace(':','h') : ''); };
+  const faltam = p => Math.round((new Date(p.data + 'T12:00:00') - new Date(hoje + 'T12:00:00')) / 864e5);
+  // mesma lógica da calculadora de pace
+  const fmtT = sec => { sec = Math.round(sec); const h = Math.floor(sec/3600), m = Math.floor(sec%3600/60), s = sec%60, p2 = n => String(n).padStart(2,'0'); return h ? h + ':' + p2(m) + ':' + p2(s) : m + ':' + p2(s); };
+  const fmtP = sec => { sec = Math.round(sec); return Math.floor(sec/60) + ':' + String(sec%60).padStart(2,'0'); };
+  const fmtKm = km => km.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.', ',');
+  function lerTempo(s){ s = String(s || '').trim(); const n = s.split(/[^0-9]+/).filter(Boolean).map(Number); if(!n.length) return 0; if(n.length >= 3) return n[0]*3600 + n[1]*60 + n[2]; if(n.length === 2) return /h/i.test(s) ? n[0]*3600 + n[1]*60 : n[0]*60 + n[1]; return n[0]*60; }
+
+  async function slideAchado(o, n, tot){
+    const cv = novoCv(), c = cv.getContext('2d'), W = cv.width, H = cv.height, st = H > 1500, cx = W/2;
+    aFundo(c, W, H);
+    const m = lojaDe(o), foto = await imgDe(o.foto, true), lg = await logoDe(m);
+    let y = st ? 150 : 56;
+    aPilula(c, n ? 'TOP ACHADOS · ' + n + '/' + tot : 'ACHADO DA ALINE', cx, y, {dot:true}); y += 64 + (st ? 40 : 28);
+    const ch = st ? 860 : 540, cw = W - 160;
+    c.save(); c.shadowColor = 'rgba(29,18,32,.18)'; c.shadowBlur = 40; c.fillStyle = '#fff'; rr(c, 80, y, cw, ch, 40); c.fill(); c.restore();
+    if(foto) aContain(c, foto, 130, y + 40, cw - 100, ch - 80); else aLogo(c, lg, m, cx, y + ch/2, ch*.3);
+    if(o.off){ const r = st ? 96 : 80, bx = 80 + cw - r*.6, by = y + r*.6 + 6; c.fillStyle = A_HOT; c.beginPath(); c.arc(bx, by, r, 0, Math.PI*2); c.fill(); c.fillStyle = '#fff'; c.textAlign = 'center'; c.font = '800 ' + Math.round(r*.6) + 'px ' + AD; c.fillText('-' + o.off + '%', bx, by + r*.21); }
+    y += ch + (st ? 74 : 50);
+    const lr = st ? 32 : 26; c.font = '700 ' + (st ? 36 : 30) + 'px ' + AB;
+    const lt = [o.loja, o.marca && o.marca !== o.loja ? o.marca : null].filter(Boolean).join(' · '), lw = c.measureText(lt).width, lx = cx - (lw + lr*2 + 16)/2;
+    aLogo(c, lg, m, lx + lr, y - lr*.4, lr);
+    c.font = '700 ' + (st ? 36 : 30) + 'px ' + AB; c.fillStyle = A_INK; c.textAlign = 'left'; c.fillText(lt, lx + lr*2 + 16, y); c.textAlign = 'center';
+    y += st ? 84 : 64;
+    y += aTexto(c, o.nome, cx, y, W - 180, st ? 54 : 46, st ? 64 : 54, 2, '800', AD, A_INK) + (st ? 50 : 34);
+    const fp = st ? 110 : 88, fd = st ? 44 : 38;
+    c.font = '800 ' + fp + 'px ' + AD; const pt = brl(o.preco), pw = c.measureText(pt).width;
+    c.font = '600 ' + fd + 'px ' + AB; const dt = o.off ? 'de ' + brl(o.de) : '', dw = dt ? c.measureText(dt).width + 28 : 0;
+    const px = cx - (pw + dw)/2; c.textAlign = 'left';
+    if(dt){ c.fillStyle = A_MUT; c.fillText(dt, px, y); const d0 = c.measureText('de ').width; c.fillRect(px + d0, y - fd*.33, dw - 28 - d0, 3); }
+    c.font = '800 ' + fp + 'px ' + AD; c.fillStyle = A_HOT; c.fillText(pt, px + dw, y); c.textAlign = 'center';
+    if(o.cupom){ y += st ? 50 : 30; aPilula(c, (o.cupomAline ? 'Cupom da Aline: ' : 'Cupom: ') + o.cupom, cx, y, {bg:A_MAU, fg:A_INK, fs: st ? 34 : 28, h: st ? 72 : 60}); }
+    aBio(c, W, H); aRodape(c, W, H);
+    return cv;
+  }
+  async function slideCupom(m){
+    const cv = novoCv(), c = cv.getContext('2d'), W = cv.width, H = cv.height, st = H > 1500, cx = W/2;
+    aFundo(c, W, H);
+    const lg = await logoDe(m), code = cupomDe(m) || ((m.cupons || [])[0] || {}).cupom || '';
+    let y = st ? 200 : 76;
+    aPilula(c, code ? 'CUPOM DA ALINE' : 'MEU LINK DE COMPRAS', cx, y, {dot:true}); y += 64 + (st ? 110 : 56);
+    const r = st ? 200 : 140; aLogo(c, lg, m, cx, y + r, r); y += 2*r + (st ? 140 : 96);
+    y += aTexto(c, m.nome, cx, y, W - 160, st ? 104 : 86, st ? 110 : 92, 2, '800', AD, A_INK);
+    if(m.descricao) y += aTexto(c, m.descricao, cx, y + 4, W - 200, st ? 40 : 34, st ? 50 : 42, 2, '600', AB, A_ACC);
+    y += st ? 50 : 30;
+    const bw = W - 200, bh = st ? 250 : 196;
+    if(code){
+      c.fillStyle = '#fff'; rr(c, 100, y, bw, bh, 36); c.fill();
+      c.setLineDash([22, 14]); c.lineWidth = 5; c.strokeStyle = A_MAU; rr(c, 116, y + 16, bw - 32, bh - 32, 26); c.stroke(); c.setLineDash([]);
+      c.fillStyle = A_MUT; c.font = '700 ' + (st ? 32 : 28) + 'px ' + AB; c.textAlign = 'center'; c.fillText(m.cupom_auto ? 'JÁ ENTRA PELO LINK · CUPOM' : 'USE O CUPOM', cx, y + (st ? 82 : 66));
+      let fs = st ? 120 : 96; c.font = '800 ' + fs + 'px ' + AD; while(c.measureText(code).width > bw - 90 && fs > 48){ fs -= 4; c.font = '800 ' + fs + 'px ' + AD; }
+      c.fillStyle = A_HOT; c.fillText(code, cx, y + bh - (st ? 54 : 40));
+    } else aTexto(c, 'Compras de corrida pelo meu link e os achados do dia no radar', cx, y + 50, W - 200, st ? 46 : 40, st ? 58 : 50, 3, '700', AB, A_INK);
+    aBio(c, W, H); aRodape(c, W, H);
+    return cv;
+  }
+  function topAchados(n){
+    const base = tenis.filter(o => o.off > 0).sort((a, b) => b.off - a.off), comFoto = base.filter(o => o.foto);
+    const sel = [], porLoja = {}, cats = {};
+    for(const o of comFoto){ if(sel.length >= n) break; if((porLoja[o.loja] || 0) >= 2 || cats[o.categoria]) continue; sel.push(o); porLoja[o.loja] = (porLoja[o.loja] || 0) + 1; cats[o.categoria] = 1; }
+    for(const o of comFoto.concat(base)){ if(sel.length >= n) break; if(!sel.includes(o)) sel.push(o); }
+    return sel;
+  }
+  function slideTopCapa(l){
+    const cv = novoCv(), c = cv.getContext('2d'), W = cv.width, H = cv.height, st = H > 1500, cx = W/2;
+    aFundo(c, W, H);
+    let y = st ? 220 : 80;
+    aPilula(c, 'TOP ACHADOS DA SEMANA', cx, y, {dot:true}); y += 64 + (st ? 190 : 140);
+    y += aTexto(c, l.length + ' ofertas de corrida que eu separei', cx, y, W - 160, st ? 100 : 84, st ? 110 : 92, 3, '800', AD, A_INK) + (st ? 90 : 50);
+    l.forEach((o, i) => {
+      c.font = '700 ' + (st ? 40 : 34) + 'px ' + AB; c.fillStyle = A_INK; c.textAlign = 'center';
+      c.fillText((i+1) + '. ' + aLinhas(c, o.nome, W - 280, 1)[0], cx, y);
+      c.font = '800 ' + (st ? 32 : 28) + 'px ' + AB; c.fillStyle = A_HOT; c.fillText([o.loja, o.off ? '-' + o.off + '%' : null].filter(Boolean).join(' · '), cx, y + (st ? 46 : 38));
+      y += st ? 120 : 96;
+    });
+    aPilula(c, 'ARRASTA PARA O LADO →', cx, H - (st ? 270 : 160), {bg:A_INK, fg:'#fff', fs: st ? 34 : 30, h: st ? 84 : 70}); aRodape(c, W, H);
+    return cv;
+  }
+  function slideTopFim(){
+    const cv = novoCv(), c = cv.getContext('2d'), W = cv.width, H = cv.height, st = H > 1500, cx = W/2;
+    aFundo(c, W, H);
+    let y = st ? 620 : 380;
+    y += aTexto(c, 'Tem muito mais no radar', cx, y, W - 160, st ? 110 : 92, st ? 118 : 98, 2, '800', AD, A_INK) + 30;
+    aTexto(c, 'Achados de todas as lojas parceiras, conferidos todo dia, com o meu link ou o meu cupom.', cx, y, W - 220, st ? 44 : 38, st ? 58 : 50, 4, '600', AB, A_ACC);
+    aBio(c, W, H); aRodape(c, W, H);
+    return cv;
+  }
+  function slideFoto(c, W, H){
+    const im = aFoto || (heroImg.naturalWidth ? heroImg : null);
+    if(im) aCover(c, im, W, H, .22); else aFundo(c, W, H);
+    aEscurece(c, W, H, .28);
+  }
+  function slideVou(p, cont){
+    const cv = novoCv(), c = cv.getContext('2d'), W = cv.width, H = cv.height, st = H > 1500, cx = W/2;
+    slideFoto(c, W, H);
+    aPilula(c, 'EU VOU CORRER', cx, st ? 170 : 60, {dot:true});
+    const B = [], n = faltam(p);
+    if(cont){
+      if(n > 1){ B.push(bTxt(c, 'FALTAM', st ? 46 : 38, '800', AB, '#E9A07E', 1, st ? 56 : 46)); B.push(bTxt(c, String(n), st ? 250 : 190, '800', AD, '#FFFFFF', 1, st ? 230 : 176)); B.push(bTxt(c, 'DIAS PARA A LARGADA', st ? 42 : 34, '800', AB, '#E9A07E', 1, st ? 52 : 42)); }
+      else B.push(bTxt(c, n === 1 ? 'É AMANHÃ!' : n === 0 ? 'É HOJE!' : 'JÁ FOI!', st ? 130 : 104, '800', AD, '#E9A07E', 1, st ? 140 : 112));
+      B.push(bGap(st ? 50 : 30));
+    }
+    B.push(bTxt(c, p.nome, st ? 84 : 66, '800', AD, '#FFFFFF', 3, st ? 92 : 72));
+    B.push(bGap(st ? 26 : 16));
+    [['📅 ', dataLonga(p)], ['📍 ', [p.local, (p.uf || 'RJ') !== 'RJ' ? [p.cidade, p.uf].filter(Boolean).join('/') : p.cidade].filter(Boolean).join(' · ')], ['🏁 ', p.distancias], ['🎟️ Cupom ', p.cupom]].forEach(([ic, v]) => { if(v) B.push(bTxt(c, ic + v, st ? 40 : 32, '600', AB, 'rgba(255,255,255,.94)', 1, st ? 54 : 44, 960)); });
+    B.push(bGap(st ? 44 : 26));
+    B.push({h: st ? 88 : 72, d: y => aPilula(c, 'BORA JUNTO? 🏃‍♀️', cx, y, {bg:A_MAU, fg:A_INK, fs: st ? 40 : 32, h: st ? 88 : 72})});
+    aPilha(c, B, H - (st ? 200 : 100)); aRodape(c, W, H);
+    return cv;
+  }
+  function dadosPos(){
+    const g = id => document.getElementById(id), p = aItem || {};
+    const nome = g('ap-nome') ? g('ap-nome').value.trim() : (p.nome || ''), km = g('ap-km') ? parseFloat(String(g('ap-km').value).replace(',', '.')) || 0 : 0, t = g('ap-t') ? lerTempo(g('ap-t').value) : 0;
+    return {nome, km, t, data: p.data || hoje};
+  }
+  function slidePos(){
+    const cv = novoCv(), c = cv.getContext('2d'), W = cv.width, H = cv.height, st = H > 1500, cx = W/2, r = dadosPos();
+    slideFoto(c, W, H);
+    aPilula(c, 'PROVA CONCLUÍDA ✓', cx, st ? 170 : 60, {dot:true});
+    const B = [];
+    B.push(bTxt(c, r.nome || 'Minha prova', st ? 74 : 60, '800', AD, '#FFFFFF', 2, st ? 82 : 66));
+    B.push(bTxt(c, dataLonga({data: r.data}), st ? 36 : 30, '600', AB, 'rgba(255,255,255,.85)', 1, st ? 52 : 42));
+    B.push(bGap(st ? 50 : 28));
+    B.push(bTxt(c, 'MEU TEMPO', st ? 40 : 34, '800', AB, '#E9A07E', 1, st ? 50 : 42));
+    B.push(bTxt(c, r.t ? fmtT(r.t) : '--:--', st ? 200 : 160, '800', AD, '#FFFFFF', 1, st ? 200 : 160));
+    B.push(bGap(st ? 40 : 24));
+    const col = (lbl, val, x, y) => { c.textAlign = 'center'; c.font = '800 ' + (st ? 30 : 26) + 'px ' + AB; c.fillStyle = '#E9A07E'; c.fillText(lbl, x, y + (st ? 30 : 26)); c.font = '800 ' + (st ? 80 : 66) + 'px ' + AD; c.fillStyle = '#FFFFFF'; c.fillText(val, x, y + (st ? 112 : 94)); };
+    B.push({h: st ? 130 : 108, d: y => { col('DISTÂNCIA', r.km ? fmtKm(r.km) + ' km' : '--', cx - 230, y); col('PACE', r.km && r.t ? fmtP(r.t/r.km) + '/km' : '--', cx + 230, y); c.fillStyle = 'rgba(255,255,255,.35)'; c.fillRect(cx - 1, y + 10, 2, st ? 110 : 90); }});
+    aPilha(c, B, H - (st ? 220 : 110)); aRodape(c, W, H);
+    return cv;
+  }
+  const tagK = s => '#' + nomeK(s).slice(0, 30);
+  const HT = '#corrida #corridaderua #running #radardecorrida #amartinscc';
+  function legendaArte(){
+    const o = aItem;
+    if(aTipo === 'achado') return o.nome + (o.off ? ' com ' + o.off + '% de desconto' : '') + ' na ' + o.loja + ': ' + (o.off ? 'de ' + brl(o.de) + ' por ' : '') + brl(o.preco) + ' 🏃‍♀️\n' + (o.cupom ? (o.cupomAline ? 'Use o meu cupom ' : 'Cupom da loja: ') + o.cupom + '\n' : '') + '\nO link está na bio, na aba Achados do radardecorrida.com.br. Preço conferido hoje pelo radar; pode mudar ao longo do dia.\n\n#achados #promocao ' + tagK(o.loja) + ' ' + HT;
+    if(aTipo === 'cupom'){ const code = cupomDe(o) || ((o.cupons || [])[0] || {}).cupom || ''; return code ? 'Cupom da Aline na ' + o.nome + ': ' + code + ' 💜\n' + (o.cupom_auto ? 'Pelo link ele já entra sozinho.' : 'É só usar no carrinho.') + '\n\nO link está na bio, na aba Parceiros do radardecorrida.com.br.\n\n#cupom ' + tagK(o.nome) + ' ' + HT : 'Minhas compras de corrida na ' + o.nome + ' 💜\nO link está na bio, na aba Parceiros do radardecorrida.com.br, junto com os achados do dia.\n\n#achados ' + tagK(o.nome) + ' ' + HT; }
+    if(aTipo === 'top'){ const l = o || []; return 'Top achados da semana 🏃‍♀️ Separei ' + l.length + ' ofertas de corrida:\n\n' + l.map((x, i) => (i+1) + '. ' + x.nome + ' (' + x.loja + '): ' + brl(x.preco) + (x.off ? ', ' + x.off + '% off' : '')).join('\n') + '\n\nOs links estão na bio, na aba Achados do radardecorrida.com.br. Preços conferidos pelo radar; podem mudar.\n\n#achados #promocao ' + HT; }
+    if(aTipo === 'vou'){ const n = faltam(o); return (aVar === 'contagem' && n > 1 ? 'Faltam ' + n + ' dias para a ' + o.nome + '! ⏳' : 'Eu vou correr a ' + o.nome + '! 🏃‍♀️') + '\n\n📅 ' + dataLonga(o) + '\n📍 ' + [o.local, o.cidade].filter(Boolean).join(', ') + (o.distancias ? '\n🏁 ' + o.distancias : '') + '\n\nBora junto? A inscrição está no link da bio (radardecorrida.com.br)' + (o.cupom ? ', e com o meu cupom ' + o.cupom + ' tem desconto' : '') + '. 💜\n\n#euvoucorrer ' + HT; }
+    if(aTipo === 'pos'){ const r = dadosPos(); return 'Prova concluída! ✅ ' + (r.nome || '') + (r.km ? '\n🏁 ' + fmtKm(r.km) + ' km' : '') + (r.t ? ' em ' + fmtT(r.t) : '') + (r.km && r.t ? ' (pace ' + fmtP(r.t/r.km) + '/km)' : '') + '\n\nQuer saber o seu pace? Tem calculadora no radardecorrida.com.br (link na bio). 💜\n\n#posprova #pace ' + HT; }
+    return '';
+  }
+  async function arteDesenha(){
+    const id = ++aRend;
+    try{ await Promise.all(['800 60px Urbanist','600 40px "Plus Jakarta Sans"','700 40px "Plus Jakarta Sans"','800 40px "Plus Jakarta Sans"'].map(f => document.fonts.load(f))); }catch(e){}
+    if(!heroImg.complete) await new Promise(r => { heroImg.onload = heroImg.onerror = r; });
+    let cvs = [];
+    if(aTipo === 'achado') cvs = [await slideAchado(aItem)];
+    else if(aTipo === 'cupom') cvs = [await slideCupom(aItem)];
+    else if(aTipo === 'top'){ const l = topAchados(+aVar || 5); aItem = l; if(l.length){ cvs = [slideTopCapa(l)]; for(let i = 0; i < l.length; i++) cvs.push(await slideAchado(l[i], i+1, l.length)); cvs.push(slideTopFim()); } }
+    else if(aTipo === 'vou') cvs = [slideVou(aItem, aVar === 'contagem')];
+    else if(aTipo === 'pos'){ cvs = [slidePos()]; const r = dadosPos(), ph = document.getElementById('ap-pace'); if(ph) ph.textContent = r.km && r.t ? 'Pace: ' + fmtP(r.t/r.km) + '/km · ' + (3600*r.km/r.t).toFixed(1).replace('.', ',') + ' km/h' : 'Digite a distância e o tempo para calcular o pace.'; }
+    if(id !== aRend) return;
+    aCvs = cvs; aStrip.innerHTML = '';
+    if(!cvs.length){ const p = document.createElement('p'); p.className = 'hint'; p.textContent = 'Hoje não há achados com desconto para montar o carrossel.'; aStrip.appendChild(p); }
+    cvs.forEach(cv => { cv.className = aFmt === 'feed' ? 'post' : ''; aStrip.appendChild(cv); });
+    if(!aLegEditada) aLeg.value = legendaArte();
+  }
+  const arteLogo = () => { clearTimeout(aTimer); aTimer = setTimeout(arteDesenha, 250); };
+  aLeg.addEventListener('input', () => { aLegEditada = true; });
+  arteEl.querySelectorAll('[data-afmt]').forEach(b => b.addEventListener('click', () => { aFmt = b.dataset.afmt; arteEl.querySelectorAll('[data-afmt]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); arteDesenha(); }));
+  document.getElementById('arte-file').addEventListener('change', async e => {
+    const f = e.target.files && e.target.files[0]; e.target.value = ''; if(!f) return;
+    const bl = await encolhe(f); if(!bl){ toast('Não consegui abrir essa foto. Tente outra.'); return; }
+    aFoto = await carregaImg(URL.createObjectURL(bl)); const pd = document.getElementById('ap-padrao'); if(pd) pd.hidden = false; arteDesenha();
+  });
+  function montaCampos(){
+    aCampos.innerHTML = ''; aVarEl.innerHTML = ''; aVarEl.hidden = true;
+    const vars = aTipo === 'top' ? [['3','3 ofertas'],['4','4 ofertas'],['5','5 ofertas']] : aTipo === 'vou' ? [['normal','Normal'],['contagem','Contagem regressiva']] : null;
+    if(vars){ aVarEl.hidden = false; vars.forEach(([v, l]) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = l; b.setAttribute('aria-pressed', String(v === aVar)); b.addEventListener('click', () => { aVar = v; aVarEl.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); aLegEditada = false; arteDesenha(); }); aVarEl.appendChild(b); }); }
+    if(aTipo === 'pos'){
+      const p = aItem || {}, km0 = (String(p.distancias || '').match(/(\d+(?:[.,]\d+)?)\s*k/i) || [])[1] || '';
+      aCampos.innerHTML = '<div class="campo"><label class="lb" for="ap-nome">Prova</label><input type="text" id="ap-nome" maxlength="70"></div><div class="row"><div class="campo" style="flex:1"><label class="lb" for="ap-km">Distância (km)</label><input type="number" id="ap-km" inputmode="decimal" min="0" step="0.01"></div><div class="campo" style="flex:1"><label class="lb" for="ap-t">Meu tempo</label><input type="text" id="ap-t" inputmode="numeric" placeholder="52:30 ou 1:02:15"></div></div><p class="hint" id="ap-pace" style="text-align:left"></p>';
+      document.getElementById('ap-nome').value = p.nome || ''; document.getElementById('ap-km').value = km0.replace(',', '.');
+      ['ap-nome','ap-km','ap-t'].forEach(id => document.getElementById(id).addEventListener('input', () => { aLegEditada = false; arteLogo(); }));
+    }
+    if(aTipo === 'vou' || aTipo === 'pos'){
+      const rw = document.createElement('div'); rw.className = 'row';
+      rw.innerHTML = '<button class="follow alt" type="button" id="ap-foto" style="flex:1;justify-content:center">Escolher foto</button><button class="mini" type="button" id="ap-padrao" hidden>Usar foto padrão</button>';
+      aCampos.appendChild(rw);
+      document.getElementById('ap-foto').addEventListener('click', () => document.getElementById('arte-file').click());
+      document.getElementById('ap-padrao').addEventListener('click', e => { aFoto = null; e.target.hidden = true; arteDesenha(); });
+    }
+  }
+  function abrirArte(tipo, item){
+    aTipo = tipo; aItem = item || null; aLegEditada = false; aFoto = null;
+    aVar = tipo === 'top' ? '5' : tipo === 'vou' ? 'normal' : '';
+    document.getElementById('arte-t').textContent = {achado:'Arte do achado', cupom:'Story · ' + (item && item.nome), top:'Top achados da semana', vou:'Eu vou correr', pos:'Card pós-prova'}[tipo] || 'Arte';
+    arteEl.querySelectorAll('[data-afmt]').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.afmt === aFmt)));
+    aStrip.innerHTML = ''; aLeg.value = '';
+    montaCampos(); abreModal(arteEl); arteDesenha();
+    if(window.posthog) posthog.capture('aline_arte', {tipo});
+  }
+  async function arteBlobs(){
+    try{ return await Promise.all(aCvs.map(cv => new Promise((res, rej) => { try{ cv.toBlob(b => b ? res(b) : rej(new Error('sem imagem')), 'image/png'); }catch(e){ rej(e); } }))); }
+    catch(e){ toast('Não deu para gerar a imagem. Tente de novo.'); return null; }
+  }
+  const arteNome = i => 'radar-' + aTipo + '-' + aFmt + (aCvs.length > 1 ? '-' + (i+1) : '') + '.png';
+  async function arteSalva(bs){
+    for(let i = 0; i < bs.length; i++){
+      if(dlApi){ try{ await dlApi.save({filename: arteNome(i), data: bs[i]}); continue; }catch(e){} }
+      const u = URL.createObjectURL(bs[i]), a = document.createElement('a'); a.href = u; a.download = arteNome(i); document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000);
+      await new Promise(r => setTimeout(r, 300));
+    }
+    toast(bs.length > 1 ? 'Imagens salvas!' : 'Imagem salva!');
+  }
+  document.getElementById('arte-save').addEventListener('click', async () => { const bs = await arteBlobs(); if(bs && bs.length) arteSalva(bs); });
+  document.getElementById('arte-share').addEventListener('click', async () => {
+    const bs = await arteBlobs(); if(!bs || !bs.length) return;
+    try{ await navigator.clipboard.writeText(aLeg.value); }catch(e){}
+    try{
+      const fs = bs.map((b, i) => new File([b], arteNome(i), {type:'image/png'}));
+      if(navigator.canShare && navigator.canShare({files: fs})){ toast('Legenda copiada: é só colar no post.'); await navigator.share({files: fs}); return; }
+    }catch(e){ if(e && e.name === 'AbortError') return; }
+    arteSalva(bs);
+  });
+  document.getElementById('arte-copy').addEventListener('click', () => copiaTxt(aLeg.value, 'Legenda copiada!'));
+  // listas do menu: story de cupom de cada parceiro e "Eu vou correr" das provas com o selo
+  function telaLista(titulo, itens, vazio){
+    admBody.innerHTML = '';
+    const lista = document.createElement('div'); lista.className = 'adm-list';
+    const h = document.createElement('p'); h.className = 'lb'; h.style.margin = '0'; h.textContent = titulo; lista.appendChild(h);
+    if(!itens.length){ const p = document.createElement('p'); p.className = 'hint'; p.style.textAlign = 'left'; p.textContent = vazio; lista.appendChild(p); }
+    itens.forEach(([txt, sub, fn]) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'follow alt'; b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = txt; b.querySelector('small').textContent = sub; b.addEventListener('click', () => { fechaModal(admEl); fn(); }); lista.appendChild(b); });
+    const v = document.createElement('button'); v.type = 'button'; v.className = 'mini'; v.textContent = '← Voltar ao menu'; v.addEventListener('click', menuAdm); lista.appendChild(v);
+    admBody.appendChild(lista); abreModal(admEl);
+  }
+  function telaCupons(){ telaLista('Story do cupom', marcas.map(m => [m.nome, cupomDe(m) ? 'cupom ' + cupomDe(m) : 'link da Aline', () => abrirArte('cupom', m)]), 'Nenhum parceiro na aba Parceiros.'); }
+  function telaProvasAline(){ telaLista('Eu vou correr', provas.filter(p => p.aline).map(p => [p.nome, fmtD(p.data) + ' · faltam ' + faltam(p) + (faltam(p) === 1 ? ' dia' : ' dias'), () => abrirArte('vou', p)]), 'Nenhuma prova marcada com "A Aline vai correr". Peça ao Leandro para marcar as suas provas.'); }
+
+  // carrossel da semana também em story: a imagem do feed no centro do story, com o fundo do radar
+  let carrFmt = 'feed';
+  async function carrStory(src){
+    const im = await carregaImg(src), cv = document.createElement('canvas'); cv.width = 1080; cv.height = 1920; const c = cv.getContext('2d');
+    aFundo(c, 1080, 1920); if(im) c.drawImage(im, 0, 285, 1080, 1350);
+    c.fillStyle = A_INK; c.textAlign = 'center'; c.font = '800 56px ' + AD; c.fillText('Provas do fim de semana no Rio', 540, 190);
+    c.font = '600 30px ' + AB; c.fillStyle = '#fff'; c.fillText('radardecorrida.com.br · @' + (pf.instagram || 'amartinscc'), 540, 1810);
+    return cv;
+  }
+  async function carrMostra(){
+    if(!carrInfo || !(carrInfo.imagens || []).length) return;
+    const strip = document.getElementById('carr-strip'); strip.innerHTML = '';
+    if(carrFmt === 'story'){ try{ await document.fonts.load('800 56px Urbanist'); }catch(e){} for(const src of carrInfo.imagens){ const cv = await carrStory(src); strip.appendChild(cv); } }
+    else carrInfo.imagens.forEach((src, i) => { const im = document.createElement('img'); im.src = src; im.alt = 'Imagem ' + (i+1) + ' do carrossel'; im.loading = 'lazy'; strip.appendChild(im); });
+  }
+  document.querySelectorAll('[data-cfmt]').forEach(b => b.addEventListener('click', () => { carrFmt = b.dataset.cfmt; document.querySelectorAll('[data-cfmt]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); carrMostra(); }));
 
 })();
 </script>

@@ -6,7 +6,7 @@
 import datetime, html, json, pathlib, re, sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from paginas import slugs, prova_base, prova_extra, tenis_base, tenis_extra, brl, slug, MESF  # noqa: E402
+from paginas import achados_ativos, slugs, prova_base, prova_extra, tenis_base, tenis_extra, brl, slug, MESF  # noqa: E402
 
 root = pathlib.Path(__file__).resolve().parent.parent
 SITE = 'https://' + (root / 'CNAME').read_text().strip().strip('/') + '/'
@@ -58,19 +58,11 @@ def main():
     fds = prox  # compatibilidade com o relatório
     dias = sorted({p['data'] for p in prox})
 
-    # achados: primeiro os que rendem comissão para a Aline (escolhas dela; Amazon, Netshoes e Mercado Livre), depois os maiores descontos
-    ofs = d.get('ofertas') or []
+    # achados: só de parceiros ativos (link de afiliada ou cupom da Aline), os maiores descontos, variando categoria e marca
+    ofs = achados_ativos(d)
     os_ = dict(zip(map(id, ofs), slugs(ofs, tenis_base, tenis_extra)))
     for o in ofs:
         o['_off'] = round((1 - o['preco'] / o['de']) * 100) if o.get('de') and o['de'] > o['preco'] else 0
-    try:
-        ESC = set(json.loads((root / 'escolhas.json').read_text(encoding='utf-8')).get('links') or [])
-    except Exception:
-        ESC = set()
-    esc = lambda o: (o.get('link') or '') in ESC  # Escolhas da Aline: marcadas por ela no Modo Aline
-    def comissao(o):
-        u = o.get('link') or ''
-        return bool(esc(o) or re.search(r'(^|//)([\w-]+\.)?(amazon\.com\.br|amzn\.to|a\.co|netshoes\.com\.br|mercadolivre\.com\.br)/', u) or 'tag=amartins0b-20' in u)
     def variado(lista, n, por_cat=2):
         sel, cats, marcas = [], {}, {}
         for o in lista:
@@ -82,19 +74,18 @@ def main():
             if len(sel) >= n: break
             if o not in sel: sel.append(o)
         return sel
-    com = sorted([o for o in ofs if comissao(o)], key=lambda o: (not esc(o), -o['_off']))
-    destaques = [o for o in com if esc(o)][:4]
-    destaques += variado([o for o in com if o not in destaques], 8 - len(destaques))
-    outros = variado(sorted([o for o in ofs if o not in destaques], key=lambda o: -o['_off']), 4)
+    por_off = sorted(ofs, key=lambda o: -o['_off'])
+    destaques = variado(por_off, 8)
+    outros = variado([o for o in por_off if o not in destaques], 4)
     escolhidos = destaques + outros
 
-    # parceiros com campanha ou ofertas
+    # parceiros: um banner por marca (nome, cupom da Aline quando houver e link para a marca no radar), sem ofertas
     pc = d.get('parceiros') or {}
-    parc = [m for m in (pc.get('marcas') or []) if m.get('campanha') or m.get('ofertas')]
+    parc = [m for m in (pc.get('marcas') or []) if not m.get('oculto') and m.get('link')]
 
     datas = f'{ini.day}/{ini.month:02d} a {fim.day}/{fim.month:02d}'
-    assunto = (f'🏃‍♀️ {len(prox)} provas no Rio nas próximas semanas + indicações da Aline' if prox else '🏃‍♀️ Indicações da Aline e achados de corrida da semana')
-    pre = (f'Corridas de {datas} com inscrições abertas, as indicações da Aline e os cupons dos parceiros.' if prox else 'As indicações da Aline, os maiores descontos em corrida e os cupons dos parceiros.')
+    assunto = (f'🏃‍♀️ {len(prox)} provas no Rio nas próximas semanas + achados da semana' if prox else '🏃‍♀️ Achados de corrida da semana e cupons da Aline')
+    pre = (f'Corridas de {datas} com inscrições abertas, os achados da semana e os cupons dos parceiros.' if prox else 'Os maiores descontos em corrida e os cupons dos parceiros da Aline.')
 
     L = []
     L.append(f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(assunto)}</title></head>')
@@ -104,7 +95,7 @@ def main():
     # topo
     L.append(f'<tr><td style="padding:22px 24px 6px;background:linear-gradient(135deg,#BBE3E5,#D9C1D9)"><p style="margin:0;{FONT}font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:{ACCENT}">Radar de Corrida · {DIAS[hoje.weekday()]}, {hoje.day} de {MESF[hoje.month - 1]}</p>'
              f'<h1 style="margin:6px 0 4px;{FONT}font-size:28px;line-height:1.15;color:{INK}">Sua semana de corrida 🏃‍♀️</h1>'
-             f'<p style="margin:0 0 16px;{FONT}font-size:15px;color:{INK}">Oi! Aqui é a Aline. Separei o que eu indico para quem corre, as provas no Rio das próximas semanas (ainda dá tempo de se inscrever) e os cupons dos meus parceiros.</p></td></tr>')
+             f'<p style="margin:0 0 16px;{FONT}font-size:15px;color:{INK}">Oi! Aqui é a Aline. Separei os achados de corrida da semana, as provas no Rio das próximas semanas (ainda dá tempo de se inscrever) e os cupons dos meus parceiros.</p></td></tr>')
 
     def grade(itens, destaque):
         if not itens: return
@@ -114,7 +105,7 @@ def main():
             L.append('<tr>')
             for o in itens[i:i + 2]:
                 url = utm(f'{SITE}tenis/{os_[id(o)]}/?c=1', hj, 'indicacao' if destaque else 'achado')
-                selo = (f'<span style="display:inline-block;margin-bottom:5px;background:#FFF3D6;color:#7A4E00;{FONT}font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px">★ {"Escolha da Aline" if esc(o) else "Indicação da Aline"}</span><br>') if destaque else ''
+                selo = (f'<span style="display:inline-block;margin-bottom:5px;background:#F6F0F6;color:{ACCENT};{FONT}font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px">Cupom da Aline: {E(o["cupom"])}</span><br>') if o.get('cupomAline') else ''
                 tag = f'-{o["_off"]}%' if o['_off'] else '★'
                 foto = (f'<img src="{E(o["foto"])}" width="250" alt="" style="display:block;width:100%;height:170px;object-fit:contain;background:#fff;border:0">' if o.get('foto')
                         else f'<div style="height:110px;background:{SOFT};{FONT}font-size:40px;font-weight:800;color:{ACCENT};text-align:center;line-height:110px">{tag}</div>')
@@ -130,10 +121,9 @@ def main():
             L.append('</tr>')
         L.append('</table></td></tr>')
 
-    # 1) indicações da Aline (produtos que rendem comissão): primeiro e em destaque
+    # 1) achados da semana: primeiro e em destaque
     if destaques:
-        L.append(titulo_secao('Indicações da Aline', 'O que eu uso e recomendo'))
-        L.append(f'<tr><td style="padding:2px 24px 4px;{FONT}font-size:14px;color:{INK}">Comprando por estes links você apoia o Radar de Corrida, sem pagar nada a mais. 💜</td></tr>')
+        L.append(titulo_secao('Achados da semana', 'Das lojas parceiras da Aline'))
         grade(destaques, True)
 
     # 2) provas das próximas semanas
@@ -170,16 +160,15 @@ def main():
 
     # parceiros
     if parc:
-        L.append(titulo_secao('Dos parceiros da Aline', 'Com o meu cupom'))
-        for m in parc[:8]:
-            code = m.get('cupom') or pc.get('cupom') or ''
+        L.append(titulo_secao('Dos parceiros da Aline', 'Cupons e lojas'))
+        for m in parc:
+            code = (m.get('cupom') or '') if 'cupom' in m else (pc.get('cupom') or '')
             url = utm(f'{SITE}#parceiro={slug(m["nome"])}', hj, 'parceiro')
-            ofl = ''.join(f'<span style="display:block;{FONT}font-size:13px;color:{INK};margin-top:2px">• {E(o["nome"])}' + (f' por <b style="color:{HOT}">{E(brl(o["preco"]))}</b>' if isinstance(o.get('preco'), (int, float)) else '') + '</span>' for o in (m.get('ofertas') or [])[:3])
-            L.append(f'<tr><td style="padding:6px 24px"><a href="{E(url)}" style="display:block;text-decoration:none;border:1px solid {LINE};border-radius:14px;padding:12px 14px">'
+            L.append(f'<tr><td style="padding:5px 24px"><a href="{E(url)}" style="display:block;text-decoration:none;border:1px solid {LINE};border-radius:14px;padding:12px 14px">'
                      f'<span style="display:block;{FONT}font-size:16px;font-weight:700;color:{INK}">{E(m["nome"])}'
                      + (f' <span style="{FONT}font-size:12px;font-weight:700;color:{ACCENT};border:1.5px dashed {MAUVE};border-radius:999px;padding:2px 8px;margin-left:4px">cupom {E(code)}</span>' if code else '') + '</span>'
-                     + (f'<span style="display:block;{FONT}font-size:13px;font-weight:700;color:{HOT};margin-top:4px">{E(m["campanha"])}</span>' if m.get('campanha') else '')
-                     + ofl + f'<span style="display:block;{FONT}font-size:13px;font-weight:700;color:{ACCENT};margin-top:6px">Ver no radar →</span></a></td></tr>')
+                     + (f'<span style="display:block;{FONT}font-size:13px;color:{MUTED};margin-top:2px">{E(m["descricao"])}</span>' if m.get('descricao') else '')
+                     + f'<span style="display:block;{FONT}font-size:13px;font-weight:700;color:{ACCENT};margin-top:6px">Ir à loja pelo radar →</span></a></td></tr>')
     else:
         L.append(titulo_secao('Dos parceiros da Aline', 'Com o meu cupom'))
         L.append(f'<tr><td style="padding:6px 24px;{FONT}font-size:15px;color:{INK}">Roupas, suplementos e alimentação das marcas que eu uso, com o cupom <b>{E(pc.get("cupom") or "AMARTINS")}</b>.</td></tr>')

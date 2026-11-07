@@ -38,6 +38,8 @@ def tenis_base(o): return slug(' '.join(x for x in [o.get('marca') or '', o['nom
 AFIL_AMAZON = 'amartins0b-20'  # mesmo código da constante AFIL do template
 AFIL_RAKUTEN_ID = '7KhHq5G3aIo'  # token de publisher da Aline na Rakuten
 AFIL_NETSHOES_MID = '43984'  # MID da Netshoes (Netshoes WL) na Rakuten
+AFIL_PUMA = 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma'  # Puma na Awin (mesmo do template)
+AFIL_ZATTINI = ''  # Zattini: link com {URL} quando a Aline informar (mesmo do template)
 AFIL_ML_WORD, AFIL_ML_TOOL = 'amartins', '42642259'  # Mercado Livre: matt_word e matt_tool do link meli.la da Aline (mesmos do template)
 
 
@@ -46,6 +48,10 @@ def afil(u):
     try:
         from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, quote
         x = urlsplit(u)
+        if re.search(r'(^|\.)puma\.com$', x.hostname or '') and AFIL_PUMA:
+            return AFIL_PUMA.replace('{URL}', quote(u, safe=''))
+        if re.search(r'(^|\.)zattini\.com\.br$', x.hostname or '') and AFIL_ZATTINI:
+            return AFIL_ZATTINI.replace('{URL}', quote(u, safe=''))
         if re.search(r'(^|\.)netshoes\.com\.br$', x.hostname or '') and AFIL_NETSHOES_MID:
             return 'https://click.linksynergy.com/deeplink?id=' + AFIL_RAKUTEN_ID + '&mid=' + AFIL_NETSHOES_MID + '&murl=' + quote(u, safe='')
         if re.search(r'(^|\.)mercadolivre\.com\.br$', x.hostname or '') and AFIL_ML_WORD:
@@ -58,6 +64,22 @@ def afil(u):
         pass
     return u
 def tenis_extra(o): return o.get('loja') or ''
+
+
+def _nk(s): return re.sub(r'[^a-z0-9]+', '', unicodedata.normalize('NFD', str(s or '').lower()).encode('ascii', 'ignore').decode())
+
+
+def achados_ativos(d):
+    """achados que aparecem no site: só de parceiros ativos da aba Parceiros (link de afiliada ou cupom da Aline).
+    Mesma regra do template (data.ofertas filtrado por LOJAS): mude os dois juntos."""
+    lojas = {_nk(m.get('nome')): m for m in ((d.get('parceiros') or {}).get('marcas') or [])}
+    out = []
+    for o in d.get('ofertas') or []:
+        m = lojas.get(_nk(o.get('loja')))
+        if not m or m.get('oculto') or not o.get('link') or not isinstance(o.get('preco'), (int, float)): continue
+        if not m.get('afiliada') and not o.get('cupom') and m.get('cupom'): o = {**o, 'cupom': m['cupom'], 'cupomAline': True}
+        out.append(o)
+    return out
 
 
 def brl(v):
@@ -305,7 +327,7 @@ def main():
 
     provas = d.get('provas') or []
     ps = slugs(provas, prova_base, prova_extra)
-    ofertas = d.get('ofertas') or []
+    ofertas = achados_ativos(d)
     ts = slugs(ofertas, tenis_base, tenis_extra)
     itens = [('prova', p, sl) for p, sl in zip(provas, ps) if p['data'] >= hoje] + [('tenis', o, sl) for o, sl in zip(ofertas, ts)]
 
