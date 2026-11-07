@@ -744,9 +744,13 @@ __DATA__
   // Mercado Livre: parâmetros do link de afiliada da Aline (matt_word = etiqueta, matt_tool = ferramenta), tirados do link meli.la dela
   const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0', mlWord: 'amartins', mlTool: '42642259', mlHome: 'https://meli.la/2HAaDz4', puma: 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma', zattini: ''};
   // Puma (Awin): o ued leva a URL codificada da página; Zattini: pôr em AFIL.zattini o link com {URL} quando a Aline informar
+  // parâmetro de campanha de um parceiro (campo manual "link_param", ex.: Brilho e Bronze na Black Friday "parceiro=6919"): vai também nos links de produto do mesmo site
+  const PARAM_SITE = {}; ((data.parceiros||{}).marcas||[]).forEach(m => { if(m.link_param && m.link){ try{ PARAM_SITE[new URL(m.link).hostname.replace(/^www\./,'')] = m.link_param; }catch(e){} } });
   function afil(u){
     try{
       const x = new URL(u);
+      const pp = PARAM_SITE[x.hostname.replace(/^www\./,'')];
+      if(pp){ new URLSearchParams(pp).forEach((v,k) => x.searchParams.set(k, v)); return x.toString(); }
       if(/(^|\.)amazon\.com\.br$/.test(x.hostname) && AFIL.amazon){ x.searchParams.set('tag', AFIL.amazon); return x.toString(); }
       if(/(^|\.)mercadolivre\.com\.br$/.test(x.hostname) && AFIL.mlWord){ x.searchParams.set('matt_word', AFIL.mlWord); x.searchParams.set('matt_tool', AFIL.mlTool); return x.toString(); }
       if(/(^|\.)puma\.com$/.test(x.hostname) && AFIL.puma){ return AFIL.puma.replace('{URL}', encodeURIComponent(u)); }

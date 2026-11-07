@@ -43,11 +43,16 @@ AFIL_ZATTINI = ''  # Zattini: link com {URL} quando a Aline informar (mesmo do t
 AFIL_ML_WORD, AFIL_ML_TOOL = 'amartins', '42642259'  # Mercado Livre: matt_word e matt_tool do link meli.la da Aline (mesmos do template)
 
 
+PARAM_SITE = {}  # parâmetro de campanha por site (campo manual "link_param" do parceiro; preenchido no main), igual ao template
 def afil(u):
     """link de afiliada da Aline: Amazon recebe tag=; Mercado Livre recebe matt_word/matt_tool; Netshoes vira deep link da Rakuten. Os dados guardam o link limpo."""
     try:
         from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, quote
         x = urlsplit(u)
+        pp = PARAM_SITE.get(re.sub(r'^www\.', '', x.hostname or ''))
+        if pp:
+            q = dict(parse_qsl(x.query, keep_blank_values=True)); q.update(dict(parse_qsl(pp)))
+            return urlunsplit((x.scheme, x.netloc, x.path, urlencode(q), x.fragment))
         if re.search(r'(^|\.)puma\.com$', x.hostname or '') and AFIL_PUMA:
             return AFIL_PUMA.replace('{URL}', quote(u, safe=''))
         if re.search(r'(^|\.)zattini\.com\.br$', x.hostname or '') and AFIL_ZATTINI:
@@ -314,6 +319,10 @@ def sitemap(provas_ativas, hoje):
 def main():
     s = (root / 'index.html').read_text()
     d = json.loads(re.search(r'<script id="radar-data" type="application/json">(.*?)</script>', s, re.S).group(1))
+    from urllib.parse import urlsplit as _us
+    for _m in ((d.get('parceiros') or {}).get('marcas') or []):
+        if _m.get('link_param') and _m.get('link'):
+            PARAM_SITE[re.sub(r'^www\.', '', _us(_m['link']).hostname or '')] = _m['link_param']
     perfil = d.get('perfil') or {}
     hoje = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-3))).date().isoformat()
     ofertas_em = ''
