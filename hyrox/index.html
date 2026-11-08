@@ -326,6 +326,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .hero .actions .hbtn{flex-direction:column;gap:2px;min-height:76px;padding:10px 8px;border-radius:22px;text-align:center;line-height:1.2}
 .hero .actions .hbtn b{font:700 17px var(--body)}
 .hero .actions .hbtn span{font:500 13.5px var(--body);opacity:.88}
+.hero .actions .hbtn.hx span{font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
+.hero .actions .hbtn.hx b{font:900 21px/1 var(--display);letter-spacing:.08em}
 .hero .down{margin-top:6px;color:#fff;opacity:.8;text-decoration:none;font:600 13px var(--body);display:flex;flex-direction:column;align-items:center;gap:2px}
 .hero .down svg{width:22px;height:22px}
 @media (prefers-reduced-motion:no-preference){.hero .down svg{animation:bob 1.8s ease-in-out infinite}}
@@ -523,9 +525,12 @@ body{background:var(--bg)}
 .hero .eyebrow{color:#E6E6EC}
 .hero h1 em{font-style:normal;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
 /* botões do topo: borda girando em branco/prata metálico, no lugar do dourado */
-.hero .actions{grid-template-columns:1fr!important;width:min(100%,300px)!important}
-.hero .actions .hbtn{box-shadow:0 0 14px rgba(255,255,255,.28);background:rgba(11,11,13,.35)}
-.hero .actions .hbtn::before{background:conic-gradient(from var(--calc-ang),#55555F 0deg,#8E8E9A 120deg,#C9C9D2 200deg,#F2F2F6 270deg,#FFFFFF 300deg,#FFFFFF 318deg,#C9C9D2 338deg,#55555F 360deg)}
+/* botões do topo minimalistas (desde 08/11/2026): pequenos, lado a lado, borda fina girando em prata; a capa e o nome são o destaque */
+.hero .actions{grid-template-columns:1fr 1fr!important;gap:10px!important;width:min(100%,320px)!important;margin-top:6px}
+.hero .actions .hbtn{min-height:0!important;padding:9px 10px!important;border-radius:999px!important;box-shadow:none;background:rgba(11,11,13,.28)}
+.hero .actions .hbtn b{font:600 13px var(--body)!important;letter-spacing:.01em}
+.hero .actions .hbtn::before{padding:1px;opacity:.75;background:conic-gradient(from var(--calc-ang),#3A3A42 0deg,#6E6E78 140deg,#BDBDC6 230deg,#FFFFFF 300deg,#BDBDC6 330deg,#3A3A42 360deg)}
+.hero h1{font-size:clamp(48px,14vw,84px)}
 .hero .follow{background:rgba(11,11,13,.35);color:#fff}
 /* abas redondas: anel prata metálico com brilho girando */
 .tab[aria-selected="true"] .ring{background:var(--metal)}
@@ -579,8 +584,8 @@ body{background:var(--bg)}
   <h1>Radar <em>Hyrox</em></h1>
   <div class="byline">por <b>Aline</b>, personal trainer: provas oficiais no mundo, onde treinar no Brasil e o que usar</div>
   <div class="actions">
-    <a class="follow hbtn" id="follow" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener"><b>Seguir</b><span>@amartinscc</span></a>
-    <a class="hbtn" href="../" id="radar-corrida"><b>Radar de corrida</b><span>provas, achados e parceiros</span></a>
+    <a class="follow hbtn" id="follow" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener"><b>Seguir @amartinscc</b></a>
+    <a class="hbtn" href="../" id="radar-corrida"><b>Radar de corrida</b></a>
   </div>
   <div class="meta" id="meta"></div>
   <a class="down" href="#radar-abas">Ver o radar<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
@@ -759,7 +764,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   function pontos(xs, chave, rotulo, especial){
     const layer = document.getElementById('r-dots'), grupos = {};
-    xs.forEach(x => { const k = chave(x); (grupos[k] = grupos[k] || {lat:x.lat, lng:x.lng, reg:rotulo(x), br:especial(x), items:[]}).items.push(x); });
+    xs.forEach(x => { const k = chave(x); (grupos[k] = grupos[k] || {lat:x.lat, lng:x.lng, reg:rotulo(x), br:especial(x), items:[]}).items.push(x); if(x.aline) grupos[k].aline = true; });
     dots = Object.values(grupos).map(g => {
       let [x,y] = P(g.lat, g.lng); const dx = x-200, dy = y-200, dist = Math.hypot(dx,dy);
       if(dist > R-10){ x = 200 + dx/dist*(R-10); y = 200 + dy/dist*(R-10); }
@@ -768,19 +773,19 @@ document.addEventListener('DOMContentLoaded', function(){
       const el = document.createElementNS(svgNS, 'g'); el.setAttribute('class', 'r-dot ' + (aberta ? 'aberta' : esg ? 'esgotada' : 'outra') + (g.br ? ' br' : '')); el.setAttribute('tabindex', '0'); el.setAttribute('role', 'button');
       el.setAttribute('aria-label', g.reg + ': ' + g.items.map(p => p.nome).join(', '));
       const n = g.items.length, r = n > 1 ? 9 : 6;
-      el.innerHTML = (g.br ? `<circle class="aring" cx="${x}" cy="${y}" r="${r+5}"/>` : '') + `<circle class="halo" cx="${x}" cy="${y}" r="6"/><circle class="core" cx="${x}" cy="${y}" r="${r}"/>` + (n > 1 ? `<text x="${x}" y="${y+3}" text-anchor="middle">${n}</text>` : '');
+      el.innerHTML = (g.br || g.aline ? `<circle class="aring" cx="${x}" cy="${y}" r="${r+5}"/>` : '') + `<circle class="halo" cx="${x}" cy="${y}" r="6"/><circle class="core" cx="${x}" cy="${y}" r="${r}"/>` + (n > 1 ? `<text x="${x}" y="${y+3}" text-anchor="middle">${n}</text>` : '');
       const abre = () => { mostraCap(g); ping(g); holdUntil = performance.now() + 12000; };
       el.addEventListener('click', abre); el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); abre(); } });
       g.el = el; layer.appendChild(el); return g;
     });
-    const first = dots.find(g => g.br) || dots.slice().sort((a,b) => b.items.length - a.items.length)[0];
+    const first = dots.find(g => g.aline) || dots.find(g => g.br) || dots.slice().sort((a,b) => b.items.length - a.items.length)[0];
     if(first) mostraCap(first); else cap.textContent = modo === 'provas' ? 'Nenhuma prova oficial com esse filtro.' : 'Nenhuma academia credenciada com esse filtro.';
   }
   function mostraCap(g){
     cap.innerHTML = '';
     const a = document.createElement('span'); a.className = 'rg'; a.textContent = g.reg + ' · ' + g.items.length + (modo === 'provas' ? (g.items.length > 1 ? ' provas' : ' prova') : (g.items.length > 1 ? ' academias' : ' academia')); cap.appendChild(a);
-    g.items.slice(0,3).forEach(p => { const l = document.createElement('span'); l.innerHTML = '<span class="rn"></span> <span class="rd"></span>'; l.querySelector('.rn').textContent = p.nome;
-      l.querySelector('.rd').textContent = modo === 'provas' ? '· ' + faixa(p.inicio, p.fim) + ' · ' + AT[atl(p)].toLowerCase() : (p.endereco ? '· ' + p.endereco : ''); cap.appendChild(l); });
+    g.items.slice(0,3).forEach(p => { const l = document.createElement('span'); l.innerHTML = '<span class="rn"></span> <span class="rd"></span>'; l.querySelector('.rn').textContent = (p.aline ? '★ ' : '') + p.nome;
+      l.querySelector('.rd').textContent = modo === 'provas' ? '· ' + faixa(p.inicio, p.fim) + ' · ' + AT[atl(p)].toLowerCase() + (p.aline ? ' · a Aline vai competir' : '') : (p.endereco ? '· ' + p.endereco : ''); cap.appendChild(l); });
     if(g.items.length > 3){ const m = document.createElement('span'); m.className = 'rd'; m.textContent = '+ ' + (g.items.length - 3) + ' na lista abaixo'; cap.appendChild(m); }
   }
   function ping(g){ g.el.classList.remove('ping'); void g.el.getBBox(); g.el.classList.add('ping','lit'); clearTimeout(g.lt); g.lt = setTimeout(() => g.el.classList.remove('lit'), 2800); }
@@ -829,11 +834,11 @@ document.addEventListener('DOMContentLoaded', function(){
     const xs = modo === 'provas' ? filtradas() : academias();
     if(!xs.length){ const p = document.createElement('p'); p.className = 'empty'; p.textContent = modo === 'provas' ? 'Nenhuma prova oficial com esse filtro.' : 'Nenhuma academia credenciada com esse filtro.'; box.appendChild(p); return; }
     xs.forEach(x => {
-      const el = document.createElement('article'); el.className = 'deal' + (x.iso === 'BR' ? ' aline' : '');
+      const el = document.createElement('article'); el.className = 'deal' + (x.aline ? ' aline' : '');
       if(modo === 'provas'){
         const d0 = dt(x.inicio);
         el.innerHTML = `<div class="bib date"><div class="n">${String(d0.getDate()).padStart(2,'0')}</div><div class="t">${MES[d0.getMonth()]} · ${DOW[d0.getDay()]}</div></div>
-          <div class="info"><span class="pill ${atl(x)}">${AT[atl(x)]}</span><div class="store">${esc(x.cidade)} · ${esc(x.pais)}</div><div class="name">${esc(x.nome)}</div>
+          <div class="info">${x.aline ? '<span class="alinebadge">A Aline vai competir</span>' : ''}<span class="pill ${atl(x)}">${AT[atl(x)]}</span><div class="store">${esc(x.cidade)} · ${esc(x.pais)}</div><div class="name">${esc(x.nome)}</div>
           <div class="det"><span>Datas: <b>${esc(faixa(x.inicio, x.fim))}${d0.getFullYear() !== hoje.getFullYear() ? ' de ' + d0.getFullYear() : ''}</b></span>${x.local ? `<span>Local: <b>${esc(x.local)}</b></span>` : ''}</div>
           ${vagasTxt(x) ? `<div class="vagas">${vagasTxt(x)}</div>` : ''}${pubTxt(x) ? `<span class="pub">${pubTxt(x)}</span>` : ''}
           <div class="links"><a class="go" target="_blank" rel="noopener" href="${esc(x.link)}">${['aberta','parcial'].includes(atl(x)) ? 'Ver inscrição →' : 'Ver no site oficial →'}</a></div></div>`;
