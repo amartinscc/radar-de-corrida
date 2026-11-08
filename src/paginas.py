@@ -42,7 +42,7 @@ AFIL_AMAZON = 'amartins0b-20'  # mesmo código da constante AFIL do template
 AFIL_RAKUTEN_ID = '7KhHq5G3aIo'  # token de publisher da Aline na Rakuten
 AFIL_NETSHOES_MID = '43984'  # MID da Netshoes (Netshoes WL) na Rakuten
 AFIL_PUMA = 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma'  # Puma na Awin (mesmo do template)
-AFIL_ZATTINI = ''  # Zattini: link com {URL} quando a Aline informar (mesmo do template)
+AFIL_ZATTINI = 'https://click.linksynergy.com/deeplink?id=7KhHq5G3aIo&mid=43985&murl={URL}'  # Zattini WL na Rakuten (MID 43985), mesmo do template
 AFIL_ML_WORD, AFIL_ML_TOOL = 'amartins', '42642259'  # Mercado Livre: matt_word e matt_tool do link meli.la da Aline (mesmos do template)
 
 

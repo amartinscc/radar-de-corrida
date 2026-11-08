@@ -10,7 +10,7 @@ TIPO DE EXECUÇÃO (decisão do Leandro em 08/11/2026). Veja o dia da semana em 
 - Segunda (1), quarta (3) e sábado (6): BUSCA COMPLETA (meta 15 a 25 minutos), passos A e C.
 - Demais dias: CONFERÊNCIA DA AMAZON (meta 5 a 10 minutos), passos B e C. Nesses dias, os achados das outras lojas ficam como estão (o preço continua aparecendo normal).
 
-LOJAS: os achados vêm SOMENTE dos parceiros ativos da aba Parceiros ("parceiros.marcas" do JSON sem "oculto": true e com "link"). Lojas afiliadas ("afiliada": true; o site acrescenta o código de afiliada sozinho): Amazon, Netshoes, Mercado Livre e Puma (Zattini só se perder o "oculto"). Patrocinadoras: Kaisan, Brilho e Bronze, Massam Fitness, Pozze, Jungle, Plant Power, A Tal da Castanha, Possible, Marmitas da Lulu, Livvan (e qualquer outra da lista). "loja" = exatamente o "nome" da marca na lista. Foco: corrida e treino.
+LOJAS: os achados vêm SOMENTE dos parceiros ativos da aba Parceiros ("parceiros.marcas" do JSON sem "oculto": true e com "link"). Lojas afiliadas ("afiliada": true; o site acrescenta o código de afiliada sozinho): Amazon, Netshoes, Mercado Livre, Puma e Zattini (ativa desde 08/11/2026; links limpos de zattini.com.br, só corrida/treino). Patrocinadoras: Kaisan, Brilho e Bronze, Massam Fitness, Pozze, Jungle, Plant Power, A Tal da Castanha, Possible, Marmitas da Lulu, Livvan (e qualquer outra da lista). "loja" = exatamente o "nome" da marca na lista. Foco: corrida e treino.
 
 CAMPOS DE CADA ACHADO: {loja, nome, marca, preco, de?, link, categoria, genero?, cupom?, condicao?, foto?, desde, conferido, motivos}.
 - "desde": data (AAAA-MM-DD) em que o achado entrou no radar; nunca muda depois. Achados antigos sem "desde": use a data de "ofertas_atualizado" lida.
