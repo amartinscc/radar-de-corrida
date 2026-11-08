@@ -12,7 +12,28 @@
    "lat": 53.35,
    "lng": -6.26,
    "link": "https://hyrox.com/event/hyrox-dublin/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Women (dom)",
+    "PRO Men (sex)",
+    "PRO Women (sex)",
+    "Relay Men (sex)",
+    "Relay Women (sex)",
+    "Relay Mixed (sex)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dublin-2026"
   },
   {
    "nome": "EDEKA HYROX Düsseldorf",
@@ -25,7 +46,27 @@
    "lat": 51.23,
    "lng": 6.78,
    "link": "https://hyrox.com/event/hyrox-dusseldorf/",
-   "status": "aberta"
+   "status": "esgotada",
+   "atletas": "esgotada",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dusseldorf-2026"
   },
   {
    "nome": "Leapmotor HYROX Barcelona",
@@ -38,7 +79,27 @@
    "lat": 41.39,
    "lng": 2.17,
    "link": "https://hyrox.com/event/hyrox-barcelona-2/",
-   "status": "aberta"
+   "status": "esgotada",
+   "atletas": "esgotada",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-barcelona-2026-s9"
   },
   {
    "nome": "The Feed HYROX Denver",
@@ -51,7 +112,28 @@
    "lat": 39.74,
    "lng": -104.99,
    "link": "https://hyrox.com/event/hyrox-denver/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": null,
+   "categorias_esgotadas": [
+    "Doubles Women",
+    "Relay Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Men (sab)",
+    "Women (qui, sex, dom)",
+    "PRO Men (sex)",
+    "PRO Women (sex)",
+    "Doubles Men (dom)",
+    "Doubles Mixed (sex)",
+    "Doubles PRO Men (sab)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex)",
+    "Relay Mixed (sex)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-denver-2026"
   },
   {
    "nome": "AirAsia HYROX Seoul",
@@ -64,7 +146,28 @@
    "lat": 37.57,
    "lng": 126.98,
    "link": "https://hyrox.com/event/hyrox-seoul/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Doubles Mixed (sex)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-seoul-2026"
   },
   {
    "nome": "HYROX Cairo",
@@ -77,7 +180,28 @@
    "lat": 30.04,
    "lng": 31.24,
    "link": "https://hyrox.com/event/hyrox-cairo/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Doubles Men",
+    "Doubles Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Women",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-cairo-2026"
   },
   {
    "nome": "HYROX Dallas",
@@ -90,7 +214,28 @@
    "lat": 32.78,
    "lng": -96.8,
    "link": "https://hyrox.com/event/hyrox-dallas/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "PRO Men",
+    "Doubles Mixed",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Women (qua)",
+    "PRO Women (sex)",
+    "Doubles Men (qua, qui)",
+    "Doubles Women (qua, dom)",
+    "Doubles PRO Men (sab)",
+    "Doubles PRO Women (sab)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dallas-2026"
   },
   {
    "nome": "Simplove HYROX Guangzhou",
@@ -103,7 +248,26 @@
    "lat": 23.13,
    "lng": 113.26,
    "link": "https://hyrox.com/event/hyrox-guangzhou/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Men",
+    "PRO Women",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-guangzhou-2026"
   },
   {
    "nome": "BOSS PARFUMS HYROX Poznań",
@@ -116,7 +280,28 @@
    "lat": 52.41,
    "lng": 16.93,
    "link": "https://hyrox.com/event/hyrox-poznan/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Doubles PRO Men",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-poznan-2026"
   },
   {
    "nome": "HYROX Rio de Janeiro",
@@ -129,7 +314,27 @@
    "lat": -22.98,
    "lng": -43.41,
    "link": "https://hyrox.com/event/hyrox-rio-de-janeiro/",
-   "status": "aberta"
+   "status": "esgotada",
+   "atletas": "esgotada",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-rio-de-janeiro-2026"
   },
   {
    "nome": "AIA HYROX Singapore",
@@ -142,7 +347,27 @@
    "lat": 1.35,
    "lng": 103.82,
    "link": "https://hyrox.com/event/aia-hyrox-singapore/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-singapore-2026-s9"
   },
   {
    "nome": "Virgin Active HYROX Johannesburg",
@@ -155,7 +380,28 @@
    "lat": -26.2,
    "lng": 28.05,
    "link": "https://hyrox.com/event/virgin-active-hyrox-johannesburg-26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Doubles Women (qui)",
+    "Doubles Mixed (qui)",
+    "Relay Men (sex)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-johannesburg-2026-s9"
   },
   {
    "nome": "Decathlon HYROX Utrecht",
@@ -168,7 +414,28 @@
    "lat": 52.09,
    "lng": 5.12,
    "link": "https://hyrox.com/event/hyrox-utrecht/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-utrecht-2026"
   },
   {
    "nome": "IndusInd Bank HYROX Gujarat",
@@ -181,7 +448,28 @@
    "lat": 23.02,
    "lng": 72.57,
    "link": "https://hyrox.com/event/hyrox-gujarat/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Women",
+    "Doubles PRO Men",
+    "Doubles PRO Women"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-gujarat-2026"
   },
   {
    "nome": "HYROX Dubai",
@@ -194,7 +482,28 @@
    "lat": 25.2,
    "lng": 55.27,
    "link": "https://hyrox.com/event/hyrox-dubai/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Adaptive Men"
+   ],
+   "categorias_abertas": [
+    "PRO Men",
+    "PRO Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dubai-2026"
   },
   {
    "nome": "Amazon HYROX London",
@@ -207,7 +516,28 @@
    "lat": 51.51,
    "lng": -0.03,
    "link": "https://hyrox.com/event/hyrox-london-excel/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Women",
+    "PRO Women",
+    "Doubles Women",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-london-2026"
   },
   {
    "nome": "Centr HYROX Anaheim",
@@ -220,7 +550,27 @@
    "lat": 33.84,
    "lng": -117.91,
    "link": "https://hyrox.com/event/hyrox-anaheim-26-27/",
-   "status": "aberta"
+   "status": "esgotada",
+   "atletas": "esgotada",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-anaheim-2026"
   },
   {
    "nome": "HYROX Milan",
@@ -233,7 +583,28 @@
    "lat": 45.46,
    "lng": 9.19,
    "link": "https://hyrox.com/event/hyrox-milan/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": null,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Mixed",
+    "Adaptive Men"
+   ],
+   "categorias_abertas": [
+    "Relay Men (sex)",
+    "Relay Women (sex)",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-milan-2026"
   },
   {
    "nome": "24/7 Fitness HYROX Sanya",
@@ -246,7 +617,26 @@
    "lat": 18.25,
    "lng": 109.51,
    "link": "https://hyrox.com/event/30454/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "PRO Men",
+    "Doubles Mixed"
+   ],
+   "categorias_abertas": [
+    "Women",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-sanya-2026"
   },
   {
    "nome": "BYD HYROX Melbourne",
@@ -259,7 +649,28 @@
    "lat": -37.81,
    "lng": 144.96,
    "link": "https://hyrox.com/event/hyrox-melbourne/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Women",
+    "PRO Women",
+    "Doubles Women",
+    "Relay Men",
+    "Relay Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-melbourne-2026"
   },
   {
    "nome": "HYROX Nashville",
@@ -272,7 +683,28 @@
    "lat": 36.16,
    "lng": -86.78,
    "link": "https://hyrox.com/event/hyrox-nashville/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": false,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Doubles Men (qua)",
+    "Relay Men (sex)",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-nashville-2026"
   },
   {
    "nome": "INTERSPORT HYROX Stockholm",
@@ -285,7 +717,27 @@
    "lat": 59.33,
    "lng": 18.07,
    "link": "https://hyrox.com/event/intersport-hyrox-stockholm-arena/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-stockholm-2026"
   },
   {
    "nome": "Fitness First HYROX Frankfurt",
@@ -298,7 +750,28 @@
    "lat": 50.11,
    "lng": 8.68,
    "link": "https://hyrox.com/event/fitness-first-hyrox-frankfurt/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men"
+   ],
+   "categorias_abertas": [
+    "Relay Men (sex)",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-frankfurt-2026"
   },
   {
    "nome": "AirAsia HYROX Kuala Lumpur",
@@ -311,7 +784,28 @@
    "lat": 3.14,
    "lng": 101.69,
    "link": "https://hyrox.com/event/hyrox-kuala-lumpur/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles PRO Men",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-kuala-lumpur-2026"
   },
   {
    "nome": "Fitness Park HYROX Paris",
@@ -324,7 +818,28 @@
    "lat": 48.86,
    "lng": 2.35,
    "link": "https://hyrox.com/event/hyrox-paris-s26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "PRO Women (sex 18/12)",
+    "Relay Men (sex 18/12)",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-paris-2026-s9"
   },
   {
    "nome": "HYROX Gent",
@@ -337,7 +852,28 @@
    "lat": 51.05,
    "lng": 3.72,
    "link": "https://hyrox.com/event/hyrox-gent/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Women",
+    "PRO Women",
+    "Doubles Women",
+    "Doubles PRO Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-gent-2026"
   },
   {
    "nome": "HYROX Vancouver",
@@ -350,7 +886,28 @@
    "lat": 49.28,
    "lng": -123.12,
    "link": "https://hyrox.com/event/hyrox-vancouver/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Doubles Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-vancouver-2026"
   },
   {
    "nome": "HYROX Helsinki",
@@ -363,7 +920,27 @@
    "lat": 60.17,
    "lng": 24.94,
    "link": "https://hyrox.com/event/hyrox-helsinki-2/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-helsinki-2026-s9"
   },
   {
    "nome": "AIA HYROX Hong Kong",
@@ -376,7 +953,28 @@
    "lat": 22.32,
    "lng": 114.17,
    "link": "https://hyrox.com/event/hyrox-hong-kong/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "PRO Women",
+    "Doubles Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-hong-kong-2027"
   },
   {
    "nome": "HYROX Noida",
@@ -389,7 +987,12 @@
    "lat": 28.46,
    "lng": 77.5,
    "link": "https://hyrox.com/event/hyrox-noida/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-noida/"
   },
   {
    "nome": "HYROX Manchester",
@@ -402,7 +1005,28 @@
    "lat": 53.48,
    "lng": -2.24,
    "link": "https://hyrox.com/event/hyrox-manchester/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-manchester-2027"
   },
   {
    "nome": "BYD HYROX Osaka",
@@ -415,7 +1039,28 @@
    "lat": 34.69,
    "lng": 135.5,
    "link": "https://hyrox.com/event/byd-hyrox-osaka/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-osaka-2027"
   },
   {
    "nome": "HYROX Amsterdam",
@@ -428,7 +1073,28 @@
    "lat": 52.37,
    "lng": 4.9,
    "link": "https://hyrox.com/event/hyrox-amsterdam/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Men",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-amsterdam-2027"
   },
   {
    "nome": "HYROX Verona",
@@ -441,7 +1107,28 @@
    "lat": 45.44,
    "lng": 10.99,
    "link": "https://hyrox.com/event/hyrox-verona/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": null,
+   "categorias_esgotadas": [
+    "Doubles PRO Women"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-verona-2027"
   },
   {
    "nome": "Lucis HYROX Toulouse",
@@ -454,7 +1141,28 @@
    "lat": 43.6,
    "lng": 1.44,
    "link": "https://hyrox.com/event/hyrox-toulouse-s26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Doubles PRO Men"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-toulouse-2027"
   },
   {
    "nome": "BYD HYROX Auckland",
@@ -467,7 +1175,28 @@
    "lat": -36.85,
    "lng": 174.76,
    "link": "https://hyrox.com/event/hyrox-auckland/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Women",
+    "PRO Men",
+    "PRO Women"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-auckland-2027"
   },
   {
    "nome": "HYROX Bilbao",
@@ -480,7 +1209,28 @@
    "lat": 43.26,
    "lng": -2.93,
    "link": "https://hyrox.com/event/hyrox-bilbao/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women"
+   ],
+   "categorias_abertas": [
+    "PRO Women (sab)",
+    "Adaptive Men (sab)",
+    "Relay Men (dom)",
+    "Relay Women (dom)",
+    "Relay Mixed (dom)",
+    "Adaptive Women (dom)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-bilbao-2027"
   },
   {
    "nome": "BYD HYROX Bangkok",
@@ -493,7 +1243,28 @@
    "lat": 13.76,
    "lng": 100.5,
    "link": "https://hyrox.com/event/hyrox-bangkok/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles PRO Men",
+    "Relay Men",
+    "Relay Women"
+   ],
+   "categorias_abertas": [
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-bangkok-2027"
   },
   {
    "nome": "Creapure HYROX Chicago",
@@ -506,7 +1277,28 @@
    "lat": 41.88,
    "lng": -87.63,
    "link": "https://hyrox.com/event/hyrox-chicago-26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Doubles Men (seg)",
+    "Doubles PRO Men (sab)",
+    "Relay Men (sex)",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-chicago-2027"
   },
   {
    "nome": "HYROX Basel",
@@ -519,7 +1311,28 @@
    "lat": 47.56,
    "lng": 7.59,
    "link": "https://hyrox.com/event/hyrox-basel/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Relay Men (sex)",
+    "Adaptive Men (sab)",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-basel-2027"
   },
   {
    "nome": "DAFI HYROX Katowice",
@@ -532,7 +1345,27 @@
    "lat": 50.26,
    "lng": 19.02,
    "link": "https://hyrox.com/event/hyrox-katowice/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-katowice-2027"
   },
   {
    "nome": "INTERSPORT HYROX Vienna",
@@ -545,7 +1378,28 @@
    "lat": 48.21,
    "lng": 16.37,
    "link": "https://hyrox.com/event/hyrox-vienna/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men"
+   ],
+   "categorias_abertas": [
+    "PRO Women (sex)",
+    "Doubles PRO Men (sab)",
+    "Relay Men (sex)",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-vienna-2027"
   },
   {
    "nome": "HYROX Cancun",
@@ -558,7 +1412,28 @@
    "lat": 21.16,
    "lng": -86.85,
    "link": "https://hyrox.com/event/hyrox-cancun/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Relay Women"
+   ],
+   "categorias_abertas": [
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-cancun-2027"
   },
   {
    "nome": "InBody HYROX Phoenix",
@@ -571,7 +1446,28 @@
    "lat": 33.45,
    "lng": -112.07,
    "link": "https://hyrox.com/event/inbody-hyrox-phoenix-26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Men",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-phoenix-2027"
   },
   {
    "nome": "HYROX Mechelen",
@@ -584,7 +1480,27 @@
    "lat": 51.03,
    "lng": 4.48,
    "link": "https://hyrox.com/event/hyrox-mechelen/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-mechelen-2027"
   },
   {
    "nome": "AIA HYROX Hanoi",
@@ -597,7 +1513,27 @@
    "lat": 21.03,
    "lng": 105.85,
    "link": "https://hyrox.com/event/hyrox-hanoi/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-hanoi-2027"
   },
   {
    "nome": "HYROX Glasgow",
@@ -610,7 +1546,28 @@
    "lat": 55.86,
    "lng": -4.25,
    "link": "https://hyrox.com/event/hyrox-glasgow-2/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "Doubles Women",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-glasgow-2027"
   },
   {
    "nome": "HYROX Taipei",
@@ -623,7 +1580,28 @@
    "lat": 25.03,
    "lng": 121.57,
    "link": "https://hyrox.com/event/hyrox-taipei/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Doubles PRO Women (sab)"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-taipei-2027"
   },
   {
    "nome": "HYROX Las Vegas",
@@ -636,7 +1614,28 @@
    "lat": 36.17,
    "lng": -115.14,
    "link": "https://hyrox.com/event/hyrox-las-vegas-26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Women"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-las-vegas-2027"
   },
   {
    "nome": "Fitness Park HYROX Madrid",
@@ -649,7 +1648,27 @@
    "lat": 40.42,
    "lng": -3.7,
    "link": "https://hyrox.com/event/hyrox-madrid/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-madrid-2027"
   },
   {
    "nome": "HYROX Guadalajara",
@@ -662,7 +1681,12 @@
    "lat": 20.67,
    "lng": -103.35,
    "link": "https://hyrox.com/event/hyrox-guadalajara/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-guadalajara/"
   },
   {
    "nome": "HYROX Buenos Aires",
@@ -675,7 +1699,12 @@
    "lat": -34.58,
    "lng": -58.42,
    "link": "https://hyrox.com/event/hyrox-buenos-aires/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-buenos-aires/"
   },
   {
    "nome": "BIOTHERM HYROX Copenhagen",
@@ -688,7 +1717,28 @@
    "lat": 55.68,
    "lng": 12.57,
    "link": "https://hyrox.com/event/hyrox-copenhagen/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Women",
+    "Doubles Men",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-copenhagen-2027"
   },
   {
    "nome": "Sweatpals HYROX Miami Beach",
@@ -701,7 +1751,28 @@
    "lat": 25.79,
    "lng": -80.13,
    "link": "https://hyrox.com/event/sweat-pals-hyrox-miami-beach-26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Adaptive Men (sex)",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-miami-beach-2027"
   },
   {
    "nome": "Virgin Active HYROX Cape Town",
@@ -714,7 +1785,12 @@
    "lat": -33.92,
    "lng": 18.42,
    "link": "https://hyrox.com/event/virgin-active-hyrox-cape-town/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/virgin-active-hyrox-cape-town/"
   },
   {
    "nome": "BYD HYROX Brisbane",
@@ -727,7 +1803,28 @@
    "lat": -27.47,
    "lng": 153.03,
    "link": "https://hyrox.com/event/hyrox-brisbane/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Men",
+    "PRO Women",
+    "Doubles PRO Men"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-brisbane-2027"
   },
   {
    "nome": "Decathlon HYROX Rotterdam",
@@ -740,7 +1837,12 @@
    "lat": 51.92,
    "lng": 4.48,
    "link": "https://hyrox.com/event/hyrox-rotterdam/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-rotterdam/"
   },
   {
    "nome": "Academy HYROX Houston",
@@ -753,7 +1855,27 @@
    "lat": 29.76,
    "lng": -95.37,
    "link": "https://hyrox.com/event/hyrox-houston-26-27/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-houston-2027"
   },
   {
    "nome": "HYROX Bari",
@@ -766,7 +1888,12 @@
    "lat": 41.12,
    "lng": 16.87,
    "link": "https://hyrox.com/event/hyrox-bari/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-bari/"
   },
   {
    "nome": "Medicover Sport HYROX Warsaw",
@@ -779,7 +1906,28 @@
    "lat": 52.23,
    "lng": 21.01,
    "link": "https://hyrox.com/event/hyrox-warsaw-26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Men"
+   ],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-warsaw-2027"
   },
   {
    "nome": "Maybelline HYROX Paris Grand Palais",
@@ -792,7 +1940,12 @@
    "lat": 48.87,
    "lng": 2.31,
    "link": "https://hyrox.com/event/hyrox-paris-grand-palais-s26-27/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-paris-grand-palais-s26-27/"
   },
   {
    "nome": "all inclusive Fitness HYROX Cologne",
@@ -805,7 +1958,12 @@
    "lat": 50.94,
    "lng": 6.96,
    "link": "https://hyrox.com/event/all-inclusive-fitness-hyrox-cologne/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/all-inclusive-fitness-hyrox-cologne/"
   },
   {
    "nome": "HYROX Málaga",
@@ -818,7 +1976,12 @@
    "lat": 36.72,
    "lng": -4.42,
    "link": "https://hyrox.com/event/hyrox-malaga/",
-   "status": "embreve"
+   "status": "confira",
+   "atletas": "confira",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-malaga/"
   },
   {
    "nome": "JR Central HYROX Nagoya",
@@ -831,7 +1994,27 @@
    "lat": 35.18,
    "lng": 136.91,
    "link": "https://hyrox.com/event/hyrox-nagoya/",
-   "status": "aberta"
+   "status": "esgotada",
+   "atletas": "esgotada",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-nagoya-2027"
   },
   {
    "nome": "HYROX Helsinki",
@@ -844,7 +2027,27 @@
    "lat": 60.17,
    "lng": 24.94,
    "link": "https://hyrox.com/event/hyrox-helsinki/",
-   "status": "aberta"
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-helsinki-2027"
   },
   {
    "nome": "HYROX Monterrey",
@@ -857,7 +2060,12 @@
    "lat": 25.68,
    "lng": -100.31,
    "link": "https://hyrox.com/event/hyrox-monterrey/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-monterrey/"
   },
   {
    "nome": "BIOTHERM HYROX Ottawa",
@@ -870,7 +2078,28 @@
    "lat": 45.42,
    "lng": -75.7,
    "link": "https://hyrox.com/event/hyrox-ottawa-26-27/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Men (qua)",
+    "Doubles Men (qua)",
+    "Doubles Women (qua)",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-ottawa-2027"
   },
   {
    "nome": "Factor_ HYROX Atlanta",
@@ -883,7 +2112,28 @@
    "lat": 33.75,
    "lng": -84.39,
    "link": "https://hyrox.com/event/factor_-hyrox-atlanta/",
-   "status": "aberta"
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "Relay Men (sex)",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-atlanta-2027"
   },
   {
    "nome": "HYROX Kraków",
@@ -896,7 +2146,12 @@
    "lat": 50.06,
    "lng": 19.94,
    "link": "https://hyrox.com/event/hyrox-krakow-26-27/",
-   "status": "aberta"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-krakow-2027"
   },
   {
    "nome": "HYROX São Paulo",
@@ -909,7 +2164,12 @@
    "lat": -23.55,
    "lng": -46.63,
    "link": "https://hyrox.com/event/hyrox-sao-paulo/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-sao-paulo/"
   },
   {
    "nome": "HYROX Lyon",
@@ -922,7 +2182,12 @@
    "lat": 45.76,
    "lng": 4.84,
    "link": "https://hyrox.com/event/hyrox-lyon-s26-27/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-lyon-s26-27/"
   },
   {
    "nome": "BYD HYROX Incheon",
@@ -935,7 +2200,12 @@
    "lat": 37.46,
    "lng": 126.71,
    "link": "https://hyrox.com/event/hyrox-incheon/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-incheon/"
   },
   {
    "nome": "EōS Fitness HYROX San Diego",
@@ -948,7 +2218,12 @@
    "lat": 32.72,
    "lng": -117.16,
    "link": "https://hyrox.com/event/hyrox-san-diego-26-27/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-san-diego-26-27/"
   },
   {
    "nome": "HYROX Bengaluru",
@@ -961,7 +2236,12 @@
    "lat": 12.97,
    "lng": 77.59,
    "link": "https://hyrox.com/event/hyrox-bengaluru/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-bengaluru/"
   },
   {
    "nome": "HYROX Cardiff",
@@ -974,7 +2254,12 @@
    "lat": 51.48,
    "lng": -3.18,
    "link": "https://hyrox.com/event/hyrox-cardiff-2/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-cardiff-2/"
   },
   {
    "nome": "The Feed HYROX Portland",
@@ -987,7 +2272,12 @@
    "lat": 45.52,
    "lng": -122.68,
    "link": "https://hyrox.com/event/hyrox-portland-26-27/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-portland-26-27/"
   },
   {
    "nome": "Cisalfa HYROX Rimini",
@@ -1000,7 +2290,12 @@
    "lat": 44.06,
    "lng": 12.57,
    "link": "https://hyrox.com/event/cisalfa-hyrox-rimini/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/cisalfa-hyrox-rimini/"
   },
   {
    "nome": "HYROX Riga",
@@ -1013,7 +2308,12 @@
    "lat": 56.95,
    "lng": 24.11,
    "link": "https://hyrox.com/event/hyrox-riga/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-riga/"
   },
   {
    "nome": "PUMA HYROX World Championships Hong Kong",
@@ -1026,7 +2326,12 @@
    "lat": 22.32,
    "lng": 113.94,
    "link": "https://hyrox.com/event/puma-hyrox-world-championships-hong-kong/",
-   "status": "embreve"
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/puma-hyrox-world-championships-hong-kong/"
   }
  ],
  "academias": [
@@ -1110,5 +2415,6 @@
    "link": "https://www.theyard.com.br/",
    "fonte": "https://www.theyard.com.br/"
   }
- ]
+ ],
+ "status_conferido": "2026-11-08"
 }

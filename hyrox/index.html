@@ -510,51 +510,66 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .legal{color:var(--muted);font-size:11px;text-align:center;margin:0 auto;max-width:65ch}
 .legal a{color:var(--accent)}
 
-/* ===== Radar Hyrox: paleta escura (preto/cinza) com o rosa da marca da Aline #D23D8F ===== */
+/* ===== Radar Hyrox: paleta escura (preto/cinza) com branco metálico (desde 08/11/2026; antes era rosa) ===== */
 html:root:not([data-theme="x"]){
   --g1:#0B0B0D; --g2:#121216; --bg:#0B0B0D; --surface:#17171B; --ink:#F4F4F6; --muted:#A3A3AD; --line:#2C2C33;
-  --accent:#F06AB0; --mauve:#D23D8F; --mauve-ink:#FFFFFF; --hot:#F06AB0; --good:#4FC98B; --soft:#202026;
+  --accent:#FFFFFF; --mauve:#ECECF0; --mauve-ink:#0B0B0D; --hot:#FFFFFF; --good:#4FC98B; --soft:#202026;
   --warn:#F2B84B; --warn-bg:#2E2614; --off:#77777F; --off-bg:#1E1E23; color-scheme:dark;
-  --rosa-metal:linear-gradient(135deg,#FFE0F0 0%,#F59BCB 22%,#D23D8F 48%,#8E1F5C 74%,#F06AB0 100%);
+  --metal:linear-gradient(135deg,#FFFFFF 0%,#D9D9E0 22%,#9C9CA8 46%,#F4F4F8 62%,#7C7C88 80%,#FFFFFF 100%);
 }
 body{background:var(--bg)}
 .hero::after{background:linear-gradient(180deg,rgba(11,11,13,.15) 0%,rgba(11,11,13,0) 30%,rgba(11,11,13,.6) 62%,rgba(11,11,13,.96) 100%)}
 .hero .bg{object-position:50% 18%}
-.hero .eyebrow{color:#F59BCB}
-.hero h1 em{font-style:normal;background:var(--rosa-metal);-webkit-background-clip:text;background-clip:text;color:transparent}
-/* botões do topo: borda girando em rosa metálico, no lugar do dourado */
+.hero .eyebrow{color:#E6E6EC}
+.hero h1 em{font-style:normal;background:var(--metal);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* botões do topo: borda girando em branco/prata metálico, no lugar do dourado */
 .hero .actions{grid-template-columns:1fr!important;width:min(100%,300px)!important}
-.hero .actions .hbtn{box-shadow:0 0 14px rgba(210,61,143,.45);background:rgba(11,11,13,.35)}
-.hero .actions .hbtn::before{background:conic-gradient(from var(--calc-ang),#5E0F38 0deg,#A51F67 120deg,#D23D8F 200deg,#F59BCB 270deg,#FFE6F3 300deg,#FFFFFF 318deg,#F59BCB 338deg,#5E0F38 360deg)}
-/* abas redondas: anel em rosa metálico com brilho girando */
-.tab[aria-selected="true"] .ring{background:var(--rosa-metal)}
+.hero .actions .hbtn{box-shadow:0 0 14px rgba(255,255,255,.28);background:rgba(11,11,13,.35)}
+.hero .actions .hbtn::before{background:conic-gradient(from var(--calc-ang),#55555F 0deg,#8E8E9A 120deg,#C9C9D2 200deg,#F2F2F6 270deg,#FFFFFF 300deg,#FFFFFF 318deg,#C9C9D2 338deg,#55555F 360deg)}
+.hero .follow{background:rgba(11,11,13,.35);color:#fff}
+/* abas redondas: anel prata metálico com brilho girando */
+.tab[aria-selected="true"] .ring{background:var(--metal)}
 .tab .ring{isolation:isolate}
-.tab[aria-selected="true"] .ring::before,#tab-roupas .ring::before{content:"";position:absolute;inset:-5px;border-radius:50%;background:conic-gradient(from 0deg,#5E0F38,#D23D8F,#FFE6F3,#F59BCB,#D23D8F,#5E0F38);filter:blur(6px);opacity:.6;z-index:-1}
-.tab[aria-selected="true"] .ring::after,#tab-roupas .ring::after{content:"";position:absolute;top:2px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px rgba(245,155,203,.95);opacity:0}
+.tab[aria-selected="true"] .ring::before,#tab-roupas .ring::before{content:"";position:absolute;inset:-5px;border-radius:50%;background:conic-gradient(from 0deg,#4A4A54,#BDBDC6,#FFFFFF,#9C9CA8,#FFFFFF,#4A4A54);filter:blur(6px);opacity:.55;z-index:-1}
+.tab[aria-selected="true"] .ring::after,#tab-roupas .ring::after{content:"";position:absolute;top:2px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px rgba(255,255,255,.95);opacity:0}
 @media (prefers-reduced-motion:no-preference){
   .tab[aria-selected="true"] .ring::before,#tab-roupas .ring::before{animation:pglow 2.8s ease-in-out infinite, pspin 8s linear infinite}
   .tab[aria-selected="true"] .ring::after,#tab-roupas .ring::after{animation:psparkle 2.8s ease-in-out infinite}
 }
+.tab[aria-selected="true"] .c{background:#fff;color:#0B0B0D;border-color:#fff}
 .tab[disabled]{cursor:not-allowed;opacity:.55}
 .tab .c:empty{display:none}
-.tab[disabled] .c{background:var(--soft);color:var(--accent);font-size:9px;letter-spacing:.04em;text-transform:uppercase;min-width:auto;padding:0 6px}
-.alinebadge,.totop{background:var(--rosa-metal);color:#fff}
-.tr-hero{background:linear-gradient(135deg,#2A1020,#17171B 60%,#3A1530)}
+.tab[disabled] .c{background:var(--soft);color:var(--ink);font-size:9px;letter-spacing:.04em;text-transform:uppercase;min-width:auto;padding:0 6px}
+.alinebadge,.totop{background:var(--metal);color:#0B0B0D}
+.tr-hero{background:linear-gradient(135deg,#26262C,#17171B 60%,#2E2E36)}
+.tr-soon{background:linear-gradient(135deg,#26262C,#17171B 60%,#2E2E36)!important}
+.chip[aria-pressed="true"]{background:#fff;color:#0B0B0D;border-color:#fff}
 .r-water{fill:#101014}
-.r-land{fill:#1F1F25;stroke:color-mix(in srgb,var(--mauve) 35%,transparent)}
+.r-land{fill:#1F1F25;stroke:rgba(255,255,255,.22)}
+.r-ring{stroke:rgba(255,255,255,.16)}
+.sweep{background:conic-gradient(from 0deg,transparent 0deg,transparent 290deg,rgba(255,255,255,.38) 360deg)}
 .r-edge{stroke:url(#hx-metal)}
-.r-dot.aberta circle.core{fill:#D23D8F}
+.r-dot.aberta circle.core{fill:#FFFFFF}
+.r-dot.aberta text{fill:#0B0B0D}
 .r-dot.outra circle.core{fill:#8C8C96}
-.r-dot circle.halo{stroke:#F59BCB}
-.r-dot.br circle.core{fill:#fff}
-.r-dot.br text{fill:#8E1F5C}
+.r-dot.esgotada circle.core{fill:#3E3E46}
+.r-dot circle.halo{stroke:#FFFFFF}
+.r-dot .aring{stroke:url(#hx-metal)}
+.deal.aline{border:2px solid #D9D9E0}
+.price .now{color:#fff}
+.thumb .off{background:#fff;color:#0B0B0D}
+.pill.esgotada{background:rgba(255,107,107,.14);color:#FF8A8A}
+.pill.parcial{background:var(--warn-bg);color:var(--warn)}
+.pill.embreve,.pill.confira{background:var(--soft);color:var(--muted)}
+.vagas{font-size:13px;color:var(--muted);line-height:1.4}
+.vagas b{color:var(--ink);font-weight:600}
+.pub{align-self:flex-start;font:600 12px var(--body);color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
 .modes{display:flex;gap:8px;flex-wrap:wrap}
 .modes .chip .c{opacity:.75;margin-left:4px}
 .toolbar select{margin-left:0;flex:1 1 140px;min-width:0}
-.hx-note{text-align:center;margin:0 auto}
 .deal .thumb + .info{min-width:0}
 .hx-foot{color:var(--muted);font-size:12.5px;text-align:center;line-height:1.6;padding:8px 0 20px}
-.hx-foot a{color:var(--accent)}
+.hx-foot a{color:#fff}
 </style>
 </head>
 <body>
@@ -655,6 +670,18 @@ document.addEventListener('DOMContentLoaded', function(){
   const MES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
   const DOW = ['dom','seg','ter','qua','qui','sex','sáb'];
   const hoje = new Date(); hoje.setHours(0,0,0,0);
+  // situação das vagas de ATLETA (o HYROX esgota por categoria; ingresso de público é outra coisa)
+  const AT = {aberta:'Vagas de atleta abertas', parcial:'Algumas categorias esgotadas', esgotada:'Esgotado para atletas', embreve:'Venda ainda não abriu', confira:'Confira as vagas no site'};
+  const atl = p => AT[p.atletas] ? p.atletas : 'confira';
+  function vagasTxt(p){
+    const a = atl(p), ab = p.categorias_abertas || [];
+    if(a === 'parcial' && ab.length) return 'Ainda com vaga: <b>' + esc(ab.slice(0,4).join(', ')) + '</b>' + (ab.length > 4 ? ' e mais ' + (ab.length - 4) : '');
+    if(a === 'esgotada') return 'Todas as categorias de atleta estão esgotadas.';
+    if(a === 'embreve') return 'As inscrições ainda não começaram. Fique de olho: costumam esgotar em poucos dias.';
+    if(a === 'confira') return 'Não conseguimos confirmar as vagas agora. Confira no site oficial.';
+    return '';
+  }
+  function pubTxt(p){ return p.publico === true ? 'Ingressos para o público (espectadores) à venda' : p.publico === false ? 'Ingressos para o público também esgotados' : ''; }
   const dt = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
   const faixa = (a, b) => { const x = dt(a), y = dt(b || a); if(+x === +y) return x.getDate() + ' ' + MES[x.getMonth()];
     return x.getMonth() === y.getMonth() ? x.getDate() + ' a ' + y.getDate() + ' ' + MES[x.getMonth()] : x.getDate() + ' ' + MES[x.getMonth()] + ' a ' + y.getDate() + ' ' + MES[y.getMonth()]; };
@@ -692,7 +719,7 @@ document.addEventListener('DOMContentLoaded', function(){
   const poly = ring => ring.map(([x,y]) => P(y,x).map(v => v.toFixed(1)).join(',')).join(' ');
   function base(titulo, land){
     const rings = [0.25,0.5,0.75].map(f => `<circle class="r-ring" cx="200" cy="200" r="${(R*f).toFixed(1)}"/>`).join('') + '<line class="r-ring" x1="200" y1="12" x2="200" y2="388"/><line class="r-ring" x1="12" y1="200" x2="388" y2="200"/>';
-    svg.innerHTML = `<defs><linearGradient id="hx-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE0F0"/><stop offset=".3" stop-color="#F59BCB"/><stop offset=".55" stop-color="#D23D8F"/><stop offset=".8" stop-color="#8E1F5C"/><stop offset="1" stop-color="#F06AB0"/></linearGradient><clipPath id="rclip"><circle cx="200" cy="200" r="${R}"/></clipPath></defs>
+    svg.innerHTML = `<defs><linearGradient id="hx-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".3" stop-color="#BDBDC6"/><stop offset=".55" stop-color="#F4F4F8"/><stop offset=".8" stop-color="#7C7C88"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient><clipPath id="rclip"><circle cx="200" cy="200" r="${R}"/></clipPath></defs>
       <g clip-path="url(#rclip)"><rect class="r-water" x="0" y="0" width="400" height="400"/>${land}${rings}<text class="r-lbl" x="200" y="30" text-anchor="middle">${esc(titulo)}</text><g id="r-dots"></g></g>
       <circle class="r-edge" cx="200" cy="200" r="${R}"/>`;
   }
@@ -737,8 +764,8 @@ document.addEventListener('DOMContentLoaded', function(){
       let [x,y] = P(g.lat, g.lng); const dx = x-200, dy = y-200, dist = Math.hypot(dx,dy);
       if(dist > R-10){ x = 200 + dx/dist*(R-10); y = 200 + dy/dist*(R-10); }
       g.ang = (Math.atan2(x-200, -(y-200)) * 180/Math.PI + 360) % 360;
-      const aberta = modo === 'treinos' || g.items.some(p => p.status === 'aberta');
-      const el = document.createElementNS(svgNS, 'g'); el.setAttribute('class', 'r-dot ' + (aberta ? 'aberta' : 'outra') + (g.br ? ' br' : '')); el.setAttribute('tabindex', '0'); el.setAttribute('role', 'button');
+      const aberta = modo === 'treinos' || g.items.some(p => ['aberta','parcial'].includes(atl(p))), esg = modo === 'provas' && g.items.every(p => atl(p) === 'esgotada');
+      const el = document.createElementNS(svgNS, 'g'); el.setAttribute('class', 'r-dot ' + (aberta ? 'aberta' : esg ? 'esgotada' : 'outra') + (g.br ? ' br' : '')); el.setAttribute('tabindex', '0'); el.setAttribute('role', 'button');
       el.setAttribute('aria-label', g.reg + ': ' + g.items.map(p => p.nome).join(', '));
       const n = g.items.length, r = n > 1 ? 9 : 6;
       el.innerHTML = (g.br ? `<circle class="aring" cx="${x}" cy="${y}" r="${r+5}"/>` : '') + `<circle class="halo" cx="${x}" cy="${y}" r="6"/><circle class="core" cx="${x}" cy="${y}" r="${r}"/>` + (n > 1 ? `<text x="${x}" y="${y+3}" text-anchor="middle">${n}</text>` : '');
@@ -753,7 +780,7 @@ document.addEventListener('DOMContentLoaded', function(){
     cap.innerHTML = '';
     const a = document.createElement('span'); a.className = 'rg'; a.textContent = g.reg + ' · ' + g.items.length + (modo === 'provas' ? (g.items.length > 1 ? ' provas' : ' prova') : (g.items.length > 1 ? ' academias' : ' academia')); cap.appendChild(a);
     g.items.slice(0,3).forEach(p => { const l = document.createElement('span'); l.innerHTML = '<span class="rn"></span> <span class="rd"></span>'; l.querySelector('.rn').textContent = p.nome;
-      l.querySelector('.rd').textContent = modo === 'provas' ? '· ' + faixa(p.inicio, p.fim) + (p.status === 'aberta' ? ' · inscrições abertas' : p.status === 'embreve' ? ' · inscrições em breve' : '') : (p.endereco ? '· ' + p.endereco : ''); cap.appendChild(l); });
+      l.querySelector('.rd').textContent = modo === 'provas' ? '· ' + faixa(p.inicio, p.fim) + ' · ' + AT[atl(p)].toLowerCase() : (p.endereco ? '· ' + p.endereco : ''); cap.appendChild(l); });
     if(g.items.length > 3){ const m = document.createElement('span'); m.className = 'rd'; m.textContent = '+ ' + (g.items.length - 3) + ' na lista abaixo'; cap.appendChild(m); }
   }
   function ping(g){ g.el.classList.remove('ping'); void g.el.getBBox(); g.el.classList.add('ping','lit'); clearTimeout(g.lt); g.lt = setTimeout(() => g.el.classList.remove('lit'), 2800); }
@@ -806,9 +833,10 @@ document.addEventListener('DOMContentLoaded', function(){
       if(modo === 'provas'){
         const d0 = dt(x.inicio);
         el.innerHTML = `<div class="bib date"><div class="n">${String(d0.getDate()).padStart(2,'0')}</div><div class="t">${MES[d0.getMonth()]} · ${DOW[d0.getDay()]}</div></div>
-          <div class="info"><span class="pill ${esc(x.status)}">${esc({aberta:'Inscrições abertas', embreve:'Inscrições em breve', esgotada:'Esgotada'}[x.status] || 'Confira no site')}</span><div class="store">${esc(x.cidade)} · ${esc(x.pais)}</div><div class="name">${esc(x.nome)}</div>
+          <div class="info"><span class="pill ${atl(x)}">${AT[atl(x)]}</span><div class="store">${esc(x.cidade)} · ${esc(x.pais)}</div><div class="name">${esc(x.nome)}</div>
           <div class="det"><span>Datas: <b>${esc(faixa(x.inicio, x.fim))}${d0.getFullYear() !== hoje.getFullYear() ? ' de ' + d0.getFullYear() : ''}</b></span>${x.local ? `<span>Local: <b>${esc(x.local)}</b></span>` : ''}</div>
-          <div class="links"><a class="go" target="_blank" rel="noopener" href="${esc(x.link)}">Ver inscrição →</a></div></div>`;
+          ${vagasTxt(x) ? `<div class="vagas">${vagasTxt(x)}</div>` : ''}${pubTxt(x) ? `<span class="pub">${pubTxt(x)}</span>` : ''}
+          <div class="links"><a class="go" target="_blank" rel="noopener" href="${esc(x.link)}">${['aberta','parcial'].includes(atl(x)) ? 'Ver inscrição →' : 'Ver no site oficial →'}</a></div></div>`;
         el.querySelector('a.go').addEventListener('click', () => ev('hyrox_prova', {nome: x.nome}));
       } else {
         el.innerHTML = `<div class="bib date"><div class="n">${esc(x.uf)}</div><div class="t">treino</div></div>
@@ -820,7 +848,7 @@ document.addEventListener('DOMContentLoaded', function(){
       box.appendChild(el);
     });
     document.getElementById('e-note').textContent = modo === 'provas'
-      ? 'Só etapas oficiais do HYROX, conferidas no calendário oficial e atualizadas toda segunda. Confirme sempre na página oficial antes de se inscrever.'
+      ? 'Só etapas oficiais do HYROX. As vagas de atleta esgotam rápido e por categoria' + (D.status_conferido ? ' (situação conferida em ' + D.status_conferido.split('-').reverse().slice(0,2).join('/') + ')' : '') + '; ingresso de público não é inscrição de atleta. Confirme sempre na página oficial antes de se inscrever.'
       : 'Academias que se apresentam como HYROX Training Club oficial. A lista cresce a cada atualização; conhece uma credenciada que falta aqui? Chame a Aline no Instagram.';
   }
   function render(){ montaFiltros(); desenhar(); lista(); }
@@ -830,7 +858,7 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('n-provas').textContent = ps.length; document.getElementById('n-treinos').textContent = D.academias.length;
     const c = document.querySelector('#tab-provas .c'); if(c) c.textContent = ps.length;
     const prox = br[0];
-    document.getElementById('meta').innerHTML = '<b>' + ps.length + '</b> provas oficiais em <b>' + new Set(ps.map(p => p.pais)).size + '</b> países' + (prox ? ' · próxima no Brasil: <b>' + esc(prox.cidade) + ', ' + faixa(prox.inicio, prox.fim) + '</b>' : '');
+    document.getElementById('meta').innerHTML = '<b>' + ps.length + '</b> provas oficiais em <b>' + new Set(ps.map(p => p.pais)).size + '</b> países' + (prox ? ' · próxima no Brasil: <b>' + esc(prox.cidade) + ', ' + faixa(prox.inicio, prox.fim) + '</b> (' + AT[atl(prox)].toLowerCase() + ')' : '');
     render();
     // contorno do mundo (jsDelivr); sem ele o radar funciona só com os pontos
     const carregaMundo = () => { if(!window.topojson) return; fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r => r.json()).then(w => { mundo = topojson.feature(w, w.objects.countries); if(modo === 'provas') desenhar(); }).catch(() => {}); };
