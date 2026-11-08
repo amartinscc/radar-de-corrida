@@ -32,9 +32,28 @@ dados = {'perfil': {'instagram': (data.get('perfil') or {}).get('instagram', 'am
          'assessoria': data.get('assessoria') or {}, 'treino_em_breve': data.get('treino_em_breve')}
 
 h = (root / 'src' / 'hyrox-template.html').read_text()
+
+# SEO: dados estruturados gerados do FAQ visível (perguntas e respostas sempre iguais às da página)
+import html as _html
+def _txt(x): return _html.unescape(re.sub(r'<[^>]+>', '', x)).strip()
+faq = [{'@type': 'Question', 'name': _txt(q), 'acceptedAnswer': {'@type': 'Answer', 'text': _txt(r)}}
+       for q, r in re.findall(r'<details><summary>(.*?)</summary><p>(.*?)</p></details>', h[h.index('id="o-que-e-hyrox"'):], re.S)]
+assert len(faq) >= 8, 'FAQ do Hyrox não encontrado'
+URL = 'https://radardecorrida.com.br/hyrox/'
+ld = {'@context': 'https://schema.org', '@graph': [
+    {'@type': 'WebPage', '@id': URL, 'url': URL, 'name': 'Radar Hyrox da Aline', 'inLanguage': 'pt-BR',
+     'description': 'O que é HYROX, as 8 estações, categorias e pesos, provas oficiais, simulados e aulões no Brasil e onde treinar.',
+     'about': {'@type': 'Thing', 'name': 'HYROX'}, 'image': URL + 'og.jpg',
+     'author': {'@type': 'Person', 'name': 'Aline Martins', 'url': 'https://www.instagram.com/amartinscc/'},
+     'isPartOf': {'@type': 'WebSite', 'name': 'Radar de Corrida', 'url': 'https://radardecorrida.com.br/'}},
+    {'@type': 'BreadcrumbList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': 1, 'name': 'Radar de Corrida', 'item': 'https://radardecorrida.com.br/'},
+        {'@type': 'ListItem', 'position': 2, 'name': 'Radar Hyrox', 'item': URL}]},
+    {'@type': 'FAQPage', 'mainEntity': faq}]}
+jsonld = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 for k, v in {'__MAIN_CSS__': css, '__TABS__': tabs.rstrip('\n'), '__TREINO_HTML__': treino_html.rstrip('\n'),
              '__TREINO_JS__': treino_js.rstrip('\n'), '__STATES__': states,
-             '__DATA__': json.dumps(dados, ensure_ascii=False), '__PUMA_LOGO__': pm.get('logo', '')}.items():
+             '__DATA__': json.dumps(dados, ensure_ascii=False), '__JSONLD__': jsonld, '__PUMA_LOGO__': pm.get('logo', '')}.items():
     assert k in h, k
     h = h.replace(k, v)
 (root / 'hyrox' / 'index.html').write_text(h)
