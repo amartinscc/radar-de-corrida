@@ -1,3 +1,186 @@
 {
- "itens": []
+ "conferido": "2026-11-08",
+ "itens": [
+  {
+   "loja": "Puma",
+   "nome": "Tênis Deviate NITRO™ Elite 4 PUMA x HYROX Masculino",
+   "marca": "Puma",
+   "categoria": "Tênis",
+   "genero": "Masculino",
+   "preco": 1999.99,
+   "link": "https://br.puma.com/pd/tenis-deviate-nitrotm-elite-4-puma-x-hyrox-masculino/314156.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/314156/02/sv01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Tênis Deviate Elite 4 PUMA x HYROX Feminino",
+   "marca": "Puma",
+   "categoria": "Tênis",
+   "genero": "Feminino",
+   "preco": 1999.99,
+   "link": "https://br.puma.com/pd/tenis-deviate-elite-4-puma-x-hyrox-feminino/312960.html",
+   "foto": "https://images.puma.net/images/312960/01/sv01/fnd/ARG/w/2000/h/2000/"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Tênis Deviate Elite 4 PUMA x HYROX Masculino",
+   "marca": "Puma",
+   "categoria": "Tênis",
+   "genero": "Masculino",
+   "preco": 1999.99,
+   "link": "https://br.puma.com/pd/tenis-deviate-elite-4-puma-x-hyrox-masculino/312959.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/312959/01/sv01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Tênis de Corrida Deviate NITRO™ 3 PUMA X HYROX Feminino",
+   "marca": "Puma",
+   "categoria": "Tênis",
+   "genero": "Feminino",
+   "preco": 1039.99,
+   "de": 1299.99,
+   "link": "https://br.puma.com/pd/tenis-de-corrida-puma-x-hyrox-deviate-nitrotm-3-feminino/312294.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/312294/01/sv01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Tênis de Corrida PUMA X HYROX Deviate NITRO™ 3 Masculino",
+   "marca": "Puma",
+   "categoria": "Tênis",
+   "genero": "Masculino",
+   "preco": 1299.99,
+   "link": "https://br.puma.com/pd/tenis-de-corrida-puma-x-hyrox-deviate-nitrotm-3-masculino/312293.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/312293/01/sv01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Top de Treino High Impact PUMA x HYROX SHAPELUXE High Neck Feminino",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 299.99,
+   "link": "https://br.puma.com/pd/top-de-treino-high-impact-puma-x-hyrox-shapeluxe-high-neck-feminino/527854.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/527854/96/mod01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Legging PUMA x HYROX Essentials Feminina",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 349.99,
+   "link": "https://br.puma.com/pd/legging-puma-x-hyrox-essentials-feminina/529150.html",
+   "foto": "https://images.puma.net/images/529150/01/mod01/fnd/ARG/w/2000/h/2000/"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Shorts Legging 5\" PUMA x HYROX Essentials Feminino",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 299.99,
+   "link": "https://br.puma.com/pd/shorts-legging-5-puma-x-hyrox-essentials-feminino/529417.html"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Regata PUMA x HYROX PWRMODE Feminina",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 329.99,
+   "link": "https://br.puma.com/pd/regata-puma-x-hyrox-pwrmode-feminina/529254.html"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Camiseta PUMA x HYROX Cropped Lifestyle Feminina",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 149.99,
+   "de": 349.99,
+   "link": "https://br.puma.com/pd/camiseta-puma-x-hyrox-cropped-lifestyle-feminina/527639.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/527639/02/mod01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Moletom PUMA x HYROX Heavyweight Feminino",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 209.99,
+   "de": 349.99,
+   "link": "https://br.puma.com/pd/moletom-puma-x-hyrox-heavyweight-feminino/527642.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/527642/82/mod01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Regata de Treino PUMA x HYROX PWRMODE Masculino",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Masculino",
+   "preco": 329.99,
+   "link": "https://br.puma.com/pd/regata-de-treino-puma-x-hyrox-pwrmode-masculino/529230.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/529230/01/mod01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Shorts 2-in-1 PUMA x HYROX PWRMODE Masculino",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Masculino",
+   "preco": 549.99,
+   "link": "https://br.puma.com/pd/shorts-2-in-1-puma-x-hyrox-pwrmode-masculino/529236.html"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Camiseta PUMA x HYROX Lifestyle Masculina",
+   "marca": "Puma",
+   "categoria": "Roupas",
+   "genero": "Masculino",
+   "preco": 349.99,
+   "link": "https://br.puma.com/pd/camiseta-puma-x-hyrox-lifestyle-masculina/527576.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/527576/01/mod01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Boné PUMA x HYROX Baseball",
+   "marca": "Puma",
+   "categoria": "Meias e bonés",
+   "genero": "Unissex",
+   "preco": 149.99,
+   "link": "https://br.puma.com/pd/bone-puma-x-hyrox-baseball/026796.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/026796/01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Boné Trucker PUMA x HYROX",
+   "marca": "Puma",
+   "categoria": "Meias e bonés",
+   "genero": "Unissex",
+   "preco": 149.99,
+   "link": "https://br.puma.com/pd/bone-trucker-puma-x-hyrox/026356.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/026356/09/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Bandana PUMA x HYROX",
+   "marca": "Puma",
+   "categoria": "Acessórios",
+   "genero": "Unissex",
+   "preco": 49.99,
+   "de": 69.99,
+   "link": "https://br.puma.com/pd/bandana-puma-x-hyrox/026358.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/026358/01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Puma",
+   "nome": "Mochila PUMA x HYROX Daily 34L",
+   "marca": "Puma",
+   "categoria": "Acessórios",
+   "genero": "Unissex",
+   "preco": 999.99,
+   "link": "https://br.puma.com/pd/mochila-puma-x-hyrox-daily-34l/092400.html",
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/092400/01/fnd/BRA/fmt/png"
+  }
+ ]
 }

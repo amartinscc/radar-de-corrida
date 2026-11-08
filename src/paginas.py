@@ -389,13 +389,6 @@ def main():
     for img in man:
         if img not in novos_man and (root / img).exists(): novos_man[img] = man[img]  # imagens de páginas encerradas
     sitemap(ativos['prova'], hoje)
-    # achados marcados como Hyrox (tarefa de achados) para a página /hyrox/; o link passa pela página do achado (?c=1 leva à loja com o código de afiliada)
-    hx = [{'nome': o['nome'], 'loja': o['loja'], 'preco': o['preco'], 'de': o.get('de'), 'foto': o.get('foto'), 'url': f'/tenis/{sl}/?c=1'}
-          for o, sl in zip(ofertas, ts) if o.get('hyrox')]
-    hp = root / 'hyrox' / 'achados.json'
-    if (root / 'hyrox').exists():
-        novo = json.dumps({'itens': hx}, ensure_ascii=False, indent=1) + '\n'
-        if not hp.exists() or hp.read_text() != novo: hp.write_text(novo)
     manpath.write_text(json.dumps(novos_man, ensure_ascii=False, indent=0, sort_keys=True))
     print(f'páginas: {len(ativos["prova"])} provas, {len(ativos["tenis"])} tênis; imagens novas/alteradas: {gravadas}; encerradas agora: {encerradas}')
     # carrossel "Provas do fim de semana no Rio" (Modo Aline e e-mail de quinta); um erro aqui não impede o resto
