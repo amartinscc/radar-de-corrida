@@ -14,7 +14,9 @@ DIAS = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
 ST = {'esgotada': 'Esgotada', 'parcial': 'Últimos lotes', 'embreve': 'Inscrições em breve', 'adiada': 'Adiada'}
 E = lambda s: html.escape(str(s or ''), quote=True)
 INK, MUTED, ACCENT, MAUVE, HOT, LINE, SOFT = '#1D1220', '#6B5A6E', '#7A4E7D', '#B28AB1', '#B4501F', '#E7DAE8', '#F6F0F6'
-FONT = "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;"
+FONT_BASE = "font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;"
+FONT = ""  # a fonte vai só no body e na tabela principal (herdada), para o e-mail caber no envio pelo MailerLite
+POR_SEMANA = 3  # provas mostradas por semana (o resto fica no link do calendário)
 
 
 def utm(url, hoje, conteudo):
@@ -89,9 +91,9 @@ def main():
 
     L = []
     L.append(f'<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{E(assunto)}</title></head>')
-    L.append(f'<body style="margin:0;padding:0;background:{SOFT}"><span style="display:none;max-height:0;overflow:hidden;opacity:0">{E(pre)}</span>')
+    L.append(f'<body style="margin:0;padding:0;background:{SOFT};{FONT_BASE}"><span style="display:none;max-height:0;overflow:hidden;opacity:0">{E(pre)}</span>')
     L.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{SOFT}"><tr><td align="center" style="padding:16px 8px">')
-    L.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:20px;overflow:hidden">')
+    L.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;{FONT_BASE}background:#ffffff;border-radius:20px;overflow:hidden">')
     # topo
     L.append(f'<tr><td style="padding:22px 24px 6px;background:linear-gradient(135deg,#BBE3E5,#D9C1D9)"><p style="margin:0;{FONT}font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:{ACCENT}">Radar de Corrida · {DIAS[hoje.weekday()]}, {hoje.day} de {MESF[hoje.month - 1]}</p>'
              f'<h1 style="margin:6px 0 4px;{FONT}font-size:28px;line-height:1.15;color:{INK}">Sua semana de corrida 🏃‍♀️</h1>'
@@ -132,7 +134,7 @@ def main():
         for seg, lista in semanas:
             dom = seg + datetime.timedelta(days=6)
             L.append(f'<tr><td style="padding:16px 24px 4px;{FONT}font-size:13px;font-weight:800;color:{HOT};text-transform:uppercase;letter-spacing:.06em">Semana de {seg.day:02d}/{seg.month:02d} a {dom.day:02d}/{dom.month:02d}</td></tr>')
-            for p in lista[:6]:
+            for p in lista[:POR_SEMANA]:
                 x = datetime.date.fromisoformat(p['data'])
                 url = utm(f'{SITE}prova/{ps[id(p)]}/?c=1', hj, 'prova')
                 info = ' · '.join(v for v in [p.get('local'), p['hora'].replace(':', 'h') if p.get('hora') else None, p.get('distancias')] if v)
@@ -147,8 +149,8 @@ def main():
                          + (f'<span style="display:block;{FONT}font-size:13px;color:{MUTED}">{E(ext)}</span>' if ext else '')
                          + (f'<span style="display:block;{FONT}font-size:13px;margin-top:3px">{dest}</span>' if dest else '')
                          + f'<span style="display:block;{FONT}font-size:13px;font-weight:700;color:{ACCENT};margin-top:5px">Ver inscrição →</span></a></td></tr>')
-            if len(lista) > 6:
-                L.append(f'<tr><td style="padding:2px 24px;{FONT}font-size:13px;color:{MUTED}">+{len(lista) - 6} provas nesta semana no radar</td></tr>')
+            if len(lista) > POR_SEMANA:
+                L.append(f'<tr><td style="padding:2px 24px;{FONT}font-size:13px;color:{MUTED}">+{len(lista) - POR_SEMANA} provas nesta semana no radar</td></tr>')
         L.append(f'<tr><td align="center" style="padding:14px 24px 4px">{botao("Ver o calendário completo", utm(SITE + "#provas", hj, "provas"))}</td></tr>')
 
     # 3) outros achados (maiores descontos)
@@ -184,7 +186,7 @@ def main():
              f'Você recebe este e-mail porque se inscreveu no <a href="{E(SITE)}" style="color:{ACCENT}">radardecorrida.com.br</a>. '
              f'<a href="{{$unsubscribe}}" style="color:{ACCENT}">Cancelar inscrição</a> · <a href="{E(SITE)}privacidade/" style="color:{ACCENT}">Privacidade</a></td></tr>')
     L.append('</table></td></tr></table></body></html>')
-    saida.write_text(''.join(L))
+    saida.write_text(''.join(L).replace('</tr>', '</tr>\n'))  # uma linha por bloco: o arquivo pode ser lido em partes
     print(json.dumps({'assunto': assunto, 'pre_cabecalho': pre, 'provas': len(fds), 'achados': len(escolhidos), 'indicacoes': len(destaques), 'parceiros': len(parc),
                       'datas': datas, 'bytes': saida.stat().st_size}, ensure_ascii=False))
 
