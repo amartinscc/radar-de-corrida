@@ -1,0 +1,51 @@
+# Texto novo da tarefa "Achados do Radar (pelo PC)"
+
+Aprovado pelo Leandro em 08/11/2026. A tarefa é ligada ao computador (DESKTOP-SG9GPLF), então só pode ser trocada numa conversa do Claude aberta nesse computador: peça "aplique o texto de src/tarefas/achados.md na tarefa Achados do Radar (pelo PC)" e aprove. Pedir também o modelo mais econômico (aprovado).
+
+---
+
+Atualize os ACHADOS do "Radar de Corrida da Aline" (radardecorrida.com.br). Você só altera os campos "ofertas" e "ofertas_atualizado" do bloco radar-data do index.html (mais as páginas geradas pelo src/paginas.py). Tudo é automático: não peça confirmação a ninguém.
+
+TIPO DE EXECUÇÃO (decisão do Leandro em 08/11/2026). Veja o dia da semana em Brasília (TZ=America/Sao_Paulo date +%u):
+- Segunda (1), quarta (3) e sábado (6): BUSCA COMPLETA (meta 15 a 25 minutos), passos A e C.
+- Demais dias: CONFERÊNCIA DA AMAZON (meta 5 a 10 minutos), passos B e C. Nesses dias, os achados das outras lojas ficam como estão (o preço continua aparecendo normal).
+
+LOJAS: os achados vêm SOMENTE dos parceiros ativos da aba Parceiros ("parceiros.marcas" do JSON sem "oculto": true e com "link"). Lojas afiliadas ("afiliada": true; o site acrescenta o código de afiliada sozinho): Amazon, Netshoes, Mercado Livre e Puma (Zattini só se perder o "oculto"). Patrocinadoras: Kaisan, Brilho e Bronze, Massam Fitness, Pozze, Jungle, Plant Power, A Tal da Castanha, Possible, Marmitas da Lulu, Livvan (e qualquer outra da lista). "loja" = exatamente o "nome" da marca na lista. Foco: corrida e treino.
+
+CAMPOS DE CADA ACHADO: {loja, nome, marca, preco, de?, link, categoria, genero?, cupom?, condicao?, foto?, desde, conferido, motivos, hyrox?}.
+- "desde": data (AAAA-MM-DD) em que o achado entrou no radar; nunca muda depois. Achados antigos sem "desde": use a data de "ofertas_atualizado" lida.
+- "conferido": data da última vez em que o preço foi conferido na loja.
+- "motivos": lista com um ou mais de "mais_vendido" (veio de página de mais vendidos ou busca ordenada por vendas), "lancamento" (veio de seção de lançamentos/novidades da loja, ou a loja marca como novo; só por 30 dias desde "desde"), "desconto" (tem "de" maior que "preco"). Nunca invente motivo.
+- "hyrox": true para itens da linha HYROX da Puma (e itens de outras lojas que tragam "Hyrox" no nome). Eles aparecem na página radardecorrida.com.br/hyrox/ (aba Achados); no radar principal não há destaque.
+- Demais regras de sempre: "categoria" exatamente uma de "Tênis", "Relógios", "Fones", "Óculos", "Roupas", "Meias e bonés", "Hidratação", "Suplementos", "Nutrição", "Recuperação", "Acessórios". "genero" obrigatório em Tênis e Roupas das afiliadas. "de" só quando a loja mostra preço anterior maior. "marca": marca do produto ou "Outras marcas". "foto": URL https direta da imagem, sem parâmetros, ou omita. Links limpos, sem código de afiliada (nunca tag=, matt_word, matt_tool, Awin, Rakuten, amzn.to, meli.la); Kaisan com ?cupom=amartins. Nunca grave cupom da Aline (AMARTINS e variações) em "cupom"; nas patrocinadoras não grave "cupom" (promoções da loja vão em "condicao"). Sem "escolha", sem escolhas.json. Itens que continuam: mesmo "nome", "marca", "genero" e "categoria" (o endereço da página depende deles). Nunca invente produto, preço ou foto.
+
+REGRA DE PERMANÊNCIA: todo achado fica no radar no mínimo 3 dias desde "desde", e depois continua enquanto estiver em promoção (com "de"). Só sai antes disso se a loja mostrar que esgotou ou saiu do ar. Exceção da AMAZON: achado da Amazon com "conferido" de mais de 1 dia (não conferido hoje nem ontem) sai do radar.
+
+REPOSITÓRIO: não use add_repo. cd /home/claude/radar-de-corrida && git fetch --depth 1 origin main && git checkout main && git reset --hard origin/main (se não existir: git clone --depth 1 https://github.com/amartinscc/radar-de-corrida /home/claude/radar-de-corrida, timeout de 10 min). Leia o RESUMO.md.
+
+NAVEGADOR DO PC (Amazon, Netshoes, Mercado Livre, Puma e Zattini bloqueiam a nuvem): ferramentas do Claude in Chrome (mcp__claude-in-chrome__*; carregue todas numa só busca: tabs_context_mcp, tabs_create_mcp, navigate, javascript_tool, get_page_text, browser_batch, computer, tabs_close_mcp). Abra uma aba nova e feche no fim. Se o Chrome não responder, tente mcp__remote-devices__Claude_Browser__*. Nunca faça login, nunca compre, nunca clique em comprar/carrinho; CAPTCHA: pule a página. ECONOMIA: leia as páginas SEMPRE com javascript_tool devolvendo só um JSON curto por produto (nome, preço, preço anterior, link, foto, selo de novo/mais vendido se houver); nunca use get_page_text em listagens.
+
+A) BUSCA COMPLETA (segunda, quarta e sábado)
+1. Comece pela lista atual. Não pesquise de novo produto que já está no radar: as listagens abaixo servem para conferir o preço dos que aparecerem e trazer NOVIDADES só onde faltar (categorias ou lojas abaixo da meta). Prefira produtos que ainda não estão no radar.
+2. Prioridade das buscas, nesta ordem: MAIS VENDIDOS, LANÇAMENTOS e MAIORES DESCONTOS.
+   - Mercado Livre: mais vendidos /mais-vendidos/MLB438178, /MLB3900, /MLB1339, /MLB1276 e buscas lista.mercadolivre.com.br/<termo> para tenis-corrida, gel-carboidrato, meia-corrida, fone-conducao-ossea (cartões .poly-card; ignore patrocinados e nota abaixo de 4,5).
+   - Netshoes: https://www.netshoes.com.br/running?sort=best-sellers, a mesma página ordenada por lançamentos (?sort=newest, se existir), e buscas ?q=tenis corrida feminino / tenis corrida masculino / relogio corrida / legging corrida com sort=best-sellers (cartões .card).
+   - Amazon: https://www.amazon.com.br/gp/bestsellers/sports, https://www.amazon.com.br/gp/new-releases/sports e buscas /s?k= para tenis corrida, gel de carboidrato, meia corrida poliamida, fone esportivo, garrafa flexivel silicone corrida, relogio corrida. Pelo menos 2 de cada: gel de carboidrato, meias de poliamida, fones esportivos e garrafinha flexível (pedido da Aline).
+   - Puma: seções de running (feminino e masculino), lançamentos/novidades, ofertas e a coleção HYROX (busque "hyrox" em br.puma.com). Link limpo de br.puma.com, nunca link da Awin.
+   - Patrocinadoras (pela nuvem com WebFetch; se bloquear, Chrome): links da lista e páginas de promoções/lançamentos de cada marca; lojas Shopify aceitam /products.json. Até ~6 itens por marca.
+   - Cupons das afiliadas, quando a página abrir (vão em "cupom" só se forem da própria loja).
+3. Quantidade total: 80 a 100 achados. Amazon 20 a 25; Mercado Livre e Netshoes ~15 a 20 cada; Puma ~10 a 15 (com a linha Hyrox); patrocinadoras até ~6 cada. Tênis ~25 a 35, equilibrando feminino e masculino. No máximo ~8 por marca de produto nas afiliadas. Se passar de 100, tire primeiro os que já cumpriram 3 dias, não estão em promoção e não são mais vendidos.
+4. Aplique a REGRA DE PERMANÊNCIA. Loja que não puder ser lida hoje: os itens dela que ainda não cumpriram 3 dias ficam; os outros saem (Amazon segue a exceção de 1 dia).
+5. Itens conferidos hoje: "conferido" = hoje. Novos: "desde" = hoje.
+
+B) CONFERÊNCIA DA AMAZON (demais dias)
+1. Para cada achado com loja "Amazon", abra https://www.amazon.com.br/dp/<ASIN> e leia só o preço atual e o preço anterior com javascript_tool (preço: #corePrice_feature_div .a-price .a-offscreen ou .a-price .a-offscreen; anterior: .a-text-price .a-offscreen, só se maior). Use browser_batch para conferir vários de uma vez.
+2. Preço lido: atualize "preco"/"de"/"motivos" e ponha "conferido" = hoje. Indisponível ou sem preço: tire o item. Não conseguiu abrir: deixe como está (a exceção de 1 dia tira depois).
+3. Não busque produtos novos nem leia outras lojas.
+
+C) GRAVAÇÃO E PUBLICAÇÃO (sempre)
+1. Com um script Python: leia o index.html, extraia o JSON do bloco radar-data (regex r'(<script id="radar-data" type="application/json">)(.*?)(</script>)' com re.S), troque SÓ "ofertas" e "ofertas_atualizado" (ISO com -03:00, hora em que terminou) e grave de volta substituindo só o conteúdo do bloco por "\n" + json.dumps(dados, ensure_ascii=False, indent=1) + "\n". Não mexa em mais nada (src/, calculadora-de-pace/, painel/, aline/, privacidade/, fotos/, hyrox/ exceto o achados.json gerado pelo paginas.py, robots.txt, cabeçalho). Nunca rode src/build.py.
+2. Confira com o script: lojas válidas; categorias válidas; genero em Tênis/Roupas das afiliadas; preco numérico e link em todos; todos com "desde", "conferido" e "motivos"; nenhum Amazon com "conferido" de mais de 1 dia; nenhum link com tag=, matt_word, matt_tool, awin, linksynergy, amzn.to ou meli.la; nenhum cupom da Aline; fora "ofertas" e "ofertas_atualizado", JSON idêntico ao lido. Rode python3 src/paginas.py (erro: não publique e informe; só a linha "carrossel:" com ERRO: publique e informe).
+3. git fetch --depth 1 origin main; se origin/main mudou, git reset --hard origin/main, reaplique só "ofertas"/"ofertas_atualizado" e rode de novo python3 src/paginas.py. Depois git add -A; git -c user.name=Claude -c user.email=noreply@anthropic.com commit -m "Atualiza achados AAAA-MM-DD HHhMM (busca|conferência)"; git push origin HEAD:main. Se recusado, repita uma vez.
+
+Ao terminar, responda em português com uma linha: tipo de execução (busca ou conferência), total de achados e por loja, quantos novos hoje, quantos saíram (e por quê), quantos com cada motivo, quantos Hyrox, preços da Amazon conferidos hoje, lojas não lidas e por quê, a linha de resumo do paginas.py e o hash do commit (ou o motivo de não publicar e em qual etapa).
