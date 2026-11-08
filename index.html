@@ -365,6 +365,11 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .hero .actions .hbtn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;z-index:-1;background:conic-gradient(from var(--calc-ang),#a8780f 0deg,#d4a72c 150deg,#f5cf5f 250deg,#fff4c2 305deg,#ffffff 325deg,#f5cf5f 345deg,#a8780f 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:calc-gira 2.6s linear infinite}
 @media (prefers-reduced-motion:reduce){.hero .actions .hbtn::before{animation:none}}
 .hero .actions .hbtn svg{width:18px;height:18px;flex:none}
+/* 4 botões do topo em 2x2 (desde 08/11/2026): mesmo tamanho, nome em duas linhas centralizado */
+.hero .actions{display:grid!important;grid-template-columns:1fr 1fr;gap:12px!important;width:min(100%,360px)}
+.hero .actions .hbtn{flex-direction:column;gap:2px;min-height:76px;padding:10px 8px;border-radius:22px;text-align:center;line-height:1.2}
+.hero .actions .hbtn b{font:700 17px var(--body)}
+.hero .actions .hbtn span{font:500 13.5px var(--body);opacity:.88}
 .hero .down{margin-top:6px;color:#fff;opacity:.8;text-decoration:none;font:600 13px var(--body);display:flex;flex-direction:column;align-items:center;gap:2px}
 .hero .down svg{width:22px;height:22px}
 @media (prefers-reduced-motion:no-preference){.hero .down svg{animation:bob 1.8s ease-in-out infinite}}
@@ -556,9 +561,10 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   <h1>Radar diário de corrida</h1>
   <div class="byline">por <b id="pname">Aline</b>, personal trainer e corredora</div>
   <div class="actions">
-    <a class="follow hbtn" id="follow" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg> <span id="follow-label">Seguir no Instagram</span></a>
-    <a class="hbtn" href="#novidades" id="news-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Novidades</a>
-    <a class="calc-link hbtn" href="calculadora-de-pace/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2h5"/></svg>Calculadora de pace</a>
+    <a class="follow hbtn" id="follow" target="_blank" rel="noopener"><b>Seguir</b><span id="follow-label">@amartinscc</span></a>
+    <a class="calc-link hbtn" href="calculadora-de-pace/"><b>Calculadora</b><span>de pace</span></a>
+    <a class="hbtn" href="#novidades" id="news-hero"><b>Novidades</b><span>por e-mail</span></a>
+    <a class="hbtn" href="hyrox/" id="hyrox-hero"><b>Hyrox</b><span>radar da Aline</span></a>
   </div>
   <div class="meta" id="meta"></div>
   <a class="down" href="#radar-abas">Ver o radar<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
@@ -14427,7 +14433,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   if(pf.foto){ const im = new Image(); im.alt = pf.nome || ''; im.src = pf.foto; const av = document.getElementById('avatar'); if(av){av.textContent=''; av.appendChild(im);} }
   else if(document.getElementById('avatar')) document.getElementById('avatar').textContent = (pf.nome||'A').charAt(0);
   ['follow','follow2'].forEach(id => { const a = document.getElementById(id); if(ig) a.href = ig; else a.hidden = true; });
-  if(pf.instagram){ document.getElementById('follow2-label').textContent = 'Seguir @' + pf.instagram; document.getElementById('follow-label').textContent = 'Seguir @' + pf.instagram; }
+  if(pf.instagram){ document.getElementById('follow2-label').textContent = 'Seguir @' + pf.instagram; document.getElementById('follow-label').textContent = '@' + pf.instagram; }
 
   const dtA = new Date(data.atualizado), dtO = data.ofertas_atualizado ? new Date(data.ofertas_atualizado) : dtA;
   const dt = dtO > dtA ? dtO : dtA;
