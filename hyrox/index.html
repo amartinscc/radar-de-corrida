@@ -994,8 +994,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // ===== achados Hyrox =====
   // links de afiliada: os MESMOS do radar principal (copiados de src/template.html pelo src/hyrox.py)
-  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0', mlWord: 'amartins', mlTool: '42642259', mlHome: 'https://meli.la/2HAaDz4', puma: 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma', zattini: ''};
-  // Puma (Awin): o ued leva a URL codificada da página; Zattini: pôr em AFIL.zattini o link com {URL} quando a Aline informar
+  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0', mlWord: 'amartins', mlTool: '42642259', mlHome: 'https://meli.la/2HAaDz4', puma: 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma', zattini: 'https://click.linksynergy.com/deeplink?id=7KhHq5G3aIo&mid=43985&murl={URL}'};
+  // Puma (Awin): o ued leva a URL codificada da página; Zattini (Rakuten): deep link com o token da Aline e o MID 43985 (Zattini WL), {URL} = página codificada
   // parâmetro de campanha de um parceiro (campo manual "link_param", ex.: Brilho e Bronze na Black Friday "parceiro=6919"): vai também nos links de produto do mesmo site
   const PARAM_SITE = {};
   function afil(u){
