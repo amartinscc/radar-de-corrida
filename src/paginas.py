@@ -4,6 +4,9 @@
 # Não altera o index.html. Uso: python3 src/paginas.py
 # O slug é o mesmo que a página calcula em JavaScript (função slugItem do template): mude os dois juntos.
 import base64, hashlib, html, io, json, math, re, sys, unicodedata, pathlib, datetime
+
+# Campos de controle dos achados (gravados pela tarefa de achados): não entram na chave das imagens de prévia.
+CAMPOS_CONTROLE = ('desde', 'conferido', 'motivos', 'hyrox')
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from PIL import Image, ImageDraw, ImageFont
 
@@ -343,7 +346,8 @@ def main():
     for tipo, it, sl in itens:
         ativos[tipo].add(sl)
         img = f'og/{tipo}-{sl}.jpg'
-        chave = hashlib.sha1(json.dumps([VERSAO, it, perfil.get('instagram'), hashlib.sha1((perfil.get('foto') or '').encode()).hexdigest(), ''], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+        it_chave = {k: v for k, v in it.items() if k not in CAMPOS_CONTROLE}  # campos de controle não mudam a imagem
+        chave = hashlib.sha1(json.dumps([VERSAO, it_chave, perfil.get('instagram'), hashlib.sha1((perfil.get('foto') or '').encode()).hexdigest(), ''], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
         if man.get(img) != chave or not (root / img).exists():
             (root / img).write_bytes(imagem(it, tipo, perfil, ofertas_em)); gravadas += 1
         novos_man[img] = chave
