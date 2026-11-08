@@ -311,13 +311,15 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .hero .actions .hbtn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;z-index:-1;background:conic-gradient(from var(--calc-ang),#a8780f 0deg,#d4a72c 150deg,#f5cf5f 250deg,#fff4c2 305deg,#ffffff 325deg,#f5cf5f 345deg,#a8780f 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:calc-gira 2.6s linear infinite}
 @media (prefers-reduced-motion:reduce){.hero .actions .hbtn::before{animation:none}}
 .hero .actions .hbtn svg{width:18px;height:18px;flex:none}
-/* 4 botões do topo em 2x2 (desde 08/11/2026): mesmo tamanho, nome em duas linhas centralizado */
-.hero .actions{display:grid!important;grid-template-columns:1fr 1fr;gap:12px!important;width:min(100%,360px)}
-.hero .actions .hbtn{flex-direction:column;gap:2px;min-height:76px;padding:10px 8px;border-radius:22px;text-align:center;line-height:1.2}
-.hero .actions .hbtn b{font:700 17px var(--body)}
-.hero .actions .hbtn span{font:500 13.5px var(--body);opacity:.88}
-.hero .actions .hbtn.hx span{font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
-.hero .actions .hbtn.hx b{font:900 21px/1 var(--display);letter-spacing:.08em}
+/* 4 botões do topo minimalistas e empilhados (desde 08/11/2026, pedido da Aline; mesmo estilo dos botões do Radar Hyrox, nas cores do radar):
+   pequenos, um em cima do outro, borda dourada fina girando; a capa e o nome ficam em destaque */
+.hero .actions{display:grid!important;grid-template-columns:1fr;gap:9px!important;width:min(100%,250px)}
+.hero .actions .hbtn{flex-direction:row;gap:5px;min-height:0;padding:9px 14px;border-radius:999px;box-shadow:none;background:rgba(29,18,32,.3);text-align:center;line-height:1.2}
+.hero .actions .hbtn::before{padding:1px;opacity:.9}
+.hero .actions .hbtn b,.hero .actions .hbtn span{font:600 13px var(--body);letter-spacing:.01em;opacity:1}
+.hero .actions .hbtn span{opacity:.88}
+.hero .actions .hbtn.hx span{font:600 13px var(--body);letter-spacing:.01em;text-transform:none;opacity:.88}
+.hero .actions .hbtn.hx b{font:800 13px var(--body);letter-spacing:.06em}
 .hero .down{margin-top:6px;color:#fff;opacity:.8;text-decoration:none;font:600 13px var(--body);display:flex;flex-direction:column;align-items:center;gap:2px}
 .hero .down svg{width:22px;height:22px}
 @media (prefers-reduced-motion:no-preference){.hero .down svg{animation:bob 1.8s ease-in-out infinite}}

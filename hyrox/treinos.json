@@ -351,6 +351,18 @@
    "nota": "Box afiliado HYROX",
    "lat": -23.711,
    "lng": -46.551
+  },
+  {
+   "nome": "Academia Saúde 2000",
+   "bairro": "Moqueta",
+   "cidade": "Nova Iguaçu",
+   "uf": "RJ",
+   "endereco": "R. Maria Laura, 161",
+   "instagram": "academiasaude2000",
+   "site": "https://saude2000.com.br/",
+   "nota": "Acompanhe o perfil para eventos de HYROX",
+   "lat": -22.7491,
+   "lng": -43.452
   }
  ]
 }

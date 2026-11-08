@@ -33,6 +33,12 @@ dados = {'perfil': {'instagram': (data.get('perfil') or {}).get('instagram', 'am
 
 h = (root / 'src' / 'hyrox-template.html').read_text()
 
+# links de afiliada, Modo Aline (senha) e "Meus links de loja": os mesmos do radar principal
+ai = t.index('  const AFIL = {amazon'); aj = t.index('  const temAfil', ai)
+afil_js = re.sub(r"  const PARAM_SITE = .*?\n", "  const PARAM_SITE = {};\n", t[ai:aj]).rstrip()
+adm_hash = re.search(r"const ADM_HASH = '([0-9a-f]{64})';", t).group(1)
+li = t.index('  // Meus links de loja'); tela_links = t[li:t.index('  function menuAdm(){', li)].rstrip()
+
 # SEO: dados estruturados gerados do FAQ visível (perguntas e respostas sempre iguais às da página)
 import html as _html
 def _txt(x): return _html.unescape(re.sub(r'<[^>]+>', '', x)).strip()
@@ -53,7 +59,7 @@ ld = {'@context': 'https://schema.org', '@graph': [
 jsonld = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 for k, v in {'__MAIN_CSS__': css, '__TABS__': tabs.rstrip('\n'), '__TREINO_HTML__': treino_html.rstrip('\n'),
              '__TREINO_JS__': treino_js.rstrip('\n'), '__STATES__': states,
-             '__DATA__': json.dumps(dados, ensure_ascii=False), '__JSONLD__': jsonld, '__PUMA_LOGO__': pm.get('logo', '')}.items():
+             '__DATA__': json.dumps(dados, ensure_ascii=False), '__JSONLD__': jsonld, '__AFIL_JS__': afil_js, '__ADM_HASH__': adm_hash, '__TELA_LINKS__': tela_links, '__PUMA_LOGO__': pm.get('logo', '')}.items():
     assert k in h, k
     h = h.replace(k, v)
 (root / 'hyrox' / 'index.html').write_text(h)
