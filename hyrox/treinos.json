@@ -1,5 +1,5 @@
 {
- "conferido": "2026-11-08",
+ "conferido": "2026-11-09",
  "eventos": [
   {
    "titulo": "Hybrid Hub by Innergy: a casa dos atletas na semana do HYROX Rio",
@@ -19,22 +19,6 @@
    "lat": -23.004,
    "lng": -43.321,
    "manual": true
-  },
-  {
-   "titulo": "Simulado HYROX Penta Campinas",
-   "academia": "Penta Training Club",
-   "tipo": "Simulado",
-   "bairro": "Taquaral",
-   "cidade": "Campinas",
-   "uf": "SP",
-   "inicio": "2026-11-08",
-   "hora": "baterias a partir das 7h30",
-   "valor": "R$ 70 individual · R$ 100 dupla",
-   "acesso": "Alunos e visitantes",
-   "link": "https://penta-simulado.vercel.app/",
-   "fonte": "https://penta-simulado.vercel.app/",
-   "lat": -22.877,
-   "lng": -47.05
   },
   {
    "titulo": "PODIUM Hybrid Experience 2026",
@@ -394,6 +378,85 @@
    "nota": "Acompanhe o perfil para eventos de HYROX",
    "lat": -22.7491,
    "lng": -43.452
+  },
+  {
+   "nome": "CF Hunter",
+   "bairro": "Prado",
+   "cidade": "Belo Horizonte",
+   "uf": "MG",
+   "instagram": "cf_hunterbh",
+   "site": "https://cfhunter.com.br/",
+   "nota": "Oferece treino HYROX (lista darwin.training, nov/2026)",
+   "lat": -19.928,
+   "lng": -43.961,
+   "fonte": "https://darwin.training/blog/boxes-hyrox-belo-horizonte"
+  },
+  {
+   "nome": "Kabuto Training Club",
+   "bairro": "Castelo",
+   "cidade": "Belo Horizonte",
+   "uf": "MG",
+   "instagram": "kbt_hyrox",
+   "site": "https://kabuto.com.br/",
+   "nota": "Oferece treino HYROX (lista darwin.training, nov/2026)",
+   "lat": -19.883,
+   "lng": -44.004,
+   "fonte": "https://darwin.training/blog/boxes-hyrox-belo-horizonte"
+  },
+  {
+   "nome": "KZA Studio",
+   "bairro": "Cidade Jardim",
+   "cidade": "Belo Horizonte",
+   "uf": "MG",
+   "instagram": "kza.studio",
+   "nota": "Oferece treino HYROX (lista darwin.training, nov/2026)",
+   "lat": -19.943,
+   "lng": -43.951,
+   "fonte": "https://darwin.training/blog/boxes-hyrox-belo-horizonte"
+  },
+  {
+   "nome": "Eagles CT",
+   "bairro": "Maria Helena",
+   "cidade": "Belo Horizonte",
+   "uf": "MG",
+   "instagram": "eagles.ct",
+   "nota": "Oferece treino HYROX (lista darwin.training, nov/2026)",
+   "lat": -19.808,
+   "lng": -43.993,
+   "fonte": "https://darwin.training/blog/boxes-hyrox-belo-horizonte"
+  },
+  {
+   "nome": "Brave Community Fitness",
+   "bairro": "Funcionários",
+   "cidade": "Belo Horizonte",
+   "uf": "MG",
+   "site": "https://bravecfitness.com.br/",
+   "nota": "Oferece treino HYROX (lista darwin.training, nov/2026)",
+   "lat": -19.935,
+   "lng": -43.931,
+   "fonte": "https://darwin.training/blog/boxes-hyrox-belo-horizonte"
+  },
+  {
+   "nome": "Box City Cross Training",
+   "bairro": "Centro",
+   "cidade": "Santa Luzia",
+   "uf": "MG",
+   "instagram": "boxcitycross",
+   "nota": "Oferece treino HYROX (lista darwin.training, nov/2026)",
+   "lat": -19.77,
+   "lng": -43.851,
+   "fonte": "https://darwin.training/blog/boxes-hyrox-belo-horizonte"
+  },
+  {
+   "nome": "CT Guilherme Pimenta",
+   "bairro": "Betânia",
+   "cidade": "Belo Horizonte",
+   "uf": "MG",
+   "instagram": "ct.guilhermepimenta",
+   "nota": "Oferece treino HYROX (lista darwin.training, nov/2026)",
+   "lat": -19.958,
+   "lng": -43.995,
+   "fonte": "https://darwin.training/blog/boxes-hyrox-belo-horizonte"
   }
  ]
 }

@@ -1,40 +1,6 @@
 {
- "conferido": "2026-11-08",
+ "conferido": "2026-11-09",
  "provas": [
-  {
-   "nome": "HYROX Dublin",
-   "cidade": "Dublin",
-   "pais": "Irlanda",
-   "iso": "IE",
-   "local": "",
-   "inicio": "2026-11-11",
-   "fim": "2026-11-15",
-   "lat": 53.35,
-   "lng": -6.26,
-   "link": "https://hyrox.com/event/hyrox-dublin/",
-   "status": "parcial",
-   "atletas": "parcial",
-   "publico": true,
-   "categorias_esgotadas": [
-    "Men",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Adaptive Men",
-    "Adaptive Women"
-   ],
-   "categorias_abertas": [
-    "Women (dom)",
-    "PRO Men (sex)",
-    "PRO Women (sex)",
-    "Relay Men (sex)",
-    "Relay Women (sex)",
-    "Relay Mixed (sex)"
-   ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dublin-2026"
-  },
   {
    "nome": "EDEKA HYROX Düsseldorf",
    "cidade": "Düsseldorf",
@@ -69,6 +35,40 @@
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dusseldorf-2026"
   },
   {
+   "nome": "HYROX Dublin",
+   "cidade": "Dublin",
+   "pais": "Irlanda",
+   "iso": "IE",
+   "local": "",
+   "inicio": "2026-11-11",
+   "fim": "2026-11-15",
+   "lat": 53.35,
+   "lng": -6.26,
+   "link": "https://hyrox.com/event/hyrox-dublin/",
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "PRO Men (sex)",
+    "PRO Women (sex)",
+    "Doubles Men (sex)",
+    "Doubles Women (sex)",
+    "Doubles Mixed (sex)",
+    "Doubles PRO Men (sab)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex)",
+    "Relay Women (sex)",
+    "Relay Mixed (sex)"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-dublin-2026"
+  },
+  {
    "nome": "Leapmotor HYROX Barcelona",
    "cidade": "Barcelona",
    "pais": "Espanha",
@@ -99,7 +99,7 @@
     "Adaptive Women"
    ],
    "categorias_abertas": [],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-barcelona-2026-s9"
+   "fonte_status": "https://www.roxradar.com/events/hyrox-barcelona-2026-s9"
   },
   {
    "nome": "The Feed HYROX Denver",
@@ -116,7 +116,9 @@
    "atletas": "parcial",
    "publico": null,
    "categorias_esgotadas": [
+    "Doubles Men",
     "Doubles Women",
+    "Doubles Mixed",
     "Relay Women",
     "Adaptive Men",
     "Adaptive Women"
@@ -126,8 +128,6 @@
     "Women (qui, sex, dom)",
     "PRO Men (sex)",
     "PRO Women (sex)",
-    "Doubles Men (dom)",
-    "Doubles Mixed (sex)",
     "Doubles PRO Men (sab)",
     "Doubles PRO Women (sab)",
     "Relay Men (sex)",
@@ -146,8 +146,8 @@
    "lat": 37.57,
    "lng": 126.98,
    "link": "https://hyrox.com/event/hyrox-seoul/",
-   "status": "parcial",
-   "atletas": "parcial",
+   "status": "esgotada",
+   "atletas": "esgotada",
    "publico": true,
    "categorias_esgotadas": [
     "Men",
@@ -156,6 +156,7 @@
     "PRO Women",
     "Doubles Men",
     "Doubles Women",
+    "Doubles Mixed",
     "Doubles PRO Men",
     "Doubles PRO Women",
     "Relay Men",
@@ -164,9 +165,7 @@
     "Adaptive Men",
     "Adaptive Women"
    ],
-   "categorias_abertas": [
-    "Doubles Mixed (sex)"
-   ],
+   "categorias_abertas": [],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-seoul-2026"
   },
   {
@@ -190,16 +189,16 @@
     "Adaptive Women"
    ],
    "categorias_abertas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Women",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed"
+    "Men (sab)",
+    "Women (dom)",
+    "PRO Men (sab)",
+    "PRO Women (sab)",
+    "Doubles Women (dom)",
+    "Doubles PRO Men (dom)",
+    "Doubles PRO Women (dom)",
+    "Relay Men (dom)",
+    "Relay Women (dom)",
+    "Relay Mixed (dom)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-cairo-2026"
   },
@@ -228,46 +227,14 @@
     "Adaptive Women"
    ],
    "categorias_abertas": [
-    "Women (qua)",
+    "Women (qua, qui, dom)",
     "PRO Women (sex)",
     "Doubles Men (qua, qui)",
-    "Doubles Women (qua, dom)",
+    "Doubles Women (qua, sex, dom)",
     "Doubles PRO Men (sab)",
     "Doubles PRO Women (sab)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dallas-2026"
-  },
-  {
-   "nome": "Simplove HYROX Guangzhou",
-   "cidade": "Guangzhou",
-   "pais": "China",
-   "iso": "CN",
-   "local": "",
-   "inicio": "2026-11-20",
-   "fim": "2026-11-22",
-   "lat": 23.13,
-   "lng": 113.26,
-   "link": "https://hyrox.com/event/hyrox-guangzhou/",
-   "status": "parcial",
-   "atletas": "parcial",
-   "publico": true,
-   "categorias_esgotadas": [
-    "PRO Men",
-    "PRO Women",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men"
-   ],
-   "categorias_abertas": [
-    "Men",
-    "Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Relay Women",
-    "Relay Mixed"
-   ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-guangzhou-2026"
   },
   {
    "nome": "BOSS PARFUMS HYROX Poznań",
@@ -289,19 +256,51 @@
     "Adaptive Women"
    ],
    "categorias_abertas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed"
+    "Men (sab)",
+    "Women (sex, dom)",
+    "PRO Men (sex)",
+    "PRO Women (sex)",
+    "Doubles Men (dom)",
+    "Doubles Women (sex, sab)",
+    "Doubles Mixed (sex, dom)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex)",
+    "Relay Women (sex)",
+    "Relay Mixed (sex)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-poznan-2026"
+  },
+  {
+   "nome": "Simplove HYROX Guangzhou",
+   "cidade": "Guangzhou",
+   "pais": "China",
+   "iso": "CN",
+   "local": "",
+   "inicio": "2026-11-20",
+   "fim": "2026-11-22",
+   "lat": 23.13,
+   "lng": 113.26,
+   "link": "https://hyrox.com/event/hyrox-guangzhou/",
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Men",
+    "Doubles PRO Men",
+    "Doubles PRO Women"
+   ],
+   "categorias_abertas": [
+    "Men (sex, sab)",
+    "Women (dom)",
+    "PRO Women (sab)",
+    "Doubles Men (sex)",
+    "Doubles Women (sex, dom)",
+    "Doubles Mixed (sex, sab)",
+    "Relay Men (sab)",
+    "Relay Women (sab)",
+    "Relay Mixed (dom)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-guangzhou-2026"
   },
   {
    "nome": "HYROX Rio de Janeiro",
@@ -334,7 +333,7 @@
     "Adaptive Women"
    ],
    "categorias_abertas": [],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-rio-de-janeiro-2026",
+   "fonte_status": "https://www.roxradar.com/events/hyrox-rio-de-janeiro-2026",
    "aline": true
   },
   {
@@ -371,6 +370,74 @@
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-singapore-2026-s9"
   },
   {
+   "nome": "Decathlon HYROX Utrecht",
+   "cidade": "Utrecht",
+   "pais": "Países Baixos",
+   "iso": "NL",
+   "local": "",
+   "inicio": "2026-11-26",
+   "fim": "2026-11-30",
+   "lat": 52.09,
+   "lng": 5.12,
+   "link": "https://hyrox.com/event/hyrox-utrecht/",
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed"
+   ],
+   "categorias_abertas": [
+    "PRO Men (sex)",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-utrecht-2026"
+  },
+  {
+   "nome": "IndusInd Bank HYROX Gujarat",
+   "cidade": "Gujarat",
+   "pais": "Índia",
+   "iso": "IN",
+   "local": "",
+   "inicio": "2026-11-26",
+   "fim": "2026-11-28",
+   "lat": 23.02,
+   "lng": 72.57,
+   "link": "https://hyrox.com/event/hyrox-gujarat/",
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "PRO Women",
+    "Doubles PRO Men",
+    "Doubles PRO Women"
+   ],
+   "categorias_abertas": [
+    "Men (sex)",
+    "Women (qui, sab)",
+    "PRO Men (sex)",
+    "Doubles Men (qui, sab)",
+    "Doubles Women (qui, sab)",
+    "Doubles Mixed (qui, sex)",
+    "Relay Men (sab)",
+    "Relay Women (sab)",
+    "Relay Mixed (sab)",
+    "Adaptive Men (sex)",
+    "Adaptive Women (sab)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-gujarat-2026"
+  },
+  {
    "nome": "Virgin Active HYROX Johannesburg",
    "cidade": "Joanesburgo",
    "pais": "África do Sul",
@@ -405,74 +472,6 @@
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-johannesburg-2026-s9"
   },
   {
-   "nome": "Decathlon HYROX Utrecht",
-   "cidade": "Utrecht",
-   "pais": "Países Baixos",
-   "iso": "NL",
-   "local": "",
-   "inicio": "2026-11-26",
-   "fim": "2026-11-30",
-   "lat": 52.09,
-   "lng": 5.12,
-   "link": "https://hyrox.com/event/hyrox-utrecht/",
-   "status": "parcial",
-   "atletas": "parcial",
-   "publico": true,
-   "categorias_esgotadas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed"
-   ],
-   "categorias_abertas": [
-    "Adaptive Men",
-    "Adaptive Women"
-   ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-utrecht-2026"
-  },
-  {
-   "nome": "IndusInd Bank HYROX Gujarat",
-   "cidade": "Gujarat",
-   "pais": "Índia",
-   "iso": "IN",
-   "local": "",
-   "inicio": "2026-11-26",
-   "fim": "2026-11-28",
-   "lat": 23.02,
-   "lng": 72.57,
-   "link": "https://hyrox.com/event/hyrox-gujarat/",
-   "status": "parcial",
-   "atletas": "parcial",
-   "publico": true,
-   "categorias_esgotadas": [
-    "PRO Women",
-    "Doubles PRO Men",
-    "Doubles PRO Women"
-   ],
-   "categorias_abertas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Men",
-    "Adaptive Women"
-   ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-gujarat-2026"
-  },
-  {
    "nome": "HYROX Dubai",
    "cidade": "Dubai",
    "pais": "Emirados Árabes Unidos",
@@ -494,17 +493,17 @@
     "Adaptive Men"
    ],
    "categorias_abertas": [
-    "PRO Men",
-    "PRO Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Women"
+    "PRO Men (sex)",
+    "PRO Women (sex)",
+    "Doubles Mixed (sex)",
+    "Doubles PRO Men (sab)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sab)",
+    "Relay Women (sab)",
+    "Relay Mixed (sab)",
+    "Adaptive Women (sab)"
    ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-dubai-2026"
+   "fonte_status": "https://www.roxradar.com/events/hyrox-dubai-2026"
   },
   {
    "nome": "Amazon HYROX London",
@@ -530,13 +529,13 @@
     "Adaptive Women"
    ],
    "categorias_abertas": [
-    "Women",
-    "PRO Women",
-    "Doubles Women",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed"
+    "Women (qua a sex, dom)",
+    "PRO Women (sex)",
+    "Doubles Women (qui)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex)",
+    "Relay Women (sex)",
+    "Relay Mixed (sex)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-london-2026"
   },
@@ -603,7 +602,7 @@
    "categorias_abertas": [
     "Relay Men (sex)",
     "Relay Women (sex)",
-    "Adaptive Women"
+    "Adaptive Women (sex, dom)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-milan-2026"
   },
@@ -627,17 +626,17 @@
     "Doubles Mixed"
    ],
    "categorias_abertas": [
-    "Women",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed"
+    "Women (dom)",
+    "PRO Women (sab)",
+    "Doubles Men (dom)",
+    "Doubles Women (dom)",
+    "Doubles PRO Men (dom)",
+    "Doubles PRO Women (dom)",
+    "Relay Men (sab)",
+    "Relay Women (sab)",
+    "Relay Mixed (sab)"
    ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-sanya-2026"
+   "fonte_status": "https://www.roxradar.com/events/hyrox-sanya-2026"
   },
   {
    "nome": "BYD HYROX Melbourne",
@@ -663,13 +662,13 @@
     "Relay Mixed"
    ],
    "categorias_abertas": [
-    "Women",
-    "PRO Women",
-    "Doubles Women",
-    "Relay Men",
-    "Relay Women",
-    "Adaptive Men",
-    "Adaptive Women"
+    "Women (qua, qui, dom)",
+    "PRO Women (sex)",
+    "Doubles Women (qua, qui)",
+    "Relay Men (sex)",
+    "Relay Women (sex)",
+    "Adaptive Men (qui, sab)",
+    "Adaptive Women (qua, qui)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-melbourne-2026"
   },
@@ -705,74 +704,7 @@
     "Adaptive Men",
     "Adaptive Women"
    ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-nashville-2026"
-  },
-  {
-   "nome": "INTERSPORT HYROX Stockholm",
-   "cidade": "Estocolmo",
-   "pais": "Suécia",
-   "iso": "SE",
-   "local": "",
-   "inicio": "2026-12-10",
-   "fim": "2026-12-13",
-   "lat": 59.33,
-   "lng": 18.07,
-   "link": "https://hyrox.com/event/intersport-hyrox-stockholm-arena/",
-   "status": "aberta",
-   "atletas": "aberta",
-   "publico": true,
-   "categorias_esgotadas": [],
-   "categorias_abertas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Men",
-    "Adaptive Women"
-   ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-stockholm-2026"
-  },
-  {
-   "nome": "Fitness First HYROX Frankfurt",
-   "cidade": "Frankfurt",
-   "pais": "Alemanha",
-   "iso": "DE",
-   "local": "",
-   "inicio": "2026-12-10",
-   "fim": "2026-12-13",
-   "lat": 50.11,
-   "lng": 8.68,
-   "link": "https://hyrox.com/event/fitness-first-hyrox-frankfurt/",
-   "status": "parcial",
-   "atletas": "parcial",
-   "publico": true,
-   "categorias_esgotadas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Men"
-   ],
-   "categorias_abertas": [
-    "Relay Men (sex)",
-    "Adaptive Women"
-   ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-frankfurt-2026"
+   "fonte_status": "https://www.roxradar.com/events/hyrox-nashville-2026"
   },
   {
    "nome": "AirAsia HYROX Kuala Lumpur",
@@ -796,17 +728,84 @@
     "Relay Mixed"
    ],
    "categorias_abertas": [
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Adaptive Men",
+    "PRO Women (sex)",
+    "Doubles Men (qui, dom)",
+    "Doubles Women (qui, dom)",
+    "Doubles Mixed (qui, sab)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex)",
+    "Relay Women (sab)",
+    "Adaptive Men (qui)",
     "Adaptive Women"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-kuala-lumpur-2026"
+  },
+  {
+   "nome": "Fitness First HYROX Frankfurt",
+   "cidade": "Frankfurt",
+   "pais": "Alemanha",
+   "iso": "DE",
+   "local": "",
+   "inicio": "2026-12-10",
+   "fim": "2026-12-13",
+   "lat": 50.11,
+   "lng": 8.68,
+   "link": "https://hyrox.com/event/fitness-first-hyrox-frankfurt/",
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "PRO Women (sex)",
+    "Doubles Mixed (sex)",
+    "Doubles PRO Men (sab)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex)"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-frankfurt-2026"
+  },
+  {
+   "nome": "INTERSPORT HYROX Stockholm",
+   "cidade": "Estocolmo",
+   "pais": "Suécia",
+   "iso": "SE",
+   "local": "",
+   "inicio": "2026-12-10",
+   "fim": "2026-12-13",
+   "lat": 59.33,
+   "lng": 18.07,
+   "link": "https://hyrox.com/event/intersport-hyrox-stockholm-arena/",
+   "status": "aberta",
+   "atletas": "aberta",
+   "publico": true,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [
+    "Men (qui)",
+    "Women (qui, dom)",
+    "PRO Men (sex)",
+    "PRO Women (sex)",
+    "Doubles Men (qui, sex, dom)",
+    "Doubles Women (qui, sex, dom)",
+    "Doubles Mixed (qui, sab)",
+    "Doubles PRO Men (sab)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex)",
+    "Relay Women (sex)",
+    "Relay Mixed (sex)",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-stockholm-2026"
   },
   {
    "nome": "Fitness Park HYROX Paris",
@@ -867,12 +866,12 @@
     "Relay Mixed"
    ],
    "categorias_abertas": [
-    "Women",
-    "PRO Women",
-    "Doubles Women",
-    "Doubles PRO Women",
-    "Adaptive Men",
-    "Adaptive Women"
+    "Women (qui, dom)",
+    "PRO Women (sex)",
+    "Doubles Women (qui, sex)",
+    "Doubles PRO Women (sab)",
+    "Adaptive Men (qui)",
+    "Adaptive Women (qui, dom)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-gent-2026"
   },
@@ -898,15 +897,15 @@
     "Relay Mixed"
    ],
    "categorias_abertas": [
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Adaptive Men",
-    "Adaptive Women"
+    "Women (qui, dom)",
+    "PRO Men (sex)",
+    "PRO Women (sex)",
+    "Doubles Men (dom)",
+    "Doubles Mixed (qui a sab)",
+    "Doubles PRO Men (sab)",
+    "Doubles PRO Women (sab)",
+    "Adaptive Men (qui, sex)",
+    "Adaptive Women (qui, sex)"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-vancouver-2026"
   },
@@ -921,27 +920,12 @@
    "lat": 60.17,
    "lng": 24.94,
    "link": "https://hyrox.com/event/hyrox-helsinki-2/",
-   "status": "aberta",
-   "atletas": "aberta",
+   "status": "confira",
+   "atletas": "confira",
    "publico": true,
    "categorias_esgotadas": [],
-   "categorias_abertas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Men",
-    "Adaptive Women"
-   ],
-   "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-helsinki-2026-s9"
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-helsinki-2026-s9"
   },
   {
    "nome": "AIA HYROX Hong Kong",
@@ -961,18 +945,18 @@
     "Men",
     "Women",
     "PRO Men",
-    "Doubles Women",
     "Doubles Mixed",
     "Doubles PRO Men",
     "Relay Mixed"
    ],
    "categorias_abertas": [
-    "PRO Women",
-    "Doubles Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Adaptive Men",
+    "PRO Women (sex)",
+    "Doubles Men (dom)",
+    "Doubles Women (qui)",
+    "Doubles PRO Women (sab)",
+    "Relay Men (sex, sab)",
+    "Relay Women (sex, sab)",
+    "Adaptive Men (qui, sex)",
     "Adaptive Women"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-hong-kong-2027"
@@ -1369,40 +1353,6 @@
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-katowice-2027"
   },
   {
-   "nome": "INTERSPORT HYROX Vienna",
-   "cidade": "Viena",
-   "pais": "Áustria",
-   "iso": "AT",
-   "local": "",
-   "inicio": "2027-02-19",
-   "fim": "2027-02-21",
-   "lat": 48.21,
-   "lng": 16.37,
-   "link": "https://hyrox.com/event/hyrox-vienna/",
-   "status": "parcial",
-   "atletas": "parcial",
-   "publico": true,
-   "categorias_esgotadas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Women",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Men"
-   ],
-   "categorias_abertas": [
-    "PRO Women (sex)",
-    "Doubles PRO Men (sab)",
-    "Relay Men (sex)",
-    "Adaptive Women"
-   ],
-   "fonte_status": "https://www.roxradar.com/events/hyrox-vienna-2027"
-  },
-  {
    "nome": "HYROX Cancun",
    "cidade": "Cancún",
    "pais": "México",
@@ -1435,6 +1385,40 @@
     "Adaptive Women"
    ],
    "fonte_status": "https://www.roxradar.com/events/hyrox-cancun-2027"
+  },
+  {
+   "nome": "INTERSPORT HYROX Vienna",
+   "cidade": "Viena",
+   "pais": "Áustria",
+   "iso": "AT",
+   "local": "",
+   "inicio": "2027-02-19",
+   "fim": "2027-02-21",
+   "lat": 48.21,
+   "lng": 16.37,
+   "link": "https://hyrox.com/event/hyrox-vienna/",
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Women",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men"
+   ],
+   "categorias_abertas": [
+    "PRO Women (sex)",
+    "Doubles PRO Men (sab)",
+    "Relay Men (sex)",
+    "Adaptive Women"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-vienna-2027"
   },
   {
    "nome": "InBody HYROX Phoenix",
@@ -1571,40 +1555,6 @@
    "fonte_status": "https://www.roxradar.com/events/hyrox-glasgow-2027"
   },
   {
-   "nome": "HYROX Taipei",
-   "cidade": "Taipé",
-   "pais": "Taiwan",
-   "iso": "TW",
-   "local": "",
-   "inicio": "2027-03-12",
-   "fim": "2027-03-14",
-   "lat": 25.03,
-   "lng": 121.57,
-   "link": "https://hyrox.com/event/hyrox-taipei/",
-   "status": "parcial",
-   "atletas": "parcial",
-   "publico": true,
-   "categorias_esgotadas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Men",
-    "Adaptive Women"
-   ],
-   "categorias_abertas": [
-    "Doubles PRO Women (sab)"
-   ],
-   "fonte_status": "https://www.roxradar.com/events/hyrox-taipei-2027"
-  },
-  {
    "nome": "HYROX Las Vegas",
    "cidade": "Las Vegas",
    "pais": "Estados Unidos",
@@ -1637,6 +1587,40 @@
     "Adaptive Women"
    ],
    "fonte_status": "https://www.roxradar.com/hyrox-ticket-status/hyrox-las-vegas-2027"
+  },
+  {
+   "nome": "HYROX Taipei",
+   "cidade": "Taipé",
+   "pais": "Taiwan",
+   "iso": "TW",
+   "local": "",
+   "inicio": "2027-03-12",
+   "fim": "2027-03-14",
+   "lat": 25.03,
+   "lng": 121.57,
+   "link": "https://hyrox.com/event/hyrox-taipei/",
+   "status": "parcial",
+   "atletas": "parcial",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [
+    "Doubles PRO Women (sab)"
+   ],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-taipei-2027"
   },
   {
    "nome": "Fitness Park HYROX Madrid",
@@ -1828,24 +1812,6 @@
    "fonte_status": "https://www.roxradar.com/events/hyrox-brisbane-2027"
   },
   {
-   "nome": "Decathlon HYROX Rotterdam",
-   "cidade": "Roterdã",
-   "pais": "Países Baixos",
-   "iso": "NL",
-   "local": "Ahoy Rotterdam",
-   "inicio": "2027-04-01",
-   "fim": "2027-04-04",
-   "lat": 51.92,
-   "lng": 4.48,
-   "link": "https://hyrox.com/event/hyrox-rotterdam/",
-   "status": "embreve",
-   "atletas": "embreve",
-   "publico": null,
-   "categorias_esgotadas": [],
-   "categorias_abertas": [],
-   "fonte_status": "https://hyrox.com/event/hyrox-rotterdam/"
-  },
-  {
    "nome": "Academy HYROX Houston",
    "cidade": "Houston",
    "pais": "Estados Unidos",
@@ -1877,6 +1843,24 @@
     "Adaptive Women"
    ],
    "fonte_status": "https://www.roxradar.com/events/hyrox-houston-2027"
+  },
+  {
+   "nome": "Decathlon HYROX Rotterdam",
+   "cidade": "Roterdã",
+   "pais": "Países Baixos",
+   "iso": "NL",
+   "local": "Ahoy Rotterdam",
+   "inicio": "2027-04-01",
+   "fim": "2027-04-04",
+   "lat": 51.92,
+   "lng": 4.48,
+   "link": "https://hyrox.com/event/hyrox-rotterdam/",
+   "status": "embreve",
+   "atletas": "embreve",
+   "publico": null,
+   "categorias_esgotadas": [],
+   "categorias_abertas": [],
+   "fonte_status": "https://hyrox.com/event/hyrox-rotterdam/"
   },
   {
    "nome": "HYROX Bari",
@@ -1985,39 +1969,6 @@
    "fonte_status": "https://hyrox.com/event/hyrox-malaga/"
   },
   {
-   "nome": "JR Central HYROX Nagoya",
-   "cidade": "Nagoya",
-   "pais": "Japão",
-   "iso": "JP",
-   "local": "",
-   "inicio": "2027-04-16",
-   "fim": "2027-04-18",
-   "lat": 35.18,
-   "lng": 136.91,
-   "link": "https://hyrox.com/event/hyrox-nagoya/",
-   "status": "esgotada",
-   "atletas": "esgotada",
-   "publico": true,
-   "categorias_esgotadas": [
-    "Men",
-    "Women",
-    "PRO Men",
-    "PRO Women",
-    "Doubles Men",
-    "Doubles Women",
-    "Doubles Mixed",
-    "Doubles PRO Men",
-    "Doubles PRO Women",
-    "Relay Men",
-    "Relay Women",
-    "Relay Mixed",
-    "Adaptive Men",
-    "Adaptive Women"
-   ],
-   "categorias_abertas": [],
-   "fonte_status": "https://www.roxradar.com/events/hyrox-nagoya-2027"
-  },
-  {
    "nome": "HYROX Helsinki",
    "cidade": "Helsinque",
    "pais": "Finlândia",
@@ -2067,6 +2018,39 @@
    "categorias_esgotadas": [],
    "categorias_abertas": [],
    "fonte_status": "https://hyrox.com/event/hyrox-monterrey/"
+  },
+  {
+   "nome": "JR Central HYROX Nagoya",
+   "cidade": "Nagoya",
+   "pais": "Japão",
+   "iso": "JP",
+   "local": "",
+   "inicio": "2027-04-16",
+   "fim": "2027-04-18",
+   "lat": 35.18,
+   "lng": 136.91,
+   "link": "https://hyrox.com/event/hyrox-nagoya/",
+   "status": "esgotada",
+   "atletas": "esgotada",
+   "publico": true,
+   "categorias_esgotadas": [
+    "Men",
+    "Women",
+    "PRO Men",
+    "PRO Women",
+    "Doubles Men",
+    "Doubles Women",
+    "Doubles Mixed",
+    "Doubles PRO Men",
+    "Doubles PRO Women",
+    "Relay Men",
+    "Relay Women",
+    "Relay Mixed",
+    "Adaptive Men",
+    "Adaptive Women"
+   ],
+   "categorias_abertas": [],
+   "fonte_status": "https://www.roxradar.com/events/hyrox-nagoya-2027"
   },
   {
    "nome": "BIOTHERM HYROX Ottawa",
@@ -2417,5 +2401,5 @@
    "fonte": "https://www.theyard.com.br/"
   }
  ],
- "status_conferido": "2026-11-08"
+ "status_conferido": "2026-11-09"
 }
