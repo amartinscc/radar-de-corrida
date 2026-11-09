@@ -85,6 +85,9 @@ body{background:var(--bg)}
 .pub{align-self:flex-start;font:600 12px var(--body);color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:4px 9px}
 .modes{display:flex;gap:8px;flex-wrap:wrap}
 .modes .chip .c{opacity:.75;margin-left:4px}
+.modes[hidden]{display:none}
+.modes.sub{padding-left:10px;border-left:2px solid var(--line);margin-top:-4px}
+.modes.sub .chip{font-size:13px;padding:6px 12px}
 .toolbar select{margin-left:0;flex:1 1 140px;min-width:0}
 .deal .thumb + .info{min-width:0}
 .hx-h3{font:800 16px/1.2 var(--display);margin:14px 0 6px}
@@ -118,7 +121,11 @@ __TABS__
   <div class="panel" id="p-provas" role="tabpanel" aria-labelledby="tab-provas">
     <div class="modes" role="group" aria-label="O que mostrar">
       <button class="chip" type="button" id="m-provas" aria-pressed="true">Provas oficiais<span class="c" id="n-provas"></span></button>
-      <button class="chip" type="button" id="m-eventos" aria-pressed="false">Eventos<span class="c" id="n-eventos"></span></button>
+      <button class="chip" type="button" id="m-treinos" aria-pressed="false">Treinos<span class="c" id="n-treinos"></span></button>
+    </div>
+    <div class="modes sub" id="m-sub" role="group" aria-label="Treinos" hidden>
+      <button class="chip" type="button" id="m-eventos" aria-pressed="true">Eventos<span class="c" id="n-eventos"></span></button>
+      <button class="chip" type="button" id="m-locais" aria-pressed="false">Onde treinar<span class="c" id="n-locais"></span></button>
     </div>
     <div class="toolbar" id="f-provas">
       <select id="f-cont" aria-label="Continente"></select>
@@ -178,12 +185,12 @@ __TREINO_HTML__
     <details><summary>Qual a diferença entre HYROX e CrossFit?</summary><p>No CrossFit o treino muda e os movimentos são mais técnicos, como levantamento olímpico e movimentos ginásticos. No HYROX a prova é sempre a mesma e você sabe exatamente o que vai fazer: corrida e exercícios simples de força e resistência. Por isso é mais fácil para iniciantes e para quem vem da corrida ou da musculação.</p></details>
     <details><summary>Iniciante pode fazer HYROX?</summary><p>Pode. A categoria Open foi pensada para quem treina regularmente e quer um desafio, e a Doubles e a Relay dividem o esforço. O mais importante é conseguir correr 8 km com pausas e ter base de força para o trenó e as wall balls. Com 8 a 12 semanas de preparação orientada, muita gente faz a primeira prova bem.</p></details>
     <details><summary>Como treinar para o HYROX?</summary><p>Combine treinos de corrida (rodagem, intervalados e corrida cansado, logo depois de um exercício de força) com treinos das estações: trenó, remo, SkiErg, avanços com carga, burpees e wall balls. Treinar as transições também ajuda, porque a Roxzone conta no tempo. Um simulado antes da prova mostra o seu ritmo real.</p></details>
-    <details><summary>O que é um simulado de HYROX?</summary><p>É uma prova de treino com o mesmo formato da oficial (ou uma parte dela), organizada por academias e boxes, em geral algumas semanas antes de uma etapa. Serve para testar ritmo, pesos e transições. No radar acima, em <a href="#eventos">Eventos</a>, ficam os simulados, aulões e clínicas que encontramos no Brasil.</p></details>
+    <details><summary>O que é um simulado de HYROX?</summary><p>É uma prova de treino com o mesmo formato da oficial (ou uma parte dela), organizada por academias e boxes, em geral algumas semanas antes de uma etapa. Serve para testar ritmo, pesos e transições. No radar acima, em Treinos › <a href="#eventos">Eventos</a>, ficam os simulados, aulões e clínicas que encontramos no Brasil.</p></details>
     <details><summary>Quando é o HYROX no Brasil?</summary><p>As etapas oficiais no Brasil ficam no radar acima, com data, local e a situação das vagas de atleta. Na temporada atual há o HYROX Rio de Janeiro, nos dias 21 e 22 de novembro de 2026, no Riocentro, e o HYROX São Paulo, nos dias 8 e 9 de maio de 2027.</p></details>
     <details><summary>Como se inscrever no HYROX? As vagas esgotam?</summary><p>A inscrição é feita pela loja oficial indicada na página de cada prova, no site hyrox.com. As vagas de atleta esgotam rápido e por categoria: uma categoria pode estar esgotada enquanto outra ainda tem vaga. Ingresso de público (espectador) é outra coisa e costuma continuar à venda. O radar mostra a situação de cada categoria.</p></details>
     <details><summary>Quanto custa participar do HYROX?</summary><p>O valor muda por categoria e por lote: as primeiras vendas são mais baratas, e Doubles e Relay pagam por equipe. O preço atualizado fica na loja oficial de cada etapa. Simulados em academias costumam ser bem mais baratos, e alguns são gratuitos para alunos.</p></details>
     <details><summary>Qual tênis usar no HYROX?</summary><p>Um tênis de corrida com boa aderência e estabilidade, que aguente correr e também empurrar o trenó sem escorregar. Tênis muito altos, de placa de carbono, costumam ficar instáveis no trenó e nos avanços. A PUMA é a parceira oficial do HYROX e tem uma linha própria; os modelos em promoção ficam na aba Achados.</p></details>
-    <details><summary>Onde treinar HYROX no Rio de Janeiro e em São Paulo?</summary><p>No radar acima, em <a href="#eventos">Eventos</a>, estão as academias que se apresentam como HYROX Training Club oficial e os boxes e academias do Rio, da Baixada, de São Paulo e de outros estados que oferecem aula de HYROX ou divulgam simulados, com o Instagram de cada um.</p></details>
+    <details><summary>Onde treinar HYROX no Rio de Janeiro e em São Paulo?</summary><p>No radar acima, em Treinos › <a href="#onde-treinar">Onde treinar</a>, estão as academias que confirmamos como HYROX Training Club oficial (com selo) e os boxes e academias do Rio, da Baixada, de São Paulo e de outros estados que oferecem aula de HYROX ou divulgam simulados, com o Instagram de cada um.</p></details>
   </section>
 
   <footer class="hx-foot">O Radar Hyrox é um projeto independente da Aline (<a href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener">@amartinscc</a>), sem ligação oficial com a organização do HYROX. Datas e inscrições conferidas no site oficial; confira sempre antes de se inscrever.<br><a href="../">Radar de corrida</a> · <a href="../calculadora-de-pace/">Calculadora de pace</a> · <a href="../privacidade/">Privacidade</a></footer>
@@ -244,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   tabs.forEach(t => document.getElementById('tab-'+t).addEventListener('click', () => { show(t); history.replaceState(null, '', '#' + t); }));
   const h0 = (location.hash||'').slice(1); show(tabs.includes(h0) ? h0 : 'provas');
-  document.querySelectorAll('a[href="#eventos"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); show('provas'); modoSet('eventos'); document.getElementById('radar-abas').scrollIntoView({behavior: 'smooth'}); }));
+  document.querySelectorAll('a[href="#eventos"],a[href="#onde-treinar"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); show('provas'); modoSet(a.getAttribute('href') === '#eventos' ? 'eventos' : 'locais'); document.getElementById('radar-abas').scrollIntoView({behavior: 'smooth'}); }));
 
   // ===== radar (mesmo desenho e varredura do radar principal) =====
   const STATES = __STATES__;
@@ -306,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function(){
       if(m) m.oficial = true; else bx.push({nome: a.nome, cidade: a.cidade, uf: a.uf, endereco: a.endereco, lat: a.lat, lng: a.lng, site: a.link, oficial: true}); });
     return bx.sort((a,b) => (a.uf + a.cidade + (a.oficial ? 0 : 1) + a.nome).localeCompare(b.uf + b.cidade + (b.oficial ? 0 : 1) + b.nome, 'pt'));
   }
-  function baseTreino(){ return eventosAtivos().concat(locais()); }
+  function baseTreino(){ return modo === 'eventos' ? eventosAtivos() : locais(); }
 
   function desenhar(){
     if(modo === 'provas'){
@@ -320,8 +327,8 @@ document.addEventListener('DOMContentLoaded', function(){
       base(titulo, soBrasil ? terraBrasil() : terraMundo());
       pontos(xs, p => p.cidade + '|' + p.pais, p => p.cidade + ', ' + p.pais, p => p.iso === 'BR');
     } else {
-      const xs = modo === 'treinos' ? academias() : eventos().concat(boxes()).filter(x => typeof x.lat === 'number');
-      if(fs.tcid !== 'Todas' && modo === 'eventos'){ const b = boxOf(xs.map(a => [a.lng, a.lat])); P = projBox(b[0]-.04, b[1]+.04, b[2]-.04, b[3]+.04, .12); base(fs.tcid, terraBrasil());
+      const xs = (modo === 'eventos' ? eventos() : boxes()).filter(x => typeof x.lat === 'number');
+      if(fs.tcid !== 'Todas'){ const b = boxOf(xs.map(a => [a.lng, a.lat])); P = projBox(b[0]-.04, b[1]+.04, b[2]-.04, b[3]+.04, .12); base(fs.tcid, terraBrasil());
         pontos(xs, a => a.lat.toFixed(2) + '|' + a.lng.toFixed(2), a => (a.bairro ? a.bairro + ', ' : '') + a.cidade, () => false); return; }
       if(fs.tcid !== 'Todas'){ const b = boxOf(xs.map(a => [a.lng, a.lat])); P = projBox(b[0]-.6, b[1]+.6, b[2]-.6, b[3]+.6, 1.6); base(fs.tcid, terraBrasil()); }
       else { const b = boxOf([].concat(...Object.values(STATES).map(s => [].concat(...s.p)))); P = projBox(b[0], b[1], b[2], b[3], 0); base('Brasil', terraBrasil()); }
@@ -346,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
     dots.forEach(g => g.items.sort((x, y) => (y.ev ? 1 : 0) - (x.ev ? 1 : 0)));
     const first = dots.find(g => g.aline) || dots.find(g => g.br) || dots.find(g => g.items.some(p => p.ev && p.inicio)) || dots.slice().sort((a,b) => b.items.length - a.items.length)[0];
-    if(first) mostraCap(first); else cap.textContent = modo === 'provas' ? 'Nenhuma prova oficial com esse filtro.' : modo === 'treinos' ? 'Nenhuma academia credenciada com esse filtro.' : 'Nenhum evento ou academia com esse filtro.';
+    if(first) mostraCap(first); else cap.textContent = modo === 'provas' ? 'Nenhuma prova oficial com esse filtro.' : modo === 'treinos' ? 'Nenhuma academia credenciada com esse filtro.' : modo === 'eventos' ? 'Nenhum evento com esse filtro.' : 'Nenhum lugar de treino com esse filtro.';
   }
   function mostraCap(g){
     cap.innerHTML = '';
@@ -394,15 +401,21 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById('f-pais').addEventListener('change', e => { fs.pais = e.target.value; fs.cid = 'Todas'; ev('hyrox_filtro', {nivel:'pais', valor: fs.pais}); render(); });
   document.getElementById('f-cid').addEventListener('change', e => { fs.cid = e.target.value; ev('hyrox_filtro', {nivel:'cidade', valor: fs.cid}); render(); });
   document.getElementById('f-tcid').addEventListener('change', e => { fs.tcid = e.target.value; ev('hyrox_filtro', {nivel:'cidade_treino', valor: fs.tcid}); render(); });
-  function modoSet(m, semEvento){ if(m !== modo) fs.tcid = 'Todas'; modo = m; ['provas','eventos'].forEach(k => document.getElementById('m-' + k).setAttribute('aria-pressed', String(m===k)));
+  // dois botões: Provas oficiais | Treinos; dentro de Treinos: Eventos | Onde treinar (modo = provas | eventos | locais)
+  function modoSet(m, semEvento){ if(m !== modo) fs.tcid = 'Todas'; modo = m;
+    document.getElementById('m-provas').setAttribute('aria-pressed', String(m==='provas')); document.getElementById('m-treinos').setAttribute('aria-pressed', String(m!=='provas'));
+    document.getElementById('m-eventos').setAttribute('aria-pressed', String(m==='eventos')); document.getElementById('m-locais').setAttribute('aria-pressed', String(m==='locais'));
+    document.getElementById('m-sub').hidden = m==='provas';
     document.getElementById('f-provas').hidden = m!=='provas'; document.getElementById('f-treinos').hidden = m==='provas';
-    if(!semEvento){ ev('hyrox_modo', {modo: m}); history.replaceState(null, '', m === 'eventos' ? '#eventos' : '#provas'); } render(); }
+    if(!semEvento){ ev('hyrox_modo', {modo: m}); history.replaceState(null, '', m === 'eventos' ? '#eventos' : m === 'locais' ? '#onde-treinar' : '#provas'); } render(); }
   document.getElementById('m-provas').addEventListener('click', () => modoSet('provas'));
+  document.getElementById('m-treinos').addEventListener('click', () => modoSet('eventos'));
   document.getElementById('m-eventos').addEventListener('click', () => modoSet('eventos'));
+  document.getElementById('m-locais').addEventListener('click', () => modoSet('locais'));
 
   function lista(){
     const box = document.getElementById('e-list'); box.innerHTML = '';
-    if(modo === 'eventos'){ listaEventos(box); return; }
+    if(modo !== 'provas'){ listaEventos(box); return; }
     const xs = modo === 'provas' ? filtradas() : academias();
     if(!xs.length){ const p = document.createElement('p'); p.className = 'empty'; p.textContent = modo === 'provas' ? 'Nenhuma prova oficial com esse filtro.' : 'Nenhuma academia credenciada com esse filtro.'; box.appendChild(p); return; }
     xs.forEach(x => {
@@ -430,10 +443,10 @@ document.addEventListener('DOMContentLoaded', function(){
       : 'Academias que se apresentam como HYROX Training Club oficial. A lista cresce a cada atualização; conhece uma credenciada que falta aqui? Chame a Aline no Instagram.';
   }
   function listaEventos(box){
-    const es = eventos(), bs = boxes();
+    const es = modo === 'eventos' ? eventos() : [], bs = modo === 'locais' ? boxes() : [];
     const sub = t => { const h = document.createElement('h3'); h.className = 'hx-sub'; h.textContent = t; box.appendChild(h); };
-    sub(es.length ? 'Simulados, aulões, clínicas e treinos abertos' : 'Nenhum evento com data nesse filtro');
-    if(!es.length){ const p = document.createElement('p'); p.className = 'empty'; p.textContent = 'A maioria das academias anuncia os simulados só no Instagram, poucos dias antes. Siga os perfis abaixo.'; box.appendChild(p); }
+    if(modo === 'eventos') sub(es.length ? 'Simulados, aulões, clínicas, workshops e provas não oficiais' : 'Nenhum evento nesse filtro');
+    if(modo === 'eventos' && !es.length){ const p = document.createElement('p'); p.className = 'empty'; p.textContent = 'A maioria das academias anuncia os simulados só no Instagram, poucos dias antes. Veja em Onde treinar os perfis para seguir.'; box.appendChild(p); }
     es.forEach(x => {
       const el = document.createElement('article'); el.className = 'deal';
       const d0 = x.inicio ? dt(x.inicio) : null, ig = /instagram\.com/.test(x.link || '');
@@ -446,30 +459,31 @@ document.addEventListener('DOMContentLoaded', function(){
       botaoShare(el, 'evento', x);
       box.appendChild(el);
     });
-    if(bs.length) sub('Onde treinar HYROX: siga para saber dos próximos eventos');
+    if(modo === 'locais' && !bs.length){ const p = document.createElement('p'); p.className = 'empty'; p.textContent = 'Nenhum lugar de treino nesse filtro.'; box.appendChild(p); }
     bs.forEach(x => {
       const el = document.createElement('article'); el.className = 'deal';
       const href = x.instagram ? 'https://www.instagram.com/' + x.instagram + '/' : x.site;
       el.innerHTML = `<div class="bib date"><div class="n">${esc(x.uf)}</div><div class="t">box</div></div>
-        <div class="info">${x.oficial ? '<span class="pill aberta">HYROX Training Club</span>' : ''}<div class="store">${esc((x.bairro ? x.bairro + ' · ' : '') + x.cidade + '/' + x.uf)}</div><div class="name">${esc(x.nome)}</div>
+        <div class="info">${x.oficial ? '<span class="pill aberta">✓ HYROX Training Club oficial</span>' : ''}<div class="store">${esc((x.bairro ? x.bairro + ' · ' : '') + x.cidade + '/' + x.uf)}</div><div class="name">${esc(x.nome)}</div>
         <div class="det">${x.endereco ? `<span>Endereço: <b>${esc(x.endereco)}</b></span>` : ''}${x.nota ? `<span>${esc(x.nota)}</span>` : ''}</div>
         <div class="links"><a class="go" target="_blank" rel="noopener" href="${esc(href)}">${x.instagram ? '@' + esc(x.instagram) + ' →' : 'Ver a academia →'}</a></div></div>`;
       el.querySelector('a.go').addEventListener('click', () => ev('hyrox_box', {nome: x.nome}));
+      botaoShare(el, 'local', x);
       box.appendChild(el);
     });
-    document.getElementById('e-note').innerHTML = 'Eventos que não são provas oficiais: simulados, aulões, clínicas e treinos de HYROX divulgados por academias e boxes, e onde treinar' + (T.conferido ? ' (conferido em ' + T.conferido.split('-').reverse().slice(0,2).join('/') + ')' : '') + '. Simulados de academia não são provas oficiais; valores e vagas podem mudar, confirme com a academia. <b>Sua academia vai fazer um simulado ou aulão?</b> <a href="https://ig.me/m/amartinscc" target="_blank" rel="noopener" id="ev-dm">Mande para a Aline</a> que ele entra no radar.';
+    document.getElementById('e-note').innerHTML = modo === 'locais' ? 'Academias e boxes com treino de HYROX. O selo <b>✓ HYROX Training Club oficial</b> aparece só nas que confirmamos como centro oficial; as outras oferecem aula ou levam HYROX no nome. Conhece um lugar que falta aqui? <a href="https://ig.me/m/amartinscc" target="_blank" rel="noopener" id="ev-dm">Mande para a Aline</a>.' : 'Tudo o que não é prova oficial: simulados, aulões, clínicas, workshops e provas não oficiais de HYROX divulgados por academias, boxes e marcas' + (T.conferido ? ' (conferido em ' + T.conferido.split('-').reverse().slice(0,2).join('/') + ')' : '') + '. Simulados de academia não são provas oficiais; valores e vagas podem mudar, confirme com a academia. <b>Sua academia vai fazer um simulado ou aulão?</b> <a href="https://ig.me/m/amartinscc" target="_blank" rel="noopener" id="ev-dm">Mande para a Aline</a> que ele entra no radar.';
     const dm = document.getElementById('ev-dm'); if(dm) dm.addEventListener('click', () => ev('hyrox_sugerir_evento', {}));
   }
   function render(){ montaFiltros(); desenhar(); lista(); }
 
   const tj = fetch('treinos.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null);
   fetch('radar.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.json()).then(j => tj.then(t => [j, t])).then(([j, t]) => {
-    D = j; if(t) T = t; document.getElementById('n-eventos').textContent = eventosAtivos().length || ''; const ps = provasAtivas(), br = ps.filter(p => p.iso === 'BR');
+    D = j; if(t) T = t; { const ne = eventosAtivos().length, nl = locais().length; document.getElementById('n-eventos').textContent = ne; document.getElementById('n-locais').textContent = nl; document.getElementById('n-treinos').textContent = ne + nl; } const ps = provasAtivas(), br = ps.filter(p => p.iso === 'BR');
     document.getElementById('n-provas').textContent = ps.length;
     const c = document.querySelector('#tab-provas .c'); if(c) c.textContent = ps.length;
     const prox = br[0];
     document.getElementById('meta').innerHTML = '<b>' + ps.length + '</b> provas oficiais em <b>' + new Set(ps.map(p => p.pais)).size + '</b> países' + (prox ? ' · próxima no Brasil: <b>' + esc(prox.cidade) + ', ' + faixa(prox.inicio, prox.fim) + '</b> (' + AT[atl(prox)].toLowerCase() + ')' : '');
-    if(['eventos','simulados','treinos'].includes(h0)) modoSet('eventos', true); else render();
+    if(['eventos','simulados','treinos'].includes(h0)) modoSet('eventos', true); else if(h0 === 'onde-treinar') modoSet('locais', true); else render();
     abreCompartilhado('radar');
     // contorno do mundo (jsDelivr); sem ele o radar funciona só com os pontos
     const carregaMundo = () => { if(!window.topojson) return; fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r => r.json()).then(w => { mundo = topojson.feature(w, w.objects.countries); if(modo === 'provas') desenhar(); }).catch(() => {}); };
@@ -514,7 +528,7 @@ __AFIL_JS__
   // ===== compartilhar (mesmas ferramentas do radar principal: imagem de story, WhatsApp, copiar link; métricas o=/q=) =====
   const BASE = 'https://radardecorrida.com.br/hyrox/';
   const slugHx = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
-  const slugDe = (k, x) => k === 'prova' ? slugHx(x.nome + '-' + x.inicio) : k === 'evento' ? slugHx(x.titulo + '-' + (x.inicio || '')) : slugHx(x.loja + '-' + x.nome + '-' + (x.genero || ''));
+  const slugDe = (k, x) => k === 'prova' ? slugHx(x.nome + '-' + x.inicio) : k === 'evento' ? slugHx(x.titulo + '-' + (x.inicio || '')) : k === 'local' ? slugHx(x.nome + '-' + x.cidade) : slugHx(x.loja + '-' + x.nome + '-' + (x.genero || ''));
   let modoAline = false, shQuem = '';
   try{ modoAline = localStorage.getItem('radar-aline') === '1'; shQuem = localStorage.getItem('radar-quem') || ''; }catch(e){}
   const MESF = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
@@ -547,7 +561,7 @@ __AFIL_JS__
     if(avatar.naturalWidth){ c.save(); c.beginPath(); c.arc(cx, ay, ar, 0, Math.PI*2); c.clip(); c.drawImage(avatar, cx-ar, ay-ar, ar*2, ar*2); c.restore(); }
     c.textAlign = 'center'; c.textBaseline = 'alphabetic';
     c.fillStyle = '#F4F4F6'; c.font = '700 ' + (st ? 42 : 36) + 'px ' + B; c.fillText('@' + ((data.perfil||{}).instagram || 'amartinscc'), cx, ay + ar + (st ? 70 : 56));
-    const rot = kind === 'prova' ? (shVou ? 'EU VOU COMPETIR' : 'PROVA OFICIAL HYROX') : kind === 'evento' ? 'EVENTO HYROX' : 'ACHADO HYROX';
+    const rot = kind === 'prova' ? (shVou ? 'EU VOU COMPETIR' : 'PROVA OFICIAL HYROX') : kind === 'evento' ? 'EVENTO HYROX' : kind === 'local' ? 'ONDE TREINAR HYROX' : 'ACHADO HYROX';
     c.fillStyle = '#A3A3AD'; c.font = '700 ' + (st ? 32 : 28) + 'px ' + B; c.fillText(rot, cx, ay + ar + (st ? 130 : 104));
     const x0 = 80, cw = W - 160, y0 = ay + ar + (st ? 180 : 140), ch = st ? 940 : 760;
     c.fillStyle = '#17171B'; rr(c, x0, y0, cw, ch, 52); c.fill();
@@ -575,6 +589,13 @@ __AFIL_JS__
       linha((x.bairro ? x.bairro + ', ' : '') + x.cidade + '/' + x.uf + (x.hora ? ' · ' + x.hora : ''), st ? 36 : 32, '600', '#C9C9D1', 46, 2);
       if(x.valor) linha(x.valor, st ? 38 : 34, '700', '#FFFFFF', 48, 2);
       if(x.acesso) linha(x.acesso, st ? 34 : 30, '600', '#A3A3AD', 44, 1);
+    } else if(kind === 'local'){
+      bloco(x.uf, x.oficial ? 'TRAINING CLUB' : 'TREINO HYROX');
+      linha(((x.bairro ? x.bairro + ' · ' : '') + x.cidade).toUpperCase(), st ? 30 : 28, '700', '#A3A3AD', 44, 1); y += 30;
+      linha(x.nome, st ? 70 : 60, '800', '#FFFFFF', st ? 80 : 70, 3, D); y += 30;
+      if(x.endereco) linha(x.endereco, st ? 36 : 32, '600', '#C9C9D1', 46, 2);
+      if(x.instagram) linha('@' + x.instagram, st ? 40 : 34, '700', '#FFFFFF', 52, 1);
+      if(x.oficial){ c.fillStyle = metal(c, cx-330, 0, cx+330, 0); rr(c, cx-330, y0+ch-150, 660, 72, 36); c.fill(); c.fillStyle = '#0B0B0D'; c.font = '800 32px ' + B; c.fillText('✓ HYROX Training Club oficial', cx, y0+ch-102); }
     } else {
       const off = x.de && x.de > x.preco ? Math.round((1 - x.preco/x.de) * 100) : 0;
       bloco(off ? '-' + off + '%' : 'HYROX', off ? 'DE DESCONTO' : '');
@@ -596,6 +617,7 @@ __AFIL_JS__
     const tags = '\n\n#hyrox #hyroxbrasil #fitnessracing #treinofuncional #corrida';
     if(kind === 'prova' && shVou){ const n = faltamDias(x); return 'Eu vou competir no ' + x.nome + '! 🔥 ' + (n > 1 ? 'Faltam ' + n + ' dias.' : n === 1 ? 'É amanhã!' : 'É hoje!') + '\n\n8 km de corrida e 8 estações. Quem mais vai? Me conta nos comentários 👇\n\nTodas as provas oficiais no Radar HYROX: link na bio 🔗' + tags + ' ' + tagCid(x.cidade); }
     if(kind === 'prova') return '🏁 ' + x.nome + ' · ' + faixa(x.inicio, x.fim) + ' de ' + dt(x.inicio).getFullYear() + (x.local ? '\n📍 ' + x.local + ', ' + x.cidade : '\n📍 ' + x.cidade) + '\n' + AT[atl(x)] + (x.publico === true ? ' · ingressos para o público à venda' : '') + '\n\nTodas as provas oficiais de HYROX no mundo, com a situação das vagas, no Radar HYROX: link na bio 🔗' + tags + ' ' + tagCid(x.cidade);
+    if(kind === 'local') return '📍 Onde treinar HYROX: ' + x.nome + (x.instagram ? ' (@' + x.instagram + ')' : '') + '\n' + (x.endereco ? x.endereco + ', ' : '') + (x.bairro ? x.bairro + ', ' : '') + x.cidade + '/' + x.uf + (x.oficial ? '\n✓ HYROX Training Club oficial' : '') + '\n\nAcademias, simulados e aulões de HYROX no Radar HYROX: link na bio 🔗' + tags;
     if(kind === 'evento') return '📣 ' + x.titulo + '\n📅 ' + (x.inicio ? faixa(x.inicio, x.fim) : 'data a anunciar') + (x.hora ? ' · ' + x.hora : '') + '\n📍 ' + x.academia + ', ' + (x.bairro ? x.bairro + ', ' : '') + x.cidade + (x.valor ? '\n💰 ' + x.valor : '') + (x.acesso ? '\n👥 ' + x.acesso : '') + '\n\nSimulados, aulões e onde treinar HYROX no Radar HYROX: link na bio 🔗' + tags;
     const off = x.de && x.de > x.preco ? Math.round((1 - x.preco/x.de) * 100) : 0;
     return '🔥 ' + x.nome + ' por ' + brl(x.preco) + (off ? ' (-' + off + '%)' : '') + ' na ' + x.loja + '\n\nOs achados para treinar e competir no HYROX estão no Radar HYROX: link na bio 🔗' + tags;
@@ -613,6 +635,7 @@ __AFIL_JS__
     const al = document.getElementById('sh-aline'); al.hidden = !modoAline; document.getElementById('sh-leg-grp').hidden = !modoAline;
     if(modoAline) document.getElementById('sh-leg').value = legenda(kind, x);
     if(kind === 'prova') shTxt = x.nome + ' · ' + faixa(x.inicio, x.fim) + ' · ' + x.cidade + ' · ' + AT[atl(x)].toLowerCase() + (x.aline ? ' · a Aline vai competir!' : '');
+    else if(kind === 'local') shTxt = 'Onde treinar HYROX: ' + x.nome + ' · ' + (x.bairro ? x.bairro + ', ' : '') + x.cidade + '/' + x.uf + (x.oficial ? ' · HYROX Training Club oficial' : '');
     else if(kind === 'evento') shTxt = x.titulo + ' · ' + (x.inicio ? faixa(x.inicio, x.fim) : 'data a anunciar') + ' · ' + x.academia + ', ' + x.cidade + (x.valor ? ' · ' + x.valor : '');
     else { const off = x.de && x.de > x.preco ? Math.round((1 - x.preco/x.de) * 100) : 0; shTxt = x.nome + ' por ' + brl(x.preco) + (off ? ' (-' + off + '%)' : '') + ' na ' + x.loja; }
     shTxt += '\nNo Radar HYROX da Aline 👉';
@@ -655,14 +678,14 @@ __AFIL_JS__
     el.appendChild(b);
   }
   // link compartilhado: /hyrox/#prova=<slug>, #evento=<slug> ou #achado=<slug> abre e destaca o item
-  const pedido = (location.hash || '').match(/^#(prova|evento|achado)=([a-z0-9-]+)$/);
+  const pedido = (location.hash || '').match(/^#(prova|evento|local|achado)=([a-z0-9-]+)$/);
   function abreCompartilhado(onde){
     if(!pedido || (onde === 'achados') !== (pedido[1] === 'achado')) return;
     const [, tipo, sl] = pedido;
-    if(tipo === 'achado') show('tenis'); else { show('provas'); if(tipo === 'evento') modoSet('eventos', true); }
+    if(tipo === 'achado') show('tenis'); else { show('provas'); if(tipo === 'evento') modoSet('eventos', true); if(tipo === 'local') modoSet('locais', true); }
     const el = document.querySelector((tipo === 'achado' ? '#t-list' : '#e-list') + ' [data-slug="' + sl + '"]');
     if(el){ setTimeout(() => el.scrollIntoView({block:'center'}), 50); el.classList.add('hilite'); }
-    else toast(tipo === 'prova' ? 'Essa prova já passou. Veja as próximas!' : tipo === 'evento' ? 'Esse evento já passou. Veja os próximos!' : 'Essa oferta acabou. Veja os achados de hoje!');
+    else toast(tipo === 'prova' ? 'Essa prova já passou. Veja as próximas!' : tipo === 'evento' ? 'Esse evento já passou. Veja os próximos!' : tipo === 'local' ? 'Esse lugar não está mais na lista. Veja onde treinar!' : 'Essa oferta acabou. Veja os achados de hoje!');
     ev('abriu_link_compartilhado', {tipo: 'hyrox_' + tipo, item: sl, achou: !!el});
   }
 
@@ -714,12 +737,13 @@ __TELA_LINKS__
     item('Eu vou competir', 'arte com contagem regressiva', telaVou);
     item('Meus links de loja', 'links de afiliada', () => telaLinks());
     item('Link do Radar HYROX para os stories', 'conta no painel', () => copiaTxt(STORIES_URL, 'Link dos stories copiado!'));
-    item('Link dos eventos', 'simulados, aulões e onde treinar', () => copiaTxt(BASE + '#eventos', 'Link dos eventos copiado!'));
+    item('Link dos eventos', 'simulados, aulões, workshops', () => copiaTxt(BASE + '#eventos', 'Link dos eventos copiado!'));
+    item('Link de onde treinar', 'academias de HYROX', () => copiaTxt(BASE + '#onde-treinar', 'Link de onde treinar copiado!'));
     item('Métricas do radar', 'visitas e cliques', null, PAINEL_URL);
     item('Radar de corrida', 'seu Modo Aline continua lá', null, '../');
     item('Sair do Modo Aline', 'neste celular', () => { try{ localStorage.removeItem('radar-aline'); }catch(e){} location.replace(location.pathname); });
     const dica = document.createElement('p'); dica.className = 'hint'; dica.style.textAlign = 'left';
-    dica.textContent = 'Dica: o botão de compartilhar de cada prova, evento e achado abre a arte em Story ou Feed, com legenda pronta para copiar.';
+    dica.textContent = 'Dica: o botão de compartilhar de cada prova, evento, lugar de treino e achado abre a arte em Story ou Feed, com legenda pronta para copiar.';
     lista.appendChild(dica);
     admBody.appendChild(lista);
     abreModal(admEl);

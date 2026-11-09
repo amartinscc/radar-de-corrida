@@ -2,6 +2,25 @@
  "conferido": "2026-11-08",
  "eventos": [
   {
+   "titulo": "Hybrid Hub by Innergy: a casa dos atletas na semana do HYROX Rio",
+   "academia": "BRUK Barra × Innergy",
+   "tipo": "Workshop",
+   "bairro": "Barra da Tijuca (Jardim Oceânico)",
+   "cidade": "Rio de Janeiro",
+   "uf": "RJ",
+   "inicio": "2026-11-19",
+   "fim": "2026-11-22",
+   "hora": "8h às 20h",
+   "valor": "não informado",
+   "acesso": "não informado",
+   "link": "https://www.instagram.com/bruk.barra/",
+   "fonte": "https://www.instagram.com/bruk.barra/",
+   "obs": "Qui 19: soft opening, Rave Run e happy hour. Sex 20 (feriado): aulões, shakeout run, clínicas, brunch, recovery e social. Sáb 21: café da manhã e recovery, depois Riocentro. Dom 22: treino para quem não vai competir, depois torcida no Riocentro. Com embaixadores HYROX. Programação completa em breve.",
+   "lat": -23.004,
+   "lng": -43.321,
+   "manual": true
+  },
+  {
    "titulo": "Simulado HYROX Penta Campinas",
    "academia": "Penta Training Club",
    "tipo": "Simulado",
@@ -74,9 +93,11 @@
    "uf": "RJ",
    "endereco": "Av. Belisário Leite de Andrade Neto, 138",
    "instagram": "bruk.barra",
-   "nota": "Já fez evento HYROX; acompanhe o perfil para as próximas datas",
+   "nota": "HYROX Training Club, crosstraining e musculação",
    "lat": -23.004,
-   "lng": -43.321
+   "lng": -43.321,
+   "oficial": true,
+   "fonte_oficial": "Bio do Instagram @bruk.barra: \"HYROX TRAINING CLUB\""
   },
   {
    "nome": "Crown Clube Fla",
@@ -99,7 +120,9 @@
    "instagram": "crownbotafogo",
    "nota": "Academia HYROX afiliada",
    "lat": -22.953,
-   "lng": -43.187
+   "lng": -43.187,
+   "oficial": true,
+   "fonte_oficial": "Página da rede Crown: selo \"Hyrox Affiliated / Official Gym\""
   },
   {
    "nome": "Crown Copacabana",
@@ -304,7 +327,9 @@
    "site": "https://somospenta.com.br/campinas",
    "nota": "Academia HYROX oficial; faz simulados abertos",
    "lat": -22.877,
-   "lng": -47.05
+   "lng": -47.05,
+   "oficial": true,
+   "fonte_oficial": "Site somospenta.com.br: \"afiliado oficial\""
   },
   {
    "nome": "H10X Training Club",
@@ -316,7 +341,9 @@
    "site": "https://h10xtrainingclub.com.br/",
    "nota": "Faz simulados (último em setembro, para alunos)",
    "lat": -22.874,
-   "lng": -47.054
+   "lng": -47.054,
+   "oficial": true,
+   "fonte_oficial": "Site h10xtrainingclub.com.br: \"filiado à HYROX\""
   },
   {
    "nome": "Cia Athletica Ribeirão Preto",
@@ -328,7 +355,9 @@
    "site": "https://ciaathleticaribeirao.com.br/hyrox-em-ribeirao-preto/",
    "nota": "HYROX Training Club",
    "lat": -21.211,
-   "lng": -47.811
+   "lng": -47.811,
+   "oficial": true,
+   "fonte_oficial": "Site ciaathleticaribeirao.com.br: Training Club certificado"
   },
   {
    "nome": "Cia Athletica São José dos Campos",
@@ -350,7 +379,9 @@
    "site": "https://cfsaobernardo.com.br/",
    "nota": "Box afiliado HYROX",
    "lat": -23.711,
-   "lng": -46.551
+   "lng": -46.551,
+   "oficial": true,
+   "fonte_oficial": "Site cfsaobernardo.com.br: box afiliado HYROX"
   },
   {
    "nome": "Academia Saúde 2000",
