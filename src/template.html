@@ -120,24 +120,34 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .fbtn[aria-expanded="true"]{border-color:var(--mauve);background:var(--soft)}
 .fbtn .n{background:var(--mauve);color:var(--mauve-ink);border-radius:999px;font-size:12px;padding:1px 7px}
 .toolbar select{margin-left:auto}
-/* destaques manuais (campo "destaques" nos dados; ex.: cadastro do sorteio dos 21K da Maratona do Rio) */
-.dest{display:grid;gap:12px;margin:0 0 16px}
-.dcard{position:relative;overflow:hidden;border-radius:20px;padding:18px 18px 16px;color:#fff;background:#E5203A;box-shadow:0 10px 28px rgba(229,32,58,.28)}
-.dcard::before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(115deg,transparent 0 34px,rgba(120,8,24,.28) 34px 58px)}
-.dcard>*{position:relative}
-.dtop{display:flex;align-items:center;gap:8px;font:800 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
-.dping{position:relative;width:10px;height:10px;border-radius:50%;background:#fff;flex:none}
-.dping::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #fff;animation:dping 1.6s ease-out infinite}
-@keyframes dping{from{transform:scale(.4);opacity:1}to{transform:scale(1.6);opacity:0}}
-@media (prefers-reduced-motion:reduce){.dping::after{animation:none;opacity:.5}}
-.dcard h3{margin:10px 0 4px;font:800 24px/1.12 var(--display,'Urbanist',system-ui,sans-serif);letter-spacing:-.01em}
-.dcard p{margin:0;font:500 14px/1.45 var(--body);opacity:.95}
-.ddatas{display:flex;align-items:baseline;gap:8px;margin:12px 0 2px;font:800 40px/1 'Urbanist',system-ui,sans-serif}
-.ddatas small{font:700 15px/1 var(--body);opacity:.9}
-.dst{display:inline-block;margin-top:8px;padding:6px 11px;border-radius:999px;background:#120A0C;color:#fff;font:800 12px/1.1 var(--body);letter-spacing:.04em}
-.dst.on{background:#fff;color:#B3122A}
-.dbtn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:11px 16px;border-radius:999px;background:#fff;color:#B3122A;font:800 14px/1 var(--body);text-decoration:none}
-.dmini{display:block;margin-top:10px;font:500 12px/1.35 var(--body);opacity:.85}
+/* destaques: carrossel pequeno logo abaixo do radar (campo "destaques"; 1 por vez, 3 s, barrinhas enchendo).
+   O Radar Hyrox usa o mesmo CSS e o mesmo código (bloco "destaques: carrossel" no script; o src/hyrox.py copia) */
+.dq{width:100%;max-width:420px;min-width:0;margin:0 auto}
+.hl-bars{display:flex;gap:4px;margin:0 4px 7px}
+.hl-bars button{position:relative;flex:1;height:3px;padding:0;border:0;border-radius:3px;background:color-mix(in srgb,var(--ink) 14%,transparent);overflow:hidden;cursor:pointer}
+.hl-bars button::after{content:"";position:absolute;inset:-8px 0}
+.hl-bars i{position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left}
+.hl-bars .done i{transform:scaleX(1)}
+.hl-bars .on i{animation:hlfill var(--hl-t,3s) linear forwards}
+.dq.pausa .hl-bars .on i{animation-play-state:paused}
+@keyframes hlfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hl-vp{display:grid;grid-template-columns:minmax(0,1fr)}
+.hl-card{grid-area:1/1;min-width:0;display:flex;align-items:center;gap:12px;min-height:74px;padding:9px 12px 9px 9px;background:var(--surface);border:1px solid var(--line);border-radius:16px;color:var(--ink);text-decoration:none;opacity:0;visibility:hidden;transform:translateX(14px);transition:opacity .35s,transform .35s,visibility 0s .35s}
+.hl-card.on{opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .35s}
+.hl-card.sai{transform:translateX(-14px)}
+@media (prefers-reduced-motion:reduce){.hl-card,.hl-card.on{transition:none;transform:none}}
+.hl-tile{flex:none;width:56px;height:56px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;overflow:hidden;background:var(--accent);color:var(--surface);font:800 17px/1 'Urbanist',system-ui,sans-serif;letter-spacing:-.01em;text-align:center}
+.hl-tile small{font:800 9px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;opacity:.92}
+.hl-tile.logo{background:#fff;border:1px solid var(--line)}
+.hl-tile.logo img{width:100%;height:100%;object-fit:contain;padding:7px}
+.hl-txt{flex:1;min-width:0}
+.hl-tag{display:flex;align-items:center;gap:6px;font:700 10.5px/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hl-tag .lv{flex:none;width:7px;height:7px;border-radius:50%;background:#E5203A;box-shadow:0 0 0 3px rgba(229,32,58,.2)}
+.hl-card.hot .hl-tag{color:#D21C36}
+.hl-tag .pt{flex:none;margin-left:auto;padding:2px 6px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:9px;letter-spacing:.06em}
+.hl-tit{margin-top:3px;font:700 15px/1.25 var(--body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hl-sub{margin-top:2px;font:500 12.5px/1.3 var(--body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hl-go{flex:none;font:700 18px/1 var(--body);color:var(--accent)}
 .fpanel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
 .fclear{align-self:flex-start;background:none;border:0;color:var(--accent);font:700 13px var(--body);cursor:pointer;padding:0}
 .deal .links{align-items:center}
@@ -554,7 +564,6 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   </div>
 
   <div class="panel" id="p-provas" role="tabpanel" aria-labelledby="tab-provas">
-    <div class="dest" id="e-dest" hidden></div>
     <div class="toolbar">
       <button class="fbtn" type="button" id="e-fbtn" aria-expanded="false" aria-controls="e-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
       <select id="e-uf" aria-label="Estado"></select>
@@ -572,6 +581,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
         <div class="sweep" id="sweep" aria-hidden="true"></div>
       </div>
       <div class="radar-cap" id="radar-cap" aria-live="polite"></div>
+      <div class="dq" id="e-dest" role="region" aria-roledescription="carrossel" aria-label="Destaques" hidden></div>
     </div>
     <div class="list" id="e-list"></div>
     <p class="note">Datas, locais e valores vêm dos sites de inscrição e podem mudar. Confirme sempre na página oficial da prova antes de se inscrever.</p>
@@ -805,27 +815,90 @@ __DATA__
 
   // data de hoje no Rio (AAAA-MM-DD)
   const hoje = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date());
-  // destaques no topo da aba Provas (campo manual "destaques": [{titulo, selo?, texto?, inicio, fim, link, botao?, nota?}]);
-  // aparecem até o dia "fim" e somem sozinhos depois; as tarefas automáticas nunca mexem nesse campo
+  // == destaques: carrossel (início) ==  (o src/hyrox.py copia este bloco para o Radar Hyrox: mude aqui)
+  // itens já prontos: {id, tag, titulo, sub?, link, quadro: {img?|txt, sub?, cor?}, hot?, patrocinado?, afiliado?}
+  const HL_MS = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+  const hlHoje = () => new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date());
+  const hlDias = (a, b) => Math.round((Date.parse(b + 'T12:00:00Z') - Date.parse(a + 'T12:00:00Z')) / 864e5);
+  // quadro de data: "27–30" + "MAI"; meses diferentes: "30/11" + "a 02/12"; um dia só: "21" + "NOV"
+  function hlFaixa(ini, fim){
+    if(!ini) return {txt: '★'};
+    const d1 = ini.slice(8,10), m1 = +ini.slice(5,7);
+    if(!fim || fim === ini) return {txt: d1, sub: HL_MS[m1-1]};
+    if(fim.slice(0,7) === ini.slice(0,7)) return {txt: d1 + '–' + fim.slice(8,10), sub: HL_MS[m1-1]};
+    return {txt: d1 + '/' + ini.slice(5,7), sub: 'a ' + fim.slice(8,10) + '/' + fim.slice(5,7)};
+  }
+  // situação de uma janela de inscrição/cadastro (inicio..fim)
+  function hlJanela(ini, fim){
+    const h = hlHoje();
+    if(ini && h < ini){ const n = hlDias(h, ini); return {txt: n === 1 ? 'Abre amanhã' : 'Abre em ' + n + ' dias', on: false}; }
+    const n = hlDias(h, fim); return {txt: n === 0 ? 'Aberto · último dia!' : n === 1 ? 'Aberto · termina amanhã' : 'Aberto · faltam ' + n + ' dias', on: true};
+  }
+  function montaDestaques(box, itens, pagina){
+    if(!box || !itens.length) return;
+    const TEMPO = 3000;
+    const e = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const cap = (n, p) => { try{ if(window.posthog) posthog.capture(n, p); }catch(_){} };
+    box.style.setProperty('--hl-t', TEMPO + 'ms');
+    box.innerHTML = (itens.length > 1 ? '<div class="hl-bars">' + itens.map((x, i) => '<button type="button" aria-label="Destaque ' + (i+1) + ' de ' + itens.length + '"><i></i></button>').join('') + '</div>' : '')
+      + '<div class="hl-vp">' + itens.map((x, i) => {
+        const q = x.quadro || {};
+        const tile = q.img ? '<span class="hl-tile logo"><img src="' + e(q.img) + '" alt="" loading="lazy"></span>'
+          : '<span class="hl-tile"' + (q.cor ? ' style="background:' + e(q.cor) + ';color:#fff"' : '') + '>' + e(q.txt) + (q.sub ? '<small>' + e(q.sub) + '</small>' : '') + '</span>';
+        return '<a class="hl-card' + (x.hot ? ' hot' : '') + '" href="' + e(x.link) + '" target="_blank" rel="noopener' + (x.afiliado || x.patrocinado ? ' sponsored' : '') + '" aria-label="' + e(x.titulo) + '"' + (i ? ' tabindex="-1"' : '') + '>'
+          + tile + '<span class="hl-txt"><span class="hl-tag">' + (x.hot ? '<span class="lv" aria-hidden="true"></span>' : '') + '<span>' + e(x.tag) + '</span>' + (x.patrocinado ? '<span class="pt">Patrocinado</span>' : '') + '</span>'
+          + '<span class="hl-tit" style="display:block">' + e(x.titulo) + '</span>' + (x.sub ? '<span class="hl-sub" style="display:block">' + e(x.sub) + '</span>' : '') + '</span><span class="hl-go" aria-hidden="true">›</span></a>';
+      }).join('') + '</div>';
+    box.hidden = false;
+    const cards = [...box.querySelectorAll('.hl-card')], bars = [...box.querySelectorAll('.hl-bars button')];
+    const vistos = new Set(); let i = 0, visivel = true, segura = false;
+    const visto = () => { if(visivel && !document.hidden && !vistos.has(i)){ vistos.add(i); cap('destaque_visto', {destaque: itens[i].id || itens[i].titulo, posicao: i + 1, pagina}); } };
+    function vai(n){
+      const ant = i; i = (n + itens.length) % itens.length;
+      cards.forEach((c, k) => { c.classList.toggle('on', k === i); c.classList.toggle('sai', k === ant && k !== i); c.tabIndex = k === i ? 0 : -1; c.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
+      bars.forEach((b, k) => { b.classList.remove('on'); b.classList.toggle('done', k < i); });
+      if(bars[i]){ void bars[i].offsetWidth; bars[i].classList.add('on'); }
+      visto();
+    }
+    const pausa = () => box.classList.toggle('pausa', segura || !visivel || document.hidden);
+    bars.forEach((b, k) => { b.addEventListener('click', () => vai(k)); b.querySelector('i').addEventListener('animationend', () => vai(i + 1)); });
+    cards.forEach((c, k) => c.addEventListener('click', () => cap('clique_destaque', {destaque: itens[k].id || itens[k].titulo, posicao: k + 1, pagina, patrocinado: !!itens[k].patrocinado})));
+    // segurar o dedo (ou o mouse em cima) pausa; arrastar para o lado troca
+    let x0 = null, y0 = 0, arrastou = false;
+    box.addEventListener('pointerenter', ev => { if(ev.pointerType === 'mouse'){ segura = true; pausa(); } });
+    box.addEventListener('pointerleave', ev => { if(ev.pointerType === 'mouse'){ segura = false; pausa(); } });
+    box.addEventListener('touchstart', ev => { x0 = ev.touches[0].clientX; y0 = ev.touches[0].clientY; arrastou = false; segura = true; pausa(); }, {passive: true});
+    box.addEventListener('touchend', ev => { segura = false; pausa(); if(x0 == null) return; const t = ev.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0; x0 = null;
+      if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) && itens.length > 1){ arrastou = true; vai(i + (dx < 0 ? 1 : -1)); } }, {passive: true});
+    box.addEventListener('click', ev => { if(arrastou){ ev.preventDefault(); arrastou = false; } }, true);
+    box.addEventListener('focusin', () => { segura = true; pausa(); });
+    box.addEventListener('focusout', () => { segura = false; pausa(); });
+    document.addEventListener('visibilitychange', () => { pausa(); visto(); });
+    if('IntersectionObserver' in window) new IntersectionObserver(es => { visivel = es[0].isIntersecting; pausa(); visto(); }, {threshold: .6}).observe(box);
+    vai(0);
+  }
+  // == destaques: carrossel (fim) ==
+
+  // destaques do radar principal (campo manual "destaques"; as tarefas nunca mexem). Tipos:
+  //  inscricao {titulo, texto, inicio, fim, link, quadro?}  -> "Aberto · faltam X dias" (some depois do fim)
+  //  evento    {titulo, texto, selo, inicio, fim, link, quadro?} -> quadro com as datas (some depois do fim)
+  //  parceiro  {marca, selo?, titulo?, texto?, link?}       -> logo, cupom e link de afiliada do cadastro em parceiros
+  //  todos: ate? (some depois desse dia), patrocinado? (mostra "Patrocinado"), id
   (function(){
-    const box = document.getElementById('e-dest'); if(!box) return;
-    const dd = (a, b) => Math.round((Date.parse(b + 'T12:00:00Z') - Date.parse(a + 'T12:00:00Z')) / 864e5);
-    const br = s => s.slice(8,10) + '/' + s.slice(5,7);
-    const esc = s => String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    (data.destaques||[]).filter(d => d.fim && d.fim >= hoje).forEach(d => {
-      let st, on = false;
-      if(d.inicio && hoje < d.inicio){ const n = dd(hoje, d.inicio); st = n === 1 ? 'Abre amanhã, ' + br(d.inicio) : 'Abre em ' + n + ' dias, ' + br(d.inicio); }
-      else { on = true; const n = dd(hoje, d.fim); st = n === 0 ? 'Aberto · último dia!' : n === 1 ? 'Aberto · termina amanhã' : 'Aberto · faltam ' + n + ' dias'; }
-      const c = document.createElement('article'); c.className = 'dcard';
-      c.innerHTML = '<div class="dtop"><span class="dping" aria-hidden="true"></span>' + esc(d.selo || 'O radar detectou') + '</div>'
-        + '<h3>' + esc(d.titulo) + '</h3>' + (d.texto ? '<p>' + esc(d.texto) + '</p>' : '')
-        + (d.inicio ? '<div class="ddatas">' + br(d.inicio) + ' <small>a</small> ' + br(d.fim) + '</div>' : '')
-        + '<span class="dst' + (on ? ' on' : '') + '">' + st + '</span><br>'
-        + (d.link ? '<a class="dbtn" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.botao || 'Ver página oficial') + ' →</a>' : '')
-        + (d.nota ? '<span class="dmini">' + esc(d.nota) + '</span>' : '');
-      const a = c.querySelector('.dbtn'); if(a) a.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_destaque', {destaque: d.titulo, status: on ? 'aberto' : 'em_breve'}); });
-      box.appendChild(c); box.hidden = false;
-    });
+    const MK = {}; ((data.parceiros||{}).marcas||[]).forEach(m => { MK[m.nome] = m; });
+    const its = (data.destaques||[]).filter(d => { const f = d.ate || d.fim; return !f || f >= hoje; }).map(d => {
+      const base = {id: d.id, titulo: d.titulo, sub: d.texto, link: d.link, patrocinado: !!d.patrocinado};
+      if(d.tipo === 'parceiro'){
+        const m = MK[d.marca]; if(!m || m.oculto) return null;
+        const cupom = d.cupom !== undefined ? d.cupom : (m.cupom || '');
+        return {...base, titulo: d.titulo || m.nome, sub: d.texto || m.descricao, link: d.link || m.link, afiliado: !!m.afiliada,
+          tag: d.selo || (cupom ? 'Cupom ' + cupom : 'Loja parceira da Aline'), quadro: m.logo ? {img: m.logo} : {txt: m.nome.slice(0,1)}};
+      }
+      if(d.tipo === 'evento'){ const f = hlFaixa(d.inicio, d.fim); return {...base, tag: d.selo || 'Evento', quadro: {...f, ...(d.quadro||{})}}; }
+      const j = hlJanela(d.inicio, d.fim);
+      return {...base, tag: (d.selo ? d.selo + ' · ' : '') + j.txt, hot: j.on, quadro: d.quadro || hlFaixa(d.inicio, d.fim)};
+    }).filter(Boolean);
+    montaDestaques(document.getElementById('e-dest'), its, 'radar');
   })();
   // endereço próprio de cada prova e tênis (mesma regra de src/paginas.py: mude os dois juntos)
   const slugTxt = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70).replace(/-+$/,'');

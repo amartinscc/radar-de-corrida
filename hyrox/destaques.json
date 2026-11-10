@@ -1,0 +1,40 @@
+{
+ "obs": "Destaques do carrossel abaixo do radar (só manual; as tarefas nunca mexem). Ordem = ordem do carrossel. Tipos: prova (link igual ao do radar.json), evento, parceiro (marca da lista de parceiros do Hyrox). Campos opcionais: selo, texto, ate (AAAA-MM-DD), patrocinado.",
+ "itens": [
+  {
+   "id": "hyrox-rio-2026",
+   "tipo": "prova",
+   "link": "https://hyrox.com/event/hyrox-rio-de-janeiro/",
+   "titulo": "HYROX Rio de Janeiro"
+  },
+  {
+   "id": "hyrox-sao-paulo-2027",
+   "tipo": "prova",
+   "link": "https://hyrox.com/event/hyrox-sao-paulo/",
+   "titulo": "HYROX São Paulo",
+   "selo": "Próxima etapa no Brasil"
+  },
+  {
+   "id": "bruk-barra-hybrid-hub",
+   "tipo": "evento",
+   "selo": "Semana do HYROX Rio",
+   "titulo": "Hybrid Hub na BRUK Barra",
+   "texto": "Aulões, clínicas e recovery",
+   "inicio": "2026-11-19",
+   "fim": "2026-11-22",
+   "link": "https://www.instagram.com/bruk.barra/"
+  },
+  {
+   "id": "parceiro-puma",
+   "tipo": "parceiro",
+   "marca": "Puma",
+   "texto": "Linha PUMA × HYROX"
+  },
+  {
+   "id": "parceiro-decathlon",
+   "tipo": "parceiro",
+   "marca": "Decathlon",
+   "texto": "Kettlebell, corda, luvas e roupas"
+  }
+ ]
+}

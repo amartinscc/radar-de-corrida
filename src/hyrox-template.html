@@ -59,6 +59,8 @@ body{background:var(--bg)}
 .tab[disabled]{cursor:not-allowed;opacity:.55}
 .tab .c:empty{display:none}
 .tab[disabled] .c{background:var(--soft);color:var(--ink);font-size:9px;letter-spacing:.04em;text-transform:uppercase;min-width:auto;padding:0 6px}
+.hl-tile{background:var(--metal);color:#0B0B0D}
+.hl-bars i{background:var(--metal)}
 .alinebadge,.totop{background:var(--metal);color:#0B0B0D}
 .tr-hero{background:linear-gradient(135deg,#26262C,#17171B 60%,#2E2E36)}
 .tr-soon{background:linear-gradient(135deg,#26262C,#17171B 60%,#2E2E36)!important}
@@ -91,6 +93,16 @@ body{background:var(--bg)}
 .toolbar select{margin-left:0;flex:1 1 140px;min-width:0}
 .deal .thumb + .info{min-width:0}
 .hx-h3{font:800 16px/1.2 var(--display);margin:14px 0 6px}
+.hx-tw{overflow-x:auto;margin:0 0 6px;border:1px solid var(--line);border-radius:14px}
+.hx-tab{width:100%;min-width:430px;border-collapse:collapse;font-size:12.5px;line-height:1.3}
+.hx-tab th,.hx-tab td{padding:8px 7px;text-align:center;border-bottom:1px solid var(--line)}
+.hx-tab tbody tr:last-child>*{border-bottom:0}
+.hx-tab thead th{font:700 10.5px/1.25 var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);vertical-align:bottom}
+.hx-tab tbody th{text-align:left;font-weight:700;color:var(--ink);white-space:nowrap}
+.hx-tab tbody th small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.hx-tab td{color:var(--ink);white-space:nowrap}
+.hx-tab th:first-child{position:sticky;left:0;background:var(--surface)}
+.hx-nota{color:var(--muted);font-size:12.5px;margin-top:4px}
 .hx-faq-t{margin-top:22px!important}
 .hx-est{margin:0 0 10px;padding-left:22px;color:var(--muted);font-size:14px;line-height:1.55}
 .hx-est b{color:var(--ink)}
@@ -141,6 +153,7 @@ __TABS__
         <div class="sweep" id="sweep" aria-hidden="true"></div>
       </div>
       <div class="radar-cap" id="radar-cap" aria-live="polite"></div>
+      <div class="dq" id="e-dest" role="region" aria-roledescription="carrossel" aria-label="Destaques" hidden></div>
     </div>
     <div class="list" id="e-list"></div>
     <p class="note" id="e-note"></p>
@@ -168,8 +181,8 @@ __TREINO_HTML__
     <h3 class="hx-h3">As 8 estações, na ordem da prova</h3>
     <ol class="hx-est">
       <li><b>SkiErg</b> · 1.000 m no simulador de esqui</li>
-      <li><b>Sled push</b> · empurrar o trenó por 50 m</li>
-      <li><b>Sled pull</b> · puxar o trenó por 50 m com a corda</li>
+      <li><b>Sled push</b> · empurrar o trenó por 50 m (4 × 12,5 m)</li>
+      <li><b>Sled pull</b> · puxar o trenó por 50 m com a corda (4 × 12,5 m)</li>
       <li><b>Burpee broad jump</b> · 80 m de burpee com salto à frente</li>
       <li><b>Remo</b> · 1.000 m no remo ergômetro</li>
       <li><b>Farmers carry</b> · 200 m carregando dois kettlebells</li>
@@ -177,11 +190,26 @@ __TREINO_HTML__
       <li><b>Wall balls</b> · 100 arremessos da bola no alvo da parede</li>
     </ol>
     <p>Entre uma estação e outra você passa pela <b>Roxzone</b>, a área de transição, e esse tempo também conta.</p>
+    <h3 class="hx-h3" id="pesos">Pesos e distâncias por categoria</h3>
+    <div class="hx-tw"><table class="hx-tab">
+      <thead><tr><th scope="col">Estação</th><th scope="col">Open feminino</th><th scope="col">Open masculino e dupla mista</th><th scope="col">Pro feminino</th><th scope="col">Pro masculino</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">SkiErg</th><td>1.000 m</td><td>1.000 m</td><td>1.000 m</td><td>1.000 m</td></tr>
+        <tr><th scope="row">Sled push <small>4 × 12,5 m</small></th><td>102 kg</td><td>152 kg</td><td>152 kg</td><td>202 kg</td></tr>
+        <tr><th scope="row">Sled pull <small>4 × 12,5 m</small></th><td>78 kg</td><td>103 kg</td><td>103 kg</td><td>153 kg</td></tr>
+        <tr><th scope="row">Burpee broad jump</th><td>80 m</td><td>80 m</td><td>80 m</td><td>80 m</td></tr>
+        <tr><th scope="row">Remo</th><td>1.000 m</td><td>1.000 m</td><td>1.000 m</td><td>1.000 m</td></tr>
+        <tr><th scope="row">Farmers carry <small>200 m</small></th><td>2 × 16 kg</td><td>2 × 24 kg</td><td>2 × 24 kg</td><td>2 × 32 kg</td></tr>
+        <tr><th scope="row">Sandbag lunges <small>100 m</small></th><td>10 kg</td><td>20 kg</td><td>20 kg</td><td>30 kg</td></tr>
+        <tr><th scope="row">Wall balls <small>100 reps</small></th><td>4 kg</td><td>6 kg</td><td>6 kg</td><td>9 kg</td></tr>
+      </tbody>
+    </table></div>
+    <p class="hx-nota">O peso do trenó já inclui o próprio trenó. A dupla mista usa os pesos do Open masculino. Confira sempre o regulamento da temporada no site oficial, porque pode mudar.</p>
 
     <h2 class="hx-faq-t">Perguntas frequentes sobre HYROX</h2>
     <details><summary>Quanto tempo dura uma prova de HYROX?</summary><p>Em média, perto de 1 hora e 30 minutos. Quem está estreando costuma levar de 1h15 a 2h, e os atletas de elite terminam em menos de 1 hora.</p></details>
     <details><summary>Quais são as categorias do HYROX?</summary><p>Open (a categoria de entrada, com pesos mais leves), Pro (pesos mais pesados), Doubles (em dupla: os dois correm juntos todos os quilômetros e dividem as estações como quiserem), Relay (revezamento de 4 pessoas: cada uma corre 2 km e faz 2 estações) e Adaptive (para atletas com deficiência). Há divisões feminina, masculina e mista.</p></details>
-    <details><summary>Quais são os pesos do HYROX?</summary><p>Open feminino: trenó de 102 kg para empurrar e 78 kg para puxar, kettlebells de 2 × 16 kg, saco de areia de 10 kg e wall ball de 4 kg. Open masculino e Pro feminino: 152 kg e 103 kg no trenó, 2 × 24 kg, 20 kg e 6 kg. Pro masculino: 202 kg e 153 kg no trenó, 2 × 32 kg, 30 kg e 9 kg. O peso do trenó já inclui o próprio trenó. Confira o regulamento da temporada no site oficial, porque pode mudar.</p></details>
+    <details><summary>Quais são os pesos do HYROX?</summary><p>Open feminino: trenó de 102 kg para empurrar e 78 kg para puxar, kettlebells de 2 × 16 kg, saco de areia de 10 kg e wall ball de 4 kg. Open masculino, dupla mista e Pro feminino: 152 kg e 103 kg no trenó, 2 × 24 kg, 20 kg e 6 kg. Pro masculino: 202 kg e 153 kg no trenó, 2 × 32 kg, 30 kg e 9 kg. O peso do trenó já inclui o próprio trenó. As distâncias são iguais para todos: 1.000 m de SkiErg e de remo, 50 m de trenó (4 × 12,5 m), 80 m de burpee broad jump, 200 m de farmers carry, 100 m de lunges e 100 wall balls. Confira o regulamento da temporada no site oficial, porque pode mudar.</p></details>
     <details><summary>Qual a diferença entre HYROX e CrossFit?</summary><p>No CrossFit o treino muda e os movimentos são mais técnicos, como levantamento olímpico e movimentos ginásticos. No HYROX a prova é sempre a mesma e você sabe exatamente o que vai fazer: corrida e exercícios simples de força e resistência. Por isso é mais fácil para iniciantes e para quem vem da corrida ou da musculação.</p></details>
     <details><summary>Iniciante pode fazer HYROX?</summary><p>Pode. A categoria Open foi pensada para quem treina regularmente e quer um desafio, e a Doubles e a Relay dividem o esforço. O mais importante é conseguir correr 8 km com pausas e ter base de força para o trenó e as wall balls. Com 8 a 12 semanas de preparação orientada, muita gente faz a primeira prova bem.</p></details>
     <details><summary>Como treinar para o HYROX?</summary><p>Combine treinos de corrida (rodagem, intervalados e corrida cansado, logo depois de um exercício de força) com treinos das estações: trenó, remo, SkiErg, avanços com carga, burpees e wall balls. Treinar as transições também ajuda, porque a Roxzone conta no tempo. Um simulado antes da prova mostra o seu ritmo real.</p></details>
@@ -476,9 +504,40 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   function render(){ montaFiltros(); desenhar(); lista(); }
 
+__DESTAQUES_JS__
+
+  // destaques do Radar Hyrox: hyrox/destaques.json (só manual; as tarefas nunca mexem). Tipos:
+  //  prova    {link (o mesmo da prova no radar.json), titulo?, selo?, texto?} -> datas e situação das vagas vêm do radar.json
+  //  evento   {titulo, selo, texto, inicio, fim, link}
+  //  parceiro {marca (Puma, Decathlon...: a lista de parceiros do Hyrox), selo?, texto?}
+  //  todos: ate? (some depois desse dia), patrocinado?, id
+  const AT_CURTO = {aberta: 'vagas de atleta abertas', parcial: 'algumas categorias esgotadas', esgotada: 'esgotado', embreve: 'venda ainda não abriu', confira: 'confira as vagas'};
+  function destaquesHx(){
+    fetch('destaques.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
+      if(!j) return; const hs = hlHoje(), PH = {}; (__PARC_HYROX__).forEach(m => { PH[m.nome] = m; });
+      const its = (j.itens || []).map(d => {
+        const base = {id: d.id, titulo: d.titulo, sub: d.texto, link: d.link, patrocinado: !!d.patrocinado};
+        if(d.ate && d.ate < hs) return null;
+        if(d.tipo === 'prova'){
+          const p = (D.provas || []).find(x => x.link === d.link); if(!p || (p.fim || p.inicio) < hs) return null;
+          const a = atl(p), st = AT_CURTO[a] + (a === 'esgotada' && p.publico ? ', público à venda' : '');
+          return {...base, titulo: d.titulo || p.nome, tag: d.selo || (p.aline ? 'A Aline vai competir' : 'Prova oficial'),
+            sub: d.texto || (p.local || p.cidade) + ' · ' + st, quadro: hlFaixa(p.inicio, p.fim)};
+        }
+        if(d.tipo === 'parceiro'){
+          const m = PH[d.marca]; if(!m) return null;
+          return {...base, titulo: d.titulo || m.nome, tag: d.selo || m.selo, sub: d.texto || m.texto, link: afil(d.link || m.loja), afiliado: true, quadro: m.logo ? {img: m.logo} : {txt: m.nome.slice(0,1)}};
+        }
+        if((d.fim || d.inicio) && (d.fim || d.inicio) < hs) return null;
+        return {...base, tag: d.selo || 'Evento', quadro: {...hlFaixa(d.inicio, d.fim), ...(d.quadro || {})}};
+      }).filter(Boolean);
+      montaDestaques(document.getElementById('e-dest'), its, 'hyrox');
+    });
+  }
+
   const tj = fetch('treinos.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null);
   fetch('radar.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.json()).then(j => tj.then(t => [j, t])).then(([j, t]) => {
-    D = j; if(t) T = t; { const ne = eventosAtivos().length, nl = locais().length; document.getElementById('n-eventos').textContent = ne; document.getElementById('n-locais').textContent = nl; document.getElementById('n-treinos').textContent = ne + nl; } const ps = provasAtivas(), br = ps.filter(p => p.iso === 'BR');
+    D = j; if(t) T = t; destaquesHx(); { const ne = eventosAtivos().length, nl = locais().length; document.getElementById('n-eventos').textContent = ne; document.getElementById('n-locais').textContent = nl; document.getElementById('n-treinos').textContent = ne + nl; } const ps = provasAtivas(), br = ps.filter(p => p.iso === 'BR');
     document.getElementById('n-provas').textContent = ps.length;
     const c = document.querySelector('#tab-provas .c'); if(c) c.textContent = ps.length;
     const prox = br[0];
