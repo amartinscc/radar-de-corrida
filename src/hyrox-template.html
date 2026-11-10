@@ -148,7 +148,7 @@ __TABS__
 
   <div class="panel" id="p-tenis" role="tabpanel" aria-labelledby="tab-tenis" hidden>
     <h2 class="ptitle" style="margin:0">Achados Hyrox</h2>
-    <p class="note" style="margin:0">A linha oficial PUMA × HYROX e o que usar para treinar e competir. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
+    <p class="note" style="margin:0">A linha oficial PUMA × HYROX, os achados da Decathlon e o que usar para treinar e competir. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
     <div class="list" id="t-list"></div>
   </div>
 
@@ -515,14 +515,17 @@ __AFIL_JS__
   });
 
   // ===== parceiros =====
+  // marcas e logos vêm do radar principal (gerados pelo src/hyrox.py); texto próprio do Hyrox para cada uma
   (function(){
-    const box = document.getElementById('pa-list');
-    const el = document.createElement('article'); el.className = 'deal';
-    el.innerHTML = `<div class="thumb"><img alt="Puma" src="__PUMA_LOGO__"></div><div class="info"><div class="store">Parceira oficial do HYROX</div><div class="name">Puma</div>
-      <div class="det"><span>Tênis, roupas e acessórios da linha PUMA × HYROX.</span></div><a class="go" target="_blank" rel="noopener sponsored">Ir à loja →</a></div>`;
-    const a = el.querySelector('a.go'); a.href = afil('https://br.puma.com/'); a.addEventListener('click', () => ev('clique_parceiro', {parceiro: 'Puma', onde: 'hyrox'}));
-    box.appendChild(el);
-    const c = document.querySelector('#tab-roupas .c'); if(c) c.textContent = '1';
+    const box = document.getElementById('pa-list'), PARC = __PARC_HYROX__;
+    PARC.forEach(m => {
+      const el = document.createElement('article'); el.className = 'deal';
+      el.innerHTML = `<div class="thumb"><img alt="${esc(m.nome)}" src="${m.logo}"></div><div class="info"><div class="store">${esc(m.selo)}</div><div class="name">${esc(m.nome)}</div>
+        <div class="det"><span>${esc(m.texto)}</span></div><a class="go" target="_blank" rel="noopener sponsored">Ir à loja →</a></div>`;
+      const a = el.querySelector('a.go'); a.href = afil(m.loja); a.addEventListener('click', () => ev('clique_parceiro', {parceiro: m.nome, onde: 'hyrox'}));
+      box.appendChild(el);
+    });
+    const c = document.querySelector('#tab-roupas .c'); if(c) c.textContent = String(PARC.length);
   })();
 
   // ===== compartilhar (mesmas ferramentas do radar principal: imagem de story, WhatsApp, copiar link; métricas o=/q=) =====

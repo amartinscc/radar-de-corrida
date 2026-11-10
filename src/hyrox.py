@@ -27,7 +27,11 @@ treino_html = '    ' + t[i:t.index('<div class="news" data-origem="treine"', i)]
 j = t.index('  // assessoria (prévia)')
 treino_js = t[j:t.index('  // compartilhar nos stories', j)]
 
-pm = next(m for m in data['parceiros']['marcas'] if m['nome'] == 'Puma')
+# parceiros do Radar Hyrox (ordem da aba): logo do cadastro do radar principal + texto próprio do Hyrox
+PARC_HX = [('Puma', 'Parceira oficial do HYROX', 'Tênis, roupas e acessórios da linha PUMA × HYROX.', 'https://br.puma.com/'),
+           ('Decathlon', 'Loja parceira', 'Tênis de treino, kettlebell, corda, luvas e roupas para treinar HYROX, com preço de Decathlon.', 'https://www.decathlon.com.br/')]
+_mk = {m['nome']: m for m in data['parceiros']['marcas']}
+parc_hx = [{'nome': n, 'selo': sl, 'texto': tx, 'loja': lj, 'logo': _mk[n].get('logo', '')} for n, sl, tx, lj in PARC_HX if n in _mk and not _mk[n].get('oculto')]
 dados = {'perfil': {'instagram': (data.get('perfil') or {}).get('instagram', 'amartinscc')},
          'assessoria': data.get('assessoria') or {}, 'treino_em_breve': data.get('treino_em_breve')}
 
@@ -59,7 +63,7 @@ ld = {'@context': 'https://schema.org', '@graph': [
 jsonld = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 for k, v in {'__MAIN_CSS__': css, '__TABS__': tabs.rstrip('\n'), '__TREINO_HTML__': treino_html.rstrip('\n'),
              '__TREINO_JS__': treino_js.rstrip('\n'), '__STATES__': states,
-             '__DATA__': json.dumps(dados, ensure_ascii=False), '__JSONLD__': jsonld, '__AFIL_JS__': afil_js, '__ADM_HASH__': adm_hash, '__TELA_LINKS__': tela_links, '__PUMA_LOGO__': pm.get('logo', '')}.items():
+             '__DATA__': json.dumps(dados, ensure_ascii=False), '__JSONLD__': jsonld, '__AFIL_JS__': afil_js, '__ADM_HASH__': adm_hash, '__TELA_LINKS__': tela_links, '__PARC_HYROX__': json.dumps(parc_hx, ensure_ascii=False).replace('</', '<\\/')}.items():
     assert k in h, k
     h = h.replace(k, v)
 (root / 'hyrox' / 'index.html').write_text(h)

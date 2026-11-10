@@ -43,6 +43,7 @@ AFIL_RAKUTEN_ID = '7KhHq5G3aIo'  # token de publisher da Aline na Rakuten
 AFIL_NETSHOES_MID = '43984'  # MID da Netshoes (Netshoes WL) na Rakuten
 AFIL_PUMA = 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma'  # Puma na Awin (mesmo do template)
 AFIL_ZATTINI = 'https://click.linksynergy.com/deeplink?id=7KhHq5G3aIo&mid=43985&murl={URL}'  # Zattini WL na Rakuten (MID 43985), mesmo do template
+AFIL_DECATHLON = 'https://www.awin1.com/cread.php?awinmid=19296&awinaffid=3132864&ued={URL}&platform=ma'  # Decathlon na Awin (MID 19296), mesmo do template
 AFIL_ML_WORD, AFIL_ML_TOOL = 'amartins', '42642259'  # Mercado Livre: matt_word e matt_tool do link meli.la da Aline (mesmos do template)
 
 
@@ -58,6 +59,8 @@ def afil(u):
             return urlunsplit((x.scheme, x.netloc, x.path, urlencode(q), x.fragment))
         if re.search(r'(^|\.)puma\.com$', x.hostname or '') and AFIL_PUMA:
             return AFIL_PUMA.replace('{URL}', quote(u, safe=''))
+        if re.search(r'(^|\.)decathlon\.com\.br$', x.hostname or '') and AFIL_DECATHLON:
+            return AFIL_DECATHLON.replace('{URL}', quote(u, safe=''))
         if re.search(r'(^|\.)zattini\.com\.br$', x.hostname or '') and AFIL_ZATTINI:
             return AFIL_ZATTINI.replace('{URL}', quote(u, safe=''))
         if re.search(r'(^|\.)netshoes\.com\.br$', x.hostname or '') and AFIL_NETSHOES_MID:

@@ -1,5 +1,5 @@
 {
- "conferido": "2026-11-08",
+ "conferido": "2026-11-10",
  "itens": [
   {
    "loja": "Puma",
@@ -181,6 +181,180 @@
    "preco": 999.99,
    "link": "https://br.puma.com/pd/mochila-puma-x-hyrox-daily-34l/092400.html",
    "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/092400/01/fnd/BRA/fmt/png"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Tênis de Treino Under Armour Project Rock 8 Feminino",
+   "marca": "Under Armour",
+   "preco": 449.99,
+   "link": "https://www.decathlon.com.br/tenis-de-treino-under-armour-project-rock-8-feminino-2145896207/p",
+   "categoria": "Tênis",
+   "de": 1099.99,
+   "genero": "Feminino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/179275793/17654867437689.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Tênis de Treino Under Armour Tribase Reign 6 Feminino",
+   "marca": "Under Armour",
+   "preco": 449.99,
+   "link": "https://www.decathlon.com.br/tenis-de-treino-under-armour-tribase-reign-6-feminino-2145936484/p",
+   "categoria": "Tênis",
+   "de": 899.99,
+   "genero": "Feminino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/177242613/17795245146581.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Tênis de Treino Masculino Under Armour Project Rock 7",
+   "marca": "Under Armour",
+   "preco": 479.99,
+   "link": "https://www.decathlon.com.br/tenis-de-treino-masculino-under-armour-project-rock-7-2145725642/p",
+   "categoria": "Tênis",
+   "de": 1099.99,
+   "genero": "Masculino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/164110346/17326440011569.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Tênis de Treino Masculino Under Armour Tribase Reps",
+   "marca": "Under Armour",
+   "preco": 249.99,
+   "link": "https://www.decathlon.com.br/tenis-de-treino-masculino-under-armour-tribase-reps-2145570844/p",
+   "categoria": "Tênis",
+   "de": 499.99,
+   "genero": "Masculino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/172188993/17104436861041.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Luva Adulta de Musculação Resist Corength Preta",
+   "marca": "Corength",
+   "preco": 89.99,
+   "link": "https://www.decathlon.com.br/luvas-de-musculacao-resistentes-preta-8883183-corength/p",
+   "categoria": "Acessórios",
+   "de": 99.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/166965380/packshot-codigo-modelo-8883183.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Luva de Treino Masculina Under Armour Training Glove",
+   "marca": "Under Armour",
+   "preco": 119.99,
+   "link": "https://www.decathlon.com.br/luva-de-treino-masculina-under-armour-training-glove-2145284990/p",
+   "categoria": "Acessórios",
+   "de": 199.99,
+   "genero": "Masculino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/35423556/16841169276979.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Corda Adulta de Cross Training de Velocidade Domyos Preta",
+   "marca": "Domyos",
+   "preco": 107.99,
+   "link": "https://www.decathlon.com.br/corda-de-pular-de-treino-velocidade-8641821-domyos/p",
+   "categoria": "Acessórios",
+   "de": 119.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/2720368/speed-rope-skipping-rope-preta-tam-unico1.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Corda de Pular Ajustável 500 Domyos Azul",
+   "marca": "Domyos",
+   "preco": 44.99,
+   "link": "https://www.decathlon.com.br/corda-de-saltar-com-pegas-de-borracha-comprimento-ajustavel-3m-escuro-azul-8828273-domyos/p",
+   "categoria": "Acessórios",
+   "de": 49.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/168539761/packshot-codigo-modelo-8828273.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Kettlebell de Treino Doméstico 8 Kg Domyos Cinza",
+   "marca": "Domyos",
+   "preco": 242.99,
+   "link": "https://www.decathlon.com.br/kettlebell-de-treino-domestico-8-kg-cinza-8946045-domyos/p",
+   "categoria": "Acessórios",
+   "de": 269.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/173359317/home-kettlebell-8-kg-8kg---preto---8-kg1.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Kettlebell de Treino 16kg Equilíbrio Fitness Preto",
+   "marca": "Equilibrio Fitness",
+   "preco": 449.99,
+   "link": "https://www.decathlon.com.br/kettlebell-16kg-com-base-vinil-pvc-preto-8509792-equilibrio-fitness/p",
+   "categoria": "Acessórios",
+   "de": 499.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/2533460/kettlebell.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Strap Adulto de cross Training e Musculação Corength Preto",
+   "marca": "Corength",
+   "preco": 71.99,
+   "link": "https://www.decathlon.com.br/estafa-de-musculacao-sem-furos-cross-training-8796825-corength/p",
+   "categoria": "Acessórios",
+   "de": 79.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/104799123/crosstraining-handgrip-2-11.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Joelheira Adulta de Musculação 5mm Domyos Preta",
+   "marca": "Domyos",
+   "preco": 89.99,
+   "link": "https://www.decathlon.com.br/joelheira-de-musculacao-para-agachamento-preta-8548500-domyos/p",
+   "categoria": "Acessórios",
+   "de": 99.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/2403209/joelheira---tamanho-3---g1.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Top Feminino de Treino MS Adidas Bordô",
+   "marca": "Adidas",
+   "preco": 149.99,
+   "link": "https://www.decathlon.com.br/top-feminino-para-treino-ms-bordo-9032572-adidas/p",
+   "categoria": "Roupas",
+   "de": 179.99,
+   "genero": "Feminino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/179984048/top-feminino-para-treino-ms-adidas-bordo-p1.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Top Feminino de Treino com Suporte Elevado Domyos Preto",
+   "marca": "Domyos",
+   "preco": 149.99,
+   "link": "https://www.decathlon.com.br/top-feminino-de-treino-com-suporte-elevado-domyos-preto-8578234-domyos/p",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/172939382/top-feminino-de-treino-com-suporte-elevado-domyos-preto-preto-3g1.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Short Masculino de Treino 120 Com Ziper Domyos Preto",
+   "marca": "Domyos",
+   "preco": 89.99,
+   "link": "https://www.decathlon.com.br/short-masculino-com-ziper-para-treino-120-preto-8547823-domyos/p",
+   "categoria": "Roupas",
+   "genero": "Masculino",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/132026580/shorts-masculino-de-academia-preto-4g1.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Meias de Corrida Run 500 Decathlon Azul",
+   "marca": "Decathlon",
+   "preco": 24.99,
+   "link": "https://www.decathlon.com.br/meias-de-corrida-run-500-azul-8948309-decathlon/p",
+   "categoria": "Meias e bonés",
+   "de": 39.99,
+   "genero": "Unissex",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/168283188/-run-500-thin-inv-br-whit-12-14---47-50-azul-33-36-br1.jpg"
   }
  ]
 }
