@@ -1066,7 +1066,7 @@ document.addEventListener('DOMContentLoaded', function(){
       }).join('') + '</div>';
     box.hidden = false;
     const cards = [...box.querySelectorAll('.hl-card')], bars = [...box.querySelectorAll('.hl-bars button')];
-    const vistos = new Set(); let i = 0, visivel = true, segura = false;
+    const vistos = new Set(); let i = 0, visivel = !('IntersectionObserver' in window) || box.getClientRects().length > 0, segura = false;
     const visto = () => { if(visivel && !document.hidden && !vistos.has(i)){ vistos.add(i); cap('destaque_visto', {destaque: itens[i].id || itens[i].titulo, posicao: i + 1, pagina}); } };
     function vai(n){
       const ant = i; i = (n + itens.length) % itens.length;

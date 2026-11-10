@@ -605,6 +605,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
       <p class="note" id="pt-intro" style="margin:0"></p>
     </div>
+    <div class="dq" id="pt-dest" role="region" aria-roledescription="carrossel" aria-label="Destaques dos parceiros" hidden></div>
     <div class="plogos" id="pt-logos" role="group" aria-label="Escolha um parceiro"></div>
     <div id="pt-sel" style="display:flex;flex-direction:column;gap:12px" hidden></div>
     <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px"></div>
@@ -851,7 +852,7 @@ __DATA__
       }).join('') + '</div>';
     box.hidden = false;
     const cards = [...box.querySelectorAll('.hl-card')], bars = [...box.querySelectorAll('.hl-bars button')];
-    const vistos = new Set(); let i = 0, visivel = true, segura = false;
+    const vistos = new Set(); let i = 0, visivel = !('IntersectionObserver' in window) || box.getClientRects().length > 0, segura = false;
     const visto = () => { if(visivel && !document.hidden && !vistos.has(i)){ vistos.add(i); cap('destaque_visto', {destaque: itens[i].id || itens[i].titulo, posicao: i + 1, pagina}); } };
     function vai(n){
       const ant = i; i = (n + itens.length) % itens.length;
@@ -884,9 +885,10 @@ __DATA__
   //  evento    {titulo, texto, selo, inicio, fim, link, quadro?} -> quadro com as datas (some depois do fim)
   //  parceiro  {marca, selo?, titulo?, texto?, link?}       -> logo, cupom e link de afiliada do cadastro em parceiros
   //  todos: ate? (some depois desse dia), patrocinado? (mostra "Patrocinado"), id
-  (function(){
+  //  "destaques_parceiros": mesma lista e mesmos tipos, no carrossel do topo da aba Parceiros (#pt-dest)
+  function itensDestaques(lista){
     const MK = {}; ((data.parceiros||{}).marcas||[]).forEach(m => { MK[m.nome] = m; });
-    const its = (data.destaques||[]).filter(d => { const f = d.ate || d.fim; return !f || f >= hoje; }).map(d => {
+    return (lista||[]).filter(d => { const f = d.ate || d.fim; return !f || f >= hoje; }).map(d => {
       const base = {id: d.id, titulo: d.titulo, sub: d.texto, link: d.link, patrocinado: !!d.patrocinado};
       if(d.tipo === 'parceiro'){
         const m = MK[d.marca]; if(!m || m.oculto) return null;
@@ -898,8 +900,9 @@ __DATA__
       const j = hlJanela(d.inicio, d.fim);
       return {...base, tag: (d.selo ? d.selo + ' · ' : '') + j.txt, hot: j.on, quadro: d.quadro || hlFaixa(d.inicio, d.fim)};
     }).filter(Boolean);
-    montaDestaques(document.getElementById('e-dest'), its, 'radar');
-  })();
+  }
+  montaDestaques(document.getElementById('e-dest'), itensDestaques(data.destaques), 'radar');
+  montaDestaques(document.getElementById('pt-dest'), itensDestaques(data.destaques_parceiros), 'parceiros');
   // endereço próprio de cada prova e tênis (mesma regra de src/paginas.py: mude os dois juntos)
   const slugTxt = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70).replace(/-+$/,'');
   function slugAll(arr, base, extra){ const b = arr.map(base); arr.forEach((x,i) => { x.slug = b.filter(v => v===b[i]).length > 1 ? b[i] + '-' + slugTxt(extra(x)) : b[i]; }); }
