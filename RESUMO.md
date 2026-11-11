@@ -88,6 +88,12 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - No Modo Aline: menu → "Carrossel da semana" (ou o link `radardecorrida.com.br/aline/#carrossel`) mostra as imagens, botão para salvar/compartilhar todas e a legenda para copiar.
 - E-mail: tarefa agendada **Carrossel da semana para a Aline (e-mail)**, toda quinta às 8h07, do Gmail do Leandro só para amcchagas@gmail.com: legenda, lista de provas, links das imagens e botão para abrir no Modo Aline. As imagens não vão anexadas (a ferramenta de e-mail exige o arquivo inteiro dentro do pedido, o que não cabe para imagens).
 
+## Carrossel do mês (desde 11/11/2026, pedido do Leandro)
+- "Provas de <mês> no Rio e em São Paulo" para o Instagram: capa (com o total do Rio e de SP) + slides de lista (8 provas por slide, primeiro o Rio, depois SP; as da Aline e com cupom vêm primeiro em cada dia) + slide final "Link na bio"; no máximo 20 imagens (o limite do Instagram), dividindo os slides entre RJ e SP pelo número de provas.
+- Período: o mês atual a partir de hoje; **a partir do dia 25 já gera o mês seguinte inteiro**, para a Aline postar no dia 1º.
+- Gerado por `src/carrossel_mes.py`, chamado no fim do `src/paginas.py` (logo, pela atualização diária). Grava `carrossel/mes/<n>-<versão>.jpg` e `carrossel/mes.json` (mês, totais por UF, legenda pronta até 2.200 caracteres, imagens). Só regrava quando as provas mudam. Simular: `python3 src/carrossel_mes.py AAAA-MM-DD` (não publicar a simulação). Visual: mudar o script e a constante `VERSAO`.
+- No Modo Aline: menu → "Carrossel do mês" (ou o link `radardecorrida.com.br/aline/#carrossel-mes`), no mesmo modal do carrossel da semana, com Feed (1080x1350) e **Story** (1080x1920, montado no celular), botão de salvar/compartilhar todas e legenda para copiar. Sem e-mail.
+
 ## Afiliados (desde 28/10/2026)
 - Amazon Associados: ID `amartins0b-20` (conta criada; precisa de 3 vendas em 180 dias para aprovação final). Aviso obrigatório no rodapé do site e na política de privacidade.
 - Netshoes (pela Rakuten Advertising): aprovada (SID do site 4767834; token de publisher `7KhHq5G3aIo`; **MID da Netshoes 43984**, "Netshoes WL", informado pela Aline em 01/11/2026). Links de produto da Netshoes viram deep link `click.linksynergy.com/deeplink?id=<token>&mid=43984&murl=<URL codificada>` no template (`AFIL.netshoesMid`) e em `afil()` do `src/paginas.py`; os dados guardam o link limpo da Netshoes.

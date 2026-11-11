@@ -400,6 +400,12 @@ def main():
         carrossel.main()
     except Exception as e:
         print(f'carrossel: ERRO ({e}); páginas geradas normalmente')
+    # carrossel "Provas do mês no Rio e em São Paulo" (Modo Aline; feed e story); um erro aqui não impede o resto
+    try:
+        import carrossel_mes
+        carrossel_mes.main()
+    except Exception as e:
+        print(f'carrossel: ERRO no carrossel do mês ({e}); páginas geradas normalmente')
 
 
 if __name__ == '__main__':
