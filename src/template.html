@@ -989,6 +989,8 @@ __DATA__
   const h = (location.hash||'').slice(1);
   if(tabs.includes(h)) first = h; else { try{ const s = localStorage.getItem('radar-aba2'); if(tabs.includes(s)) first = s; }catch(e){} }
   show(first);
+  // link direto para a Black (#black): abre a aba e já rola até ela, sem parar na foto de abertura
+  if(first === 'black') setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
 
   function chips(id, values, state, key, render, labels){
     const box = document.getElementById(id);

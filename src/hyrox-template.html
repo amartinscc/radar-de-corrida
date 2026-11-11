@@ -289,7 +289,8 @@ document.addEventListener('DOMContentLoaded', function(){
     ev('hyrox_aba', {aba: name});
   }
   tabs.forEach(t => document.getElementById('tab-'+t).addEventListener('click', () => { show(t); history.replaceState(null, '', '#' + t); }));
-  const h0 = (location.hash||'').slice(1); show(tabs.includes(h0) ? h0 : 'provas');
+  const h0 = (location.hash||'').slice(1).replace(/^(black-friday|1111)$/, 'black'); show(tabs.includes(h0) ? h0 : 'provas');
+  if(h0 === 'black' && blackOn) setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
   document.querySelectorAll('a[href="#eventos"],a[href="#onde-treinar"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); show('provas'); modoSet(a.getAttribute('href') === '#eventos' ? 'eventos' : 'locais'); document.getElementById('radar-abas').scrollIntoView({behavior: 'smooth'}); }));
 
   // ===== radar (mesmo desenho e varredura do radar principal) =====
