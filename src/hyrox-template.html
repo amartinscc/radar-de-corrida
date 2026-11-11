@@ -165,6 +165,14 @@ __TABS__
     <div class="list" id="t-list"></div>
   </div>
 
+  <div class="panel" id="p-black" role="tabpanel" aria-labelledby="tab-black" hidden>
+    <div class="bk-ban"><div class="k">BLACK <b>11/11</b></div>
+      <p>As melhores ofertas de Black Friday e do 11.11 para treinar e competir HYROX nas lojas parceiras da Aline, com os maiores descontos do radar.</p>
+      <span class="ate">Até 30 de novembro</span></div>
+    <div class="list" id="bk-list"></div>
+    <p class="note">Preços conferidos pelo radar nas lojas e que podem mudar ao longo do dia. Confira sempre na loja antes de comprar.</p>
+  </div>
+
   <div class="panel" id="p-roupas" role="tabpanel" aria-labelledby="tab-roupas" hidden>
     <h2 class="ptitle" style="margin:0">Parceiros</h2>
     <div class="list" id="pa-list"></div>
@@ -272,7 +280,10 @@ document.addEventListener('DOMContentLoaded', function(){
     return x.getMonth() === y.getMonth() ? x.getDate() + ' a ' + y.getDate() + ' ' + MES[x.getMonth()] : x.getDate() + ' ' + MES[x.getMonth()] + ' a ' + y.getDate() + ' ' + MES[y.getMonth()]; };
 
   // ===== abas =====
-  const tabs = ['provas','tenis','roupas','treino'];
+  // Black 11/11 (11/11/2026): aba temporária no lugar da antiga Resultados; some sozinha depois de BLACK_ATE
+  const BLACK_ATE = '2026-11-30', blackOn = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date()) <= BLACK_ATE;
+  const tabs = blackOn ? ['provas','tenis','roupas','black','treino'] : ['provas','tenis','roupas','treino'];
+  document.getElementById('tab-black').hidden = !blackOn;
   function show(name){
     tabs.forEach(t => { const b = document.getElementById('tab-'+t); b.setAttribute('aria-selected', String(t===name)); document.getElementById('p-'+t).hidden = t!==name; });
     ev('hyrox_aba', {aba: name});
@@ -555,8 +566,20 @@ __AFIL_JS__
   fetch('achados.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
     const box = document.getElementById('t-list'), xs = ((j && j.itens) || []).slice().sort((a,b) => ((b.de ? 1 - b.preco/b.de : 0) - (a.de ? 1 - a.preco/a.de : 0)));
     const c = document.querySelector('#tab-tenis .c'); if(c) c.textContent = xs.length;
+    const offDe = o => o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
+    if(blackOn){ // Black 11/11: primeiro os marcados como Black Friday ("black": true), depois os maiores descontos
+      const bk = xs.filter(o => o.black || offDe(o) >= 20).sort((a,b) => (b.black?1:0) - (a.black?1:0) || offDe(b) - offDe(a));
+      const cb = document.querySelector('#tab-black .c'); if(cb) cb.textContent = bk.length;
+      const bl = document.getElementById('bk-list');
+      if(!bk.length) bl.innerHTML = '<p class="empty">As ofertas de Black Friday entram na próxima busca do radar.</p>';
+      bk.forEach(o => { const el = cardHx(o); if(o.black){ const tg = document.createElement('span'); tg.className = 'bktag'; tg.textContent = 'Black Friday'; el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); } bl.appendChild(el); });
+    }
     if(!xs.length){ box.innerHTML = '<p class="empty">Os achados Hyrox entram na próxima busca do radar.</p>'; return; }
-    xs.forEach(o => {
+    xs.forEach(o => box.appendChild(cardHx(o)));
+    abreCompartilhado('achados');
+  });
+  function cardHx(o){
+    {
       const off = o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
       const el = document.createElement('article'); el.className = 'deal';
       el.innerHTML = `<div class="bib">${off ? `<div class="n">${off}%</div><div class="t">off</div>` : '<div class="n">✓</div><div class="t">hyrox</div>'}</div>
@@ -568,10 +591,9 @@ __AFIL_JS__
         el.querySelector('.bib').replaceWith(th); im.onerror = () => th.remove(); }
       const a = el.querySelector('a.go'); a.href = afil(o.link); a.addEventListener('click', () => ev('clique_loja', {tenis: o.nome, loja: o.loja, preco: o.preco, onde: 'hyrox'}));
       botaoShare(el, 'achado', o);
-      box.appendChild(el);
-    });
-    abreCompartilhado('achados');
-  });
+      return el;
+    }
+  }
 
   // ===== parceiros =====
   // marcas e logos vêm do radar principal (gerados pelo src/hyrox.py); texto próprio do Hyrox para cada uma

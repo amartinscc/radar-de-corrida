@@ -487,6 +487,17 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 /* Brilho na bolinha dos Parceiros */
 #tab-roupas .ring::before{content:"";position:absolute;inset:-5px;border-radius:50%;background:conic-gradient(from 0deg,#7FC8CC,var(--mauve),#E8774A,#FFD27A,#7FC8CC);filter:blur(6px);opacity:.55;z-index:-1}
 #tab-roupas .ring{isolation:isolate}
+/* aba Black 11/11 (temporária: aparece até BLACK_ATE e depois volta a aba Resultados) */
+#tab-black .ring{background:linear-gradient(135deg,#0B0B0D,#E8B931 50%,#0B0B0D)}
+#tab-black .ic{background:#0B0B0D;color:#F5C84C}
+#tab-black[aria-selected="true"] .ring{background:linear-gradient(135deg,#F5C84C,#0B0B0D 50%,#F5C84C)}
+#tab-black .lb b{color:#C99A12}
+.bk-ban{background:#0B0B0D;color:#fff;border-radius:22px;padding:22px 18px;margin:0 0 12px;border:1px solid #E8B931;text-align:center;box-shadow:0 0 24px rgba(232,185,49,.18)}
+.bk-ban .k{font:900 36px/1 var(--display);letter-spacing:.01em}
+.bk-ban .k b{color:#F5C84C}
+.bk-ban p{margin:10px auto 0;max-width:420px;font:500 14px/1.45 var(--body);color:#D9D9DF}
+.bk-ban .ate{display:inline-block;margin-top:12px;padding:4px 11px;border-radius:999px;background:#F5C84C;color:#0B0B0D;font:800 11px/1.4 var(--body);letter-spacing:.06em;text-transform:uppercase}
+.deal .bktag{display:inline-block;align-self:flex-start;margin:0 0 4px;padding:2px 8px;border-radius:999px;background:#0B0B0D;color:#F5C84C;font:800 10px/1.4 var(--body);letter-spacing:.06em;text-transform:uppercase;border:1px solid #E8B931}
 #tab-roupas .ring::after{content:"";position:absolute;top:2px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px rgba(255,210,122,.9);opacity:0}
 @media (prefers-reduced-motion:no-preference){
   #tab-roupas .ring::before{animation:pglow 2.8s ease-in-out infinite, pspin 8s linear infinite}
@@ -589,6 +600,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <button class="tab" role="tab" id="tab-provas" aria-controls="p-provas" aria-selected="true"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor"/></svg></span><span class="c" id="c-provas"></span></span><span class="lb">Provas</span></button>
     <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M17.5 2.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-tenis"></span></span><span class="lb">Achados</span></button>
     <button class="tab" role="tab" id="tab-roupas" aria-controls="p-roupas" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M10.5 15.5l5-5"/><circle cx="11.2" cy="11.4" r=".9" fill="currentColor"/><circle cx="14.8" cy="14.6" r=".9" fill="currentColor"/></svg></span><span class="c" id="c-roupas"></span></span><span class="lb">Parceiros</span></button>
+    <button class="tab" role="tab" id="tab-black" aria-controls="p-black" aria-selected="false" hidden><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><path d="M12.5 7.5l-3 5h3l-1.5 4.5 4-6h-3l1.5-3.5z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-black"></span></span><span class="lb">Black <b>11/11</b></span></button>
     <button class="tab" role="tab" id="tab-result" aria-controls="p-result" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l-2.2 6.2M8 3l2.2 6.2M10.2 3 12 8.3 13.8 3"/><circle cx="12" cy="15" r="5.5"/><path d="M12 12.4l.8 1.6 1.8.3-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.3z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-result"></span></span><span class="lb">Resultados</span></button>
     <button class="tab" role="tab" id="tab-treino" aria-controls="p-treino" aria-selected="false"><span class="ring"><span class="ic"><span class="sil" aria-hidden="true"></span></span></span><span class="lb">Treine comigo</span></button>
   </div>
@@ -653,6 +665,16 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   </section>
     <p class="note" style="text-align:center;margin:0 auto">Tempos líquidos (chip) dos resultados oficiais de cada prova.</p>
     <div class="news" data-origem="resultados" data-h="As provas do fim de semana no seu e-mail" data-p="Toda quinta: as corridas de sábado e domingo no Rio, com o link de inscrição, para você colocar no seu plano. Grátis."></div>
+  </div>
+
+  <div class="panel" id="p-black" role="tabpanel" aria-labelledby="tab-black" hidden>
+    <div class="bk-ban"><div class="k">BLACK <b>11/11</b></div>
+      <p>As melhores ofertas de Black Friday e do 11.11 nas lojas parceiras da Aline: tênis, roupas, relógios e o que você usa para correr, com os maiores descontos do radar.</p>
+      <span class="ate" id="bk-ate">Até 30 de novembro</span></div>
+    <div class="catbar" id="bk-cat" role="group" aria-label="Categorias"></div>
+    <div class="list" id="bk-list"></div>
+    <p class="note">Preços conferidos pelo radar nas lojas e que podem mudar ao longo do dia. Confira sempre na loja antes de comprar.</p>
+    <div class="news" data-origem="black" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: as melhores ofertas de corrida das lojas parceiras da Aline. Grátis."></div>
   </div>
 
   <div class="panel" id="p-roupas" role="tabpanel" aria-labelledby="tab-roupas" hidden>
@@ -980,7 +1002,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 64.9,
    "link": "https://www.mercadolivre.com.br/creatina-growth-supplements-monohidratada-em-po-sem-sabor-x-250g/p/MLB19603205",
    "categoria": "Suplementos",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_662415-MLA97812910758_112025-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_662415-MLA97812910758_112025-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -990,7 +1013,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 139.9,
    "link": "https://www.mercadolivre.com.br/creatina-monohidratada-500g-pouch-growth-supplements/up/MLBU5177324326",
    "categoria": "Suplementos",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_923658-MLB117765624789_092026-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_923658-MLB117765624789_092026-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -1400,7 +1424,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://br.puma.com/pd/tenis-de-corrida-skyrocket-lite-2-feminino/314355.html",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/314355/30/sv01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/314355/30/sv01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1411,7 +1436,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://br.puma.com/pd/tenis-flyer-runner-mesh-feminino/309693.html",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/309693/07/sv01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/309693/07/sv01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1444,7 +1470,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://br.puma.com/pd/tenis-de-corrida-skyrocket-lite-2-unissex/311730.html",
    "categoria": "Tênis",
    "genero": "Unissex",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/311730/14/sv01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/311730/14/sv01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1456,7 +1483,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Roupas",
    "genero": "Feminino",
    "condicao": "Leve 3, pague 2 no carrinho",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/524965/01/mod01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/524965/01/mod01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1468,7 +1496,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Roupas",
    "genero": "Feminino",
    "condicao": "Leve 3, pague 2 no carrinho",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526585/38/mod01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526585/38/mod01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1480,7 +1509,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Roupas",
    "genero": "Masculino",
    "condicao": "Leve 3, pague 2 no carrinho",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526635/01/mod01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526635/01/mod01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1492,7 +1522,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Roupas",
    "genero": "Masculino",
    "condicao": "Leve 3, pague 2 no carrinho",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526600/38/mod01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526600/38/mod01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1504,7 +1535,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Roupas",
    "genero": "Masculino",
    "condicao": "Leve 3, pague 2 no carrinho",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526630/02/mod01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526630/02/mod01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1516,7 +1548,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Roupas",
    "genero": "Feminino",
    "condicao": "Leve 3, pague 2 no carrinho",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526960/52/mod01/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/526960/52/mod01/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Puma",
@@ -1527,7 +1560,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://br.puma.com/pd/garrafa-training-sportstyle/053518.html",
    "categoria": "Hidratação",
    "condicao": "Leve 3, pague 2 no carrinho",
-   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/053518/36/fnd/BRA/fmt/png"
+   "foto": "https://images.puma.com/image/upload/f_auto,q_auto,w_600,b_rgb:FAFAFA/global/053518/36/fnd/BRA/fmt/png",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -1538,7 +1572,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0FH3W32GS",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://m.media-amazon.com/images/I/518oCv3h4wL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/518oCv3h4wL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -1549,7 +1584,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0FFTT8FQ8",
    "categoria": "Tênis",
    "genero": "Unissex",
-   "foto": "https://m.media-amazon.com/images/I/61Rt2bAuzML.jpg"
+   "foto": "https://m.media-amazon.com/images/I/61Rt2bAuzML.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -1582,7 +1618,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0F1C2BS84",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://m.media-amazon.com/images/I/71mb90Nsw+L.jpg"
+   "foto": "https://m.media-amazon.com/images/I/71mb90Nsw+L.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -1603,7 +1640,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 2199.0,
    "link": "https://www.amazon.com.br/dp/B0953X73TP",
    "categoria": "Relógios",
-   "foto": "https://m.media-amazon.com/images/I/51-D8JBR8+L.jpg"
+   "foto": "https://m.media-amazon.com/images/I/51-D8JBR8+L.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -1613,7 +1651,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 549.0,
    "link": "https://www.amazon.com.br/dp/B0CVCLGV1W",
    "categoria": "Relógios",
-   "foto": "https://m.media-amazon.com/images/I/61o3-pf41tL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/61o3-pf41tL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2440,7 +2479,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://produto.mercadolivre.com.br/MLB-4147348013-tnis-new-balance-more-v6-de-corrida-masculino-original-_JM",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_864079-MLB109858400074_042026-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_864079-MLB109858400074_042026-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -2451,7 +2491,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://produto.mercadolivre.com.br/MLB-5613191154-tnis-new-balance-fuelcell-rebel-v5-masculino-performance-_JM",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_981660-MLB112917399148_072026-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_981660-MLB112917399148_072026-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -2462,7 +2503,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://produto.mercadolivre.com.br/MLB-4006019585-tnis-asics-dynablast-5-masculino-corrida-caminhada-_JM",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_887339-MLB114543825638_082026-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_887339-MLB114543825638_082026-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -2473,7 +2515,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://produto.mercadolivre.com.br/MLB-3806655487-tnis-flyer-runner-mesh-bdp-puma-_JM",
    "categoria": "Tênis",
    "genero": "Unissex",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_730513-MLB80451340719_112024-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_730513-MLB80451340719_112024-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -2483,7 +2526,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 239.9,
    "link": "https://www.mercadolivre.com.br/creatina-soldiers-nutrition-em-po-sem-sabor-x-1kg/p/MLB18725310",
    "categoria": "Suplementos",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_605306-MLA119872143535_102026-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_605306-MLA119872143535_102026-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -2493,7 +2537,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 159.9,
    "link": "https://www.mercadolivre.com.br/creatina-monohidratada-1kg-100-pura-dark-lab/p/MLB25929487",
    "categoria": "Suplementos",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_603981-MLA115262802698_082026-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_603981-MLA115262802698_082026-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -2504,7 +2549,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://produto.mercadolivre.com.br/MLB-3781902941-top-lupo-loba-fitness-confortavel-otima-sustentaco-academia-_JM",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_943209-MLB95115260847_102025-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_943209-MLB95115260847_102025-O.webp",
+   "black": true
   },
   {
    "loja": "Mercado Livre",
@@ -2515,7 +2561,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.mercadolivre.com.br/calca-legging-lupo-max-feminino-academia-cintura-alta-treino/up/MLBU3804269583",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "foto": "https://http2.mlstatic.com/D_NQ_NP_895917-MLB97920173968_112025-O.webp"
+   "foto": "https://http2.mlstatic.com/D_NQ_NP_895917-MLB97920173968_112025-O.webp",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2526,7 +2573,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0CC6MJX1W",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://m.media-amazon.com/images/I/5112Ex50iiL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/5112Ex50iiL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2537,7 +2585,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0CC6VM1R6",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://m.media-amazon.com/images/I/617-4sTCKVL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/617-4sTCKVL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2548,7 +2597,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0F9PYK68S",
    "categoria": "Tênis",
    "genero": "Unissex",
-   "foto": "https://m.media-amazon.com/images/I/511ONMjo5vL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/511ONMjo5vL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2559,7 +2609,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0G2MFDX4W",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://m.media-amazon.com/images/I/614q0MEULvL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/614q0MEULvL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2570,7 +2621,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0FH4DQLZ1",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://m.media-amazon.com/images/I/51dxJF1kCNL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/51dxJF1kCNL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2581,7 +2633,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0GMK9NJ1M",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://m.media-amazon.com/images/I/61F6SqII8YL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/61F6SqII8YL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2592,7 +2645,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0GSCJGSCT",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://m.media-amazon.com/images/I/51QwQybuKqL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/51QwQybuKqL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2603,7 +2657,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0G9BKTBSB",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "foto": "https://m.media-amazon.com/images/I/61O9XpjU05L.jpg"
+   "foto": "https://m.media-amazon.com/images/I/61O9XpjU05L.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2614,7 +2669,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0FYRF74R6",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "foto": "https://m.media-amazon.com/images/I/610A4btHzLL.jpg"
+   "foto": "https://m.media-amazon.com/images/I/610A4btHzLL.jpg",
+   "black": true
   },
   {
    "loja": "Amazon",
@@ -2625,7 +2681,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.amazon.com.br/dp/B0G5J181MX",
    "categoria": "Roupas",
    "genero": "Masculino",
-   "foto": "https://m.media-amazon.com/images/I/61a2fTvp2+L.jpg"
+   "foto": "https://m.media-amazon.com/images/I/61a2fTvp2+L.jpg",
+   "black": true
   },
   {
    "loja": "Netshoes",
@@ -2637,7 +2694,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Tênis",
    "genero": "Feminino",
    "condicao": "no Pix",
-   "foto": "https://static.netshoes.com.br/produtos/tenis-adidas-adizero-boston-11-feminino/26/FB9-1256-026/FB9-1256-026_zoom1.jpg"
+   "foto": "https://static.netshoes.com.br/produtos/tenis-adidas-adizero-boston-11-feminino/26/FB9-1256-026/FB9-1256-026_zoom1.jpg",
+   "black": true
   },
   {
    "loja": "Netshoes",
@@ -2649,7 +2707,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "categoria": "Tênis",
    "genero": "Feminino",
    "condicao": "no Pix",
-   "foto": "https://static.netshoes.com.br/produtos/tenis-olympikus-veloz-2-feminino-34-pretorosa/34/2I2-6030-234/2I2-6030-234_zoom1.jpg"
+   "foto": "https://static.netshoes.com.br/produtos/tenis-olympikus-veloz-2-feminino-34-pretorosa/34/2I2-6030-234/2I2-6030-234_zoom1.jpg",
+   "black": true
   },
   {
    "loja": "Zattini",
@@ -2660,7 +2719,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.zattini.com.br/p/tenis-de-corrida-diadora-mythos-blushield-8-vortice-hip-w-feminino-preto-LET-23UC-172",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://static.zattini.com.br/produtos/tenis-de-corrida-diadora-mythos-blushield-8-vortice-hip-w-feminino-preto/72/LET-23UC-172/LET-23UC-172_zoom1.jpg"
+   "foto": "https://static.zattini.com.br/produtos/tenis-de-corrida-diadora-mythos-blushield-8-vortice-hip-w-feminino-preto/72/LET-23UC-172/LET-23UC-172_zoom1.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2671,7 +2731,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.decathlon.com.br/tenis-de-corrida-feminino-mizuno-wave-skyrise-4-2145436043/p",
    "categoria": "Tênis",
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/50584554/16928219851463.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/50584554/16928219851463.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2682,7 +2743,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.decathlon.com.br/tenis-de-corrida-masculino-mizuno-wave-skyrise-4-2145436049/p",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170054320/17581460931397.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170054320/17581460931397.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2693,7 +2755,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.decathlon.com.br/regata-masculina-de-corrida-900-light-branca-8872864-kiprun/p",
    "categoria": "Roupas",
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/165376681/packshot-codigo-modelo-8872864.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/165376681/packshot-codigo-modelo-8872864.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2704,7 +2767,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.decathlon.com.br/tenis-masculino-de-corrida-hyperion-elite-4-cinza-9000959-brooks/p",
    "categoria": "Tênis",
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/168915126/packshot-codigo-modelo-9000959.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/168915126/packshot-codigo-modelo-9000959.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2715,7 +2779,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.decathlon.com.br/shorts-run-2-olympikus-feminino-2145574879/p",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/169956895/17581315339713.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/169956895/17581315339713.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2726,7 +2791,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "link": "https://www.decathlon.com.br/top-flex-compression-olympikus-feminino-2145619352/p",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170044542/17581443799169.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170044542/17581443799169.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2736,7 +2802,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 189.99,
    "link": "https://www.decathlon.com.br/viseira-de-corrida-under-armour-iso-chill-launch-2145672565/p",
    "categoria": "Meias e bonés",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/155023953/17210816808550.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/155023953/17210816808550.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -2746,7 +2813,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
    "de": 59.99,
    "link": "https://www.decathlon.com.br/meia-performance-corre-cano-medio-olympikus-feminina-2145826724/p",
    "categoria": "Meias e bonés",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/168858473/17522634343498.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/168858473/17522634343498.jpg",
+   "black": true
   }
  ],
  "provas": [
@@ -14532,7 +14600,12 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   document.getElementById('c-provas').textContent = provas.length;
   
   // abas
-  const tabs = ['provas','tenis','roupas','result','treino'];  // ordem das abas (07/11/2026: Achados e Resultados trocaram de lugar)
+  // Black 11/11 (11/11/2026): até BLACK_ATE a aba Black 11/11 ocupa o lugar da aba Resultados; depois, Resultados volta sozinha (os resultados continuam guardados abaixo)
+  const BLACK_ATE = '2026-11-30', blackOn = hoje <= BLACK_ATE;
+  const tabs = ['provas','tenis','roupas', blackOn ? 'black' : 'result','treino'];  // ordem das abas (07/11/2026: Achados e Resultados trocaram de lugar)
+  document.getElementById('tab-black').hidden = !blackOn;
+  if(blackOn) document.getElementById('tab-result').hidden = true;
+  if(blackOn && ['black','black-friday','1111'].includes((location.hash||'').slice(1))) history.replaceState(null, '', location.pathname + location.search + '#black');
   if(location.hash === '#achados') history.replaceState(null, '', location.pathname + location.search + '#tenis');
   function show(name){
     tabs.forEach(t => {
@@ -14657,6 +14730,35 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   document.getElementById('t-q').addEventListener('input', e => { ts.q = e.target.value; renderT(); clearTimeout(qT); qT = setTimeout(() => { if(window.posthog && ts.q.trim().length > 2) posthog.capture('achados_busca', {busca: ts.q.trim().slice(0,40)}); }, 1500); });
   renderT();
   toggler('t-fbtn','t-fpanel'); clearer('t-clear', ['t-gen','t-marca','t-loja','t-afil'], ts, ['gen','marca','loja','afil'], renderT);
+
+  // Black 11/11: primeiro os achados marcados como Black Friday/11.11 pela loja ("black": true), depois os maiores descontos (35% ou mais)
+  (function(){
+    if(!blackOn) return;
+    const pool = tenis.filter(o => o.black || o.off >= 35).sort((a,b) => (b.black?1:0) - (a.black?1:0) || b.off - a.off).slice(0, 60);
+    document.getElementById('c-black').textContent = pool.length;
+    const grp = o => o.categoria==='Tênis' ? 'Tênis' : o.categoria==='Roupas' ? 'Roupas' : 'Acessórios e mais';
+    const cats = ['Todos', ...['Tênis','Roupas','Acessórios e mais'].filter(c => pool.some(o => grp(o)===c))];
+    let cat = 'Todos';
+    const box = document.getElementById('bk-cat');
+    function render(){
+      const rows = pool.filter(o => cat==='Todos' || grp(o)===cat);
+      fill(document.getElementById('bk-list'), rows, o => {
+        const el = dealCard(o, [o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · '));
+        if(o.black){ const tg = document.createElement('span'); tg.className = 'bktag'; tg.textContent = 'Black Friday'; el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); }
+        return el;
+      }, 'As ofertas de Black Friday entram na próxima busca do radar.');
+    }
+    cats.forEach(c => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.v = c;
+      b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = c;
+      b.querySelector('small').textContent = c==='Todos' ? pool.length : pool.filter(o => grp(o)===c).length;
+      b.setAttribute('aria-pressed', String(c==='Todos'));
+      b.addEventListener('click', () => { cat = c; box.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v===c))); render(); if(window.posthog) posthog.capture('black_categoria', {categoria: c}); });
+      box.appendChild(b);
+    });
+    if(cats.length < 3) box.hidden = true;
+    render();
+  })();
 
   // geografia das provas
   const PLACES = [
