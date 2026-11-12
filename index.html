@@ -15477,7 +15477,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   function telaLinks(){
     const amzHome = 'https://www.amazon.com.br/?tag=' + AFIL.amazon;
     admBody.innerHTML = `<div class="adm-list">
-      <p class="lb" style="margin:0">Amazon</p>
+      <a class="follow" href="/links/" target="_blank" rel="noopener" style="justify-content:center"><span>Abrir o gerador de links</span><small>cole o link e pronto</small></a>
+      <p class="lb" style="margin:6px 0 0">Amazon</p>
       <a class="follow alt" href="${amzHome}" target="_blank" rel="noopener"><span>Abrir a Amazon com meu link</span><small>código ${AFIL.amazon}</small></a>
       <button class="follow alt" type="button" data-cp="${amzHome}"><span>Copiar link da Amazon</span><small>para bio e stories</small></button>
       <p class="hint" style="text-align:left">Dica: logada na Amazon, aparece no topo de cada produto a barra <b>SiteStripe</b>, que gera o link curto (amzn.to) já com o seu código.</p>

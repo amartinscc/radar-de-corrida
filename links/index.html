@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#D9C1D9">
+<title>Gerador de links da Aline</title>
+<link rel="manifest" href="/links/manifest.webmanifest">
+<link rel="icon" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="apple-mobile-web-app-title" content="Meus links">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --g1:#BBE3E5; --g2:#D9C1D9; --bg:#F6F0F6; --surface:#FFFFFF; --ink:#1D1220; --muted:#6B5A6E; --line:#E7DAE8;
+  --accent:#7A4E7D; --mauve:#B28AB1; --mauve-ink:#1D1220; --hot:#B4501F; --good:#2E7A55; --soft:#EFE3EF;
+  --head:"Urbanist",system-ui,sans-serif; --body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --g1:#17302F; --g2:#3A2540; --bg:#1D1220; --surface:#2A1D2E; --ink:#F4ECF4; --muted:#BBA9BC; --line:#3E2D43;
+  --accent:#DDB9DD; --hot:#F28A5B; --good:#5FCB94; --soft:#33243A;
+}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg) linear-gradient(180deg,var(--g1) 0,var(--g2) 300px,var(--bg) 620px) no-repeat;color:var(--ink);font:400 15px/1.45 var(--body);padding:24px 16px 48px;min-height:100vh}
+main{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0}
+h1{font:800 32px/1.05 var(--head);margin:6px 0 4px;letter-spacing:-.01em}
+.sub{margin:0;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 24px rgba(29,18,32,.06)}
+.lb{font:700 13px var(--body);margin:0;color:var(--ink)}
+textarea{width:100%;min-height:92px;resize:vertical;font:500 15px/1.4 var(--body);padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink)}
+textarea:focus{outline:none;border-color:var(--mauve)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1 1 0}
+button,.btn{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 16px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;font:700 15px var(--body);background:var(--mauve);color:var(--mauve-ink)}
+.alt{background:var(--soft);color:var(--ink)}
+.ghost{background:transparent;color:var(--muted);min-height:36px;padding:6px 10px;font-weight:600;font-size:13px}
+.big{font-size:17px;min-height:54px}
+.lojas{display:flex;flex-wrap:wrap;gap:6px}
+.lojas span{font:600 12px var(--body);padding:5px 10px;border-radius:999px;background:var(--soft);color:var(--muted)}
+.lojas span.on{background:var(--mauve);color:var(--mauve-ink)}
+#msg{margin:0;font-weight:600}
+#msg.err{color:var(--hot)} #msg.ok{color:var(--good)}
+#res[hidden]{display:none}
+.out{word-break:break-all;font:500 13px/1.4 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border:1.5px dashed var(--mauve);border-radius:14px;padding:12px;user-select:all;margin:0}
+.wa{background:#25D366;color:#0B2E17}
+.hist{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.hist li{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.hist li:last-child{border-bottom:0;padding-bottom:0}
+.hist .t{flex:1;min-width:0}
+.hist .t b{display:block;font-size:13px}
+.hist .t small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist button{min-height:38px;padding:8px 14px;font-size:13px;flex:0 0 auto}
+.homes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.homes button{min-height:44px;font-size:14px}
+details summary{cursor:pointer;font-weight:700;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:" ▾";color:var(--muted)}
+.hint{color:var(--muted);font-size:13px;margin:0}
+.hint b{color:var(--ink)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;transition:.25s;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;pointer-events:none;z-index:9}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Radar de Corrida · só da Aline</p>
+    <h1>Gerador de links</h1>
+    <p class="sub">Cole o link normal do produto e pegue o seu link de afiliada, pronto para mandar.</p>
+  </header>
+
+  <section class="card">
+    <p class="lb">1. Cole o link do produto</p>
+    <textarea id="in" placeholder="Cole aqui o link (ou o texto inteiro que o app copiou)" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+    <div class="row">
+      <button type="button" class="alt" id="colar">📋 Colar</button>
+      <button type="button" id="gerar">Gerar meu link</button>
+    </div>
+    <div class="lojas" id="lojas"></div>
+    <p id="msg" aria-live="polite"></p>
+  </section>
+
+  <section class="card" id="res" hidden>
+    <p class="lb">2. Seu link da <span id="loja"></span></p>
+    <p class="out" id="out"></p>
+    <button type="button" class="big" id="copiar">Copiar meu link</button>
+    <div class="row">
+      <button type="button" class="alt" id="compart">Compartilhar</button>
+      <a class="btn wa" id="wa" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <div class="row">
+      <a class="btn ghost" id="testar" target="_blank" rel="noopener">Abrir para testar ↗</a>
+      <button type="button" class="ghost" id="limpar">Gerar outro</button>
+    </div>
+  </section>
+
+  <section class="card" id="histCard" hidden>
+    <div class="row" style="align-items:center"><p class="lb" style="flex:1">Últimos links gerados</p><button type="button" class="ghost" id="apagaHist" style="flex:0 0 auto">Apagar</button></div>
+    <ul class="hist" id="hist"></ul>
+  </section>
+
+  <section class="card">
+    <p class="lb">Link da loja inteira (para bio e stories)</p>
+    <div class="homes" id="homes"></div>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary>Como pegar o link certo no app</summary>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+        <p class="hint"><b>Qualquer loja:</b> no produto, toque em <b>Compartilhar → Copiar</b> e cole aqui. Pode colar o texto inteiro que o app copiou ("Olha isso… https://…"), o gerador acha o link sozinho.</p>
+        <p class="hint"><b>Amazon:</b> o app costuma copiar um link curto (<b>a.co/…</b> ou <b>amzn.to/…</b>), que esconde o produto. Abra esse link no navegador (Chrome ou Safari), espere a página do produto carregar e copie o endereço da barra lá em cima.</p>
+        <p class="hint"><b>Mercado Livre:</b> se vier <b>meli.la/…</b> ou <b>mercadolivre.com/sec/…</b>, faça o mesmo: abra no navegador e copie o endereço da página do produto.</p>
+        <p class="hint"><b>Link de outra pessoa:</b> se você colar um link de afiliado de outra pessoa (Amazon, Awin, Rakuten), o gerador troca pelo seu.</p>
+        <p class="hint"><b>Atalho:</b> no Chrome do Android, menu ⋮ → <b>Adicionar à tela inicial</b>. Depois disso, o "Gerador da Aline" aparece no menu Compartilhar dos apps e o link chega aqui sozinho. No iPhone: Safari → Compartilhar → <b>Adicionar à Tela de Início</b>.</p>
+      </div>
+    </details>
+  </section>
+</main>
+<div id="toast"></div>
+
+<script>
+(function(){
+  // Códigos de afiliada da Aline (os mesmos de src/template.html e src/paginas.py)
+  const AFIL = {
+    amazonTag: 'amartins0b-20',
+    rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', zattiniMid: '43985',
+    mlWord: 'amartins', mlTool: '42642259',
+    awinAff: '3132864', pumaMid: '32675', decathlonMid: '19296'
+  };
+  const HOMES = [
+    ['Amazon', 'https://www.amazon.com.br/?tag=' + AFIL.amazonTag],
+    ['Netshoes', 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0'],
+    ['Mercado Livre', 'https://meli.la/2HAaDz4'],
+    ['Zattini', rakuten(AFIL.zattiniMid, 'https://www.zattini.com.br/')],
+    ['Puma', awin(AFIL.pumaMid, 'https://br.puma.com/')],
+    ['Decathlon', awin(AFIL.decathlonMid, 'https://www.decathlon.com.br/')]
+  ];
+  const LOJAS = ['Amazon','Netshoes','Mercado Livre','Zattini','Puma','Decathlon'];
+
+  function rakuten(mid, url){ return 'https://click.linksynergy.com/deeplink?id=' + AFIL.rakutenId + '&mid=' + mid + '&murl=' + encodeURIComponent(url); }
+  function awin(mid, url){ return 'https://www.awin1.com/cread.php?awinmid=' + mid + '&awinaffid=' + AFIL.awinAff + '&ued=' + encodeURIComponent(url) + '&platform=ma'; }
+  const is = (host, dom) => host === dom || host.endsWith('.' + dom);
+
+  // tira o endereço do meio do texto que o app copiou
+  function achaUrl(txt){
+    txt = (txt || '').trim();
+    let m = txt.match(/https?:\/\/[^\s<>"']+/i);
+    if(!m){ m = txt.match(/(?:www\.|[a-z0-9-]+\.)?(?:amazon\.com\.br|netshoes\.com\.br|zattini\.com\.br|mercadolivre\.com\.br|puma\.com|decathlon\.com\.br|a\.co|amzn\.to|meli\.la)\/[^\s<>"']*/i); if(m) return 'https://' + m[0].replace(/[).,;!]+$/, ''); }
+    return m ? m[0].replace(/[).,;!]+$/, '') : '';
+  }
+
+  // links de afiliado (dela ou de outra pessoa) viram o link limpo do produto
+  function desembrulha(x){
+    for(let i = 0; i < 3; i++){
+      const h = x.hostname.toLowerCase();
+      let alvo = null;
+      if(is(h, 'awin1.com')) alvo = x.searchParams.get('ued') || x.searchParams.get('p');
+      else if(is(h, 'linksynergy.com')) alvo = x.searchParams.get('murl') || x.searchParams.get('RD_PARM1');
+      if(!alvo) break;
+      try{ x = new URL(alvo.includes('%3A') || alvo.includes('%2F') ? decodeURIComponent(alvo) : alvo); }catch(e){ break; }
+    }
+    return x;
+  }
+
+  // mantém só o que identifica o produto (tira rastreio de outros sites)
+  const MANTER = ['skuid','idsku','sku','variant','color','size','cor','tamanho','q','k','i','node','rh'];
+  function limpa(x, todas){
+    const y = new URL(x.origin + x.pathname);
+    if(!todas) x.searchParams.forEach((v, k) => { if(MANTER.includes(k.toLowerCase())) y.searchParams.set(k, v); });
+    return y;
+  }
+
+  function gera(txt){
+    const u = achaUrl(txt);
+    if(!u) return {erro: 'Não achei nenhum link aí. Copie o link do produto e cole de novo.'};
+    let x; try{ x = new URL(u); }catch(e){ return {erro: 'Esse link parece incompleto. Copie de novo o endereço do produto.'}; }
+    x = desembrulha(x);
+    const h = x.hostname.toLowerCase();
+
+    if(is(h, 'a.co') || is(h, 'amzn.to') || is(h, 'amzn.eu') || is(h, 'amzn.com'))
+      return {loja: 'Amazon', erro: 'Esse é um link curto da Amazon, que esconde o produto. Abra ele no navegador, espere a página do produto carregar e copie o endereço da barra lá em cima.', abrir: u};
+    if(is(h, 'meli.la') || (h === 'mercadolivre.com' || h === 'www.mercadolivre.com'))
+      return {loja: 'Mercado Livre', erro: 'Esse é um link curto do Mercado Livre. Abra ele no navegador e copie o endereço da página do produto (mercadolivre.com.br/…).', abrir: u};
+
+    if(is(h, 'amazon.com.br')){
+      const asin = (x.pathname.match(/\/(?:dp|gp\/product|gp\/aw\/d|exec\/obidos\/ASIN|o\/ASIN)\/([A-Z0-9]{10})/i) || [])[1];
+      let y;
+      if(asin) y = new URL('https://www.amazon.com.br/dp/' + asin.toUpperCase());
+      else { y = limpa(x); y.pathname = y.pathname.replace(/\/ref=.*$/, ''); }
+      y.searchParams.set('tag', AFIL.amazonTag);
+      return {loja: 'Amazon', link: y.toString(), limpo: asin ? 'amazon.com.br/dp/' + asin.toUpperCase() : y.hostname + y.pathname};
+    }
+    if(is(h, 'mercadolivre.com.br')){
+      const y = limpa(x, true); y.searchParams.set('matt_word', AFIL.mlWord); y.searchParams.set('matt_tool', AFIL.mlTool);
+      return {loja: 'Mercado Livre', link: y.toString(), limpo: y.hostname + y.pathname};
+    }
+    if(is(h, 'netshoes.com.br')){
+      const y = limpa(x); if(h.startsWith('m.')) y.hostname = 'www.netshoes.com.br';
+      return {loja: 'Netshoes', link: rakuten(AFIL.netshoesMid, y.toString()), limpo: y.hostname + y.pathname};
+    }
+    if(is(h, 'zattini.com.br')){
+      const y = limpa(x); if(h.startsWith('m.')) y.hostname = 'www.zattini.com.br';
+      return {loja: 'Zattini', link: rakuten(AFIL.zattiniMid, y.toString()), limpo: y.hostname + y.pathname};
+    }
+    if(is(h, 'puma.com')){
+      if(!/(^|\.)br\.puma\.com$/.test(h) && h !== 'puma.com.br') return {loja: 'Puma', erro: 'Esse link é da Puma de fora do Brasil. Use um produto do site br.puma.com.'};
+      const y = limpa(x);
+      return {loja: 'Puma', link: awin(AFIL.pumaMid, y.toString()), limpo: y.hostname + y.pathname};
+    }
+    if(is(h, 'decathlon.com.br')){
+      const y = limpa(x);
+      return {loja: 'Decathlon', link: awin(AFIL.decathlonMid, y.toString()), limpo: y.hostname + y.pathname};
+    }
+    return {erro: 'Esse link não é de uma loja parceira. Funciona com: ' + LOJAS.join(', ') + '.'};
+  }
+
+  // ---------- tela ----------
+  const $ = id => document.getElementById(id);
+  const inp = $('in'), msg = $('msg'), res = $('res');
+  let atual = null;
+
+  $('lojas').innerHTML = LOJAS.map(l => '<span data-l="' + l + '">' + l + '</span>').join('');
+  const marca = l => document.querySelectorAll('#lojas span').forEach(s => s.classList.toggle('on', s.dataset.l === l));
+
+  function toast(t){ const el = $('toast'); el.textContent = t; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 1800); }
+  async function copia(t, aviso){
+    try{ await navigator.clipboard.writeText(t); }
+    catch(e){ const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); }catch(_){} ta.remove(); }
+    toast(aviso || 'Link copiado!');
+  }
+
+  function mostra(r, silencioso){
+    msg.className = ''; msg.textContent = ''; marca(r && r.loja);
+    if(!r || r.erro){
+      res.hidden = true; atual = null;
+      if(r && r.erro && !silencioso){ msg.className = 'err'; msg.textContent = r.erro; }
+      if(r && r.abrir && !silencioso){ const a = document.createElement('a'); a.href = r.abrir; a.target = '_blank'; a.rel = 'noopener'; a.textContent = ' Abrir o link no navegador ↗'; a.style.color = 'var(--accent)'; msg.appendChild(a); }
+      return;
+    }
+    atual = r;
+    $('loja').textContent = r.loja; $('out').textContent = r.link;
+    $('wa').href = 'https://wa.me/?text=' + encodeURIComponent(r.link);
+    $('testar').href = r.link;
+    res.hidden = false;
+    msg.className = 'ok'; msg.textContent = '✓ Link da ' + r.loja + ' com o seu código.';
+    guarda(r);
+    if(!silencioso) res.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+  }
+
+  const gerar = (silencioso) => mostra(gera(inp.value), silencioso);
+  $('gerar').addEventListener('click', () => gerar(false));
+  inp.addEventListener('paste', () => setTimeout(() => gerar(false), 0));
+  inp.addEventListener('input', () => { if(!inp.value.trim()){ mostra(null, true); return; } const r = gera(inp.value); if(r.link) mostra(r, true); });
+  $('colar').addEventListener('click', async () => {
+    try{ const t = await navigator.clipboard.readText(); if(t){ inp.value = t; gerar(false); return; } }catch(e){}
+    inp.focus(); msg.className = 'err'; msg.textContent = 'O celular não deixou colar pelo botão. Toque e segure na caixa acima e escolha "Colar".';
+  });
+  $('copiar').addEventListener('click', () => atual && copia(atual.link));
+  $('compart').addEventListener('click', async () => {
+    if(!atual) return;
+    try{ if(navigator.share){ await navigator.share({url: atual.link}); return; } }catch(e){ if(e && e.name === 'AbortError') return; }
+    copia(atual.link);
+  });
+  $('limpar').addEventListener('click', () => { inp.value = ''; mostra(null, true); inp.focus(); window.scrollTo({top: 0, behavior: 'smooth'}); });
+
+  // histórico (só neste aparelho)
+  const HK = 'radar-links-hist';
+  const leHist = () => { try{ return JSON.parse(localStorage.getItem(HK) || '[]'); }catch(e){ return []; } };
+  function guarda(r){
+    try{
+      const h = leHist().filter(i => i.link !== r.link);
+      h.unshift({loja: r.loja, link: r.link, limpo: r.limpo, em: Date.now()});
+      localStorage.setItem(HK, JSON.stringify(h.slice(0, 12)));
+    }catch(e){}
+    desenhaHist();
+  }
+  function desenhaHist(){
+    const h = leHist(); $('histCard').hidden = !h.length;
+    const ul = $('hist'); ul.innerHTML = '';
+    h.forEach(i => {
+      const li = document.createElement('li');
+      li.innerHTML = '<div class="t"><b></b><small></small></div><button type="button" class="alt">Copiar</button>';
+      li.querySelector('b').textContent = i.loja; li.querySelector('small').textContent = i.limpo || i.link;
+      li.querySelector('button').addEventListener('click', () => copia(i.link));
+      ul.appendChild(li);
+    });
+  }
+  $('apagaHist').addEventListener('click', () => { try{ localStorage.removeItem(HK); }catch(e){} desenhaHist(); });
+
+  // links da loja inteira
+  HOMES.forEach(([nome, link]) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'alt'; b.textContent = nome;
+    b.addEventListener('click', () => copia(link, 'Link da ' + nome + ' copiado!'));
+    $('homes').appendChild(b);
+  });
+
+  desenhaHist();
+
+  // chegou pelo menu Compartilhar (atalho na tela inicial) ou por ?u=
+  const p = new URLSearchParams(location.search);
+  const veio = [p.get('url'), p.get('text'), p.get('title'), p.get('u')].filter(Boolean).join(' ');
+  if(veio){ inp.value = veio; gerar(false); history.replaceState(null, '', location.pathname); }
+
+  if('serviceWorker' in navigator){ try{ navigator.serviceWorker.register('/links/sw.js', {scope: '/links/'}).catch(() => {}); }catch(e){} }
+  window.__gera = gera; // para teste
+})();
+</script>
+</body>
+</html>
