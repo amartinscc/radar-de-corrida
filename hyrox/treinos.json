@@ -1,5 +1,5 @@
 {
- "conferido": "2026-11-09",
+ "conferido": "2026-11-12",
  "eventos": [
   {
    "titulo": "Hybrid Hub by Innergy: a casa dos atletas na semana do HYROX Rio",
@@ -21,6 +21,40 @@
    "manual": true
   },
   {
+   "titulo": "Just a Girls - HYROX (2ª edição)",
+   "academia": "Cross Wolf",
+   "tipo": "Simulado",
+   "bairro": "",
+   "cidade": "Jacareí",
+   "uf": "SP",
+   "inicio": "2026-11-22",
+   "hora": "8h",
+   "valor": "",
+   "acesso": "Aberto ao público (evento feminino, inscrição no Sympla)",
+   "link": "https://www.sympla.com.br/evento/just-a-girls-hyrox/3647220",
+   "fonte": "https://www.sympla.com.br/evento/just-a-girls-hyrox/3647220",
+   "obs": "Evento só para mulheres; formato não detalhado na página.",
+   "lat": -23.2786,
+   "lng": -45.9431
+  },
+  {
+   "titulo": "Simulado HYROX 22/11",
+   "academia": "CrossFit Floripa",
+   "tipo": "Simulado",
+   "bairro": "Trindade",
+   "cidade": "Florianópolis",
+   "uf": "SC",
+   "inicio": "2026-11-22",
+   "hora": "8h30",
+   "valor": "",
+   "acesso": "Aberto ao público (inscrição no Sympla)",
+   "link": "https://www.sympla.com.br/evento/simulado-hyrox-22-11-as-08-30-horas/3645132",
+   "fonte": "https://www.sympla.com.br/evento/simulado-hyrox-22-11-as-08-30-horas/3645132",
+   "obs": "Só em duplas: Open e Fun (masculina, feminina e mista).",
+   "lat": -27.5888,
+   "lng": -48.523
+  },
+  {
    "titulo": "PODIUM Hybrid Experience 2026",
    "academia": "PODIUM (simulado inspirado no HYROX, não oficial)",
    "tipo": "Simulado",
@@ -35,6 +69,40 @@
    "fonte": "https://revistaurbanova.com.br/sao-jose-recebera-simulado-de-hyrox-a-corrida-fitness-que-ganhou-as-academias-inscricoes-abrem-nesta-quinta-22/",
    "lat": -23.2,
    "lng": -45.94
+  },
+  {
+   "titulo": "1º Hyrox Challenge",
+   "academia": "Porão Community Fitness × Ian's Sports (simulado inspirado no HYROX, não oficial)",
+   "tipo": "Simulado",
+   "bairro": "",
+   "cidade": "Brumado",
+   "uf": "BA",
+   "inicio": "2026-11-29",
+   "hora": "7h30 às 17h30",
+   "valor": "",
+   "acesso": "Aberto ao público (inscrição no Sympla)",
+   "link": "https://www.sympla.com.br/evento/1o-hyrox-challenge/3616037",
+   "fonte": "https://www.sympla.com.br/evento/1o-hyrox-challenge/3616037",
+   "obs": "Competição de corrida + estações funcionais inspirada no HYROX.",
+   "lat": -14.2066,
+   "lng": -41.6745
+  },
+  {
+   "titulo": "ToroBravo Hyrox Simulation #3",
+   "academia": "ToroBravo Fitness 360 (HYROX Training Club)",
+   "tipo": "Simulado",
+   "bairro": "Vila Ester",
+   "cidade": "São Paulo",
+   "uf": "SP",
+   "inicio": "2026-12-05",
+   "hora": "7h (baterias em ondas)",
+   "valor": "",
+   "acesso": "Aberto ao público (inscrição no Sympla)",
+   "link": "https://www.sympla.com.br/evento/torobravo-hyrox-simulation-3/3647810",
+   "fonte": "https://www.sympla.com.br/evento/torobravo-hyrox-simulation-3/3647810",
+   "obs": "3ª edição: simulação completa (8 km + 8 estações) com cargas Open. Solo Open masculino e feminino (10 vagas cada) e duplas Open masculina, feminina e mista (10 duplas cada).",
+   "lat": -23.5049,
+   "lng": -46.6409
   },
   {
    "titulo": "Simulado HYROX Crown Clube Fla (solo e dupla)",

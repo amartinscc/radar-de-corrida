@@ -1,5 +1,5 @@
 {
- "conferido": "2026-11-10",
+ "conferido": "2026-11-12",
  "itens": [
   {
    "loja": "Puma",
@@ -272,17 +272,6 @@
   },
   {
    "loja": "Decathlon",
-   "nome": "Kettlebell de Treino Doméstico 8 Kg Domyos Cinza",
-   "marca": "Domyos",
-   "preco": 242.99,
-   "link": "https://www.decathlon.com.br/kettlebell-de-treino-domestico-8-kg-cinza-8946045-domyos/p",
-   "categoria": "Acessórios",
-   "de": 269.99,
-   "genero": "Unissex",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/173359317/home-kettlebell-8-kg-8kg---preto---8-kg1.jpg"
-  },
-  {
-   "loja": "Decathlon",
    "nome": "Kettlebell de Treino 16kg Equilíbrio Fitness Preto",
    "marca": "Equilibrio Fitness",
    "preco": 449.99,
@@ -355,6 +344,39 @@
    "de": 39.99,
    "genero": "Unissex",
    "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/168283188/-run-500-thin-inv-br-whit-12-14---47-50-azul-33-36-br1.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Shorts Biker Feminino Under Armour Meridian",
+   "marca": "Under Armour",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 119.99,
+   "de": 399.99,
+   "link": "https://www.decathlon.com.br/shorts-biker-feminino-under-armour-meridian-2144934331/p",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/21186769/16371397797529.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Top de Treino Under Armour High Crossback Feminino",
+   "marca": "Under Armour",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 129.99,
+   "de": 379.99,
+   "link": "https://www.decathlon.com.br/top-de-treino-under-armour-high-crossback-feminino-2145861944/p",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170662574/17593414946149.jpg"
+  },
+  {
+   "loja": "Decathlon",
+   "nome": "Camiseta de Treino Feminina Under Armour Motion Crossover",
+   "marca": "Under Armour",
+   "categoria": "Roupas",
+   "genero": "Feminino",
+   "preco": 59.99,
+   "de": 159.99,
+   "link": "https://www.decathlon.com.br/camiseta-de-treino-feminina-under-armour-motion-crossover-2145647097/p",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170007931/17581388612093.jpg"
   }
  ]
 }
