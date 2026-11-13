@@ -132,7 +132,7 @@ details summary::after{content:" ▾";color:var(--muted)}
     amazonTag: 'amartins0b-20',
     rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', zattiniMid: '43985',
     mlWord: 'amartins', mlTool: '42642259',
-    awinAff: '3132864', pumaMid: '32675', decathlonMid: '19296'
+    awinAff: '3132864', pumaMid: '32675', decathlonMid: '19296', mizunoMid: '51271', olympikusMid: '17698'
   };
   const HOMES = [
     ['Amazon', 'https://www.amazon.com.br/?tag=' + AFIL.amazonTag],
@@ -140,9 +140,11 @@ details summary::after{content:" ▾";color:var(--muted)}
     ['Mercado Livre', 'https://meli.la/2HAaDz4'],
     ['Zattini', rakuten(AFIL.zattiniMid, 'https://www.zattini.com.br/')],
     ['Puma', awin(AFIL.pumaMid, 'https://br.puma.com/')],
-    ['Decathlon', awin(AFIL.decathlonMid, 'https://www.decathlon.com.br/')]
+    ['Decathlon', awin(AFIL.decathlonMid, 'https://www.decathlon.com.br/')],
+    ['Mizuno', awin(AFIL.mizunoMid, 'https://mizuno.com.br/')],
+    ['Olympikus', awin(AFIL.olympikusMid, 'https://www.olympikus.com.br/')]
   ];
-  const LOJAS = ['Amazon','Netshoes','Mercado Livre','Zattini','Puma','Decathlon'];
+  const LOJAS = ['Amazon','Netshoes','Mercado Livre','Zattini','Puma','Decathlon','Mizuno','Olympikus'];
 
   function rakuten(mid, url){ return 'https://click.linksynergy.com/deeplink?id=' + AFIL.rakutenId + '&mid=' + mid + '&murl=' + encodeURIComponent(url); }
   function awin(mid, url){ return 'https://www.awin1.com/cread.php?awinmid=' + mid + '&awinaffid=' + AFIL.awinAff + '&ued=' + encodeURIComponent(url) + '&platform=ma'; }
@@ -152,7 +154,7 @@ details summary::after{content:" ▾";color:var(--muted)}
   function achaUrl(txt){
     txt = (txt || '').trim();
     let m = txt.match(/https?:\/\/[^\s<>"']+/i);
-    if(!m){ m = txt.match(/(?:www\.|[a-z0-9-]+\.)?(?:amazon\.com\.br|netshoes\.com\.br|zattini\.com\.br|mercadolivre\.com\.br|puma\.com|decathlon\.com\.br|a\.co|amzn\.to|meli\.la)\/[^\s<>"']*/i); if(m) return 'https://' + m[0].replace(/[).,;!]+$/, ''); }
+    if(!m){ m = txt.match(/(?:www\.|[a-z0-9-]+\.)?(?:amazon\.com\.br|netshoes\.com\.br|zattini\.com\.br|mercadolivre\.com\.br|puma\.com|decathlon\.com\.br|mizuno\.com\.br|olympikus\.com\.br|a\.co|amzn\.to|meli\.la)\/[^\s<>"']*/i); if(m) return 'https://' + m[0].replace(/[).,;!]+$/, ''); }
     return m ? m[0].replace(/[).,;!]+$/, '') : '';
   }
 
@@ -217,6 +219,14 @@ details summary::after{content:" ▾";color:var(--muted)}
     if(is(h, 'decathlon.com.br')){
       const y = limpa(x);
       return {loja: 'Decathlon', link: awin(AFIL.decathlonMid, y.toString()), limpo: y.hostname + y.pathname};
+    }
+    if(is(h, 'mizuno.com.br')){
+      const y = limpa(x);
+      return {loja: 'Mizuno', link: awin(AFIL.mizunoMid, y.toString()), limpo: y.hostname + y.pathname};
+    }
+    if(is(h, 'olympikus.com.br')){
+      const y = limpa(x);
+      return {loja: 'Olympikus', link: awin(AFIL.olympikusMid, y.toString()), limpo: y.hostname + y.pathname};
     }
     return {erro: 'Esse link não é de uma loja parceira. Funciona com: ' + LOJAS.join(', ') + '.'};
   }
