@@ -808,7 +808,53 @@ __DATA__
   // Puma, Decathlon, Mizuno e Olympikus (Awin, MIDs 32675, 19296, 51271 e 17698): o ued leva a URL codificada da página; Zattini (Rakuten): deep link com o token da Aline e o MID 43985 (Zattini WL), {URL} = página codificada
   // parâmetro de campanha de um parceiro (campo manual "link_param", ex.: Brilho e Bronze na Black Friday "parceiro=6919"): vai também nos links de produto do mesmo site
   const PARAM_SITE = {}; ((data.parceiros||{}).marcas||[]).forEach(m => { if(m.link_param && m.link){ try{ PARAM_SITE[new URL(m.link).hostname.replace(/^www\./,'')] = m.link_param; }catch(e){} } });
-  function afil(u){
+  // marcadores de origem nos links da Awin (clickref, desde 13/11/2026; aparecem nos relatórios da Awin):
+  //  clickref = canal (radar | hyrox | calculadora | instagram-aline = link copiado/gerado no Modo Aline para bio e stories)
+  //  clickref2 = seção do site (achados | black | parceiros | destaque | provas | treine | modo-aline)
+  //  clickref3 = origem da visita (stories | instagram | email | whatsapp | google | facebook | outro-site | direto)
+  //  clickref4 = "modo-aline" quando o clique é da própria Aline (para tirar dos números)
+  const REF_CANAL = /^\/hyrox/.test(location.pathname) ? 'hyrox' : /^\/calculadora/.test(location.pathname) ? 'calculadora' : 'radar';
+  const REF_ORIGEM = (() => {
+    try{
+      const q = new URLSearchParams(location.search), m = (q.get('utm_medium') || '').toLowerCase(), s = (q.get('utm_source') || '').toLowerCase();
+      if(m === 'stories') return 'stories';
+      if(m === 'email' || s === 'newsletter') return 'email';
+      if(s) return s.replace(/[^a-z0-9_-]/g, '').slice(0, 30) || 'outro-site';
+      const r = (document.referrer || '').toLowerCase(); let h = ''; try{ h = r ? new URL(r).hostname : ''; }catch(e){}
+      if(!h || h === location.hostname) return 'direto';
+      if(/instagram/.test(h)) return 'instagram';
+      if(/whatsapp|wa\.me/.test(h)) return 'whatsapp';
+      if(/google\./.test(h)) return 'google';
+      if(/facebook|fb\.com/.test(h)) return 'facebook';
+      return 'outro-site';
+    }catch(e){ return 'direto'; }
+  })();
+  function awinRef(u, secao, canal){
+    if(!/^https:\/\/www\.awin1\.com\/cread\.php/.test(u || '')) return u;
+    try{
+      const x = new URL(u), q = x.searchParams;
+      q.set('clickref', canal || REF_CANAL);
+      if(secao) q.set('clickref2', secao); else if(!canal) q.delete('clickref2');
+      if(canal){ q.delete('clickref3'); q.delete('clickref4'); }
+      else { q.set('clickref3', REF_ORIGEM); let al = false; try{ al = localStorage.getItem('radar-aline') === '1'; }catch(e){} if(al) q.set('clickref4', 'modo-aline'); else q.delete('clickref4'); }
+      return x.toString();
+    }catch(e){ return u; }
+  }
+  const REF_SECAO = {'p-tenis':'achados', 'p-black':'black', 'p-roupas':'parceiros', 'p-provas':'provas', 'p-treino':'treine', 'p-result':'resultados'};
+  function secaoDe(el){
+    if(el.closest('.dq')) return 'destaque';
+    const pn = el.closest('.panel'); if(pn && REF_SECAO[pn.id]) return REF_SECAO[pn.id];
+    if(el.closest('#adm, .adm, #arte')) return 'modo-aline';
+    return '';
+  }
+  // no clique (inclusive botão do meio/abrir em nova aba), o link da Awin ganha a seção onde estava
+  ['click', 'auxclick', 'contextmenu'].forEach(tp => document.addEventListener(tp, e => {
+    const a = e.target && e.target.closest && e.target.closest('a[href*="awin1.com/cread.php"]');
+    if(a && !a.dataset.refFixo) a.href = awinRef(a.href, secaoDe(a));
+  }, true));
+  const afilIG = u => awinRef(afil(u), '', 'instagram-aline');  // link para a Aline copiar/compartilhar (bio, stories)
+  function afil(u, secao){ return awinRef(afil0(u), secao); }
+  function afil0(u){
     try{
       const x = new URL(u);
       const pp = PARAM_SITE[x.hostname.replace(/^www\./,'')];
@@ -1674,7 +1720,7 @@ __DATA__
     a.innerHTML = '<span class="mono"></span><span class="pi"><span class="pn"></span><span class="pd"></span></span><a class="arrow" target="_blank" rel="noopener">Ir à loja →</a>';
     a.querySelector('a.arrow').href = afil(m.link);
     a.querySelector('a.arrow').addEventListener('click', () => ev('clique_parceiro', {parceiro: m.nome, onde: 'cartao'}));
-    a.addEventListener('click', e => { if(e.target.closest('.pcopy, a, button')) return; ev('clique_parceiro', {parceiro: m.nome, onde: 'cartao'}); window.open(afil(m.link), '_blank', 'noopener'); });
+    a.addEventListener('click', e => { if(e.target.closest('.pcopy, a, button')) return; ev('clique_parceiro', {parceiro: m.nome, onde: 'cartao'}); window.open(afil(m.link, secaoDe(a)), '_blank', 'noopener'); });
     if(m.logo){ const mo = a.querySelector('.mono'); const im = document.createElement('img'); im.src = m.logo; im.alt = '';
       if(m.logo_ajuste === 'contain'){ im.style.objectFit = 'contain'; im.style.padding = '5px'; im.style.boxSizing = 'border-box'; im.style.background = '#fff'; }
       im.onerror = () => { mo.classList.remove('logo'); mo.textContent = m.nome.charAt(0); };
@@ -1859,12 +1905,12 @@ __DATA__
       <a class="follow alt" href="${AFIL.mlHome}" target="_blank" rel="noopener"><span>Abrir minha vitrine no Mercado Livre</span><small>meli.la</small></a>
       <button class="follow alt" type="button" data-cp="${AFIL.mlHome}"><span>Copiar link da vitrine</span><small>para bio e stories</small></button>
       <p class="lb" style="margin:6px 0 0">Puma</p>
-      <a class="follow alt" href="${afil('https://br.puma.com/')}" target="_blank" rel="noopener"><span>Abrir a Puma com meu link</span><small>Awin</small></a>
-      <button class="follow alt" type="button" data-cp="${afil('https://br.puma.com/')}"><span>Copiar link da Puma</span><small>para bio e stories</small></button>
-      ${AFIL.decathlon ? `<p class="lb" style="margin:6px 0 0">Decathlon</p><a class="follow alt" href="${afil('https://www.decathlon.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Decathlon com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afil('https://www.decathlon.com.br/')}"><span>Copiar link da Decathlon</span><small>para bio e stories</small></button>` : ''}
-      ${AFIL.mizuno ? `<p class="lb" style="margin:6px 0 0">Mizuno</p><a class="follow alt" href="${afil('https://mizuno.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Mizuno com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afil('https://mizuno.com.br/')}"><span>Copiar link da Mizuno</span><small>para bio e stories</small></button>` : ''}
-      ${AFIL.olympikus ? `<p class="lb" style="margin:6px 0 0">Olympikus</p><a class="follow alt" href="${afil('https://www.olympikus.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Olympikus com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afil('https://www.olympikus.com.br/')}"><span>Copiar link da Olympikus</span><small>para bio e stories</small></button>` : ''}
-      ${AFIL.zattini ? `<p class="lb" style="margin:6px 0 0">Zattini</p><button class="follow alt" type="button" data-cp="${afil('https://www.zattini.com.br/')}"><span>Copiar link da Zattini</span><small>para bio e stories</small></button>` : ''}
+      <a class="follow alt" href="${afilIG('https://br.puma.com/')}" target="_blank" rel="noopener"><span>Abrir a Puma com meu link</span><small>Awin</small></a>
+      <button class="follow alt" type="button" data-cp="${afilIG('https://br.puma.com/')}"><span>Copiar link da Puma</span><small>para bio e stories</small></button>
+      ${AFIL.decathlon ? `<p class="lb" style="margin:6px 0 0">Decathlon</p><a class="follow alt" href="${afilIG('https://www.decathlon.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Decathlon com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afilIG('https://www.decathlon.com.br/')}"><span>Copiar link da Decathlon</span><small>para bio e stories</small></button>` : ''}
+      ${AFIL.mizuno ? `<p class="lb" style="margin:6px 0 0">Mizuno</p><a class="follow alt" href="${afilIG('https://mizuno.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Mizuno com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afilIG('https://mizuno.com.br/')}"><span>Copiar link da Mizuno</span><small>para bio e stories</small></button>` : ''}
+      ${AFIL.olympikus ? `<p class="lb" style="margin:6px 0 0">Olympikus</p><a class="follow alt" href="${afilIG('https://www.olympikus.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Olympikus com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afilIG('https://www.olympikus.com.br/')}"><span>Copiar link da Olympikus</span><small>para bio e stories</small></button>` : ''}
+      ${AFIL.zattini ? `<p class="lb" style="margin:6px 0 0">Zattini</p><button class="follow alt" type="button" data-cp="${afilIG('https://www.zattini.com.br/')}"><span>Copiar link da Zattini</span><small>para bio e stories</small></button>` : ''}
       <p class="lb" style="margin:6px 0 0">Link de um produto</p>
       <p class="hint" style="text-align:left">Cole o endereço de um produto da Amazon, da Netshoes, do Mercado Livre, da Puma, da Zattini, da Decathlon, da Mizuno ou da Olympikus e toque em Gerar: sai o link com o seu código, pronto para compartilhar.</p>
       <input type="url" id="lk-in" placeholder="https://www.amazon.com.br/..." style="width:100%;font:500 15px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
@@ -1883,18 +1929,18 @@ __DATA__
       let link = '';
       if(/(^|\.)amazon\.com\.br$/.test(x.hostname)){
         const asin = (x.pathname.match(/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})/i) || [])[1];
-        link = asin ? 'https://www.amazon.com.br/dp/' + asin.toUpperCase() + '?tag=' + AFIL.amazon : afil(x.origin + x.pathname);
+        link = asin ? 'https://www.amazon.com.br/dp/' + asin.toUpperCase() + '?tag=' + AFIL.amazon : afilIG(x.origin + x.pathname);
       } else if(/(^|\.)amzn\.to$|(^|\.)a\.co$/.test(x.hostname)){
         msg('Esse é um link curto. Abra o produto no navegador e cole aqui o endereço completo da página (amazon.com.br/...).', 'var(--hot)'); return;
       } else if(/(^|\.)netshoes\.com\.br$/.test(x.hostname)){
         if(!AFIL.netshoesMid){ msg('Para produtos da Netshoes ainda falta o código da Netshoes na Rakuten (MID). Por enquanto, use o link geral da Netshoes acima.', 'var(--hot)'); return; }
-        link = afil(x.origin + x.pathname);
+        link = afilIG(x.origin + x.pathname);
       } else if(/(^|\.)mercadolivre\.com\.br$/.test(x.hostname)){
-        link = afil(x.origin + x.pathname);
+        link = afilIG(x.origin + x.pathname);
       } else if(/(^|\.)meli\.la$/.test(x.hostname)){
         msg('Esse é um link curto. Abra o produto e cole aqui o endereço completo da página (mercadolivre.com.br/...).', 'var(--hot)'); return;
       } else if(/(^|\.)puma\.com$/.test(x.hostname) || (/(^|\.)zattini\.com\.br$/.test(x.hostname) && AFIL.zattini) || (/(^|\.)decathlon\.com\.br$/.test(x.hostname) && AFIL.decathlon) || (/(^|\.)mizuno\.com\.br$/.test(x.hostname) && AFIL.mizuno) || (/(^|\.)olympikus\.com\.br$/.test(x.hostname) && AFIL.olympikus)){
-        link = afil(x.origin + x.pathname);
+        link = afilIG(x.origin + x.pathname);
       } else { msg('O gerador funciona com produtos da Amazon, da Netshoes, do Mercado Livre, da Puma, da Zattini, da Decathlon, da Mizuno e da Olympikus.', 'var(--hot)'); return; }
       const box = document.createElement('div'); box.className = 'adm-list';
       box.innerHTML = '<p class="hint" style="text-align:left;word-break:break-all;user-select:all"></p><button class="follow" type="button" style="justify-content:center">Copiar meu link</button><button class="follow alt" type="button" style="justify-content:center">Compartilhar</button>';

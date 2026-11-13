@@ -51,6 +51,14 @@ AFIL_ML_WORD, AFIL_ML_TOOL = 'amartins', '42642259'  # Mercado Livre: matt_word 
 
 PARAM_SITE = {}  # parâmetro de campanha por site (campo manual "link_param" do parceiro; preenchido no main), igual ao template
 def afil(u):
+    """link de afiliada da Aline, com o marcador de origem da Awin (clickref=pagina-produto) nas lojas da Awin"""
+    v = _afil(u)
+    if v.startswith('https://www.awin1.com/cread.php') and 'clickref=' not in v:
+        v += '&clickref=pagina-produto&clickref2=produto'
+    return v
+
+
+def _afil(u):
     """link de afiliada da Aline: Amazon recebe tag=; Mercado Livre recebe matt_word/matt_tool; Netshoes vira deep link da Rakuten. Os dados guardam o link limpo."""
     try:
         from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, quote

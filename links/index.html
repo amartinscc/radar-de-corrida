@@ -147,7 +147,7 @@ details summary::after{content:" ▾";color:var(--muted)}
   const LOJAS = ['Amazon','Netshoes','Mercado Livre','Zattini','Puma','Decathlon','Mizuno','Olympikus'];
 
   function rakuten(mid, url){ return 'https://click.linksynergy.com/deeplink?id=' + AFIL.rakutenId + '&mid=' + mid + '&murl=' + encodeURIComponent(url); }
-  function awin(mid, url){ return 'https://www.awin1.com/cread.php?awinmid=' + mid + '&awinaffid=' + AFIL.awinAff + '&ued=' + encodeURIComponent(url) + '&platform=ma'; }
+  function awin(mid, url){ return 'https://www.awin1.com/cread.php?awinmid=' + mid + '&awinaffid=' + AFIL.awinAff + '&ued=' + encodeURIComponent(url) + '&platform=ma&clickref=instagram-aline&clickref2=gerador-links'; }  // clickref: origem nos relatórios da Awin
   const is = (host, dom) => host === dom || host.endsWith('.' + dom);
 
   // tira o endereço do meio do texto que o app copiou
