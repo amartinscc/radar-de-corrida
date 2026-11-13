@@ -357,6 +357,11 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .thumb .cdate small{font:700 9px/1.2 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#7A4E7D}
 .partner.hascup{cursor:pointer}
 .partner .pcopy{align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);border:1.5px dashed var(--mauve);font:600 13px var(--body);padding:7px 12px;border-radius:999px;cursor:pointer}
+.partner.comof{flex-wrap:wrap}
+.partner .awofs{flex-basis:100%;display:flex;flex-direction:column;gap:6px;margin-top:-2px}
+.partner .awofs .pcopy{margin-top:0}
+.partner .awof{align-self:stretch;display:flex;gap:8px;align-items:flex-start;text-decoration:none;color:var(--ink);background:color-mix(in srgb,var(--accent) 9%,transparent);border-radius:10px;padding:7px 10px;font:600 13px/1.35 var(--body)}
+.partner .awof small{display:block;color:var(--muted);font-weight:500;font-size:11.5px}
 .partner .pcopy b{letter-spacing:.06em}
 .partner .pcopy small{color:var(--accent);font-weight:700;font-size:11px}
 .deal .rcup{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;font-size:13px;color:var(--accent);font-weight:600}
@@ -1714,6 +1719,9 @@ __DATA__
   const ev = (nome, props) => { if(window.posthog) posthog.capture(nome, props); };
   // cupom da Aline no parceiro: campo "cupom" (vazio = banner sem cupom); patrocinadoras sem o campo usam o cupom geral
   const cupomDe = m => ('cupom' in m) ? (m.cupom || '') : (pc.cupom || '');
+  // ofertas_parceiros: [{marca, titulo, cupom?, inicio?, fim (AAAA-MM-DD), link (página da campanha, limpa)}]; só as de hoje até o fim
+  function ofertasDe(nome){ const hj = new Date(Date.now() - 3*3600e3).toISOString().slice(0, 10);
+    return (data.ofertas_parceiros || []).filter(o => o && o.marca === nome && o.titulo && (!o.fim || o.fim >= hj) && (!o.inicio || o.inicio <= hj)); }
   function partnerCard(m, comId){
     const code = cupomDe(m);
     const a = document.createElement('div'); a.className = 'partner' + (code || (m.cupons && m.cupons.length) ? ' hascup' : '');
@@ -1754,6 +1762,24 @@ __DATA__
       });
     }
     if(m.cupom_regra){ const rg = document.createElement('span'); rg.className = 'pd cupt'; rg.textContent = m.cupom_regra; a.querySelector('.pi').appendChild(rg); }  // regra do cupom (campo "cupom_regra", manual)
+    // ofertas da loja vindas da Awin (campo "ofertas_parceiros", automático pela tarefa de achados): promoções e cupons que a marca libera para afiliados
+    const ofs = ofertasDe(m.nome).slice(0, 3); let ofBox = null;
+    if(ofs.length){ ofBox = document.createElement('div'); ofBox.className = 'awofs'; a.classList.add('comof'); a.appendChild(ofBox); }
+    ofs.forEach(of => {
+      const ol = document.createElement('a'); ol.className = 'awof'; ol.target = '_blank'; ol.rel = 'noopener sponsored'; ol.href = afil(of.link || m.link, 'parceiros');
+      ol.innerHTML = '<span aria-hidden="true">🔥</span><span><span class="pot"></span><small></small></span>';
+      ol.querySelector('.pot').textContent = of.titulo; ol.querySelector('small').textContent = of.fim ? 'até ' + of.fim.slice(8, 10) + '/' + of.fim.slice(5, 7) : '';
+      ol.addEventListener('click', e => { e.stopPropagation(); ev('clique_oferta_parceiro', {parceiro: m.nome, oferta: of.titulo}); });
+      ofBox.appendChild(ol);
+      if(of.cupom){
+        const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'pcopy';
+        cp.innerHTML = 'Cupom <b></b> <small>copiar</small>'; cp.querySelector('b').textContent = of.cupom;
+        cp.addEventListener('click', async e => { e.preventDefault(); e.stopPropagation(); const msg = cp.querySelector('small');
+          try{ await navigator.clipboard.writeText(of.cupom); msg.textContent = 'copiado!'; }catch(err){ msg.textContent = of.cupom; }
+          ev('cupom_copiado', {parceiro: m.nome, cupom: of.cupom, tipo: 'loja'}); setTimeout(() => { msg.textContent = 'copiar'; }, 2200); });
+        ofBox.appendChild(cp);
+      }
+    });
     if(comId) a.id = 'parceiro-' + slugMarca(m.nome);
     if(modoAline){
       const kb = document.createElement('button'); kb.type = 'button'; kb.className = 'kitbtn';
