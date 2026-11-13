@@ -849,8 +849,8 @@ __DATA__
   // links de afiliada da Aline (aplicados ao abrir a loja; os dados guardam o link limpo)
   // Netshoes (Rakuten): token da Aline + MID da Netshoes; com o MID vazio, os links da Netshoes ficam limpos
   // Mercado Livre: parâmetros do link de afiliada da Aline (matt_word = etiqueta, matt_tool = ferramenta), tirados do link meli.la dela
-  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0', mlWord: 'amartins', mlTool: '42642259', mlHome: 'https://meli.la/2HAaDz4', puma: 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma', zattini: 'https://click.linksynergy.com/deeplink?id=7KhHq5G3aIo&mid=43985&murl={URL}', decathlon: 'https://www.awin1.com/cread.php?awinmid=19296&awinaffid=3132864&ued={URL}&platform=ma', mizuno: 'https://www.awin1.com/cread.php?awinmid=51271&awinaffid=3132864&ued={URL}&platform=ma', olympikus: 'https://www.awin1.com/cread.php?awinmid=17698&awinaffid=3132864&ued={URL}&platform=ma'};
-  // Puma, Decathlon, Mizuno e Olympikus (Awin, MIDs 32675, 19296, 51271 e 17698): o ued leva a URL codificada da página; Zattini (Rakuten): deep link com o token da Aline e o MID 43985 (Zattini WL), {URL} = página codificada
+  const AFIL = {amazon: 'amartins0b-20', rakutenId: '7KhHq5G3aIo', netshoesMid: '43984', netshoesHome: 'https://click.linksynergy.com/fs-bin/click?id=7KhHq5G3aIo&offerid=951620&type=3&subid=0', mlWord: 'amartins', mlTool: '42642259', mlHome: 'https://meli.la/2HAaDz4', puma: 'https://www.awin1.com/cread.php?awinmid=32675&awinaffid=3132864&ued={URL}&platform=ma', zattini: 'https://click.linksynergy.com/deeplink?id=7KhHq5G3aIo&mid=43985&murl={URL}', decathlon: 'https://www.awin1.com/cread.php?awinmid=19296&awinaffid=3132864&ued={URL}&platform=ma', mizuno: 'https://www.awin1.com/cread.php?awinmid=51271&awinaffid=3132864&ued={URL}&platform=ma', olympikus: 'https://www.awin1.com/cread.php?awinmid=17698&awinaffid=3132864&ued={URL}&platform=ma', futfanatics: 'https://www.awin1.com/cread.php?awinmid=17893&awinaffid=3132864&ued={URL}&platform=ma'};
+  // Puma, Decathlon, Mizuno, Olympikus e Fut Fanatics (Awin, MIDs 32675, 19296, 51271, 17698 e 17893): o ued leva a URL codificada da página; Zattini (Rakuten): deep link com o token da Aline e o MID 43985 (Zattini WL), {URL} = página codificada
   // parâmetro de campanha de um parceiro (campo manual "link_param", ex.: Brilho e Bronze na Black Friday "parceiro=6919"): vai também nos links de produto do mesmo site
   const PARAM_SITE = {}; ((data.parceiros||{}).marcas||[]).forEach(m => { if(m.link_param && m.link){ try{ PARAM_SITE[new URL(m.link).hostname.replace(/^www\./,'')] = m.link_param; }catch(e){} } });
   // marcadores de origem nos links da Awin (clickref, desde 13/11/2026; aparecem nos relatórios da Awin):
@@ -911,6 +911,7 @@ __DATA__
       if(/(^|\.)decathlon\.com\.br$/.test(x.hostname) && AFIL.decathlon){ return AFIL.decathlon.replace('{URL}', encodeURIComponent(u)); }
       if(/(^|\.)mizuno\.com\.br$/.test(x.hostname) && AFIL.mizuno){ return AFIL.mizuno.replace('{URL}', encodeURIComponent(u)); }
       if(/(^|\.)olympikus\.com\.br$/.test(x.hostname) && AFIL.olympikus){ return AFIL.olympikus.replace('{URL}', encodeURIComponent(u)); }
+      if(/(^|\.)futfanatics\.com\.br$/.test(x.hostname) && AFIL.futfanatics){ return AFIL.futfanatics.replace('{URL}', encodeURIComponent(u)); }
       if(/(^|\.)netshoes\.com\.br$/.test(x.hostname) && AFIL.netshoesMid){ return 'https://click.linksynergy.com/deeplink?id=' + AFIL.rakutenId + '&mid=' + AFIL.netshoesMid + '&murl=' + encodeURIComponent(u); }
     }catch(e){}
     return u;
@@ -2030,9 +2031,10 @@ __DATA__
       ${AFIL.decathlon ? `<p class="lb" style="margin:6px 0 0">Decathlon</p><a class="follow alt" href="${afilIG('https://www.decathlon.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Decathlon com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afilIG('https://www.decathlon.com.br/')}"><span>Copiar link da Decathlon</span><small>para bio e stories</small></button>` : ''}
       ${AFIL.mizuno ? `<p class="lb" style="margin:6px 0 0">Mizuno</p><a class="follow alt" href="${afilIG('https://mizuno.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Mizuno com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afilIG('https://mizuno.com.br/')}"><span>Copiar link da Mizuno</span><small>para bio e stories</small></button>` : ''}
       ${AFIL.olympikus ? `<p class="lb" style="margin:6px 0 0">Olympikus</p><a class="follow alt" href="${afilIG('https://www.olympikus.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Olympikus com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afilIG('https://www.olympikus.com.br/')}"><span>Copiar link da Olympikus</span><small>para bio e stories</small></button>` : ''}
+      ${AFIL.futfanatics ? `<p class="lb" style="margin:6px 0 0">Fut Fanatics</p><a class="follow alt" href="${afilIG('https://www.futfanatics.com.br/')}" target="_blank" rel="noopener"><span>Abrir a Fut Fanatics com meu link</span><small>Awin</small></a><button class="follow alt" type="button" data-cp="${afilIG('https://www.futfanatics.com.br/')}"><span>Copiar link da Fut Fanatics</span><small>para bio e stories</small></button>` : ''}
       ${AFIL.zattini ? `<p class="lb" style="margin:6px 0 0">Zattini</p><button class="follow alt" type="button" data-cp="${afilIG('https://www.zattini.com.br/')}"><span>Copiar link da Zattini</span><small>para bio e stories</small></button>` : ''}
       <p class="lb" style="margin:6px 0 0">Link de um produto</p>
-      <p class="hint" style="text-align:left">Cole o endereço de um produto da Amazon, da Netshoes, do Mercado Livre, da Puma, da Zattini, da Decathlon, da Mizuno ou da Olympikus e toque em Gerar: sai o link com o seu código, pronto para compartilhar.</p>
+      <p class="hint" style="text-align:left">Cole o endereço de um produto da Amazon, da Netshoes, do Mercado Livre, da Puma, da Zattini, da Decathlon, da Mizuno, da Olympikus ou da Fut Fanatics e toque em Gerar: sai o link com o seu código, pronto para compartilhar.</p>
       <input type="url" id="lk-in" placeholder="https://www.amazon.com.br/..." style="width:100%;font:500 15px var(--body);padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)">
       <button class="follow" type="button" id="lk-go" style="justify-content:center">Gerar meu link</button>
       <div id="lk-out"></div>
@@ -2059,9 +2061,9 @@ __DATA__
         link = afilIG(x.origin + x.pathname);
       } else if(/(^|\.)meli\.la$/.test(x.hostname)){
         msg('Esse é um link curto. Abra o produto e cole aqui o endereço completo da página (mercadolivre.com.br/...).', 'var(--hot)'); return;
-      } else if(/(^|\.)puma\.com$/.test(x.hostname) || (/(^|\.)zattini\.com\.br$/.test(x.hostname) && AFIL.zattini) || (/(^|\.)decathlon\.com\.br$/.test(x.hostname) && AFIL.decathlon) || (/(^|\.)mizuno\.com\.br$/.test(x.hostname) && AFIL.mizuno) || (/(^|\.)olympikus\.com\.br$/.test(x.hostname) && AFIL.olympikus)){
+      } else if(/(^|\.)puma\.com$/.test(x.hostname) || (/(^|\.)zattini\.com\.br$/.test(x.hostname) && AFIL.zattini) || (/(^|\.)decathlon\.com\.br$/.test(x.hostname) && AFIL.decathlon) || (/(^|\.)mizuno\.com\.br$/.test(x.hostname) && AFIL.mizuno) || (/(^|\.)olympikus\.com\.br$/.test(x.hostname) && AFIL.olympikus) || (/(^|\.)futfanatics\.com\.br$/.test(x.hostname) && AFIL.futfanatics)){
         link = afilIG(x.origin + x.pathname);
-      } else { msg('O gerador funciona com produtos da Amazon, da Netshoes, do Mercado Livre, da Puma, da Zattini, da Decathlon, da Mizuno e da Olympikus.', 'var(--hot)'); return; }
+      } else { msg('O gerador funciona com produtos da Amazon, da Netshoes, do Mercado Livre, da Puma, da Zattini, da Decathlon, da Mizuno, da Olympikus e da Fut Fanatics.', 'var(--hot)'); return; }
       const box = document.createElement('div'); box.className = 'adm-list';
       box.innerHTML = '<p class="hint" style="text-align:left;word-break:break-all;user-select:all"></p><button class="follow" type="button" style="justify-content:center">Copiar meu link</button><button class="follow alt" type="button" style="justify-content:center">Compartilhar</button>';
       box.querySelector('p').textContent = link;
@@ -2069,7 +2071,7 @@ __DATA__
       bc.addEventListener('click', () => copiaTxt(link, 'Link copiado!'));
       bs.addEventListener('click', async () => { try{ if(navigator.share){ await navigator.share({url: link}); return; } }catch(e){ if(e && e.name === 'AbortError') return; } copiaTxt(link, 'Link copiado!'); });
       out.appendChild(box);
-      if(window.posthog) posthog.capture('aline_gerou_link', {loja: /amazon/.test(link) ? 'amazon' : /awinmid=19296/.test(link) ? 'decathlon' : /awinmid=51271/.test(link) ? 'mizuno' : /awinmid=17698/.test(link) ? 'olympikus' : /awin/.test(link) ? 'puma' : /matt_word/.test(link) ? 'mercadolivre' : 'netshoes'});
+      if(window.posthog) posthog.capture('aline_gerou_link', {loja: /amazon/.test(link) ? 'amazon' : /awinmid=19296/.test(link) ? 'decathlon' : /awinmid=51271/.test(link) ? 'mizuno' : /awinmid=17698/.test(link) ? 'olympikus' : /awinmid=17893/.test(link) ? 'futfanatics' : /awin/.test(link) ? 'puma' : /matt_word/.test(link) ? 'mercadolivre' : 'netshoes'});
     });
   }
   function menuAdm(){
@@ -2180,6 +2182,7 @@ __DATA__
     'zattini': {f:['Do treino ao dia a dia','Achados da Zattini'], i:'Do treino ao dia a dia, meus achados na Zattini! 🛍️'},
     'mizuno': {f:['Corro de Mizuno','Pronta para a próxima prova'], i:'Tênis e roupa de corrida da Mizuno no meu treino! 💙', ig:'mizunobr'},
     'olympikus': {f:['Corro de Olympikus','Do treino à prova'], i:'Tênis e roupa de corrida da Olympikus no meu treino! 🏃‍♀️', ig:'olympikus'},
+    'fut-fanatics': {f:['Achados da Fut','Tênis de corrida com preço bom'], i:'Tênis de corrida e roupa de treino com preço bom na Fut Fanatics! 🏃‍♀️', ig:'futfanatics'},
     'decathlon': {f:['Do treino à prova com a Decathlon','Pronta para o HYROX'], i:'Corrida, HYROX e treino funcional: equipamento, tênis e roupa com preço bom na Decathlon! 💙', ig:'decathlonbrasil'},
     'livvan': {f:['Disposição para treinar todo dia','Saúde que acompanha o treino'], i:'Disposição para treinar e cuidar da saúde todos os dias: @livvan! 💊', ig:'livvan'}
   };
