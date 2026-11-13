@@ -385,6 +385,12 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .hero .actions .hbtn span{opacity:.88}
 .hero .actions .hbtn.hx span{font:600 13px var(--body);letter-spacing:.01em;text-transform:none;opacity:.88}
 .hero .actions .hbtn.hx b{font:800 13px var(--body);letter-spacing:.06em}
+/* botão Radar HYROX em preto metálico (13/11/2026, pedido da Aline): fundo preto com brilho de aço, borda prateada e HYROX em branco metálico */
+.hero .actions .hbtn.hx{background:linear-gradient(115deg,#060607 0%,#1d1e22 30%,#4a4d55 48%,#9aa0a8 50%,#4a4d55 52%,#1d1e22 70%,#060607 100%);background-size:260% 100%;background-position:100% 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 14px rgba(0,0,0,.45)}
+.hero .actions .hbtn.hx::before{background:conic-gradient(from var(--calc-ang),#5b5f66 0deg,#c9ccd2 120deg,#ffffff 200deg,#9aa0a8 260deg,#5b5f66 360deg)}
+.hero .actions .hbtn.hx b{background:linear-gradient(180deg,#ffffff 0%,#d9dce1 45%,#9aa0a8 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (prefers-reduced-motion:no-preference){.hero .actions .hbtn.hx{animation:hxbrilho 5s ease-in-out infinite}}
+@keyframes hxbrilho{0%,55%{background-position:100% 0}85%,100%{background-position:0 0}}
 .hero .down{margin-top:6px;color:#fff;opacity:.8;text-decoration:none;font:600 13px var(--body);display:flex;flex-direction:column;align-items:center;gap:2px}
 .hero .down svg{width:22px;height:22px}
 @media (prefers-reduced-motion:no-preference){.hero .down svg{animation:bob 1.8s ease-in-out infinite}}
@@ -532,6 +538,28 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .afiltag{display:inline-block;align-self:flex-start;margin-bottom:3px;background:#FFF3D6;color:#7A4E00;font:700 11px var(--body);padding:3px 8px;border-radius:999px}
 .tsearch{flex:1;min-width:0;font:500 14px var(--body);padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
 .tsearch:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Parceiros em bolinhas (desde 13/11/2026, pedido do Leandro): grade de logos redondos; tocar no logo abre a loja pelo link da Aline;
+   cupom embaixo (tocar copia); anel dourado = campanha ativa (selo manual ou oferta da Awin) */
+.pgrid-wrap{display:flex;flex-direction:column;gap:16px}
+.pgrp h3{margin:0 0 10px;text-align:center;color:var(--muted);font:700 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.pgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 8px;max-width:880px;margin:0 auto}
+.pgrid>.pb{width:calc((100% - 24px)/4)}
+@media (min-width:560px){.pgrid{gap:20px 14px}.pgrid>.pb{width:92px}}
+.pb{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;text-align:center}
+.pb a.pbl{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:var(--ink);min-width:0;width:100%}
+.pb .pbc{position:relative;width:64px;height:64px;border-radius:50%;background:#fff;box-shadow:0 0 0 1px var(--line),0 4px 12px rgba(29,18,32,.08);display:grid;place-items:center;overflow:hidden;color:var(--accent);font:800 22px/1 var(--display);transition:transform .15s,box-shadow .15s}
+@media (min-width:560px){.pb .pbc{width:72px;height:72px}}
+.pb .pbc img{width:100%;height:100%;object-fit:cover;display:block}
+.pb .pbc img.ct{object-fit:contain;padding:7px;box-sizing:border-box}
+.pb a.pbl:hover .pbc,.pb a.pbl:focus-visible .pbc{transform:translateY(-2px);box-shadow:0 0 0 2px var(--mauve),0 6px 16px rgba(29,18,32,.14)}
+.pb.camp .pbc{box-shadow:0 0 0 2px #d4a72c,0 0 0 4px color-mix(in srgb,#d4a72c 22%,transparent),0 4px 12px rgba(29,18,32,.1)}
+.pb .pbt{position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);background:#111;color:#f5cf5f;font:800 8px/1 var(--body);letter-spacing:.08em;padding:3px 6px;border-radius:999px;white-space:nowrap;text-transform:uppercase}
+.pb .pbn{font:600 11.5px/1.2 var(--body);color:var(--ink);max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere}
+.pb .pcup{border:1px dashed var(--mauve);background:color-mix(in srgb,var(--mauve) 9%,transparent);color:var(--accent);font:700 10px/1 var(--body);letter-spacing:0;padding:4px 6px;border-radius:999px;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pb .pcup.ok{background:var(--accent);color:var(--surface);border-style:solid;border-color:var(--accent)}
+.pb.alvo .pbc{animation:pbpulse 1.4s ease-in-out 3}
+@keyframes pbpulse{50%{box-shadow:0 0 0 4px var(--mauve),0 4px 12px rgba(29,18,32,.1)}}
+.pb .pbk{border:0;background:none;color:var(--muted);font:600 10.5px var(--body);cursor:pointer;padding:2px}
 /* Parceiros: logos e ofertas */
 .plogos{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .plogos::-webkit-scrollbar{display:none}
@@ -688,10 +716,11 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <p class="note" id="pt-intro" style="margin:0"></p>
     </div>
     <div class="dq" id="pt-dest" role="region" aria-roledescription="carrossel" aria-label="Destaques dos parceiros" hidden></div>
-    <div class="plogos" id="pt-logos" role="group" aria-label="Escolha um parceiro"></div>
+    <div id="pt-grid" class="pgrid-wrap"></div>
+    <div class="plogos" id="pt-logos" role="group" aria-label="Escolha um parceiro" hidden></div>
     <div id="pt-sel" style="display:flex;flex-direction:column;gap:12px" hidden></div>
-    <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px"></div>
-    <p class="note" style="text-align:center;margin:0 auto">Parcerias da Aline. Cada cupom segue as regras da loja e nem sempre acumula com outras promoções: confira no carrinho.</p>
+    <div id="pt-groups" style="display:flex;flex-direction:column;gap:12px" hidden></div>
+    <p class="note" style="text-align:center;margin:0 auto;font-size:11.5px">Cada cupom segue as regras da loja e nem sempre acumula com outras promoções.</p>
     <div class="news" data-origem="parceiros" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: os maiores descontos em tênis e acessórios de corrida e as ofertas dos parceiros da Aline, com o cupom dela. Grátis."></div>
   </div>
 
@@ -16574,14 +16603,70 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   })();
   document.getElementById('pt-intro').textContent = 'Toque no cupom para copiar e em "Ir à loja" para comprar pelo link da Aline. As ofertas do dia estão em Achados.';
 
+  // ---------- Parceiros em bolinhas (desde 13/11/2026) ----------
+  // grupos: Lojas parceiras primeiro, depois as marcas (Roupas, Nutrição...). Cupom: da Aline (cupons/cupom) ou, sem ele, o cupom da loja vindo da Awin.
+  (function(){
+    const grid = document.getElementById('pt-grid'); if(!grid) return;
+    const cats = [...new Set(marcas.map(m => m.categoria))].sort((a, b) => (a === 'Lojas parceiras' ? -1 : b === 'Lojas parceiras' ? 1 : 0));
+    const TIT = {'Lojas parceiras': 'Lojas parceiras', 'Roupas': 'Moda fitness', 'Nutrição': 'Nutrição e suplementos'};
+    cats.forEach(cat => {
+      const sec = document.createElement('section'); sec.className = 'pgrp';
+      const h = document.createElement('h3'); h.textContent = TIT[cat] || cat; sec.appendChild(h);
+      const g = document.createElement('div'); g.className = 'pgrid'; sec.appendChild(g);
+      marcas.filter(m => m.categoria === cat).forEach(m => {
+        const sl = slugMarca(m.nome), ofs = ofertasDe(m.nome);
+        const b = document.createElement('div'); b.className = 'pb'; b.id = 'parceiro-' + sl; b.dataset.s = sl;
+        const camp = m.selo || (ofs.length ? 'Black' : '');
+        if(camp) b.classList.add('camp');
+        const a = document.createElement('a'); a.className = 'pbl'; a.target = '_blank'; a.rel = 'noopener sponsored';
+        const lk = (ofs[0] && ofs[0].link) || m.link;  // com campanha da Awin, vai direto para a página da campanha
+        a.href = afil(lk, 'parceiros'); a.setAttribute('aria-label', m.nome + ' (abre a loja)');
+        a.innerHTML = '<span class="pbc"></span><span class="pbn"></span>'; a.querySelector('.pbn').textContent = m.nome;
+        const c = a.querySelector('.pbc');
+        if(m.logo){ const im = new Image(); im.alt = ''; im.src = m.logo; im.loading = 'lazy'; if(m.logo_ajuste === 'contain') im.className = 'ct'; im.onerror = () => { im.remove(); c.textContent = m.nome.charAt(0); }; c.appendChild(im); }
+        else c.textContent = m.nome.charAt(0);
+        if(camp){ const tg = document.createElement('span'); tg.className = 'pbt'; tg.textContent = /black/i.test(camp) ? 'Black' : camp.slice(0, 10); c.appendChild(tg); }
+        a.addEventListener('click', () => ev('clique_parceiro', {parceiro: m.nome, onde: 'bolinha'}));
+        b.appendChild(a);
+        const cps = cupomDe(m) ? [{cupom: cupomDe(m), texto: m.cupom_regra}] : ((m.cupons || []).filter(x => x && x.cupom).slice(0, 1));
+        if(!cps.length){ const ol = ofs.find(o => o.cupom); if(ol) cps.push({cupom: ol.cupom, texto: ol.titulo, loja: true}); }
+        cps.slice(0, 1).forEach(cu => {
+          const bt = document.createElement('button'); bt.type = 'button'; bt.className = 'pcup'; bt.textContent = cu.cupom;
+          bt.setAttribute('aria-label', 'Copiar cupom ' + cu.cupom); if(cu.texto) bt.title = cu.texto;
+          bt.addEventListener('click', async () => {
+            try{ await navigator.clipboard.writeText(cu.cupom); }catch(e){ try{ const ta = document.createElement('textarea'); ta.value = cu.cupom; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }catch(_){} }
+            bt.classList.add('ok'); bt.textContent = 'copiado ✓'; setTimeout(() => { bt.classList.remove('ok'); bt.textContent = cu.cupom; }, 1800);
+            ev('cupom_copiado', {parceiro: m.nome, cupom: cu.cupom, onde: 'bolinha', tipo: cu.loja ? 'loja' : 'aline'});
+          });
+          b.appendChild(bt);
+        });
+        if(ehAline){ const k = document.createElement('button'); k.type = 'button'; k.className = 'pbk'; k.textContent = '✦ kit/story';
+          k.addEventListener('click', () => { const gr = document.getElementById('pt-groups'); gr.hidden = false; const cd = document.getElementById('parceiro-card-' + sl); if(cd) cd.scrollIntoView({behavior: 'smooth', block: 'center'}); });
+          b.appendChild(k); }
+        g.appendChild(b);
+      });
+      grid.appendChild(sec);
+    });
+    // Modo Aline: os cartões antigos (com Kit para a parceira e Story do cupom) ficam abaixo das bolinhas, só para ela
+    groups.querySelectorAll('.partner[id^="parceiro-"]').forEach(el => { el.id = el.id.replace('parceiro-', 'parceiro-card-'); });
+    if(ehAline) groups.hidden = false;
+    document.getElementById('pt-intro').textContent = '';
+    document.getElementById('pt-intro').hidden = true;
+  })();
+  function destacaParceiro(sl){
+    const el = document.getElementById('parceiro-' + sl); if(!el) return;
+    el.classList.remove('alvo'); void el.offsetWidth; el.classList.add('alvo');
+    setTimeout(() => el.scrollIntoView({behavior: 'smooth', block: 'center'}), 200);
+  }
+
   // link para a aba Parceiros (#parceiros) ou para uma marca (#parceiro=<slug>), para mandar às marcas
   setTimeout(function(){
     const h = location.hash || '';
     const mt = h.match(/^#parceiro=([a-z0-9-]+)$/);
     if(h !== '#parceiros' && !mt) return;
     const tb = document.getElementById('tab-roupas'); if(tb) tb.click();
-    if(mt){ escolheParceiro(mt[1], true); }
-    else { const pg = document.getElementById('pt-logos'); if(pg) setTimeout(() => pg.scrollIntoView({behavior:'smooth', block:'start'}), 250); }
+    if(mt){ destacaParceiro(mt[1]); }
+    else { const pg = document.getElementById('pt-grid'); if(pg) setTimeout(() => pg.scrollIntoView({behavior:'smooth', block:'start'}), 250); }
   }, 0);
 
   // ---------- Caixas de e-mail (MailerLite: formulário "Radar de Corrida · caixa do site", com confirmação dupla) ----------
