@@ -641,10 +641,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 
   <div class="panel" id="p-tenis" role="tabpanel" aria-labelledby="tab-tenis" hidden>
     <div class="t-fresh" id="t-fresh" hidden><span class="live" aria-hidden="true"></span><span id="t-fresh-txt"></span></div>
-    <div class="catbar" id="t-cat" role="group" aria-label="Categorias"></div>
-    <div class="toolbar">
-      <input class="tsearch" id="t-q" type="search" placeholder="Buscar: Garmin, Pegasus, fone…" aria-label="Buscar nos achados" autocomplete="off">
-    </div>
+    <input id="t-q" type="hidden" value="">
     <div class="toolbar">
       <button class="fbtn" type="button" id="t-fbtn" aria-expanded="false" aria-controls="t-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
       <select id="t-sort" aria-label="Ordenar achados">
@@ -653,6 +650,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       </select>
     </div>
     <div class="fpanel" id="t-fpanel" hidden>
+      <div class="row" id="t-cat"><span class="l">Categoria</span></div>
       <div class="row" id="t-gen"><span class="l">Para</span></div>
       <div class="row" id="t-marca"><span class="l">Marca</span></div>
       <div class="row" id="t-loja"><span class="l">Loja</span></div>
@@ -705,7 +703,20 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     <div class="bk-ban"><div class="k">BLACK <b>11/11</b></div>
       <p>As melhores ofertas de Black Friday e do 11.11 nas lojas parceiras da Aline: tênis, roupas, relógios e o que você usa para correr, com os maiores descontos do radar.</p>
       <span class="ate" id="bk-ate">Até 30 de novembro</span></div>
-    <div class="catbar" id="bk-cat" role="group" aria-label="Categorias"></div>
+    <div class="toolbar">
+      <button class="fbtn" type="button" id="bk-fbtn" aria-expanded="false" aria-controls="bk-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
+      <select id="bk-sort" aria-label="Ordenar ofertas">
+        <option value="rel">Relevância</option>
+        <option value="desc">Maior desconto</option>
+        <option value="price">Menor preço</option>
+      </select>
+    </div>
+    <div class="fpanel" id="bk-fpanel" hidden>
+      <div class="row" id="bk-grp"><span class="l">Categoria</span></div>
+      <div class="row" id="bk-gen"><span class="l">Para</span></div>
+      <div class="row" id="bk-loja"><span class="l">Loja</span></div>
+      <button class="fclear" type="button" id="bk-clear">Limpar filtros</button>
+    </div>
     <div class="list" id="bk-list"></div>
     <p class="note">Preços conferidos pelo radar nas lojas e que podem mudar ao longo do dia. Confira sempre na loja antes de comprar.</p>
     <div class="news" data-origem="black" data-h="Os melhores achados no seu e-mail" data-p="Toda quinta: as melhores ofertas de corrida das lojas parceiras da Aline. Grátis."></div>
@@ -15750,7 +15761,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     }).filter(Boolean);
   }
   montaDestaques(document.getElementById('e-dest'), itensDestaques(data.destaques), 'radar');
-  montaDestaques(document.getElementById('pt-dest'), itensDestaques(data.destaques_parceiros), 'parceiros');
+  // carrossel da aba Parceiros desligado em 13/11/2026 (pedido do Leandro: aba só com as bolinhas); o campo destaques_parceiros fica guardado
+  // montaDestaques(document.getElementById('pt-dest'), itensDestaques(data.destaques_parceiros), 'parceiros');
   // endereço próprio de cada prova e tênis (mesma regra de src/paginas.py: mude os dois juntos)
   const slugTxt = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70).replace(/-+$/,'');
   function slugAll(arr, base, extra){ const b = arr.map(base); arr.forEach((x,i) => { x.slug = b.filter(v => v===b[i]).length > 1 ? b[i] + '-' + slugTxt(extra(x)) : b[i]; }); }
@@ -15882,22 +15894,22 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   }
 
   // achados (tênis e acessórios)
-  const ts = {cat:'Todos', gen:'Todas', marca:'Todas', loja:'Todas', afil:'Todas', sort:'desc', q:''};
+  const ts = {cat:'Todas', gen:'Todas', marca:'Todas', loja:'Todas', afil:'Todas', sort:'desc', q:''};
   const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const catsPresentes = CATS.filter(c => tenis.some(o => o.categoria===c)).concat(sortPt(tenis.map(o=>o.categoria)).filter(c => !CATS.includes(c)));
   (function(){
     const box = document.getElementById('t-cat');
-    ['Todos', ...catsPresentes].forEach(c => {
+    ['Todas', ...catsPresentes].forEach(c => {
       const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.v = c;
-      const n = c==='Todos' ? tenis.length : tenis.filter(o=>o.categoria===c).length;
-      b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = c; b.querySelector('small').textContent = n;
-      b.setAttribute('aria-pressed', String(c==='Todos'));
+      const n = c==='Todas' ? tenis.length : tenis.filter(o=>o.categoria===c).length;
+      b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = c==='Todas' ? 'Todos' : c; b.querySelector('small').textContent = n;
+      b.setAttribute('aria-pressed', String(c==='Todas'));
       b.addEventListener('click', () => { ts.cat = c; box.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v===c))); refazChipsT(); renderT(); if(window.posthog) posthog.capture('achados_categoria', {categoria: c}); });
       box.appendChild(b);
     });
     if(catsPresentes.length < 2) box.hidden = true;
   })();
-  const naCat = () => tenis.filter(o => ts.cat==='Todos' || o.categoria===ts.cat);
+  const naCat = () => tenis.filter(o => ts.cat==='Todas' || o.categoria===ts.cat);
   function refazChipsT(){
     const base = naCat();
     ['t-marca','t-loja'].forEach(id => document.getElementById(id).querySelectorAll('.chip').forEach(c => c.remove()));
@@ -15915,8 +15927,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       (ts.afil==='Todas' || temAfil(o.link)) &&
       (!q || q.split(/\s+/).every(w => norm([o.nome,o.marca,o.loja,o.categoria,o.genero].join(' ')).includes(w))));
     rows.sort(ts.sort==='desc' ? (a,b)=>b.off-a.off : (a,b)=>a.preco-b.preco);
-    setCount('t-fbtn', [ts.gen, ts.marca, ts.loja, ts.afil]);
-    fill(document.getElementById('t-list'), rows, o => dealCard(o, [ts.cat==='Todos' && o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), q ? 'Nada encontrado para "' + ts.q.trim() + '" hoje. Tente outra palavra.' : 'Nenhum achado com esse filtro hoje.');
+    setCount('t-fbtn', [ts.cat, ts.gen, ts.marca, ts.loja, ts.afil]);
+    fill(document.getElementById('t-list'), rows, o => dealCard(o, [ts.cat==='Todas' && o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · ')), q ? 'Nada encontrado para "' + ts.q.trim() + '" hoje. Tente outra palavra.' : 'Nenhum achado com esse filtro hoje.');
   }
   chips('t-gen', ['Feminino','Masculino'], ts, 'gen', renderT, {Todas:'Todos'});
   if(ehAline){ document.getElementById('t-afil').hidden = false; chips('t-afil', ['Só com link da Aline'], ts, 'afil', renderT, {Todas:'Todos'}); }
@@ -15925,7 +15937,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   let qT = null;
   document.getElementById('t-q').addEventListener('input', e => { ts.q = e.target.value; renderT(); clearTimeout(qT); qT = setTimeout(() => { if(window.posthog && ts.q.trim().length > 2) posthog.capture('achados_busca', {busca: ts.q.trim().slice(0,40)}); }, 1500); });
   renderT();
-  toggler('t-fbtn','t-fpanel'); clearer('t-clear', ['t-gen','t-marca','t-loja','t-afil'], ts, ['gen','marca','loja','afil'], renderT);
+  toggler('t-fbtn','t-fpanel'); clearer('t-clear', ['t-cat','t-gen','t-marca','t-loja','t-afil'], ts, ['cat','gen','marca','loja','afil'], () => { refazChipsT(); renderT(); });
 
   // Black 11/11: primeiro os achados marcados como Black Friday/11.11 pela loja ("black": true), depois os maiores descontos (35% ou mais)
   (function(){
@@ -15933,26 +15945,23 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     const pool = tenis.filter(o => o.black || o.off >= 35).sort((a,b) => (b.black?1:0) - (a.black?1:0) || b.off - a.off).slice(0, 60);
     document.getElementById('c-black').textContent = pool.length;
     const grp = o => o.categoria==='Tênis' ? 'Tênis' : o.categoria==='Roupas' ? 'Roupas' : 'Acessórios e mais';
-    const cats = ['Todos', ...['Tênis','Roupas','Acessórios e mais'].filter(c => pool.some(o => grp(o)===c))];
-    let cat = 'Todos';
-    const box = document.getElementById('bk-cat');
+    // Filtros (categoria, para, loja) e ordenação (relevância = Black Friday primeiro e maior desconto), como em Achados
+    const bs = {grp:'Todas', gen:'Todas', loja:'Todas', sort:'rel'};
     function render(){
-      const rows = pool.filter(o => cat==='Todos' || grp(o)===cat);
+      const rows = pool.filter(o => (bs.grp==='Todas' || grp(o)===bs.grp) && (bs.gen==='Todas' || !o.genero || o.genero===bs.gen || o.genero==='Unissex') && (bs.loja==='Todas' || o.loja===bs.loja));
+      if(bs.sort==='desc') rows.sort((a,b) => b.off - a.off); else if(bs.sort==='price') rows.sort((a,b) => a.preco - b.preco);
+      setCount('bk-fbtn', [bs.grp, bs.gen, bs.loja]);
       fill(document.getElementById('bk-list'), rows, o => {
         const el = dealCard(o, [o.categoria!=='Tênis' ? o.categoria : null, o.genero, o.marca, o.loja===o.marca?null:o.loja].filter(Boolean).join(' · '));
         if(o.black){ const tg = document.createElement('span'); tg.className = 'bktag'; tg.textContent = 'Black Friday'; el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); }
         return el;
-      }, 'As ofertas de Black Friday entram na próxima busca do radar.');
+      }, 'Nenhuma oferta com esses filtros. Toque em Limpar filtros.');
     }
-    cats.forEach(c => {
-      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.dataset.v = c;
-      b.innerHTML = '<span></span><small></small>'; b.querySelector('span').textContent = c;
-      b.querySelector('small').textContent = c==='Todos' ? pool.length : pool.filter(o => grp(o)===c).length;
-      b.setAttribute('aria-pressed', String(c==='Todos'));
-      b.addEventListener('click', () => { cat = c; box.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.v===c))); render(); if(window.posthog) posthog.capture('black_categoria', {categoria: c}); });
-      box.appendChild(b);
-    });
-    if(cats.length < 3) box.hidden = true;
+    chips('bk-grp', ['Tênis','Roupas','Acessórios e mais'].filter(c => pool.some(o => grp(o)===c)), bs, 'grp', render, {Todas:'Todos'});
+    chips('bk-gen', ['Feminino','Masculino'], bs, 'gen', render, {Todas:'Todos'});
+    chips('bk-loja', sortPt(pool.map(o => o.loja).filter(Boolean)), bs, 'loja', render);
+    document.getElementById('bk-sort').addEventListener('change', e => { bs.sort = e.target.value; render(); });
+    toggler('bk-fbtn', 'bk-fpanel'); clearer('bk-clear', ['bk-grp','bk-gen','bk-loja'], bs, ['grp','gen','loja'], render);
     render();
   })();
 
@@ -16472,7 +16481,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       const p = provas.find(x => x.slug === sl);
       if(p){ zera(['e-mes','e-st','e-al'], es, ['mes','st','al']); es.reg = 'Todas'; if(es.uf !== (p.uf||'RJ')){ es.uf = p.uf||'RJ'; ufSel.value = es.uf; drawBase(es.uf); } buildReg(); renderE(); }
       show('provas');
-    } else { ts.cat = 'Todos'; ts.q = ''; document.getElementById('t-q').value = ''; document.getElementById('t-cat').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.v==='Todos'))); refazChipsT(); zera(['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja']); renderT(); show('tenis'); }
+    } else { ts.cat = 'Todas'; ts.q = ''; document.getElementById('t-q').value = ''; document.getElementById('t-cat').querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.v==='Todas'))); refazChipsT(); zera(['t-gen','t-marca','t-loja'], ts, ['gen','marca','loja']); renderT(); show('tenis'); }
     const el = document.querySelector((tipo==='prova' ? '#e-list' : '#t-list') + ' [data-slug="' + sl + '"]');
     if(el){ el.scrollIntoView({block:'center'}); el.classList.add('hilite'); }
     else toast(tipo === 'prova' ? 'Essa prova não está mais no radar. Veja as próximas!' : 'Essa oferta acabou. Veja as ofertas de hoje!');
