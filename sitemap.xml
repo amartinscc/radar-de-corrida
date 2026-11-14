@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://radardecorrida.com.br/</loc><lastmod>2026-11-13</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://radardecorrida.com.br/</loc><lastmod>2026-11-14</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://radardecorrida.com.br/calculadora-de-pace/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://radardecorrida.com.br/hyrox/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-ano-storge-run-corrida-e-caminhada-2026-11-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -380,6 +380,7 @@
   <url><loc>https://radardecorrida.com.br/prova/correzin-de-verao-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-100-voce-belo-horizonte-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-100-voce-salvador-2026-12-08/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-100-voce-sao-paulo-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-5-milhas-aracruz-interpraias-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-58-anos-do-gae-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-6k-do-rosa-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -935,7 +936,6 @@
   <url><loc>https://radardecorrida.com.br/prova/ultramaratona-do-sol-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/uphill-cristo-redentor-2026-11-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/urban-escape-trail-2026-11-15/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://radardecorrida.com.br/prova/v-samurai-run-2026-11-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/vale-verde-run-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/varzea-run-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/vascorrida-niteroi-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
