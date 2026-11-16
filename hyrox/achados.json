@@ -1,5 +1,5 @@
 {
- "conferido": "2026-11-12",
+ "conferido": "2026-11-16",
  "itens": [
   {
    "loja": "Puma",
@@ -191,7 +191,8 @@
    "categoria": "Tênis",
    "de": 1099.99,
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/179275793/17654867437689.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/179275793/17654867437689.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -202,7 +203,8 @@
    "categoria": "Tênis",
    "de": 899.99,
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/177242613/17795245146581.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/177242613/17795245146581.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -213,7 +215,8 @@
    "categoria": "Tênis",
    "de": 1099.99,
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/164110346/17326440011569.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/164110346/17326440011569.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -246,7 +249,8 @@
    "categoria": "Acessórios",
    "de": 199.99,
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/35423556/16841169276979.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/35423556/16841169276979.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -312,7 +316,8 @@
    "categoria": "Roupas",
    "de": 179.99,
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/179984048/top-feminino-para-treino-ms-adidas-bordo-p1.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/179984048/top-feminino-para-treino-ms-adidas-bordo-p1.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -332,7 +337,8 @@
    "link": "https://www.decathlon.com.br/short-masculino-com-ziper-para-treino-120-preto-8547823-domyos/p",
    "categoria": "Roupas",
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/132026580/shorts-masculino-de-academia-preto-4g1.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/132026580/shorts-masculino-de-academia-preto-4g1.jpg",
+   "black": true
   },
   {
    "loja": "Decathlon",
@@ -376,7 +382,8 @@
    "preco": 59.99,
    "de": 159.99,
    "link": "https://www.decathlon.com.br/camiseta-de-treino-feminina-under-armour-motion-crossover-2145647097/p",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170007931/17581388612093.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170007931/17581388612093.jpg",
+   "black": true
   }
  ]
 }
