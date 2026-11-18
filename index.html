@@ -15567,7 +15567,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     c.fillStyle = '#1D1220'; c.font = '700 44px ' + B; c.fillText('@' + (pf.instagram||'amartinscc'), cx, 430);
     c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(o ? (o.parceiro ? 'PARCEIRA DA ALINE' : 'OFERTA DO DIA') : (p ? 'PROVA DO RADAR' : 'RADAR DE HOJE'), cx, 500);
     // cartão
-    const x0 = 90, y0 = 560, cw = W-180, ch = (p || (o && o.parceiro)) ? 960 : 860;
+    const x0 = 90, y0 = 560, cw = W-180, ch = (p || o) ? 960 : 860;
     c.fillStyle = '#FFFFFF'; rr(c,x0,y0,cw,ch,56); c.fill();
     if(p){
       const [pyy, pmm, pdd] = p.data.split('-').map(Number);
@@ -15638,9 +15638,10 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     }
     if(o && !o.parceiro){ c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; const dd = new Date(data.ofertas_atualizado || data.atualizado); c.fillText('Preço conferido em ' + dd.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' · sujeito a alteração', cx, y0+ch-50); }
     // assinatura do radar
-    c.fillStyle = 'rgba(255,255,255,.9)'; c.font = '700 38px ' + B; c.fillText('Achado no', cx, 1580);
-    c.fillStyle = '#FFFFFF'; c.font = '800 76px ' + D; c.fillText('Radar de Corrida', cx, 1670); c.fillText('da Aline', cx, 1750);
-    c.fillStyle = 'rgba(255,255,255,.85)'; c.font = '600 34px ' + B; c.fillText('provas e ofertas de corrida todos os dias', cx, 1830);
+    c.fillStyle = 'rgba(29,18,32,.9)'; rr(c, 120, 1570, W-240, 270, 48); c.fill();
+    c.fillStyle = '#DDB9DD'; c.font = '700 36px ' + B; c.fillText('Achado no', cx, 1640);
+    c.fillStyle = '#FFFFFF'; c.font = '800 80px ' + D; c.fillText('Radar de Corrida', cx, 1730);
+    c.fillStyle = 'rgba(255,255,255,.85)'; c.font = '600 32px ' + B; c.fillText('provas e ofertas de corrida todos os dias', cx, 1800);
     return cv;
   }
   let shName = 'radar-da-aline.png', shLink = RADAR_URL, shMsg = '', shTxt = '', shKind = '', shSlug = '';
@@ -15658,7 +15659,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     else if(o && o.parceiro){ shTxt = o.nome + (typeof o.preco === 'number' ? ' por ' + brl(o.preco) : '') + ' na ' + o.marca + (o.cupom ? ' · cupom da Aline: ' + o.cupom : ''); }
     else if(o){ shTxt = o.nome + ' por ' + brl(o.preco) + (o.off ? ' (-' + o.off + '%)' : '') + ' na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
     else shTxt = 'Provas e ofertas de corrida todos os dias';
-    shTxt += '\nAchado no Radar de Corrida da Aline 👉';
+    shTxt += '\nAchado no Radar de Corrida 👉';
     shMsg = shTxt + ' ' + shLinkCanal('st');
     document.getElementById('sh-wa').href = 'https://wa.me/?text=' + encodeURIComponent(shTxt + ' ' + shLinkCanal('wa'));
     document.getElementById('sh-hint').hidden = true;
@@ -15683,7 +15684,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     try{
       const f = new File([shBlob], shName, {type:'image/png'});
       if(navigator.canShare && navigator.canShare({files:[f], text: shMsg})){ await navigator.share({files:[f], text: shMsg}); shTrack('nativo-imagem'); return; }
-      if(navigator.share){ await navigator.share({title: 'Radar de Corrida da Aline', text: shTxt, url: shLinkCanal('sh')}); shTrack('nativo-link'); return; }
+      if(navigator.share){ await navigator.share({title: 'Radar de Corrida', text: shTxt, url: shLinkCanal('sh')}); shTrack('nativo-link'); return; }
     }catch(e){ if(e && e.name === 'AbortError') return; }
     // 2) salvar a imagem
     if(dlApi){
