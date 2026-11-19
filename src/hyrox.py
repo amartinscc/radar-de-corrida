@@ -29,6 +29,7 @@ treino_js = t[j:t.index('  // compartilhar nos stories', j)]
 
 # parceiros do Radar Hyrox (ordem da aba): logo do cadastro do radar principal + texto próprio do Hyrox
 PARC_HX = [('Puma', 'Parceira oficial do HYROX', 'Tênis, roupas e acessórios da linha PUMA × HYROX.', 'https://br.puma.com/'),
+           ('Amazon', 'Parceira oficial do HYROX', 'Tênis, relógios, suplementos e equipamentos para treinar e competir no HYROX, com entrega rápida.', 'https://www.amazon.com.br/'),
            ('Decathlon', 'Loja parceira', 'Tênis de treino, kettlebell, corda, luvas e roupas para treinar HYROX, com preço de Decathlon.', 'https://www.decathlon.com.br/')]
 _mk = {m['nome']: m for m in data['parceiros']['marcas']}
 parc_hx = [{'nome': n, 'selo': sl, 'texto': tx, 'loja': lj, 'logo': _mk[n].get('logo', '')} for n, sl, tx, lj in PARC_HX if n in _mk and not _mk[n].get('oculto')]
