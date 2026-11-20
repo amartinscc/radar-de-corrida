@@ -54,3 +54,11 @@ C) GRAVAÇÃO E PUBLICAÇÃO (sempre)
 3. git fetch --depth 1 origin main; se origin/main mudou, git reset --hard origin/main, reaplique só "ofertas"/"ofertas_atualizado" e rode de novo python3 src/paginas.py. Depois git add -A; git -c user.name=Claude -c user.email=noreply@anthropic.com commit -m "Atualiza achados AAAA-MM-DD HHhMM (busca|conferência)"; git push origin HEAD:main. Se recusado, repita uma vez.
 
 Ao terminar, responda em português com uma linha: tipo de execução (busca ou conferência), total de achados e por loja, quantos novos hoje, quantos saíram (e por quê), quantos com cada motivo, preços da Amazon conferidos hoje, lojas não lidas e por quê, a linha de resumo do paginas.py e o hash do commit (ou o motivo de não publicar e em qual etapa).
+
+## Critérios dos achados (20/11/2026, Leandro e Aline)
+- Não escolher só pelo maior desconto: priorizar o que a galera mais compra (listas de mais vendidos e "compras no mês" das lojas) e o que é útil para corrida de rua e HYROX.
+- Em cada seleção semanal, pelo menos 2 achados de marcas parceiras que não são big tech (ex.: Jungle, Pink Cheeks, Pozze, Kaisan, Livvan, Plant Power, Massam, Lauri Esporte, Brilho e Bronze, A Tal da Castanha).
+- O tênis em destaque tem que ser de corrida de rua ou HYROX.
+- Conferir se o preço é realmente bom: comparar com outras lojas (Google Shopping) antes de chamar de achado. Preço "de" inflado é jogada de marketing; se o desconto for falso, pode virar conteúdo de "alerta de falso desconto".
+- Conferir tamanhos e cores: se o preço baixo vale só para um tamanho ou cor (ex.: legging só GG), não entra, ou entra avisando claramente ("preço vale para a cor X, confira seu número").
+- Peça com grande desconto só entra se a promoção for relevante para o público, não qualquer produto.
