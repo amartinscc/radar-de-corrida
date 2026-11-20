@@ -59,7 +59,7 @@ Ao terminar, responda em português com uma linha: tipo de execução (busca ou 
 - Não escolher só pelo maior desconto: priorizar o que a galera mais compra (listas de mais vendidos e "compras no mês" das lojas) e o que é útil para corrida de rua e HYROX.
 - Em cada seleção semanal, pelo menos 2 achados de marcas parceiras que não são big tech (ex.: Jungle, Pink Cheeks, Pozze, Kaisan, Livvan, Plant Power, Massam, Lauri Esporte, Brilho e Bronze, A Tal da Castanha).
 - O tênis em destaque tem que ser de corrida de rua ou HYROX.
-- Conferir se o preço é realmente bom: comparar com outras lojas (Google Shopping) antes de chamar de achado. Preço "de" inflado é jogada de marketing; se o desconto for falso, pode virar conteúdo de "alerta de falso desconto".
+- Conferir se o preço é realmente bom: comparar com outras lojas (Google Shopping) antes de chamar de achado. Preço "de" inflado é jogada de marketing; se o desconto for falso, o item simplesmente não entra.
 - Conferir tamanhos e cores: se o preço baixo vale só para um tamanho ou cor (ex.: legging só GG), não entra, ou entra avisando claramente ("preço vale para a cor X, confira seu número").
 - Peça com grande desconto só entra se a promoção for relevante para o público, não qualquer produto.
 - Desconto falso de loja parceira (Amazon e demais afiliadas e patrocinadoras) nunca vai para o público: nem alerta, nem achado, nem destaque. A informação fica só nos bastidores, para a agência não escolher aquele item (Aline, 20/11/2026).
