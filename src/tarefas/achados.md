@@ -62,3 +62,4 @@ Ao terminar, responda em português com uma linha: tipo de execução (busca ou 
 - Conferir se o preço é realmente bom: comparar com outras lojas (Google Shopping) antes de chamar de achado. Preço "de" inflado é jogada de marketing; se o desconto for falso, pode virar conteúdo de "alerta de falso desconto".
 - Conferir tamanhos e cores: se o preço baixo vale só para um tamanho ou cor (ex.: legging só GG), não entra, ou entra avisando claramente ("preço vale para a cor X, confira seu número").
 - Peça com grande desconto só entra se a promoção for relevante para o público, não qualquer produto.
+- Desconto falso de loja parceira (Amazon e demais afiliadas e patrocinadoras) nunca vai para o público: nem alerta, nem achado, nem destaque. A informação fica só nos bastidores, para a agência não escolher aquele item (Aline, 20/11/2026).
