@@ -233,6 +233,7 @@ footer a{color:var(--muted)}
 .novidades-btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;z-index:-1;background:conic-gradient(from var(--calc-ang),#a8780f 0deg,#d4a72c 150deg,#f5cf5f 250deg,#fff4c2 305deg,#ffffff 325deg,#f5cf5f 345deg,#a8780f 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:calc-gira 2.6s linear infinite}
 @media (prefers-reduced-motion:reduce){.novidades-btn::before{animation:none}}
 .novidades-btn svg{width:18px;height:18px}
+.head-txt .novidades-btn{display:flex;width:max-content;min-width:250px}
 .news{background:linear-gradient(135deg,color-mix(in srgb,var(--g1) 70%,var(--surface)),color-mix(in srgb,var(--g2) 70%,var(--surface)));border:1px solid var(--line);border-radius:22px;padding:20px 16px;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center;margin-bottom:14px;scroll-margin-top:20px}
 .news .nh{font:800 22px/1.15 var(--display);margin:0;color:var(--ink)}
 .news .np{margin:0;color:var(--ink);font-size:14px;max-width:44ch}
@@ -276,6 +277,7 @@ if (location.hostname === 'radardecorrida.com.br') {
       <h1>Calculadora de pace</h1>
       <p>Ritmo, tempo de prova, parciais e zonas de treino em segundos.</p>
       <a class="novidades-btn" href="#novidades" id="nov-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Novidades</a>
+      <a class="novidades-btn" href="https://www.instagram.com/radardecorrida/" target="_blank" rel="noopener" id="seguir-radar" data-ev="ig" data-origem="radardecorrida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Seguir @radardecorrida</a>
     </div>
     <a class="avatar" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener" data-ev="ig" data-origem="avatar">
       <img src="/fotos/aline-calculadora.webp" alt="Aline Martins, personal trainer e corredora" width="78" height="78">
