@@ -16,7 +16,7 @@ def tab(id_):
 tabs = tab('tab-provas').replace('<span class="lb">Provas</span>', '<span class="lb">Radar</span>')
 tabs += tab('tab-tenis')
 tabs += tab('tab-roupas')
-# aba Resultados retirada de vez do Radar Hyrox (11/11/2026); no lugar, a aba Black 11/11 (some sozinha depois de BLACK_ATE)
+# aba Resultados retirada de vez do Radar Hyrox (11/11/2026); no lugar, a aba Black (some sozinha depois de BLACK_ATE)
 tabs += tab('tab-black')
 tabs += tab('tab-treino')
 tabs = re.sub(r'<span class="c" id="c-(provas|tenis|roupas)"></span>', '<span class="c"></span>', tabs)
