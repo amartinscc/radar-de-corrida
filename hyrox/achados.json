@@ -1,5 +1,5 @@
 {
- "conferido": "2026-11-19",
+ "conferido": "2026-11-23",
  "itens": [
   {
    "loja": "Puma",
@@ -186,36 +186,36 @@
    "loja": "Decathlon",
    "nome": "Tênis de Treino Under Armour Project Rock 8 Feminino",
    "marca": "Under Armour",
-   "preco": 449.99,
+   "preco": 399.99,
    "link": "https://www.decathlon.com.br/tenis-de-treino-under-armour-project-rock-8-feminino-2145896207/p",
    "categoria": "Tênis",
    "de": 1099.99,
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/179275793/17654867437689.jpg",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/172961850/17654867517061.jpg",
    "black": true
   },
   {
    "loja": "Decathlon",
    "nome": "Tênis de Treino Under Armour Tribase Reign 6 Feminino",
    "marca": "Under Armour",
-   "preco": 449.99,
+   "preco": 399.99,
    "link": "https://www.decathlon.com.br/tenis-de-treino-under-armour-tribase-reign-6-feminino-2145936484/p",
    "categoria": "Tênis",
    "de": 899.99,
    "genero": "Feminino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/177242613/17795245146581.jpg",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/177241487/17795244182585.jpg",
    "black": true
   },
   {
    "loja": "Decathlon",
    "nome": "Tênis de Treino Masculino Under Armour Project Rock 7",
    "marca": "Under Armour",
-   "preco": 479.99,
+   "preco": 449.99,
    "link": "https://www.decathlon.com.br/tenis-de-treino-masculino-under-armour-project-rock-7-2145725642/p",
    "categoria": "Tênis",
    "de": 1099.99,
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/164110346/17326440011569.jpg",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/164093170/17326440062226.jpg",
    "black": true
   },
   {
@@ -227,7 +227,7 @@
    "categoria": "Tênis",
    "de": 499.99,
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/172188993/17104436861041.jpg"
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/173487968/17104436908628.jpg"
   },
   {
    "loja": "Decathlon",
@@ -244,12 +244,12 @@
    "loja": "Decathlon",
    "nome": "Luva de Treino Masculina Under Armour Training Glove",
    "marca": "Under Armour",
-   "preco": 119.99,
+   "preco": 99.99,
    "link": "https://www.decathlon.com.br/luva-de-treino-masculina-under-armour-training-glove-2145284990/p",
    "categoria": "Acessórios",
    "de": 199.99,
    "genero": "Masculino",
-   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/35423556/16841169276979.jpg",
+   "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/35423351/16841169256223.jpg",
    "black": true
   },
   {
@@ -368,7 +368,7 @@
    "marca": "Under Armour",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "preco": 129.99,
+   "preco": 89.99,
    "de": 379.99,
    "link": "https://www.decathlon.com.br/top-de-treino-under-armour-high-crossback-feminino-2145861944/p",
    "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170662574/17593414946149.jpg"
@@ -379,7 +379,7 @@
    "marca": "Under Armour",
    "categoria": "Roupas",
    "genero": "Feminino",
-   "preco": 59.99,
+   "preco": 49.99,
    "de": 159.99,
    "link": "https://www.decathlon.com.br/camiseta-de-treino-feminina-under-armour-motion-crossover-2145647097/p",
    "foto": "https://decathlonstore.vtexassets.com/arquivos/ids/170007931/17581388612093.jpg",
