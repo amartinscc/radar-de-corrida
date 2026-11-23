@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import D, B, M, quebra, centro, brl, MESF  # noqa: E402
 
-VERSAO = 'c2'  # mude para forçar a regravação
+VERSAO = 'c3'  # mude para forçar a regravação
 root = pathlib.Path(__file__).resolve().parent.parent
 PASTA = root / 'carrossel'
 W, H = 1080, 1350
@@ -19,6 +19,49 @@ INK, MUTED, ACCENT, MAUVE, HOT = '#1D1220', '#6B5A6E', '#7A4E7D', '#B28AB1', '#B
 DIAS = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']
 DIAC = ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB', 'DOM']
 ST = {'esgotada': 'Esgotada', 'parcial': 'Últimos lotes', 'embreve': 'Inscrições em breve', 'adiada': 'Adiada'}
+
+
+_MAPA = None
+
+
+def capa_arquivo(p):
+    """Arquivo local da capa da prova: capa manual do site (capas/...) ou a cópia de capas/auto/ (mapa gerado pelo paginas.py)."""
+    global _MAPA
+    u = p.get('capa') or ''
+    if not u: return None
+    m = re.match(r'https?://(www\.)?radardecorrida\.com\.br/(.*)$', u)
+    if m: f = root / m.group(2)
+    elif not re.match(r'https?://', u): f = root / u
+    else:
+        if _MAPA is None:
+            mp = root / 'capas' / 'auto' / 'index.json'
+            _MAPA = json.loads(mp.read_text()) if mp.exists() else {}
+        rel = _MAPA.get(u); f = root / rel if rel else None
+    return f if f and f.exists() else None
+
+
+def cola_capa(im, p, x, y, w, h, r):
+    """Cola a capa recortada (cobre w x h, cantos arredondados) em (x, y). Devolve False se a prova não tem capa local."""
+    f = capa_arquivo(p)
+    if not f: return False
+    try:
+        c = Image.open(f).convert('RGB')
+    except Exception:
+        return False
+    s = max(w / c.width, h / c.height); c = c.resize((max(w, round(c.width * s)), max(h, round(c.height * s))), Image.LANCZOS)
+    fy = .25 if c.height > h * 1.6 else .5
+    ox, oy = (c.width - w) // 2, int((c.height - h) * fy)
+    c = c.crop((ox, oy, ox + w, oy + h))
+    mask = Image.new('L', (w, h), 0); ImageDraw.Draw(mask).rounded_rectangle((0, 0, w - 1, h - 1), r, fill=255)
+    im.paste(c, (x, y), mask)
+    return True
+
+
+def selo_data(dr, cx, yb, txt, f):
+    """Etiqueta lilás da data, centrada em cx, com a base em yb (sobre a capa)."""
+    tw = dr.textlength(txt, font=f); ph = f.size + 18
+    dr.rounded_rectangle((cx - tw / 2 - 18, yb - ph, cx + tw / 2 + 18, yb), ph // 2, fill=MAUVE)
+    centro(dr, cx, yb - ph + 6, txt, f, INK)
 
 
 def fundo():
@@ -104,11 +147,17 @@ def lista(base, itens, n, n_slides):
     for p in itens:
         d = datetime.date.fromisoformat(p['data'])
         dr.rounded_rectangle((70, y, W - 70, y + altura - 22), 40, fill='white')
-        # selo da data
-        dr.rounded_rectangle((100, y + 30, 270, y + 200), 30, fill=MAUVE)
-        centro(dr, 185, y + 44, f'{d.day:02d}', D(84), INK)
-        centro(dr, 185, y + 150, DIAC[d.weekday()] + ' · ' + MESF[d.month - 1][:3].upper(), B(24), INK)
-        x, larg = 300, W - 70 - 300 - 36
+        if cola_capa(im, p, 94, y + 24, 300, 192, 28):
+            # capa oficial da prova, com a data numa etiqueta por cima
+            selo_data(dr, 94 + 150, y + 24 + 192 - 12, f'{d.day:02d} {MESF[d.month - 1][:3].upper()} · ' + DIAC[d.weekday()], B(24))
+            x = 420
+        else:
+            # selo da data
+            dr.rounded_rectangle((100, y + 30, 270, y + 200), 30, fill=MAUVE)
+            centro(dr, 185, y + 44, f'{d.day:02d}', D(84), INK)
+            centro(dr, 185, y + 150, DIAC[d.weekday()] + ' · ' + MESF[d.month - 1][:3].upper(), B(24), INK)
+            x = 300
+        larg = W - 70 - x - 36
         yy = y + 30
         nome = quebra(dr, p['nome'], D(46), larg, 2)
         for l in nome:
@@ -180,7 +229,7 @@ def main(hoje=None):
               and ini.isoformat() <= p['data'] <= domingo.isoformat()]
     provas.sort(key=lambda p: (p['data'], not p.get('aline'), not p.get('cupom'), p.get('hora') or '99', p['nome']))
     dias = sorted({datetime.date.fromisoformat(p['data']) for p in provas})
-    chave = hashlib.sha1(json.dumps([VERSAO, provas, perfil.get('instagram'), hashlib.sha1((perfil.get('foto') or '').encode()).hexdigest()], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+    chave = hashlib.sha1(json.dumps([VERSAO, provas, [str(capa_arquivo(p)) for p in provas], perfil.get('instagram'), hashlib.sha1((perfil.get('foto') or '').encode()).hexdigest()], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
     PASTA.mkdir(exist_ok=True)
     jpath = PASTA / 'semana.json'
     atual = json.loads(jpath.read_text()) if jpath.exists() else {}

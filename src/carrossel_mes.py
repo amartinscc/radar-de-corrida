@@ -10,9 +10,9 @@ from PIL import ImageDraw
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import D, B, M, quebra, centro, MESF  # noqa: E402
-from carrossel import fundo, avatar, rodape, W, H, INK, MUTED, ACCENT, MAUVE, HOT, DIAC  # noqa: E402
+from carrossel import fundo, avatar, rodape, cola_capa, capa_arquivo, selo_data, W, H, INK, MUTED, ACCENT, MAUVE, HOT, DIAC  # noqa: E402
 
-VERSAO = 'm1'  # mude para forçar a regravação
+VERSAO = 'm2'  # mude para forçar a regravação
 root = pathlib.Path(__file__).resolve().parent.parent
 PASTA = root / 'carrossel' / 'mes'
 POR_SLIDE = 8
@@ -62,10 +62,15 @@ def lista(base, titulo, itens, n, n_slides, parte):
     for p in itens:
         d = datetime.date.fromisoformat(p['data'])
         dr.rounded_rectangle((70, y, W - 70, y + alt - 14), 30, fill='white')
-        dr.rounded_rectangle((90, y + 12, 196, y + alt - 26), 22, fill=MAUVE)
-        centro(dr, 143, y + 14, f'{d.day:02d}', D(54), INK)
-        centro(dr, 143, y + 78, DIAC[d.weekday()], B(20), INK)
-        x, larg = 220, W - 70 - 220 - 28
+        if cola_capa(im, p, 84, y + 8, 168, alt - 30, 20):
+            selo_data(dr, 84 + 84, y + alt - 26, f'{d.day:02d} · ' + DIAC[d.weekday()], B(19))
+            x = 274
+        else:
+            dr.rounded_rectangle((90, y + 12, 196, y + alt - 26), 22, fill=MAUVE)
+            centro(dr, 143, y + 14, f'{d.day:02d}', D(54), INK)
+            centro(dr, 143, y + 78, DIAC[d.weekday()], B(20), INK)
+            x = 220
+        larg = W - 70 - x - 28
         destaque = '★ A Aline vai correr' if p.get('aline') else ('Cupom da Aline: ' + p['cupom'] if p.get('cupom') else None)
         nome = quebra(dr, p['nome'], D(36), larg, 1)[0]
         dr.text((x, y + 16), nome, font=D(36), fill=INK)
@@ -140,7 +145,7 @@ def main(hoje=None):
         ps.sort(key=lambda p: (p['data'], not p.get('aline'), not p.get('cupom'), p.get('hora') or '99', p['nome']))
         por_uf[uf] = ps
     tot = {uf: len(ps) for uf, ps in por_uf.items()}
-    chave = hashlib.sha1(json.dumps([VERSAO, ini.isoformat(), por_uf, perfil.get('instagram'), hashlib.sha1((perfil.get('foto') or '').encode()).hexdigest()], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
+    chave = hashlib.sha1(json.dumps([VERSAO, ini.isoformat(), por_uf, {uf: [str(capa_arquivo(p)) for p in ps] for uf, ps in por_uf.items()}, perfil.get('instagram'), hashlib.sha1((perfil.get('foto') or '').encode()).hexdigest()], ensure_ascii=False, sort_keys=True).encode()).hexdigest()
     PASTA.mkdir(parents=True, exist_ok=True)
     jpath = root / 'carrossel' / 'mes.json'
     atual = json.loads(jpath.read_text()) if jpath.exists() else {}
