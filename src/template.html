@@ -1385,6 +1385,7 @@ __DATA__
         dl.querySelector('b').textContent = String(dd).padStart(2,'0'); dl.querySelector('small').textContent = MES[m-1];
         th.append(im, dl); bib.replaceWith(th);
         im.onerror = () => th.replaceWith(bib);
+        capaLocal(p.capa).then(l => { if(l && /^capas\//.test(l)) im.src = l; }).catch(()=>{});
       }
       const pill = el.querySelector('.pill'); pill.textContent = ST[p.status] || ST.confira; pill.classList.add(p.status||'confira');
       if(p.aline){ const b = document.createElement('span'); b.className = 'alinebadge'; b.textContent = 'A Aline vai correr'; el.querySelector('.info').insertBefore(b, pill); }
@@ -1588,6 +1589,16 @@ __DATA__
     if(lines.length > maxLines){ lines = lines.slice(0,maxLines); lines[maxLines-1] = lines[maxLines-1].replace(/\s*\S*$/,'') + '…'; }
     lines.forEach((l,i) => c.fillText(l, x, y + i*lh)); return lines.length;
   }
+  // capa da prova na arte: só imagens do próprio site entram no canvas (senão o navegador bloqueia salvar/compartilhar);
+  // as capas dos organizadores têm cópia local em capas/auto/ (mapa capas/auto/index.json, gerado pelo src/paginas.py)
+  var capaMapa = null;
+  async function capaMapaCarrega(){ if(!capaMapa){ try{ capaMapa = await (await fetch('capas/auto/index.json', {cache:'no-cache'})).json(); }catch(e){ capaMapa = {}; } } return capaMapa; }
+  async function capaLocal(u){
+    if(!u) return null;
+    if(!/^https?:/i.test(u)) return u;
+    const m = u.match(/^https?:\/\/(www\.)?radardecorrida\.com\.br\/(.*)$/i); if(m) return m[2];
+    return (await capaMapaCarrega())[u] || null;
+  }
   async function drawStory(o, p){
     const D = "'Urbanist','Avenir Next',system-ui,sans-serif", B = "'Plus Jakarta Sans',system-ui,sans-serif";
     try{ await Promise.all(['800 60px Urbanist','700 40px "Plus Jakarta Sans"','600 40px "Plus Jakarta Sans"'].map(f => document.fonts.load(f))); }catch(e){}
@@ -1605,17 +1616,36 @@ __DATA__
     c.fillStyle = '#1D1220'; c.font = '700 44px ' + B; c.fillText('@' + (pf.instagram||'amartinscc'), cx, 430);
     c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(o ? (o.parceiro ? 'PARCEIRA DA ALINE' : 'OFERTA DO DIA') : (p ? 'PROVA DO RADAR' : 'RADAR DE HOJE'), cx, 500);
     // cartão
-    const x0 = 90, y0 = 560, cw = W-180, ch = (p || o) ? 960 : 860;
+    const x0 = 90, y0 = 560, cw = W-180, ch = p ? 990 : o ? 960 : 860;
     c.fillStyle = '#FFFFFF'; rr(c,x0,y0,cw,ch,56); c.fill();
     if(p){
       const [pyy, pmm, pdd] = p.data.split('-').map(Number);
       const dow = new Date(Date.UTC(pyy, pmm-1, pdd)).getUTCDay();
-      c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
-      c.fillStyle = '#1D1220'; c.font = '800 120px ' + D; c.fillText(String(pdd).padStart(2,'0'), cx, y0+170);
-      c.font = '700 32px ' + B; c.fillText(MESF[pmm-1].toUpperCase(), cx, y0+222);
-      c.fillStyle = '#6B5A6E'; c.font = '700 30px ' + B; c.fillText([DOW[dow], p.uf!=='RJ' && p.cidade ? p.cidade : (p.geo && p.geo.reg) || 'Rio de Janeiro'].join(' · ').toUpperCase(), cx, y0+320);
-      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; const pn = wrap(c, p.nome, cx, y0+420, cw-120, 80, 2);
-      let yy = y0 + 420 + pn*80 + 64;
+      const capa = await carregaImg(await capaLocal(p.capa));
+      let yy, ny;
+      if(capa){
+        // capa oficial no alto do cartão (cantos de cima arredondados) com a data numa etiqueta por cima
+        const chh = 400, iw = capa.naturalWidth, ih = capa.naturalHeight;
+        c.save(); rr(c, x0, y0, cw, ch, 56); c.clip(); c.beginPath(); c.rect(x0, y0, cw, chh); c.clip();
+        c.fillStyle = '#F6F0F6'; c.fillRect(x0, y0, cw, chh);
+        const sc = Math.max(cw/iw, chh/ih); c.drawImage(capa, x0 + (cw - iw*sc)/2, y0 + (chh - ih*sc)*(ih*sc > chh*1.6 ? .25 : .5), iw*sc, ih*sc);
+        c.restore();
+        const dt = String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase() + ' · ' + DOW[dow].toUpperCase();
+        c.font = '800 40px ' + B; const tw = c.measureText(dt).width + 64;
+        c.fillStyle = '#B28AB1'; rr(c, cx - tw/2, y0 + chh - 38, tw, 76, 38); c.fill();
+        c.fillStyle = '#1D1220'; c.fillText(dt, cx, y0 + chh + 14);
+        c.fillStyle = '#6B5A6E'; c.font = '700 30px ' + B; c.fillText((p.uf!=='RJ' && p.cidade ? p.cidade + ' · ' + p.uf : (p.geo && p.geo.reg) || 'Rio de Janeiro').toUpperCase(), cx, y0 + chh + 100);
+        c.fillStyle = '#1D1220'; c.font = '800 62px ' + D; const pn = wrap(c, p.nome, cx, y0 + chh + 180, cw-110, 70, 2);
+        yy = y0 + chh + 180 + (pn-1)*70 + 66; ny = 44;
+        c.font = '600 34px ' + B;
+      } else {
+        c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
+        c.fillStyle = '#1D1220'; c.font = '800 120px ' + D; c.fillText(String(pdd).padStart(2,'0'), cx, y0+170);
+        c.font = '700 32px ' + B; c.fillText(MESF[pmm-1].toUpperCase(), cx, y0+222);
+        c.fillStyle = '#6B5A6E'; c.font = '700 30px ' + B; c.fillText([DOW[dow], p.uf!=='RJ' && p.cidade ? p.cidade : (p.geo && p.geo.reg) || 'Rio de Janeiro'].join(' · ').toUpperCase(), cx, y0+320);
+        c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; const pn = wrap(c, p.nome, cx, y0+420, cw-120, 80, 2);
+        yy = y0 + 420 + pn*80 + 64; ny = 48;
+      }
       const info = [];
       if(p.local) info.push(p.local);
       const hd = [p.hora ? p.hora.replace(':','h') : null, p.distancias].filter(Boolean).join(' · ');
@@ -1625,8 +1655,9 @@ __DATA__
       const last = [pr, stt].filter(Boolean).join(' · ');
       if(last) info.push(last);
       if(p.cupom) info.push('Cupom da Aline: ' + p.cupom);
-      c.fillStyle = '#6B5A6E'; c.font = '600 38px ' + B;
-      info.forEach(line => { const k = wrap(c, line, cx, yy, cw-120, 48, 2); yy += k*48 + 16; });
+      c.fillStyle = '#6B5A6E'; c.font = (capa ? '600 34px ' : '600 38px ') + B;
+      const lim = y0 + ch - (p.aline ? 170 : 90);
+      info.forEach(line => { if(yy > lim) return; const k = wrap(c, line, cx, yy, cw-120, ny, capa ? 1 : 2); yy += k*ny + (capa ? 12 : 16); });
       if(p.aline){ c.fillStyle = '#B28AB1'; rr(c,cx-300,y0+ch-150,600,70,35); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 34px ' + B; c.fillText('★ A Aline vai correr', cx, y0+ch-100); }
       c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; c.fillText('Confira a inscrição no radar', cx, y0+ch-45);
     } else if(o && o.parceiro){

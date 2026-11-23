@@ -342,6 +342,52 @@ def sitemap(provas_ativas, hoje):
     (root / 'sitemap.xml').write_text('\n'.join(linhas) + '\n')
 
 
+def capas_locais(provas, hoje):
+    """Guarda no próprio site uma cópia (JPEG, até 1080 px de largura) da capa oficial de cada prova ativa.
+    A arte de compartilhar a prova (story) só consegue usar imagens do próprio site; o mapa capas/auto/index.json
+    liga o link original (campo "capa") ao arquivo local. Capas que falham ficam de fora (a arte sai sem capa).
+    Arquivos de provas que saíram do radar são apagados. Não altera o index.html."""
+    import urllib.request
+    from concurrent.futures import ThreadPoolExecutor
+    pasta = root / 'capas' / 'auto'; pasta.mkdir(parents=True, exist_ok=True)
+    mpath = pasta / 'index.json'
+    antigo = json.loads(mpath.read_text()) if mpath.exists() else {}
+    urls = sorted({p['capa'] for p in provas if p.get('data', '') >= hoje and re.match(r'https?://', p.get('capa') or '')
+                   and not re.match(r'https?://(www\.)?radardecorrida\.com\.br/', p['capa'])})
+
+    def baixa(u):
+        nome = 'capas/auto/' + hashlib.sha1(u.encode()).hexdigest()[:16] + '.jpg'
+        if (root / nome).exists(): return u, nome, False
+        try:
+            r = urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0 (RadarDeCorrida)'}), timeout=20)
+            dados = r.read(12_000_000)
+            im = Image.open(io.BytesIO(dados))
+            im.load()
+            if im.mode in ('RGBA', 'LA', 'P'):
+                im = im.convert('RGBA'); f = Image.new('RGB', im.size, (255, 255, 255)); f.paste(im, mask=im.split()[-1]); im = f
+            else:
+                im = im.convert('RGB')
+            if im.width < 200 or im.height < 120: return u, None, False
+            if im.width > 1080: im = im.resize((1080, round(im.height * 1080 / im.width)), Image.LANCZOS)
+            im.save(root / nome, 'JPEG', quality=82, optimize=True, progressive=True)
+            return u, nome, True
+        except Exception:
+            return u, None, False
+
+    mapa, novas, falhas = {}, 0, 0
+    with ThreadPoolExecutor(8) as ex:
+        for u, nome, nova in ex.map(baixa, urls):
+            if nome: mapa[u] = nome; novas += nova
+            else: falhas += 1
+    usados = {pathlib.Path(n).name for n in mapa.values()}
+    apagadas = 0
+    for f in pasta.glob('*.jpg'):
+        if f.name not in usados: f.unlink(); apagadas += 1
+    if mapa != antigo or not mpath.exists():
+        mpath.write_text(json.dumps(mapa, ensure_ascii=False, indent=0, sort_keys=True))
+    print(f'capas: {len(mapa)} no site ({novas} novas, {apagadas} apagadas, {falhas} sem cópia)')
+
+
 def main():
     s = (root / 'index.html').read_text()
     d = json.loads(re.search(r'<script id="radar-data" type="application/json">(.*?)</script>', s, re.S).group(1))
@@ -414,6 +460,11 @@ def main():
     sitemap(ativos['prova'], hoje)
     manpath.write_text(json.dumps(novos_man, ensure_ascii=False, indent=0, sort_keys=True))
     print(f'páginas: {len(ativos["prova"])} provas, {len(ativos["tenis"])} tênis; imagens novas/alteradas: {gravadas}; encerradas agora: {encerradas}')
+    # cópia local das capas das provas (para a arte de compartilhar); um erro aqui não impede o resto
+    try:
+        capas_locais(provas, hoje)
+    except Exception as e:
+        print(f'capas: ERRO ({e}); páginas geradas normalmente')
     # carrossel "Provas do fim de semana no Rio" (Modo Aline e e-mail de quinta); um erro aqui não impede o resto
     try:
         import carrossel
