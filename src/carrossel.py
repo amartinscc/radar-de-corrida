@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import D, B, M, quebra, centro, brl, MESF  # noqa: E402
 
-VERSAO = 'c3'  # mude para forçar a regravação
+VERSAO = 'c4'  # mude para forçar a regravação
 root = pathlib.Path(__file__).resolve().parent.parent
 PASTA = root / 'carrossel'
 W, H = 1080, 1350
@@ -90,7 +90,7 @@ def avatar(perfil, r):
 
 def rodape(dr, n, total, claro=False):
     cor = (255, 255, 255) if claro else INK
-    dr.text((70, H - 78), 'radardecorrida.com.br · @amartinscc', font=B(28), fill=cor)
+    dr.text((70, H - 78), 'radardecorrida.com.br · @radardecorrida', font=B(28), fill=cor)
     t = f'{n}/{total}'
     dr.text((W - 70 - dr.textlength(t, font=B(28)), H - 78), t, font=B(28), fill=cor)
 
@@ -112,7 +112,7 @@ def capa(base, perfil, dias, total, n_slides):
     r = 92; av = avatar(perfil, r)
     dr.ellipse((cx - r - 8, 150 - r - 8, cx + r + 8, 150 + r + 8), fill='white')
     if av: im.paste(av[0], (cx - r, 150 - r), av[1])
-    centro(dr, cx, 262, '@' + (perfil.get('instagram') or 'amartinscc'), B(34), INK)
+    centro(dr, cx, 262, '@radardecorrida', B(34), INK)  # perfil do Radar (pedido do Leandro, 23/11/2026)
     centro(dr, cx, 312, 'RADAR DE CORRIDA', B(28), ACCENT)
     dr.rounded_rectangle((70, 380, W - 70, 1110), 56, fill='white')
     centro(dr, cx, 440, 'PROVAS DO', B(40), MUTED)

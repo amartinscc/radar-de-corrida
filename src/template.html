@@ -2942,7 +2942,7 @@ __DATA__
     const im = await carregaImg(src), cv = document.createElement('canvas'); cv.width = 1080; cv.height = 1920; const c = cv.getContext('2d');
     aFundo(c, 1080, 1920); if(im) c.drawImage(im, 0, 285, 1080, 1350);
     c.fillStyle = A_INK; c.textAlign = 'center'; c.font = '800 56px ' + AD; c.fillText(carrKind === 'mes' && carrInfo ? 'Provas de ' + carrInfo.mes + ' · Rio e SP' : 'Provas do fim de semana no Rio', 540, 190);
-    c.font = '600 30px ' + AB; c.fillStyle = '#fff'; c.fillText('radardecorrida.com.br · @' + (pf.instagram || 'amartinscc'), 540, 1810);
+    c.font = '600 30px ' + AB; c.fillStyle = '#fff'; c.fillText('radardecorrida.com.br · @radardecorrida', 540, 1810);
     return cv;
   }
   async function carrMostra(){

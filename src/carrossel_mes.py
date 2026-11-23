@@ -12,7 +12,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import D, B, M, quebra, centro, MESF  # noqa: E402
 from carrossel import fundo, avatar, rodape, cola_capa, capa_arquivo, selo_data, W, H, INK, MUTED, ACCENT, MAUVE, HOT, DIAC  # noqa: E402
 
-VERSAO = 'm2'  # mude para forçar a regravação
+VERSAO = 'm3'  # mude para forçar a regravação
 root = pathlib.Path(__file__).resolve().parent.parent
 PASTA = root / 'carrossel' / 'mes'
 POR_SLIDE = 8
@@ -34,7 +34,7 @@ def capa(base, perfil, mes, tot, n_slides):
     r = 92; av = avatar(perfil, r)
     dr.ellipse((cx - r - 8, 150 - r - 8, cx + r + 8, 150 + r + 8), fill='white')
     if av: im.paste(av[0], (cx - r, 150 - r), av[1])
-    centro(dr, cx, 262, '@' + (perfil.get('instagram') or 'amartinscc'), B(34), INK)
+    centro(dr, cx, 262, '@radardecorrida', B(34), INK)  # perfil do Radar (pedido do Leandro, 23/11/2026)
     centro(dr, cx, 312, 'RADAR DE CORRIDA', B(28), ACCENT)
     dr.rounded_rectangle((70, 380, W - 70, 1110), 56, fill='white')
     centro(dr, cx, 440, 'PROVAS DE', B(40), MUTED)
