@@ -14,12 +14,13 @@ states = re.search(r'const STATES = (\{.*?\});\n', t).group(1)
 def tab(id_):
     return re.search(r'    <button class="tab" role="tab" id="' + id_ + r'".*?</button>\n', t).group(0)
 tabs = tab('tab-provas').replace('<span class="lb">Provas</span>', '<span class="lb">Radar</span>')
-tabs += tab('tab-tenis')
+# 23/11/2026: mesma ordem do radar principal: Radar, Tênis, Parceiros, Achados (vira Black até BLACK_ATE), Treine comigo
+tabs += tab('tab-calc')
 tabs += tab('tab-roupas')
-# aba Resultados retirada de vez do Radar Hyrox (11/11/2026); no lugar, a aba Black (some sozinha depois de BLACK_ATE)
+tabs += tab('tab-tenis')
 tabs += tab('tab-black')
 tabs += tab('tab-treino')
-tabs = re.sub(r'<span class="c" id="c-(provas|tenis|roupas)"></span>', '<span class="c"></span>', tabs)
+tabs = re.sub(r'<span class="c" id="c-(provas|tenis|roupas|calc)"></span>', '<span class="c"></span>', tabs)
 tabs = tabs.replace('<span class="lb">Parceiros</span>', '<span class="lb">Parceiros</span>')
 
 i = t.index('<section class="tr-soon"')
@@ -33,8 +34,14 @@ PARC_HX = [('Puma', 'Parceira oficial do HYROX', 'Tênis, roupas e acessórios d
            ('Decathlon', 'Loja parceira', 'Tênis de treino, kettlebell, corda, luvas e roupas para treinar HYROX, com preço de Decathlon.', 'https://www.decathlon.com.br/')]
 _mk = {m['nome']: m for m in data['parceiros']['marcas']}
 parc_hx = [{'nome': n, 'selo': sl, 'texto': tx, 'loja': lj, 'logo': _mk[n].get('logo', '')} for n, sl, tx, lj in PARC_HX if n in _mk and not _mk[n].get('oculto')]
+# vitrine "Melhores do momento" da aba Tênis: os modelos HYROX e CrossFit do ranking do radar principal (campo manual ranking_tenis)
+_rk = data.get('ranking_tenis') or {}
+_rk_mod = [m for m in (_rk.get('modelos') or []) if m.get('modalidade') in ('HYROX', 'CrossFit')]
+_rk_fontes = [f for f in (_rk.get('fontes') or []) if any(m.get('fonte') == f.get('id') for m in _rk_mod)]
+# (sem copiar ofertas do radar principal: o preço ficaria velho; a vitrine usa só os tênis do hyrox/achados.json, atualizados pela tarefa do Radar Hyrox)
 dados = {'perfil': {'instagram': (data.get('perfil') or {}).get('instagram', 'amartinscc')},
-         'assessoria': data.get('assessoria') or {}, 'treino_em_breve': data.get('treino_em_breve')}
+         'assessoria': data.get('assessoria') or {}, 'treino_em_breve': data.get('treino_em_breve'),
+         'ranking': {'fontes': _rk_fontes, 'modelos': _rk_mod}}
 
 h = (root / 'src' / 'hyrox-template.html').read_text()
 

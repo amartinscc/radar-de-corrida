@@ -161,15 +161,26 @@ __TABS__
     <p class="note" id="e-note"></p>
   </div>
 
+  <div class="panel" id="p-calc" role="tabpanel" aria-labelledby="tab-calc" hidden>
+    <section class="rk" id="rk" aria-labelledby="rk-h" hidden>
+      <div class="rk-h"><h2 id="rk-h">Melhores do momento</h2><span id="rk-sub"></span></div>
+      <div class="rk-row" id="rk-row"></div>
+      <p class="rk-fonte" id="rk-fonte"></p>
+    </section>
+    <h2 class="ptitle" style="margin:0">Tênis para HYROX</h2>
+    <p class="note" style="margin:0">Tênis para treinar e competir HYROX (e CrossFit) nas lojas parceiras, com os melhores descontos e cupons. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
+    <div class="list" id="k-list"></div>
+  </div>
+
   <div class="panel" id="p-tenis" role="tabpanel" aria-labelledby="tab-tenis" hidden>
     <h2 class="ptitle" style="margin:0">Achados Hyrox</h2>
-    <p class="note" style="margin:0">A linha oficial PUMA × HYROX, os achados da Decathlon e o que usar para treinar e competir. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
+    <p class="note" style="margin:0">Roupas, luvas, cordas, kettlebells e o que mais você usa para treinar e competir HYROX, nas lojas parceiras. Os tênis estão na aba Tênis. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
     <div class="list" id="t-list"></div>
   </div>
 
   <div class="panel" id="p-black" role="tabpanel" aria-labelledby="tab-black" hidden>
     <div class="bk-ban"><div class="k"><b>BLACK</b></div>
-      <p>As melhores ofertas de Black Friday e do 11.11 para treinar e competir HYROX nas lojas parceiras da Aline, com os maiores descontos do radar.</p>
+      <p>Os achados da Black Friday para treinar e competir HYROX nas lojas parceiras da Aline: roupas, acessórios e equipamentos. Os tênis estão na aba Tênis.</p>
       <span class="ate">Até 30 de novembro</span></div>
     <div class="list" id="bk-list"></div>
     <p class="note">Preços conferidos pelo radar nas lojas e que podem mudar ao longo do dia. Confira sempre na loja antes de comprar.</p>
@@ -284,14 +295,18 @@ document.addEventListener('DOMContentLoaded', function(){
   // ===== abas =====
   // Black 11/11 (11/11/2026): aba temporária no lugar da antiga Resultados; some sozinha depois de BLACK_ATE
   const BLACK_ATE = '2026-11-30', blackOn = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date()) <= BLACK_ATE;
-  const tabs = blackOn ? ['provas','tenis','roupas','black','treino'] : ['provas','tenis','roupas','treino'];
+  // 23/11/2026: mesmas abas do radar principal: 'calc' = Tênis; 'tenis' = Achados (nome antigo); 'black' = Achados no modo Black
+  const tabAchados = blackOn ? 'black' : 'tenis';
+  const tabs = ['provas','calc','roupas', tabAchados,'treino'];
   document.getElementById('tab-black').hidden = !blackOn;
+  document.getElementById('tab-tenis').hidden = blackOn;
   function show(name){
     tabs.forEach(t => { const b = document.getElementById('tab-'+t); b.setAttribute('aria-selected', String(t===name)); document.getElementById('p-'+t).hidden = t!==name; });
     ev('hyrox_aba', {aba: name});
   }
   tabs.forEach(t => document.getElementById('tab-'+t).addEventListener('click', () => { show(t); history.replaceState(null, '', '#' + t); }));
-  const h0 = (location.hash||'').slice(1).replace(/^(black-friday|1111)$/, 'black'); show(tabs.includes(h0) ? h0 : 'provas');
+  const h0 = ({'black-friday': tabAchados, '1111': tabAchados, 'black': tabAchados, 'achados': tabAchados, 'tenis': 'calc', 'radar': 'provas'})[(location.hash||'').slice(1)] || (location.hash||'').slice(1);
+  show(tabs.includes(h0) ? h0 : 'provas');
   if(h0 === 'black' && blackOn) setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
   document.querySelectorAll('a[href="#eventos"],a[href="#onde-treinar"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); show('provas'); modoSet(a.getAttribute('href') === '#eventos' ? 'eventos' : 'locais'); document.getElementById('radar-abas').scrollIntoView({behavior: 'smooth'}); }));
 
@@ -567,20 +582,53 @@ __DESTAQUES_JS__
   // links de afiliada: os MESMOS do radar principal (copiados de src/template.html pelo src/hyrox.py)
 __AFIL_JS__
   fetch('achados.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
-    const box = document.getElementById('t-list'), xs = ((j && j.itens) || []).slice().sort((a,b) => ((b.de ? 1 - b.preco/b.de : 0) - (a.de ? 1 - a.preco/a.de : 0)));
-    const c = document.querySelector('#tab-tenis .c'); if(c) c.textContent = xs.length;
+    const box = document.getElementById('t-list'), todos = ((j && j.itens) || []).slice().sort((a,b) => ((b.de ? 1 - b.preco/b.de : 0) - (a.de ? 1 - a.preco/a.de : 0)));
     const offDe = o => o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
+    // 23/11/2026: tênis na aba Tênis; o resto (acessórios) em Achados/Black
+    const tenisHx = todos.filter(o => o.categoria === 'Tênis'), xs = todos.filter(o => o.categoria !== 'Tênis');
+    const c = document.querySelector('#tab-tenis .c'); if(c) c.textContent = xs.length;
+    const ck = document.querySelector('#tab-calc .c'); if(ck) ck.textContent = tenisHx.length;
+    const ehMV = o => Array.isArray(o.motivos) && o.motivos.includes('mais_vendido');
+    const kl = document.getElementById('k-list');
+    if(!tenisHx.length) kl.innerHTML = '<p class="empty">Os tênis HYROX entram na próxima busca do radar.</p>';
+    tenisHx.sort((a,b) => (ehMV(b)?1:0) - (ehMV(a)?1:0) || (blackOn ? (b.black?1:0) - (a.black?1:0) : 0) || offDe(b) - offDe(a)).forEach(o => { const el = cardHx(o); const inf = el.querySelector('.info'), st = inf.querySelector('.store');
+      if(ehMV(o)){ const t = document.createElement('span'); t.className = 'mvtag'; t.textContent = 'Mais vendido · ' + o.loja; inf.insertBefore(t, st); }
+      if(blackOn && o.black){ const t = document.createElement('span'); t.className = 'bktag'; t.textContent = 'Black Friday'; inf.insertBefore(t, st); }
+      kl.appendChild(el); });
+    rankingHx(tenisHx);
     if(blackOn){ // Black 11/11: primeiro os marcados como Black Friday ("black": true), depois os maiores descontos
-      const bk = xs.filter(o => o.black || offDe(o) >= 20).sort((a,b) => (b.black?1:0) - (a.black?1:0) || offDe(b) - offDe(a));
+      const bk = xs.slice().sort((a,b) => (b.black?1:0) - (a.black?1:0) || offDe(b) - offDe(a));  // 23/11/2026: a Black é a aba Achados de novembro
       const cb = document.querySelector('#tab-black .c'); if(cb) cb.textContent = bk.length;
       const bl = document.getElementById('bk-list');
       if(!bk.length) bl.innerHTML = '<p class="empty">As ofertas de Black Friday entram na próxima busca do radar.</p>';
       bk.forEach(o => { const el = cardHx(o); if(o.black){ const tg = document.createElement('span'); tg.className = 'bktag'; tg.textContent = 'Black Friday'; el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); } bl.appendChild(el); });
     }
-    if(!xs.length){ box.innerHTML = '<p class="empty">Os achados Hyrox entram na próxima busca do radar.</p>'; return; }
+    if(!xs.length){ box.innerHTML = '<p class="empty">Os achados Hyrox entram na próxima busca do radar.</p>'; abreCompartilhado('achados'); return; }
     xs.forEach(o => box.appendChild(cardHx(o)));
     abreCompartilhado('achados');
   });
+  // vitrine "Melhores do momento" (modelos HYROX/CrossFit do ranking manual do radar principal)
+  function rankingHx(tenisHx){
+    const rk = data.ranking || {}, mods = (rk.modelos || []); if(!mods.length) return;
+    document.getElementById('rk').hidden = false;
+    const f0 = (rk.fontes || [])[0] || {}; document.getElementById('rk-sub').textContent = f0.desc || '';
+    const pool = tenisHx, row = document.getElementById('rk-row');
+    mods.forEach(m => { const res = (m.busca || []).map(b => { try{ return new RegExp(b, 'i'); }catch(e){ return null; } }).filter(Boolean);
+      const o = pool.filter(x => res.some(r => r.test(x.nome) || r.test((x.marca||'') + ' ' + x.nome))).sort((a,b) => a.preco - b.preco)[0];
+      const a = document.createElement(o ? 'a' : 'div'); a.className = 'rk-card';
+      if(o){ a.href = afil(o.link); a.target = '_blank'; a.rel = 'noopener sponsored'; a.addEventListener('click', () => ev('clique_ranking_tenis', {modelo: m.nome, loja: o.loja, onde: 'hyrox'})); }
+      a.innerHTML = '<span class="sel"></span><span class="nm"></span><span class="fx"></span><div class="of"></div>';
+      a.querySelector('.sel').textContent = m.selo || ''; a.querySelector('.nm').textContent = m.nome; a.querySelector('.fx').textContent = m.modalidade || '';
+      const of = a.querySelector('.of');
+      if(o){ const off = o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
+        of.innerHTML = '<small></small><div><b></b>' + (off ? '<s></s>' : '') + '</div><small></small>';
+        of.children[0].textContent = 'Melhor preço no radar' + (off ? ' · -' + off + '%' : ''); of.querySelector('b').textContent = brl(o.preco); if(off) of.querySelector('s').textContent = brl(o.de);
+        of.children[2].textContent = o.nome + ' · ' + o.loja; }
+      else of.innerHTML = '<span class="sem">Sem oferta nas lojas parceiras hoje. O radar segue de olho.</span>';
+      row.appendChild(a); });
+    const fl = document.getElementById('rk-fonte');
+    if(f0.nome){ fl.append('Fonte: '); const l = document.createElement('a'); l.href = f0.link || '#'; l.target = '_blank'; l.rel = 'noopener'; l.textContent = f0.nome + (f0.data ? ' (' + f0.data + ')' : ''); fl.append(l, '. Os preços são das lojas parceiras do Radar.'); }
+  }
   function cardHx(o){
     {
       const off = o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
@@ -769,8 +817,9 @@ __AFIL_JS__
   function abreCompartilhado(onde){
     if(!pedido || (onde === 'achados') !== (pedido[1] === 'achado')) return;
     const [, tipo, sl] = pedido;
-    if(tipo === 'achado') show('tenis'); else { show('provas'); if(tipo === 'evento') modoSet('eventos', true); if(tipo === 'local') modoSet('locais', true); }
-    const el = document.querySelector((tipo === 'achado' ? '#t-list' : '#e-list') + ' [data-slug="' + sl + '"]');
+    const ehTenis = tipo === 'achado' && !!document.querySelector('#k-list [data-slug="' + sl + '"]');
+    if(tipo === 'achado') show(ehTenis ? 'calc' : tabAchados); else { show('provas'); if(tipo === 'evento') modoSet('eventos', true); if(tipo === 'local') modoSet('locais', true); }
+    const el = document.querySelector((tipo === 'achado' ? (ehTenis ? '#k-list' : blackOn ? '#bk-list' : '#t-list') : '#e-list') + ' [data-slug="' + sl + '"]');
     if(el){ setTimeout(() => el.scrollIntoView({block:'center'}), 50); el.classList.add('hilite'); }
     else toast(tipo === 'prova' ? 'Essa prova já passou. Veja as próximas!' : tipo === 'evento' ? 'Esse evento já passou. Veja os próximos!' : tipo === 'local' ? 'Esse lugar não está mais na lista. Veja onde treinar!' : 'Essa oferta acabou. Veja os achados de hoje!');
     ev('abriu_link_compartilhado', {tipo: 'hyrox_' + tipo, item: sl, achou: !!el});

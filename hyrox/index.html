@@ -466,6 +466,29 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .bk-ban .k b{color:#F5C84C}
 .bk-ban p{margin:10px auto 0;max-width:420px;font:500 14px/1.45 var(--body);color:#D9D9DF}
 .bk-ban .ate{display:inline-block;margin-top:12px;padding:4px 11px;border-radius:999px;background:#F5C84C;color:#0B0B0D;font:800 11px/1.4 var(--body);letter-spacing:.06em;text-transform:uppercase}
+.deal .mvtag,.deal .rktag{display:inline-block;align-self:flex-start;margin:0 4px 4px 0;padding:2px 8px;border-radius:999px;font:800 10px/1.4 var(--body);letter-spacing:.05em;text-transform:uppercase}
+.deal .mvtag{background:#FFE9D9;color:#A2410F;border:1px solid #F2B48C}
+.deal .rktag{background:#EFE3F0;color:#5E3A61;border:1px solid #D9C1D9}
+.deal .tags{display:flex;flex-wrap:wrap}
+.rk{display:flex;flex-direction:column;gap:10px}
+.rk-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.rk-h h2{font:800 20px/1.1 var(--display);margin:0}
+.rk-h span{font-size:12.5px;color:var(--muted)}
+.rk-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.rk-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(210px,72%);gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+@media (min-width:720px){.rk-row{grid-auto-columns:minmax(220px,31%)}}
+.rk-card{scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);position:relative}
+.rk-card .pos{position:absolute;top:10px;right:12px;font:800 22px/1 var(--display);color:var(--mauve,#7A4E7D);opacity:.85}
+.rk-card .sel{font:800 10.5px/1.3 var(--body);letter-spacing:.05em;text-transform:uppercase;color:#A2410F}
+.rk-card .nm{font:800 17px/1.15 var(--display);padding-right:34px}
+.rk-card .fx{font-size:12px;color:var(--muted)}
+.rk-card .of{margin-top:auto;display:flex;flex-direction:column;gap:2px;padding-top:6px;border-top:1px dashed var(--line)}
+.rk-card .of b{font:800 18px var(--display)}
+.rk-card .of s{color:var(--muted);font-size:12.5px;margin-left:6px}
+.rk-card .of small{font-size:12px;color:var(--muted)}
+.rk-card .sem{font-size:12.5px;color:var(--muted)}
+.rk-fonte{font-size:11.5px;color:var(--muted);margin:0}
+.rk-fonte a{color:inherit}
 .deal .bktag{display:inline-block;align-self:flex-start;margin:0 0 4px;padding:2px 8px;border-radius:999px;background:#0B0B0D;color:#F5C84C;font:800 10px/1.4 var(--body);letter-spacing:.06em;text-transform:uppercase;border:1px solid #E8B931}
 #tab-roupas .ring::after{content:"";position:absolute;top:2px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px rgba(255,210,122,.9);opacity:0}
 @media (prefers-reduced-motion:no-preference){
@@ -673,8 +696,9 @@ body{background:var(--bg)}
 <div class="wrap">
   <div class="tabs" id="radar-abas" role="tablist" aria-label="Seções do radar Hyrox">
     <button class="tab" role="tab" id="tab-provas" aria-controls="p-provas" aria-selected="true"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12l6-6"/><circle cx="15.5" cy="14.5" r="1.3" fill="currentColor"/></svg></span><span class="c"></span></span><span class="lb">Radar</span></button>
-    <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M17.5 2.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" fill="currentColor" stroke="none"/></svg></span><span class="c"></span></span><span class="lb">Achados</span></button>
+    <button class="tab" role="tab" id="tab-calc" aria-controls="p-calc" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5c0-1 .6-1.6 1.5-1.8l3.2-.7c.9-.2 1.6-.8 2-1.6L11.6 9c.3-.6 1-.8 1.5-.4l1.2.8c.6.4 1.4.5 2 .2l.6-.3c.6-.3 1.3 0 1.5.6l1.3 3.8c.5 1.4 1.3 2 1.3 3.4V18H3z"/><path d="M3 18.8h18M9.3 11.6l1.4 1M8.2 13.4l1.4 1"/></svg></span><span class="c"></span></span><span class="lb">Tênis</span></button>
     <button class="tab" role="tab" id="tab-roupas" aria-controls="p-roupas" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><circle cx="8" cy="8" r="1.4" fill="currentColor"/><path d="M10.5 15.5l5-5"/><circle cx="11.2" cy="11.4" r=".9" fill="currentColor"/><circle cx="14.8" cy="14.6" r=".9" fill="currentColor"/></svg></span><span class="c"></span></span><span class="lb">Parceiros</span></button>
+    <button class="tab" role="tab" id="tab-tenis" aria-controls="p-tenis" aria-selected="false"><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/><path d="M17.5 2.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" fill="currentColor" stroke="none"/></svg></span><span class="c"></span></span><span class="lb">Achados</span></button>
     <button class="tab" role="tab" id="tab-black" aria-controls="p-black" aria-selected="false" hidden><span class="ring"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.2V5.5a2 2 0 0 1 2-2h6.7a2 2 0 0 1 1.4.6l7.3 7.3a2 2 0 0 1 0 2.8l-6.7 6.7a2 2 0 0 1-2.8 0l-7.3-7.3a2 2 0 0 1-.6-1.4z"/><path d="M12.5 7.5l-3 5h3l-1.5 4.5 4-6h-3l1.5-3.5z" fill="currentColor" stroke="none"/></svg></span><span class="c" id="c-black"></span></span><span class="lb"><b>Black</b></span></button>
     <button class="tab" role="tab" id="tab-treino" aria-controls="p-treino" aria-selected="false"><span class="ring"><span class="ic"><span class="sil" aria-hidden="true"></span></span></span><span class="lb">Treine comigo</span></button>
   </div>
@@ -708,15 +732,26 @@ body{background:var(--bg)}
     <p class="note" id="e-note"></p>
   </div>
 
+  <div class="panel" id="p-calc" role="tabpanel" aria-labelledby="tab-calc" hidden>
+    <section class="rk" id="rk" aria-labelledby="rk-h" hidden>
+      <div class="rk-h"><h2 id="rk-h">Melhores do momento</h2><span id="rk-sub"></span></div>
+      <div class="rk-row" id="rk-row"></div>
+      <p class="rk-fonte" id="rk-fonte"></p>
+    </section>
+    <h2 class="ptitle" style="margin:0">Tênis para HYROX</h2>
+    <p class="note" style="margin:0">Tênis para treinar e competir HYROX (e CrossFit) nas lojas parceiras, com os melhores descontos e cupons. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
+    <div class="list" id="k-list"></div>
+  </div>
+
   <div class="panel" id="p-tenis" role="tabpanel" aria-labelledby="tab-tenis" hidden>
     <h2 class="ptitle" style="margin:0">Achados Hyrox</h2>
-    <p class="note" style="margin:0">A linha oficial PUMA × HYROX, os achados da Decathlon e o que usar para treinar e competir. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
+    <p class="note" style="margin:0">Roupas, luvas, cordas, kettlebells e o que mais você usa para treinar e competir HYROX, nas lojas parceiras. Os tênis estão na aba Tênis. Preços conferidos pelo radar; podem mudar ao longo do dia.</p>
     <div class="list" id="t-list"></div>
   </div>
 
   <div class="panel" id="p-black" role="tabpanel" aria-labelledby="tab-black" hidden>
     <div class="bk-ban"><div class="k"><b>BLACK</b></div>
-      <p>As melhores ofertas de Black Friday e do 11.11 para treinar e competir HYROX nas lojas parceiras da Aline, com os maiores descontos do radar.</p>
+      <p>Os achados da Black Friday para treinar e competir HYROX nas lojas parceiras da Aline: roupas, acessórios e equipamentos. Os tênis estão na aba Tênis.</p>
       <span class="ate">Até 30 de novembro</span></div>
     <div class="list" id="bk-list"></div>
     <p class="note">Preços conferidos pelo radar nas lojas e que podem mudar ao longo do dia. Confira sempre na loja antes de comprar.</p>
@@ -829,7 +864,7 @@ body{background:var(--bg)}
 <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  const data = {"perfil": {"instagram": "amartinscc"}, "assessoria": {"planos": [{"nome": "Plano Básico", "tag": "Treino pronto por objetivo", "periodo": "", "desc": "Um plano de treino montado pela Aline para você chegar à sua próxima distância, no seu tempo.", "opcoes": ["Do zero aos 5 km · 12 semanas", "De 5 a 10 km · 10 semanas", "De 10 km à meia · 12 semanas"], "itens": ["Planilha em PDF, semana a semana, com os treinos A, B e C separados por dia", "Etapa de caminhada para quem está parado, no plano do zero", "Aquecimento, educativos e fortalecimento", "Guia de esforço, cuidados com o calor e estratégia para o dia da prova", "Não é personalizado: é o mesmo plano para todos daquele objetivo"], "preco_de": 59.9, "preco_seg": 39.9, "nota": "pagamento único"}, {"nome": "Plano Individual", "tag": "Personalizado", "periodo": "/mês", "desc": "Planilha feita para você: sua idade, peso, rotina, histórico e o seu objetivo.", "itens": ["Avaliação inicial (histórico, rotina, dores e objetivo)", "Planilha individual no app, com ritmos calculados para você", "Ajustes do plano conforme o seu desempenho", "Fortalecimento específico para corredores", "Estratégia para a sua prova-alvo", "Dúvidas por mensagem com a Aline"], "preco_de": 199.9, "preco_seg": 139.9, "pacotes": [{"nome": "Mensal", "meses": 1, "mes": 139.9}, {"nome": "Trimestral", "meses": 3, "mes": 124.9}, {"nome": "Semestral", "meses": 6, "mes": 114.9}, {"nome": "Anual", "meses": 12, "mes": 99.9}]}, {"nome": "Plano Corredor", "tag": "O mais completo", "destaque": true, "periodo": "/mês", "desc": "Assessoria completa com a Aline, com treino presencial na praia da Barra da Tijuca.", "itens": ["Tudo do Plano Individual", "Aula presencial 1x por semana na praia da Barra", "Acesso a todos os planos do Plano Básico", "Análise semanal dos treinos (relógio/Strava)", "Estratégia para todas as suas provas", "Kit de boas-vindas com a camiseta da turma", "Encontros da turma em provas", "Descontos com as marcas parceiras da Aline"], "preco_de": 399.9, "preco_seg": 299.9, "pacotes": [{"nome": "Mensal", "meses": 1, "mes": 299.9}, {"nome": "Trimestral", "meses": 3, "mes": 269.9}, {"nome": "Semestral", "meses": 6, "mes": 249.9}, {"nome": "Anual", "meses": 12, "mes": 219.9}]}]}, "treino_em_breve": true};
+  const data = {"perfil": {"instagram": "amartinscc"}, "assessoria": {"planos": [{"nome": "Plano Básico", "tag": "Treino pronto por objetivo", "periodo": "", "desc": "Um plano de treino montado pela Aline para você chegar à sua próxima distância, no seu tempo.", "opcoes": ["Do zero aos 5 km · 12 semanas", "De 5 a 10 km · 10 semanas", "De 10 km à meia · 12 semanas"], "itens": ["Planilha em PDF, semana a semana, com os treinos A, B e C separados por dia", "Etapa de caminhada para quem está parado, no plano do zero", "Aquecimento, educativos e fortalecimento", "Guia de esforço, cuidados com o calor e estratégia para o dia da prova", "Não é personalizado: é o mesmo plano para todos daquele objetivo"], "preco_de": 59.9, "preco_seg": 39.9, "nota": "pagamento único"}, {"nome": "Plano Individual", "tag": "Personalizado", "periodo": "/mês", "desc": "Planilha feita para você: sua idade, peso, rotina, histórico e o seu objetivo.", "itens": ["Avaliação inicial (histórico, rotina, dores e objetivo)", "Planilha individual no app, com ritmos calculados para você", "Ajustes do plano conforme o seu desempenho", "Fortalecimento específico para corredores", "Estratégia para a sua prova-alvo", "Dúvidas por mensagem com a Aline"], "preco_de": 199.9, "preco_seg": 139.9, "pacotes": [{"nome": "Mensal", "meses": 1, "mes": 139.9}, {"nome": "Trimestral", "meses": 3, "mes": 124.9}, {"nome": "Semestral", "meses": 6, "mes": 114.9}, {"nome": "Anual", "meses": 12, "mes": 99.9}]}, {"nome": "Plano Corredor", "tag": "O mais completo", "destaque": true, "periodo": "/mês", "desc": "Assessoria completa com a Aline, com treino presencial na praia da Barra da Tijuca.", "itens": ["Tudo do Plano Individual", "Aula presencial 1x por semana na praia da Barra", "Acesso a todos os planos do Plano Básico", "Análise semanal dos treinos (relógio/Strava)", "Estratégia para todas as suas provas", "Kit de boas-vindas com a camiseta da turma", "Encontros da turma em provas", "Descontos com as marcas parceiras da Aline"], "preco_de": 399.9, "preco_seg": 299.9, "pacotes": [{"nome": "Mensal", "meses": 1, "mes": 299.9}, {"nome": "Trimestral", "meses": 3, "mes": 269.9}, {"nome": "Semestral", "meses": 6, "mes": 249.9}, {"nome": "Anual", "meses": 12, "mes": 219.9}]}]}, "treino_em_breve": true, "ranking": {"fontes": [{"id": "runrepeat", "nome": "RunRepeat — guias de melhores tênis (testes de laboratório)", "tipo": "Ranking internacional", "desc": "Testes de laboratório da RunRepeat", "link": "https://runrepeat.com/guides/best-daily-running-running-shoes", "data": "out/2026"}], "modelos": [{"fonte": "runrepeat", "nome": "Saucony Endorphin Pro 5", "modalidade": "HYROX", "selo": "Melhor para HYROX", "busca": ["endorphin pro"]}, {"fonte": "runrepeat", "nome": "Saucony Endorphin Speed 5", "modalidade": "HYROX", "selo": "HYROX: mais retorno de energia", "busca": ["endorphin speed"]}, {"fonte": "runrepeat", "nome": "PUMA Velocity Nitro 4", "modalidade": "HYROX", "selo": "HYROX: mais flexível", "busca": ["velocity nitro"]}, {"fonte": "runrepeat", "nome": "Nike Metcon 10", "modalidade": "CrossFit", "selo": "Melhor para CrossFit", "busca": ["metcon"]}, {"fonte": "runrepeat", "nome": "Reebok Nano X5", "modalidade": "CrossFit", "selo": "CrossFit: mais amortecimento", "busca": ["nano ?x"]}]}};
   const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
   const ev = (n, p) => { try{ if(window.posthog) posthog.capture(n, p || {}); }catch(e){} };
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -855,14 +890,18 @@ document.addEventListener('DOMContentLoaded', function(){
   // ===== abas =====
   // Black 11/11 (11/11/2026): aba temporária no lugar da antiga Resultados; some sozinha depois de BLACK_ATE
   const BLACK_ATE = '2026-11-30', blackOn = new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo'}).format(new Date()) <= BLACK_ATE;
-  const tabs = blackOn ? ['provas','tenis','roupas','black','treino'] : ['provas','tenis','roupas','treino'];
+  // 23/11/2026: mesmas abas do radar principal: 'calc' = Tênis; 'tenis' = Achados (nome antigo); 'black' = Achados no modo Black
+  const tabAchados = blackOn ? 'black' : 'tenis';
+  const tabs = ['provas','calc','roupas', tabAchados,'treino'];
   document.getElementById('tab-black').hidden = !blackOn;
+  document.getElementById('tab-tenis').hidden = blackOn;
   function show(name){
     tabs.forEach(t => { const b = document.getElementById('tab-'+t); b.setAttribute('aria-selected', String(t===name)); document.getElementById('p-'+t).hidden = t!==name; });
     ev('hyrox_aba', {aba: name});
   }
   tabs.forEach(t => document.getElementById('tab-'+t).addEventListener('click', () => { show(t); history.replaceState(null, '', '#' + t); }));
-  const h0 = (location.hash||'').slice(1).replace(/^(black-friday|1111)$/, 'black'); show(tabs.includes(h0) ? h0 : 'provas');
+  const h0 = ({'black-friday': tabAchados, '1111': tabAchados, 'black': tabAchados, 'achados': tabAchados, 'tenis': 'calc', 'radar': 'provas'})[(location.hash||'').slice(1)] || (location.hash||'').slice(1);
+  show(tabs.includes(h0) ? h0 : 'provas');
   if(h0 === 'black' && blackOn) setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
   document.querySelectorAll('a[href="#eventos"],a[href="#onde-treinar"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); show('provas'); modoSet(a.getAttribute('href') === '#eventos' ? 'eventos' : 'locais'); document.getElementById('radar-abas').scrollIntoView({behavior: 'smooth'}); }));
 
@@ -1233,7 +1272,7 @@ document.addEventListener('DOMContentLoaded', function(){
       return x.toString();
     }catch(e){ return u; }
   }
-  const REF_SECAO = {'p-tenis':'achados', 'p-black':'black', 'p-roupas':'parceiros', 'p-provas':'provas', 'p-treino':'treine', 'p-result':'resultados'};
+  const REF_SECAO = {'p-calc':'tenis', 'p-tenis':'achados', 'p-black':'black', 'p-roupas':'parceiros', 'p-provas':'provas', 'p-treino':'treine', 'p-result':'resultados'};
   function secaoDe(el){
     if(el.closest('.dq')) return 'destaque';
     const pn = el.closest('.panel'); if(pn && REF_SECAO[pn.id]) return REF_SECAO[pn.id];
@@ -1266,20 +1305,53 @@ document.addEventListener('DOMContentLoaded', function(){
     return u;
   }
   fetch('achados.json?t=' + Date.now(), {cache: 'no-store'}).then(r => r.ok ? r.json() : null).catch(() => null).then(j => {
-    const box = document.getElementById('t-list'), xs = ((j && j.itens) || []).slice().sort((a,b) => ((b.de ? 1 - b.preco/b.de : 0) - (a.de ? 1 - a.preco/a.de : 0)));
-    const c = document.querySelector('#tab-tenis .c'); if(c) c.textContent = xs.length;
+    const box = document.getElementById('t-list'), todos = ((j && j.itens) || []).slice().sort((a,b) => ((b.de ? 1 - b.preco/b.de : 0) - (a.de ? 1 - a.preco/a.de : 0)));
     const offDe = o => o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
+    // 23/11/2026: tênis na aba Tênis; o resto (acessórios) em Achados/Black
+    const tenisHx = todos.filter(o => o.categoria === 'Tênis'), xs = todos.filter(o => o.categoria !== 'Tênis');
+    const c = document.querySelector('#tab-tenis .c'); if(c) c.textContent = xs.length;
+    const ck = document.querySelector('#tab-calc .c'); if(ck) ck.textContent = tenisHx.length;
+    const ehMV = o => Array.isArray(o.motivos) && o.motivos.includes('mais_vendido');
+    const kl = document.getElementById('k-list');
+    if(!tenisHx.length) kl.innerHTML = '<p class="empty">Os tênis HYROX entram na próxima busca do radar.</p>';
+    tenisHx.sort((a,b) => (ehMV(b)?1:0) - (ehMV(a)?1:0) || (blackOn ? (b.black?1:0) - (a.black?1:0) : 0) || offDe(b) - offDe(a)).forEach(o => { const el = cardHx(o); const inf = el.querySelector('.info'), st = inf.querySelector('.store');
+      if(ehMV(o)){ const t = document.createElement('span'); t.className = 'mvtag'; t.textContent = 'Mais vendido · ' + o.loja; inf.insertBefore(t, st); }
+      if(blackOn && o.black){ const t = document.createElement('span'); t.className = 'bktag'; t.textContent = 'Black Friday'; inf.insertBefore(t, st); }
+      kl.appendChild(el); });
+    rankingHx(tenisHx);
     if(blackOn){ // Black 11/11: primeiro os marcados como Black Friday ("black": true), depois os maiores descontos
-      const bk = xs.filter(o => o.black || offDe(o) >= 20).sort((a,b) => (b.black?1:0) - (a.black?1:0) || offDe(b) - offDe(a));
+      const bk = xs.slice().sort((a,b) => (b.black?1:0) - (a.black?1:0) || offDe(b) - offDe(a));  // 23/11/2026: a Black é a aba Achados de novembro
       const cb = document.querySelector('#tab-black .c'); if(cb) cb.textContent = bk.length;
       const bl = document.getElementById('bk-list');
       if(!bk.length) bl.innerHTML = '<p class="empty">As ofertas de Black Friday entram na próxima busca do radar.</p>';
       bk.forEach(o => { const el = cardHx(o); if(o.black){ const tg = document.createElement('span'); tg.className = 'bktag'; tg.textContent = 'Black Friday'; el.querySelector('.info').insertBefore(tg, el.querySelector('.store')); } bl.appendChild(el); });
     }
-    if(!xs.length){ box.innerHTML = '<p class="empty">Os achados Hyrox entram na próxima busca do radar.</p>'; return; }
+    if(!xs.length){ box.innerHTML = '<p class="empty">Os achados Hyrox entram na próxima busca do radar.</p>'; abreCompartilhado('achados'); return; }
     xs.forEach(o => box.appendChild(cardHx(o)));
     abreCompartilhado('achados');
   });
+  // vitrine "Melhores do momento" (modelos HYROX/CrossFit do ranking manual do radar principal)
+  function rankingHx(tenisHx){
+    const rk = data.ranking || {}, mods = (rk.modelos || []); if(!mods.length) return;
+    document.getElementById('rk').hidden = false;
+    const f0 = (rk.fontes || [])[0] || {}; document.getElementById('rk-sub').textContent = f0.desc || '';
+    const pool = tenisHx, row = document.getElementById('rk-row');
+    mods.forEach(m => { const res = (m.busca || []).map(b => { try{ return new RegExp(b, 'i'); }catch(e){ return null; } }).filter(Boolean);
+      const o = pool.filter(x => res.some(r => r.test(x.nome) || r.test((x.marca||'') + ' ' + x.nome))).sort((a,b) => a.preco - b.preco)[0];
+      const a = document.createElement(o ? 'a' : 'div'); a.className = 'rk-card';
+      if(o){ a.href = afil(o.link); a.target = '_blank'; a.rel = 'noopener sponsored'; a.addEventListener('click', () => ev('clique_ranking_tenis', {modelo: m.nome, loja: o.loja, onde: 'hyrox'})); }
+      a.innerHTML = '<span class="sel"></span><span class="nm"></span><span class="fx"></span><div class="of"></div>';
+      a.querySelector('.sel').textContent = m.selo || ''; a.querySelector('.nm').textContent = m.nome; a.querySelector('.fx').textContent = m.modalidade || '';
+      const of = a.querySelector('.of');
+      if(o){ const off = o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
+        of.innerHTML = '<small></small><div><b></b>' + (off ? '<s></s>' : '') + '</div><small></small>';
+        of.children[0].textContent = 'Melhor preço no radar' + (off ? ' · -' + off + '%' : ''); of.querySelector('b').textContent = brl(o.preco); if(off) of.querySelector('s').textContent = brl(o.de);
+        of.children[2].textContent = o.nome + ' · ' + o.loja; }
+      else of.innerHTML = '<span class="sem">Sem oferta nas lojas parceiras hoje. O radar segue de olho.</span>';
+      row.appendChild(a); });
+    const fl = document.getElementById('rk-fonte');
+    if(f0.nome){ fl.append('Fonte: '); const l = document.createElement('a'); l.href = f0.link || '#'; l.target = '_blank'; l.rel = 'noopener'; l.textContent = f0.nome + (f0.data ? ' (' + f0.data + ')' : ''); fl.append(l, '. Os preços são das lojas parceiras do Radar.'); }
+  }
   function cardHx(o){
     {
       const off = o.de && o.de > o.preco ? Math.round((1 - o.preco/o.de) * 100) : 0;
@@ -1468,8 +1540,9 @@ document.addEventListener('DOMContentLoaded', function(){
   function abreCompartilhado(onde){
     if(!pedido || (onde === 'achados') !== (pedido[1] === 'achado')) return;
     const [, tipo, sl] = pedido;
-    if(tipo === 'achado') show('tenis'); else { show('provas'); if(tipo === 'evento') modoSet('eventos', true); if(tipo === 'local') modoSet('locais', true); }
-    const el = document.querySelector((tipo === 'achado' ? '#t-list' : '#e-list') + ' [data-slug="' + sl + '"]');
+    const ehTenis = tipo === 'achado' && !!document.querySelector('#k-list [data-slug="' + sl + '"]');
+    if(tipo === 'achado') show(ehTenis ? 'calc' : tabAchados); else { show('provas'); if(tipo === 'evento') modoSet('eventos', true); if(tipo === 'local') modoSet('locais', true); }
+    const el = document.querySelector((tipo === 'achado' ? (ehTenis ? '#k-list' : blackOn ? '#bk-list' : '#t-list') : '#e-list') + ' [data-slug="' + sl + '"]');
     if(el){ setTimeout(() => el.scrollIntoView({block:'center'}), 50); el.classList.add('hilite'); }
     else toast(tipo === 'prova' ? 'Essa prova já passou. Veja as próximas!' : tipo === 'evento' ? 'Esse evento já passou. Veja os próximos!' : tipo === 'local' ? 'Esse lugar não está mais na lista. Veja onde treinar!' : 'Essa oferta acabou. Veja os achados de hoje!');
     ev('abriu_link_compartilhado', {tipo: 'hyrox_' + tipo, item: sl, achou: !!el});
