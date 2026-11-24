@@ -1,0 +1,3 @@
+Urbanist (Copyright The Urbanist Project Authors) e Plus Jakarta Sans (Copyright The Plus Jakarta Sans Project Authors)
+são licenciadas pela SIL Open Font License 1.1: https://openfontlicense.org
+Usadas pelo src/tenis_do_dia.py para gerar os stories do Tênis do dia.
