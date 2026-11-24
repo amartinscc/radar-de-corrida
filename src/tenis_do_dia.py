@@ -1,6 +1,7 @@
 # Gera os stories do "Tênis do dia" (1080x1920) do @radardecorrida a partir do bloco radar-data do index.html.
 # Modelo aprovado em 24/11/2026: capa "TÊNIS DO DIA" + 1 card por tênis (foto, selo de desconto, preço, cupom, logo oficial).
-# A figurinha de link NÃO é desenhada: o espaço dela fica livre e a figurinha real do Instagram é colocada no Business Suite.
+# A figurinha de link NÃO é desenhada: o Business Suite coloca a figurinha real no CENTRO da imagem (não dá para arrastar),
+# por isso a faixa central (y 890–1030) fica sempre livre em todas as artes.
 #
 # Saída em tenis-do-dia/hoje/: 0-capa.jpg, 1.jpg ... N.jpg e posts.json (link da figurinha, texto da figurinha e legenda de cada story).
 # Histórico em tenis-do-dia/historico.json: um tênis não repete em menos de 7 dias.
@@ -85,13 +86,13 @@ def rings(cy):
 
 
 def capa(data, n, logo):
-    return f'''<html><head><style>{CSS}</style></head><body>{rings(760)}
-<div style="position:absolute;left:50%;top:760px;width:760px;height:760px;margin:-380px 0 0 -380px;border-radius:50%;background:conic-gradient(from 30deg,rgba(242,138,91,.30),rgba(242,138,91,0) 55deg,transparent)"></div>
-<div style="position:absolute;left:calc(50% + 230px);top:560px;width:38px;height:38px;border-radius:50%;background:#F28A5B;box-shadow:0 0 44px 14px rgba(242,138,91,.55)"></div>
-<div style="position:absolute;top:330px;width:100%;text-align:center" class="kick">ACHADOS COM PREÇO CONFERIDO</div>
-<div style="position:absolute;top:600px;width:100%;text-align:center;font:800 190px/0.92 Urbanist;letter-spacing:-6px">TÊNIS<br><span style="color:#F28A5B">DO DIA</span></div>
-<div style="position:absolute;top:1010px;width:100%;text-align:center;font:700 44px Urbanist;color:#DDB9DD">{data}</div>
-<div style="position:absolute;top:1110px;width:820px;left:130px;text-align:center;font:600 40px/1.35 'Plus Jakarta Sans'">Separamos {n} tênis de corrida e HYROX com desconto de verdade. Passa pro lado 👉</div>
+    return f'''<html><head><style>{CSS}</style></head><body>{rings(640)}
+<div style="position:absolute;left:50%;top:640px;width:760px;height:760px;margin:-380px 0 0 -380px;border-radius:50%;background:conic-gradient(from 30deg,rgba(242,138,91,.30),rgba(242,138,91,0) 55deg,transparent)"></div>
+<div style="position:absolute;left:calc(50% + 230px);top:440px;width:38px;height:38px;border-radius:50%;background:#F28A5B;box-shadow:0 0 44px 14px rgba(242,138,91,.55)"></div>
+<div style="position:absolute;top:250px;width:100%;text-align:center" class="kick">ACHADOS COM PREÇO CONFERIDO</div>
+<div style="position:absolute;top:430px;width:100%;text-align:center;font:800 190px/0.92 Urbanist;letter-spacing:-6px">TÊNIS<br><span style="color:#F28A5B">DO DIA</span></div>
+<div style="position:absolute;top:1080px;width:100%;text-align:center;font:700 44px Urbanist;color:#DDB9DD">{data}</div>
+<div style="position:absolute;top:1170px;width:820px;left:130px;text-align:center;font:600 40px/1.35 'Plus Jakarta Sans'">Separamos {n} tênis de corrida e HYROX com desconto de verdade. Passa pro lado 👉</div>
 <img class="logo" src="data:image/png;base64,{logo}"></body></html>'''
 
 
@@ -101,14 +102,14 @@ def card(o, foto, ct, i, n, fin, base, off, logo):
     cond = o.get('condicao') or ''
     if o.get('cupom') and cond.lower().startswith('desconto extra com o cupom'): cond = cond.split('+', 1)[1].strip() if '+' in cond else ''
     cond = f'<div style="margin-top:18px;font:600 30px \'Plus Jakarta Sans\';color:#DDB9DD">{cond}</div>' if cond else ''
-    selo = f'<div style="position:absolute;top:340px;right:60px;background:#F28A5B;color:#1D1220;font:800 64px Urbanist;padding:18px 30px;border-radius:28px;transform:rotate(4deg);box-shadow:0 10px 30px rgba(0,0,0,.3)">-{off}%</div>' if off else ''
+    selo = f'<div style="position:absolute;top:240px;right:60px;background:#F28A5B;color:#1D1220;font:800 64px Urbanist;padding:18px 30px;border-radius:28px;transform:rotate(4deg);box-shadow:0 10px 30px rgba(0,0,0,.3)">-{off}%</div>' if off else ''
     loja = '' if o.get('marca') == o.get('loja') else ' · ' + (o.get('loja') or '').upper()
-    return f'''<html><head><style>{CSS}</style></head><body>{rings(700)}
-<div style="position:absolute;top:290px;left:80px" class="kick">TÊNIS DO DIA · {i}/{n}</div>
-<div style="position:absolute;top:290px;right:80px;font:800 34px Urbanist;color:#DDB9DD">{mod}</div>
-<div style="position:absolute;top:380px;left:80px;width:920px;height:640px;background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35)">
+    return f'''<html><head><style>{CSS}</style></head><body>{rings(580)}
+<div style="position:absolute;top:200px;left:80px" class="kick">TÊNIS DO DIA · {i}/{n}</div>
+<div style="position:absolute;top:200px;right:80px;font:800 34px Urbanist;color:#DDB9DD">{mod}</div>
+<div style="position:absolute;top:280px;left:80px;width:920px;height:580px;background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35)">
 <img src="data:{ct};base64,{foto}" style="max-width:92%;max-height:92%;object-fit:contain;mix-blend-mode:multiply"></div>{selo}
-<div style="position:absolute;top:1070px;left:80px;width:920px">
+<div style="position:absolute;top:1060px;left:80px;width:920px">
 <div style="font:700 32px Urbanist;color:#DDB9DD;letter-spacing:3px">{(o.get('marca') or '').upper()}{loja}</div>
 <div style="margin-top:12px;font:800 66px/1.05 Urbanist">{o['nome']}</div>
 <div style="margin-top:26px;display:flex;align-items:baseline;gap:26px"><span style="font:800 120px/1 Urbanist;color:#F28A5B">{brl(fin)}</span>{f'<s style="font:600 42px Urbanist;color:#B9A3BC">{brl(base)}</s>' if base else ''}</div>

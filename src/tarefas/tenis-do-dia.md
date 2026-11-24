@@ -18,7 +18,8 @@ Para cada imagem, na ordem do `posts.json` (capa primeiro):
 2. Desmarcar a Página do Facebook (publicar só no Instagram).
 3. Upload: rodar no console `HTMLInputElement.prototype.click = function(){}` (evita a janela nativa), achar o input de arquivo (find) e usar file_upload com o caminho da imagem.
 4. Editar → Mais figurinhas → **Link**: URL = campo `link` do posts.json; texto da figurinha = campo `figurinha` (até 25 caracteres).
-   Posicionar a figurinha no espaço livre entre o preço e o aviso "Preço conferido hoje…" (≈ 1/5 acima do rodapé), centralizada.
+   A figurinha entra sozinha no CENTRO da imagem (o Business Suite não deixa arrastar) — as artes já deixam essa faixa livre. Não mover.
+   Dica: se a janela do Chrome estiver baixa, o editor corta a imagem; não precisa ver a figurinha inteira, só confirmar que foi aplicada.
 5. Publicar (Compartilhar agora). Conferir que o story apareceu no perfil.
 Se o Business Suite pedir login, CAPTCHA ou verificação: parar e avisar o Leandro (SendUserMessage), sem tentar contornar.
 
