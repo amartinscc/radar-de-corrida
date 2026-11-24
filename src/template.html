@@ -78,6 +78,7 @@ select{font:500 14px var(--body);padding:7px 10px;border-radius:10px;border:1px 
 .price .now{font:800 24px/1 var(--display);color:var(--hot)}
 .price s{color:var(--muted);font-size:13px}
 .cond{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
+.price .fincup{display:block;font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.02em}
 .cond .cup{background:var(--soft);color:var(--accent);font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.03em}
 .det{color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:2px}
 .det b{color:var(--ink);font-weight:500}
@@ -897,7 +898,9 @@ __DATA__
 (function(){
   const data = JSON.parse(document.getElementById('radar-data').textContent);
   const brl = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-  const withOff = a => (a||[]).map(o => ({...o, off: (typeof o.de === 'number' && o.de > o.preco) ? Math.round((1 - o.preco/o.de)*100) : 0}));
+  // 23/11/2026: "preco_final" = preço com o cupom da loja (quando a tarefa confirma); ele vira o preço em destaque e entra no desconto
+  const withOff = a => (a||[]).map(o => { const fin = (typeof o.preco_final === 'number' && o.preco_final < o.preco) ? o.preco_final : null, base = (typeof o.de === 'number' && o.de > o.preco) ? o.de : (fin ? o.preco : null), pr = fin || o.preco;
+    return {...o, fin, base, off: base && base > pr ? Math.round((1 - pr/base)*100) : 0}; });
   // links de afiliada da Aline (aplicados ao abrir a loja; os dados guardam o link limpo)
   // Netshoes (Rakuten): token da Aline + MID da Netshoes; com o MID vazio, os links da Netshoes ficam limpos
   // Mercado Livre: parâmetros do link de afiliada da Aline (matt_word = etiqueta, matt_tool = ferramenta), tirados do link meli.la dela
@@ -1186,7 +1189,7 @@ __DATA__
     el.className = 'deal';
     el.innerHTML = `<div class="bib">${o.off ? `<div class="n">${o.off}%</div><div class="t">off</div>` : '<div class="n">✓</div><div class="t">achado</div>'}</div>
       <div class="info"><div class="store"></div><div class="name"></div>
-      <div class="price"><span class="now">${brl(o.preco)}</span>${o.off ? `<s>${brl(o.de)}</s>` : ''}</div><div class="cond"></div>
+      <div class="price"><span class="now">${brl(o.fin || o.preco)}</span>${o.off ? `<s>${brl(o.base)}</s>` : ''}${o.fin && o.cupom ? `<span class="fincup">com o cupom</span>` : ''}</div><div class="cond"></div>
       <a class="go" target="_blank" rel="noopener">Ver na loja →</a></div><button class="sharebtn" type="button" aria-label="Compartilhar nos stories" title="Compartilhar nos stories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg></button>`;
     if(o.foto){
       const th = document.createElement('div'); th.className = 'thumb';
@@ -1290,7 +1293,7 @@ __DATA__
         const of = a.querySelector('.of');
         if(o){ of.innerHTML = '<small></small><div><b></b>' + (o.off ? '<s></s>' : '') + '</div><small></small>';
           of.children[0].textContent = 'Melhor preço no radar' + (o.off ? ' · -' + o.off + '%' : '');
-          of.querySelector('b').textContent = brl(o.preco); if(o.off) of.querySelector('s').textContent = brl(o.de);
+          of.querySelector('b').textContent = brl(o.fin || o.preco); if(o.off) of.querySelector('s').textContent = brl(o.base);
           of.children[2].textContent = o.nome + ' · ' + o.loja; }
         else { of.innerHTML = '<span class="sem">Sem oferta nas lojas parceiras hoje. O radar segue de olho.</span>'; }
         row.appendChild(a);
@@ -1826,8 +1829,8 @@ __DATA__
       c.fillStyle = '#6B5A6E'; c.font = '700 32px ' + B; c.fillText([o.genero, o.marca, o.loja].filter((v,i,a)=>v && a.indexOf(v)===i).join(' · ').toUpperCase(), cx, y0+320);
       c.fillStyle = '#1D1220'; c.font = '800 76px ' + D; const n = wrap(c, o.nome, cx, y0+420, cw-120, 84, 3);
       const py = y0 + 420 + n*84 + 90;
-      c.fillStyle = '#B4501F'; c.font = '800 130px ' + D; c.fillText(brl(o.preco), cx, py);
-      if(o.off){ c.fillStyle = '#6B5A6E'; c.font = '600 48px ' + B; const de = 'de ' + brl(o.de); c.fillText(de, cx, py+80);
+      c.fillStyle = '#B4501F'; c.font = '800 130px ' + D; c.fillText(brl(o.fin || o.preco), cx, py);
+      if(o.off){ c.fillStyle = '#6B5A6E'; c.font = '600 48px ' + B; const de = 'de ' + brl(o.base); c.fillText(de, cx, py+80);
       const dw = c.measureText(de).width, pw = c.measureText('de ').width; c.strokeStyle = '#6B5A6E'; c.lineWidth = 4; c.beginPath(); c.moveTo(cx-dw/2+pw, py+64); c.lineTo(cx+dw/2, py+64); c.stroke(); }
     } else {
       c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; c.fillText('Achados de corrida', cx, y0+130); c.fillText('em promoção', cx, y0+210);
@@ -1863,7 +1866,7 @@ __DATA__
     shLink = shKind === 'parceiro' ? RADAR_URL + '#parceiro=' + shSlug : shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1' : RADAR_URL;
     if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : '') + (p.cupom ? ' · cupom ' + p.cupom + ' na inscrição' : ''); }
     else if(o && o.parceiro){ shTxt = o.nome + (typeof o.preco === 'number' ? ' por ' + brl(o.preco) : '') + ' na ' + o.marca + (o.cupom ? ' · cupom da Aline: ' + o.cupom : ''); }
-    else if(o){ shTxt = o.nome + ' por ' + brl(o.preco) + (o.off ? ' (-' + o.off + '%)' : '') + ' na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
+    else if(o){ shTxt = o.nome + ' por ' + brl(o.fin || o.preco) + (o.off ? ' (-' + o.off + '%)' : '') + ' na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
     else shTxt = 'Provas e ofertas de corrida todos os dias';
     shTxt += '\nAchado no Radar de Corrida 👉';
     shMsg = shTxt + ' ' + shLinkCanal('st');
@@ -2732,8 +2735,8 @@ __DATA__
     y += st ? 84 : 64;
     y += aTexto(c, o.nome, cx, y, W - 180, st ? 54 : 46, st ? 64 : 54, 2, '800', AD, A_INK) + (st ? 50 : 34);
     const fp = st ? 110 : 88, fd = st ? 44 : 38;
-    c.font = '800 ' + fp + 'px ' + AD; const pt = brl(o.preco), pw = c.measureText(pt).width;
-    c.font = '600 ' + fd + 'px ' + AB; const dt = o.off ? 'de ' + brl(o.de) : '', dw = dt ? c.measureText(dt).width + 28 : 0;
+    c.font = '800 ' + fp + 'px ' + AD; const pt = brl(o.fin || o.preco), pw = c.measureText(pt).width;
+    c.font = '600 ' + fd + 'px ' + AB; const dt = o.off ? 'de ' + brl(o.base) : '', dw = dt ? c.measureText(dt).width + 28 : 0;
     const px = cx - (pw + dw)/2; c.textAlign = 'left';
     if(dt){ c.fillStyle = A_MUT; c.fillText(dt, px, y); const d0 = c.measureText('de ').width; c.fillRect(px + d0, y - fd*.33, dw - 28 - d0, 3); }
     c.font = '800 ' + fp + 'px ' + AD; c.fillStyle = A_HOT; c.fillText(pt, px + dw, y); c.textAlign = 'center';
@@ -2841,7 +2844,7 @@ __DATA__
   const HT = '#corrida #corridaderua #running #radardecorrida #amartinscc';
   function legendaArte(){
     const o = aItem;
-    if(aTipo === 'achado') return o.nome + (o.off ? ' com ' + o.off + '% de desconto' : '') + ' na ' + o.loja + ': ' + (o.off ? 'de ' + brl(o.de) + ' por ' : '') + brl(o.preco) + ' 🏃‍♀️\n' + (o.cupom ? (o.cupomAline ? 'Use o meu cupom ' : 'Cupom da loja: ') + o.cupom + '\n' : '') + '\nO link está na bio, na aba Achados do radardecorrida.com.br. Preço conferido hoje pelo radar; pode mudar ao longo do dia.\n\n#achados #promocao ' + tagK(o.loja) + ' ' + HT;
+    if(aTipo === 'achado') return o.nome + (o.off ? ' com ' + o.off + '% de desconto' : '') + ' na ' + o.loja + ': ' + (o.off ? 'de ' + brl(o.base) + ' por ' : '') + brl(o.fin || o.preco) + (o.fin && o.cupom ? ' com o cupom' : '') + ' 🏃‍♀️\n' + (o.cupom ? (o.cupomAline ? 'Use o meu cupom ' : 'Cupom da loja: ') + o.cupom + '\n' : '') + '\nO link está na bio, na aba Achados do radardecorrida.com.br. Preço conferido hoje pelo radar; pode mudar ao longo do dia.\n\n#achados #promocao ' + tagK(o.loja) + ' ' + HT;
     if(aTipo === 'cupom'){ const code = cupomDe(o) || ((o.cupons || [])[0] || {}).cupom || ''; return code ? 'Cupom da Aline na ' + o.nome + ': ' + code + ' 💜\n' + (o.cupom_auto ? 'Pelo link ele já entra sozinho.' : 'É só usar no carrinho.') + (o.cupom_regra ? ' ' + o.cupom_regra : '') + '\n\nO link está na bio, na aba Parceiros do radardecorrida.com.br.\n\n#cupom ' + tagK(o.nome) + ' ' + HT : 'Minhas compras de corrida na ' + o.nome + ' 💜\nO link está na bio, na aba Parceiros do radardecorrida.com.br, junto com os achados do dia.\n\n#achados ' + tagK(o.nome) + ' ' + HT; }
     if(aTipo === 'top'){ const l = o || []; return 'Top achados da semana 🏃‍♀️ Separei ' + l.length + ' ofertas de corrida:\n\n' + l.map((x, i) => (i+1) + '. ' + x.nome + ' (' + x.loja + '): ' + brl(x.preco) + (x.off ? ', ' + x.off + '% off' : '')).join('\n') + '\n\nOs links estão na bio, na aba Achados do radardecorrida.com.br. Preços conferidos pelo radar; podem mudar.\n\n#achados #promocao ' + HT; }
     if(aTipo === 'vou'){ const n = faltam(o); return (aVar === 'contagem' && n > 1 ? 'Faltam ' + n + ' dias para a ' + o.nome + '! ⏳' : 'Eu vou correr a ' + o.nome + '! 🏃‍♀️') + '\n\n📅 ' + dataLonga(o) + '\n📍 ' + [o.local, o.cidade].filter(Boolean).join(', ') + (o.distancias ? '\n🏁 ' + o.distancias : '') + '\n\nBora junto? A inscrição está no link da bio (radardecorrida.com.br)' + (o.cupom ? ', e com o meu cupom ' + o.cupom + ' tem desconto' : '') + '. 💜\n\n#euvoucorrer ' + HT; }
