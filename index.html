@@ -17168,7 +17168,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   document.getElementById('tab-black').hidden = !blackOn;
   document.getElementById('tab-tenis').hidden = blackOn;
   document.getElementById('tab-result').hidden = true;
-  { const h0 = (location.hash||'').slice(1), ALIAS = {'achados': tabAchados, 'black': tabAchados, 'black-friday': tabAchados, '1111': tabAchados, 'tenis': 'calc', 'tênis': 'calc', 'resultados': 'provas'};
+  { const h0 = (location.hash||'').slice(1), ALIAS = {'achados': tabAchados, 'black': tabAchados, 'black-friday': tabAchados, '1111': tabAchados, 'tenis': 'calc', 'tênis': 'calc', 'resultados': 'provas', 'parceiros': 'roupas'};
     if(ALIAS[h0] && ALIAS[h0] !== h0) history.replaceState(null, '', location.pathname + location.search + '#' + ALIAS[h0]); }
   function show(name){
     tabs.forEach(t => {
@@ -17185,7 +17185,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   if(tabs.includes(h)) first = h; else if(/^tenis=/.test(h)) first = 'calc'; else { try{ const s = localStorage.getItem('radar-aba2'); if(tabs.includes(s)) first = s; }catch(e){} }
   show(first);
   // link direto para a Black (#black): abre a aba e já rola até ela, sem parar na foto de abertura
-  if(first === 'black') setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
+  if(['black','calc','roupas'].includes(first) && h) setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
 
   function chips(id, values, state, key, render, labels){
     const box = document.getElementById(id);
