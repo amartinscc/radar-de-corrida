@@ -16,7 +16,7 @@ Usar SOMENTE as ferramentas claude-in-chrome (Chrome do Leandro, logado no @rada
 Para cada imagem, na ordem do `posts.json` (capa primeiro):
 1. Nova aba: `https://business.facebook.com/latest/story_composer?business_id=3217118888498289&asset_id=1549184344937343`
 2. Desmarcar a Página do Facebook (publicar só no Instagram).
-3. Upload: rodar no console `HTMLInputElement.prototype.click = function(){}` (evita a janela nativa), achar o input de arquivo (find) e usar file_upload com o caminho da imagem.
+3. Upload: rodar no console `HTMLInputElement.prototype.click=function(){if(this.type==='file'&&!this.isConnected){document.body.appendChild(this)}}` (evita a janela nativa e mantém o input na página), clicar em "Adicionar foto/vídeo", achar o file-input (find) e usar file_upload. O file_upload só aceita arquivo que a sessão pode ler: se a imagem estiver no PC, primeiro device_stage_files e usar o stagedPath (/mnt/user-data/uploads/...).
 4. Editar → Mais figurinhas → **Link**: URL = campo `link` do posts.json; texto da figurinha = campo `figurinha` (até 25 caracteres).
    A figurinha entra sozinha no CENTRO da imagem (o Business Suite não deixa arrastar) — as artes já deixam essa faixa livre. Não mover.
    Dica: se a janela do Chrome estiver baixa, o editor corta a imagem; não precisa ver a figurinha inteira, só confirmar que foi aplicada.
