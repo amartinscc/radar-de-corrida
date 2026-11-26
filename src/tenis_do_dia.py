@@ -6,6 +6,8 @@
 # Saída em tenis-do-dia/hoje/: 0-capa.jpg, 1.jpg ... N.jpg e posts.json (link da figurinha, texto da figurinha e legenda de cada story).
 # Histórico em tenis-do-dia/historico.json: um tênis não repete em menos de 7 dias.
 # Uso: python3 src/tenis_do_dia.py [--n 4] [--sem-historico]
+#      python3 src/tenis_do_dia.py --relampago "<parte do nome>"  → 1 story "ACHADO RELÂMPAGO" em tenis-do-dia/relampago/
+#      (o achado já precisa estar no index.html; ver src/tarefas/achados.md, seção ACHADO RELÂMPAGO)
 import base64, datetime, json, pathlib, re, sys, unicodedata, urllib.request
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -96,7 +98,7 @@ def capa(data, n, logo):
 <img class="logo" src="data:image/png;base64,{logo}"></body></html>'''
 
 
-def card(o, foto, ct, i, n, fin, base, off, logo):
+def card(o, foto, ct, i, n, fin, base, off, logo, kick=None):
     mod = (o.get('modalidade') or 'Corrida').upper()
     cup = f'<div style="display:inline-block;margin-top:26px;background:#F28A5B;color:#1D1220;font:800 34px Urbanist;padding:12px 28px;border-radius:999px;letter-spacing:2px">CUPOM {o["cupom"]}</div>' if o.get('cupom') else ''
     cond = o.get('condicao') or ''
@@ -105,7 +107,7 @@ def card(o, foto, ct, i, n, fin, base, off, logo):
     selo = f'<div style="position:absolute;top:240px;right:60px;background:#F28A5B;color:#1D1220;font:800 64px Urbanist;padding:18px 30px;border-radius:28px;transform:rotate(4deg);box-shadow:0 10px 30px rgba(0,0,0,.3)">-{off}%</div>' if off else ''
     loja = '' if o.get('marca') == o.get('loja') else ' · ' + (o.get('loja') or '').upper()
     return f'''<html><head><style>{CSS}</style></head><body>{rings(580)}
-<div style="position:absolute;top:200px;left:80px" class="kick">TÊNIS DO DIA · {i}/{n}</div>
+<div style="position:absolute;top:200px;left:80px" class="kick">{kick or f"TÊNIS DO DIA · {i}/{n}"}</div>
 <div style="position:absolute;top:200px;right:80px;font:800 34px Urbanist;color:#DDB9DD">{mod}</div>
 <div style="position:absolute;top:280px;left:80px;width:920px;height:580px;background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35)">
 <img src="data:{ct};base64,{foto}" style="max-width:92%;max-height:92%;object-fit:contain;mix-blend-mode:multiply"></div>{selo}
@@ -118,7 +120,39 @@ def card(o, foto, ct, i, n, fin, base, off, logo):
 <img class="logo" src="data:image/png;base64,{logo}"></body></html>'''
 
 
+def relampago(termo):
+    s = (root / 'index.html').read_text()
+    d = json.loads(re.search(r'<script id="radar-data" type="application/json">(.*?)</script>', s, re.S).group(1))
+    ofertas = achados_ativos(d)
+    sl = slugs(ofertas, tenis_base, tenis_extra)
+    t = nk(termo)
+    cand = []
+    for o, sg in zip(ofertas, sl):
+        if o.get('categoria') != 'Tênis' or t not in nk(o['nome']): continue
+        fin, base = precos(o)
+        cand.append((fin, o, sg, base))
+    if not cand:
+        print(json.dumps({'ok': False, 'motivo': f'nenhum tênis com "{termo}" nos achados de hoje'}, ensure_ascii=False)); return
+    fin, o, sg, base = min(cand, key=lambda c: c[0])
+    off = round((1 - fin / base) * 100) if base else 0
+    raw, ct = baixa(o['foto']) if o.get('foto') else (None, None)
+    if not raw:
+        print(json.dumps({'ok': False, 'motivo': 'foto do tênis não baixou'}, ensure_ascii=False)); return
+    out = root / 'tenis-do-dia' / 'relampago'; out.mkdir(parents=True, exist_ok=True)
+    arq = out / f'{datetime.datetime.now(TZ).date().isoformat()}-{sg}.jpg'
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path='/usr/bin/google-chrome')
+        pg = b.new_page(viewport={'width': 1080, 'height': 1920})
+        pg.set_content(card(o, b64(raw), ct, 1, 1, fin, base, off, b64(LOGO.read_bytes()), kick='ACHADO RELÂMPAGO')); pg.wait_for_timeout(700)
+        pg.screenshot(path=str(arq), type='jpeg', quality=92); b.close()
+    print(json.dumps({'ok': True, 'arquivo': str(arq), 'link': SITE + f'tenis/{sg}/', 'figurinha': 'VER OFERTA', 'nome': o['nome'],
+                      'loja': o.get('loja'), 'preco': fin, 'de': base, 'off': off, 'cupom': o.get('cupom')}, ensure_ascii=False))
+
+
 def main():
+    if '--relampago' in sys.argv:
+        return relampago(sys.argv[sys.argv.index('--relampago') + 1])
     n = int(sys.argv[sys.argv.index('--n') + 1]) if '--n' in sys.argv else 4
     usar_hist = '--sem-historico' not in sys.argv
     s = (root / 'index.html').read_text()
