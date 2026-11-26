@@ -151,6 +151,15 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - As páginas de prova/tênis, ao redirecionar (`?c=1`), levam junto a query (`?c=1` e `utm_`), para o painel saber a origem (desde 22/10/2026).
 - Links do botão de compartilhar (desde 22/10/2026): levam o canal em `o=` (`wa` WhatsApp, `lk` copiar link, `st` imagem + link pelo menu do celular, `sh` menu só com link) e, se o aparelho estiver marcado, quem compartilhou em `q=`. Marcar o celular da Aline: abrir uma vez `radardecorrida.com.br/?marcar=aline` no navegador onde ela compartilha (guarda `radar-quem` no localStorage; `?marcar=sair` desfaz). O painel mostra "Compartilhado pela Aline · <canal>", e quando o clique vem do Instagram, "Instagram (stories ou direct)". O evento `compartilhar_link` leva também `quem`.
 
+## Fotógrafos e fotos oficiais (desde 25/11/2026, aprovado pelo Leandro)
+- Na aba Provas, os botões Filtros e Estado ficam ABAIXO do mapa e dos destaques (pedido do Leandro). Ao lado do Filtros fica o botão "📸 Fotógrafos": tocar nele esconde a lista de provas e mostra o espaço de fotógrafos, com o botão "← Provas" para voltar. Link direto: radardecorrida.com.br/#fotografos.
+- Dados MANUAIS no radar-data (nenhuma tarefa agendada cria, altera ou remove):
+  - "fotografos": lista de {nome, link (canal de venda das fotos), foto? (URL), locais? (ex.: ["Lagoa"]), cupom?}. Só entra quem respondeu e aceitou a parceria.
+  - "fotos_oficiais": lista de {nome, link, provas? (texto curto)} com as empresas de fotos oficiais.
+  - "fotos" dentro de uma prova: link das fotos oficiais daquela prova (mostra o botão "📸 Fotos oficiais" no card).
+- Enquanto "fotografos" e "fotos_oficiais" estiverem vazios ou ausentes, o botão "Fotógrafos" fica escondido.
+- A tarefa de provas deve copiar esses campos exatamente como estão (inclusive o "fotos" das provas que continuam no radar).
+
 ## Página Hyrox (desde 08/11/2026)
 - Endereço: **radardecorrida.com.br/hyrox/**. O `hyrox/index.html` é GERADO: `python3 src/hyrox.py` junta `src/hyrox-template.html` com o CSS inteiro do radar principal (`src/template.html`), as abas redondas, o mapa dos estados (STATES), a aba Treine comigo (mesmo conteúdo e código do radar principal) e a assessoria do `index.html`. Rodar de novo quando mudar o visual do radar principal ou a assessoria. Não editar `hyrox/index.html` à mão.
 - Visual: mesmo layout do radar principal em paleta escura (preto/cinza) com BRANCO/prata metálico (desde 08/11/2026 a pedido da Aline; o rosa #D23D8F saiu). Bordas girando dos botões, anéis das abas, borda do radar e títulos em branco metálico com brilho. Capa: `hyrox/capa.webp`/`capa.jpg`; prévia `hyrox/og.jpg`. Sem créditos de foto. Botões do topo: Seguir @amartinscc e, abaixo, Radar de corrida (sem botão de voltar no canto).
