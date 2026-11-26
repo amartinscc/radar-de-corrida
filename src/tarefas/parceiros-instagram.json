@@ -1,0 +1,22 @@
+{
+  "_nota": "Perfis de Instagram dos parceiros do Radar. 'confirmado': false = palpite; a tarefa confirma pelo link de Instagram no rodapé do site oficial da loja e corrige aqui.",
+  "parceiros": [
+    {"marca": "Decathlon", "instagram": "decathlonbrasil", "confirmado": false, "prioridade": 1},
+    {"marca": "Netshoes", "instagram": "netshoes", "confirmado": false, "prioridade": 1},
+    {"marca": "Mizuno", "instagram": "mizunobr", "confirmado": false, "prioridade": 1},
+    {"marca": "Olympikus", "instagram": "olympikus", "confirmado": false, "prioridade": 1},
+    {"marca": "Puma", "instagram": "pumabrasil", "confirmado": false, "prioridade": 1},
+    {"marca": "Lauri Esporte", "instagram": "lauriesporte", "confirmado": false, "prioridade": 1},
+    {"marca": "Zattini", "instagram": "zattini", "confirmado": false, "prioridade": 2},
+    {"marca": "Fut Fanatics", "instagram": "futfanatics", "confirmado": false, "prioridade": 2},
+    {"marca": "Kaisan", "instagram": null, "confirmado": false, "prioridade": 2},
+    {"marca": "Brilho e Bronze", "instagram": null, "confirmado": false, "prioridade": 2},
+    {"marca": "Pink Cheeks", "instagram": null, "confirmado": false, "prioridade": 2},
+    {"marca": "Livvan", "instagram": null, "confirmado": false, "prioridade": 2},
+    {"marca": "Massam Fitness", "instagram": null, "confirmado": false, "prioridade": 2},
+    {"marca": "Pozze", "instagram": null, "confirmado": false, "prioridade": 2}
+  ],
+  "referencias_nao_parceiras": [
+    {"nome": "A Casa do Atleta", "instagram": "acasadoatleta", "uso": "só para descobrir ofertas; publicar apenas se a mesma oferta existir numa loja parceira"}
+  ]
+}
