@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://radardecorrida.com.br/</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://radardecorrida.com.br/</loc><lastmod>2026-11-26</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://radardecorrida.com.br/calculadora-de-pace/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://radardecorrida.com.br/hyrox/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-apae-running-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -16,12 +16,16 @@
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-corre-matuto-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-corre-para-cristo-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-crista-movimente-corredor-2027-02-14/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-corrida-ct-alta-performance-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-forca-tatica-de-sinop-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-galera-do-poste-2026-12-18/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-imaculada-conceicao-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-ld-fitness-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-marinha-no-ceara-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-melancia-2027-01-09/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-policia-civil-pocos-de-caldas-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-policia-civil-sete-lagoas-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-policia-penal-federal-etapa-mossoro-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-policia-penal-iapen-tarauaca-2026-11-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-policia-rodoviaria-federal-de-pouso-alegre-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-da-seguranca-privada-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -36,6 +40,7 @@
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-do-fritz-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-do-meio-ambiente-runnerran-jacaraipe-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-do-samu-baixada-fluminense-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-corrida-do-tigre-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-do-verde-2027-01-03/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-dos-lagos-nova-mutum-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-dos-namorados-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -55,13 +60,16 @@
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-noturna-rotam-lapa-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-oficial-do-vitoria-futebol-clube-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-rustica-rota-do-manancial-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-corrida-sal-sol-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-santa-maria-em-movimento-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-sao-sebastiao-afonso-claudio-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-corrida-supermercado-kero-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-supermercados-alvorada-pouso-alegre-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-unimed-americana-nossa-historia-em-movimento-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-corrida-vibe-run-2027-01-22/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-etapa-circuito-cria-do-rio-2027-2027-02-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-hot-wheels-run-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/1-meia-maratona-trail-run-rd-fitness-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-night-run-rota-noturna-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-rafitec-run-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/1-run-fast-pontal-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -69,6 +77,7 @@
   <url><loc>https://radardecorrida.com.br/prova/10-corrida-asa-branca-2027-01-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/10-corrida-da-colonizacao-de-rio-negro-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/10-corrida-de-reis-de-bom-despacho-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/10-corrida-natalina-de-mamanguape-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/10-corrida-novembro-azul-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/10-corrida-rustica-indaiatuba-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/10-corrida-sicoob-engecred-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -102,9 +111,11 @@
   <url><loc>https://radardecorrida.com.br/prova/16-corrida-das-ferias-igarassu-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/16-night-run-costao-2027-02-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/16k-ginga-com-tapioca-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/18-meia-de-mossoro-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/19-corrida-do-marinheiro-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/19-night-run-novo-rio-pinheiros-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-angels-run-2027-2027-02-14/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/2-beer-race-corrida-da-cerveja-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-circuito-da-lua-2027-01-22/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-circuito-de-corrida-cbvida-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-circuito-de-corrida-de-santana-do-riacho-etapa-serra-do-cipo-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -123,9 +134,11 @@
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-imaculada-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-imaculada-2026-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-imaculada-conceicao-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-imaculada-itabaiana-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-policia-civil-de-barra-do-corda-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-saude-vicentinopolis-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-serra-verde-express-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-smart-life-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-da-torcida-do-flamengo-itapemirim-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-daniel-bebidas-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-das-engenharias-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -141,10 +154,12 @@
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-do-idoso-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-e-caminhada-beneficente-do-papai-noel-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-e-caminhada-da-imaculada-conceicao-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/2-corrida-e-caminhada-do-o-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-e-caminhada-fe-em-movimento-jussara-2026-11-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-e-caminhada-noturna-sindaruc-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-e-caminhada-sest-senat-run-5k-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-e-caminhada-solidaria-natal-sem-fome-sao-jose-do-xingu-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/2-corrida-imperial-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-mega-forte-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-missionaria-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-corrida-pela-vida-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -168,9 +183,11 @@
   <url><loc>https://radardecorrida.com.br/prova/2-night-run-natal-jaragua-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-night-run-natalina-de-taquara-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-night-run-rota-noturna-2027-01-09/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/2-nobre-run-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-pge-night-run-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-rs-runners-de-navirai-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-rustica-sescorrer-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/2-sem-silvestre-de-caico-2026-12-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-treinao-solidario-de-palmas-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/2-velha-cap-run-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/20-night-run-novo-rio-pinheiros-2027-01-02/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -197,6 +214,7 @@
   <url><loc>https://radardecorrida.com.br/prova/3-corrida-do-crea-am-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-corrida-do-crea-mg-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-corrida-do-java-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/3-corrida-do-sagrado-coracao-de-jesus-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-corrida-e-caminhada-da-catedral-de-campinas-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-corrida-e-caminhada-do-jardim-limoeiro-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-corrida-fla-macapa-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -211,6 +229,7 @@
   <url><loc>https://radardecorrida.com.br/prova/3-maratona-de-cuiaba-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-meia-maratona-de-americana-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-meia-maratona-de-espera-feliz-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/3-quixeramorun-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-rege-run-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-summer-run-2027-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/3-treinao-errejota-pilad-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -233,9 +252,11 @@
   <url><loc>https://radardecorrida.com.br/prova/4-corrida-saude-10-farmacias-10-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/4-virada-caraguatatubense-2026-12-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/44-monte-libano-run-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/5-circuito-arnon-de-mello-2026-12-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/5-corrida-de-rua-piripiri-running-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/5-corrida-do-natal-run-beats-badalados-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/5-corrida-do-teatro-amazonas-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/5-corrida-doe-vida-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/5-corrida-e-caminhada-do-ministerio-publico-transito-seguro-vidas-prot-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/5-corrida-e-caminhada-equipe-baitapasso-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/5-corrida-e-caminhada-sao-camilo-2027-02-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -267,6 +288,7 @@
   <url><loc>https://radardecorrida.com.br/prova/6-ouro-verde-run-2027-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/6-rondonia-run-80k-2026-solo-e-revezamento-2026-12-04/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/6-volta-a-ilha-de-floripa-2027-2027-01-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/7-corrida-auge-motos-sobral-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/7-corrida-bar-em-bar-2026-12-15/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/7-corrida-dos-profetas-congonhas-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/7-corrida-orla-do-porto-2026-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -277,15 +299,18 @@
   <url><loc>https://radardecorrida.com.br/prova/76-corrida-internacional-de-brodowski-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/8-corrida-cidade-de-paranavai-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/8-corrida-da-justica-da-acessibilidade-e-inclusao-tjto-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/8-desafio-das-nacoes-sport-cup-trail-run-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/8-zero-run-corrida-zero-acucar-2027-02-14/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/9-corrida-desafio-do-lago-night-run-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/9-corrida-herois-dos-campos-gerais-2027-03-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/9-corrida-sao-bertioga-2026-12-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/9-maratona-internacional-da-virada-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/9-tapes-night-run-2027-01-23/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/a-virada-run-recife-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/academicos-da-grande-rio-run-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/adversus-run-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/agen-run-4-km-e-8-km-ceret-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/agreste-extremo-etapa-serra-trail-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/aj-corrida-da-virada-niteroi-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/all-running-summer-run-musal-2027-2027-01-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/allp-fit-run-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -293,18 +318,22 @@
   <url><loc>https://radardecorrida.com.br/prova/ampe-run-picarras-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/anabolica-night-run-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/arduous-prime-run-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/arena-run-1-edicao-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/as-manas-run-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/at30k-desafio-entre-barras-2027-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/atacadao-ms-farma-run-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/ativa-run-2027-after-com-bruninho-2027-01-16/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/avia-no-pace-2026-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/bahamas-muriae-night-run-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/balada-run-2026-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/barbie-run-sao-paulo-2026-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/batel-run-2027-11-edicao-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/beberibe-night-run-8-edicao-2027-01-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/bem-leves-run-2026-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/bj-running-2027-2027-01-09/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/blog-run-estacoes-circuito-verao-conceicao-da-feira-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/blue-november-run-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/blue-run-fortaleza-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/bom-fim-para-agradecer-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/bonito-21k-2026-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/bons-ventos-run-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -321,7 +350,9 @@
   <url><loc>https://radardecorrida.com.br/prova/campina-big-run-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/canario-night-run-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/capivara-run-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/carequinha-run-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/carna-run-2027-01-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/caruaru-series-run-etapa-4-verao-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/cats-run-es-2027-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/cats-run-ms-2027-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/cats-run-mt-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -336,8 +367,12 @@
   <url><loc>https://radardecorrida.com.br/prova/circuito-caaal-de-corrida-da-advocacia-maceio-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-caixa-de-corridas-brasilia-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-caixa-de-corridas-rio-de-janeiro-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-caixa-seguridade-de-corridas-fortaleza-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-corre-fofo-aracaju-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-corrida-zoo-animal-2026-etapa-elefante-nely-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-da-longevidade-bradesco-seguros-manaus-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-das-aguas-etapa-patos-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-das-aguas-sao-bento-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-das-estacoes-verao-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-das-estacoes-verao-anapolis-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-das-estacoes-verao-belem-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -364,6 +399,7 @@
   <url><loc>https://radardecorrida.com.br/prova/circuito-de-corrida-sest-senat-simoes-filho-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-de-corrida-sunset-2027-2-etapa-2027-01-09/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-de-corridas-dos-distritos-de-campinas-2027-etapa-noturna-cent-2027-01-23/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-de-corridas-minibox-run-etapa-aracati-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-de-corridas-pague-menos-1-etapa-indaiatuba-2027-2027-02-14/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-de-corridas-sesi-castanhal-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-de-inclusao-unimed-sao-jose-do-rio-preto-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -374,6 +410,7 @@
   <url><loc>https://radardecorrida.com.br/prova/circuito-duque-de-caxias-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-eco-cmpc-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-eco-run-salvador-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-elementos-2027-etapa-fogo-2027-02-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-encontro-delas-3-edicao-goiania-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-espirito-corredor-4-elementos-4-etapa-ar-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-esportivo-tech-town-2026-4-edicao-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -383,12 +420,14 @@
   <url><loc>https://radardecorrida.com.br/prova/circuito-move-on-etapa-vitoria-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-oceanico-piratininga-2027-2027-02-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-oscar-2026-2027-3-etapa-sao-jose-dos-campos-2027-02-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-petrobras-de-saude-e-bem-estar-natal-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-record-corretores-de-imoveis-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-rio-antigo-etapa-porto-maravilha-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-rj-etapa-3-funk-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-running-music-etapa-dezembro-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-selfit-teresina-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-sesc-de-corridas-etapa-aracatuba-corrida-do-fogo-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/circuito-sesc-de-corridas-etapa-delmiro-gouveia-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-sesc-de-corridas-etapa-final-cruz-alta-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-sesc-de-corridas-etapa-francisco-beltrao-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/circuito-sesc-de-corridas-etapa-sao-carlos-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -403,7 +442,6 @@
   <url><loc>https://radardecorrida.com.br/prova/contos-classicos-maui-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/contos-classicos-peter-pan-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/contos-classicos-piratas-do-asfalto-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://radardecorrida.com.br/prova/corra-happy-beer-run-2026-11-25/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corra-pela-natureza-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-89-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-bacacheri-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -412,9 +450,11 @@
   <url><loc>https://radardecorrida.com.br/prova/corre-delas-cafe-e-resenha-aniversario-de-1-ano-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-fofo-teresina-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-fortaleza-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corre-juntos-de-verao-2027-02-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-na-madruga-favorito-2026-11-26/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-nova-crixas-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-que-e-festa-corrida-4-km-por-mim-e-por-todas-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corre-sao-miguel-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-ucl-1-edicao-laecel-treinao-solidario-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corre-uruacu-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/correfaixa-treinao-noturno-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -451,10 +491,13 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-choque-x-bope-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-cinderela-paulinia-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-circuito-sicoob-etapa-governador-valadares-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-circuito-tjrn-2026-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-corre-cristao-salvador-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-corre-e-confia-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-corre-e-confia-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-ct-powpay-2026-12-18/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-advocacia-boa-vista-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-da-amizade-itabaiana-11-edicao-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-biblia-igreja-batista-do-pinheiro-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-caatinga-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-cesan-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -465,6 +508,7 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-fe-campina-grande-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-gcm-1-edicao-uba-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-imaculada-bezerros-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-da-marinha-natal-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-paz-m10-fit-run-vitoria-da-conquista-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-polenta-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-da-policia-federal-es-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -481,6 +525,7 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-dani-se-vou-correr-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-das-cores-2026-vila-velha-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-das-nacoes-parnamirim-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-das-ondas-2027-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-de-aniversario-45-anos-de-juara-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-de-aniversario-da-ponte-estaiada-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-de-aniversario-da-winner-run-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -565,6 +610,7 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-e-caminhada-santa-casa-ponta-grossa-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-e-caminhada-sest-senat-bento-goncalves-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-e-caminhada-sest-senat-blumenau-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-e-caminhada-sest-senat-maceio-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-e-caminhada-sest-senat-sao-joao-de-meriti-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-e-caminhada-sest-senat-varginha-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-e-caminhada-soldado-do-fogo-niteroi-2026-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -608,6 +654,7 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-grupo-aguia-branca-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-guardioes-dos-mananciais-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-hiperideal-praia-do-forte-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-hnsf-hospital-nossa-senhora-de-fatima-2027-2027-01-09/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-hospital-sao-camilo-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-i-run-santa-claus-challenge-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-inclusao-a-toda-prova-olga-kos-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -637,8 +684,10 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-novo-rio-pinheiros-jan-2027-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-number-1-2027-2027-01-03/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-oficial-do-popeye-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-olein-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-onda-verde-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-partiu-brasilia-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-pe-na-areia-tamandare-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-pela-patria-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-pela-resiliencia-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-pelas-gemeas-1-edicao-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -652,6 +701,7 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-sao-francisco-xavier-2026-12-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-saude-em-movimento-itabaiana-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-serrana-2-edicao-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-sesi-sobral-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-sest-senat-porto-velho-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-sicoob-vale-do-aco-nas-ruas-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-sicredi-sem-fronteiras-etapa-capanema-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -666,6 +716,7 @@
   <url><loc>https://radardecorrida.com.br/prova/corrida-tardezinha-2027-2027-03-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-tchau-rio-grande-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-tenta-samba-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/corrida-tlc-sagrado-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-trabalho-em-movimento-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-unicesumar-ponta-grossa-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/corrida-unifor-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -693,12 +744,15 @@
   <url><loc>https://radardecorrida.com.br/prova/desafio-corre-colorado-corrida-noturna-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/desafio-das-plataformas-21k-cidreira-tramandai-2026-12-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/desafio-de-natal-sao-vicente-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/desafio-do-sol-poente-2-edicao-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/desafio-dos-fortes-21-km-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/desafio-dos-fortes-palmas-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/desafio-dos-veteranos-rio-verde-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/dmtt-desafio-milhas-trilhos-trilhas-ilha-de-itamaraca-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/dog-run-ji-parana-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/eco-run-do-verde-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/eco-run-navegantes-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/eco-run-pnz-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ecorun-cabedelo-2027-01-16/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ecorun-special-edition-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/educorre-corrida-universitaria-ufba-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -738,6 +792,7 @@
   <url><loc>https://radardecorrida.com.br/prova/i-corrida-da-cruz-vermelha-natal-solidario-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/i-corrida-da-guarda-municipal-de-ouro-branco-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/i-corrida-da-uema-2026-campus-colinas-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/i-desafio-da-cova-da-onca-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/i-meia-maratona-das-missoes-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/i-quadrangular-run-pilar-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/icesp-run-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -768,6 +823,8 @@
   <url><loc>https://radardecorrida.com.br/prova/jingle-bells-brasilia-2026-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/jurere-night-run-2027-2027-03-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ld-run-rio-de-janeiro-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/leao-run-2026-3-edicao-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/let-s-bora-run-2-edicao-2027-01-16/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/lets-hop-running-experience-pacaembu-com-jan-frodeno-2026-12-03/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/life-run-senador-canedo-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/live-run-etapa-2-salvador-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -784,10 +841,12 @@
   <url><loc>https://radardecorrida.com.br/prova/mahalo-run-2026-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/mamonas-assassinas-run-etapa-porto-alegre-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/mandacaru-run-2027-02-14/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/maranata-beach-run-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/maratona-de-caxias-do-sul-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/maratona-de-revezamento-cuiaba-x-chapada-dos-guimaraes-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/maratona-do-vinho-2027-01-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/maratona-oficial-de-ribeirao-preto-2027-2027-01-23/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/maratona-rota-do-sol-nascente-2027-2027-01-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/marechal-floriano-night-run-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/marica-night-run-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/mariposa-run-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -802,6 +861,7 @@
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-coop-recife-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-corre-macuxi-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-da-chapada-dos-veadeiros-etapa-vila-2027-01-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/meia-maratona-de-paranatama-a-garanhuns-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-de-passa-quatro-2026-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-de-piracicaba-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-de-rolandia-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -817,7 +877,9 @@
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-sorvetes-jundia-2027-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/meia-maratona-sustentavel-vitoria-da-conquista-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/mentone-run-a-identidade-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/milson-calcados-run-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/minha-corrida-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/motiva-toritama-2026-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/muriu-run-2027-01-16/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/nashville-rock-n-run-2026-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/natalina-run-santa-rita-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -846,6 +908,7 @@
   <url><loc>https://radardecorrida.com.br/prova/pacce-fofoca-night-run-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/pantanal-beer-run-2026-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/pantanal-ultra-2027-2027-02-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/papangu-run-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/parnarun-2026-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/passoufikou-run-2027-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/patroas-charmosas-em-movimento-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -867,6 +930,7 @@
   <url><loc>https://radardecorrida.com.br/prova/porto-saude-track-field-experience-running-vs-gold-londrina-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/porto-track-field-experience-running-golden-square-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/porto-track-field-experience-running-parque-ceret-ii-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/porto-track-field-experience-running-supermercado-assis-run-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/pousao-night-run-2027-01-16/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/preco-bom-run-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/primeiro-aniversario-corridao-da-olinda-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -879,13 +943,20 @@
   <url><loc>https://radardecorrida.com.br/prova/rafael-cunha-run-2027-2027-01-09/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ramira-run-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/red-run-2026-etapa-corredor-da-vitoria-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/redepharma-run-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rei-e-rainha-do-mar-beach-run-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/retro-run-2026-12-26/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/reveza-42k-cbsports-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/reveza-cbsports-revezamento-42km-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/rio-maravilha-2027-etapa-verao-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rio-maravilha-seasons-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rio-night-run-2026-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rocha-run-2-edicao-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rota040-2-edicao-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rotary-run-araxa-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rotary-run-uberaba-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/roteiro-da-fe-2026-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/roval-av-run-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rp-city-running-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/rua-beer-apresenta-corrida-com-noel-pro-pagode-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/run-100-jesus-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -910,10 +981,13 @@
   <url><loc>https://radardecorrida.com.br/prova/santa-cruz-night-run-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-iguatemi-brasilia-2027-02-14/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-patio-batel-2027-02-14/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-recife-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-santos-ii-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-shopping-del-paseo-2027-02-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-shopping-vila-olimpia-i-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-vila-nova-conceicao-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/santander-track-field-run-series-villalobos-i-2027-02-21/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/santo-amaro-run-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/santo-remedio-run-challenge-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/sao-garrafa-run-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/sao-silvestre-campo-grande-2026-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -927,6 +1001,7 @@
   <url><loc>https://radardecorrida.com.br/prova/smurfs-run-shopping-jardins-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/so-corre-run-senador-canedo-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/solare-run-2026-2026-12-30/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/soledade-night-run-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/sombrio-night-run-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/speed-life-run-barra-velha-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/storm-run-night-edition-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -945,6 +1020,7 @@
   <url><loc>https://radardecorrida.com.br/prova/terry-fox-run-imperatriz-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/th-sbt-ferreira-run-2027-01-24/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/titan-race-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/tr-explore-bananeiras-2027-trail-2027-01-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/track-field-experience-cbc-sports-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/track-field-experience-clube-de-corrida-iguatemi-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/track-field-experience-rio-de-janeiro-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -956,6 +1032,7 @@
   <url><loc>https://radardecorrida.com.br/prova/track-field-tres-lagoas-3-edicao-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/trail-cerrado-solidario-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/trail-run-buraco-do-padre-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/trail-run-paradise-2026-etapa-6-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/travessia-torres-tramandai-2027-01-16/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/treinao-coracao-em-movimento-2027-02-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/treinao-corre-2-lm-2026-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -965,13 +1042,16 @@
   <url><loc>https://radardecorrida.com.br/prova/treinao-fun-fest-vii-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/treinao-patroas-noel-em-movimento-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/treinao-reverso-runners-club-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/treino-da-ressaca-2027-02-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/trilhas-da-virada-a-lendaria-6-edicao-2026-12-12/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/trilheiros-trail-run-2027-01-16/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/trofeu-cidade-de-sao-paulo-drogasil-2027-2027-01-25/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ultima-trilha-do-ano-palmas-2026-12-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ultra-maratona-dos-campos-gerais-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ultra-run-2026-2026-12-06/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ultramacho-rondonopolis-2026-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/ultramaratona-do-sol-2026-11-28/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/uniao-run-2026-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/v-eco-verao-running-aabb-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/vale-verde-run-2026-12-13/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/varzea-run-2026-12-20/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -980,6 +1060,8 @@
   <url><loc>https://radardecorrida.com.br/prova/venus-women-s-half-marathon-2026-11-29/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/vera-cruz-night-run-2026-5-corrida-natalina-2026-12-19/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/verao-clinica-bem-estar-2027-01-10/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/vi-corrida-da-enfermagem-sergipana-coren-se-2026-11-27/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://radardecorrida.com.br/prova/vi-corrida-da-oab-cajazeiras-etapa-mae-aninha-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/vi-corrida-da-virada-acorde-blumenau-2026-12-31/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/vida-corrida-trail-run-2027-01-17/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://radardecorrida.com.br/prova/vida-leve-run-2026-12-05/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
