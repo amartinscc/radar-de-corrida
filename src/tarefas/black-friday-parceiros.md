@@ -33,6 +33,9 @@ e "até X% off" genérico sem produto ou cupom concreto.
 - Registrar em `tenis-do-dia/relampago.json` (data, hora, produto, loja, preço, link, "origem": "instagram do parceiro") e dar push.
 - Sem collab, sem impulsionar, sem música.
 
+## 4a. Cupons (Leandro, 27/11/2026)
+Caçar TODOS os cupons dos parceiros (página de cupons da loja, banners, stories, códigos passados pelo Leandro/Aline), testar no carrinho os que valem para tênis-alvo e registrar em canal/cupons-testados.json. Publicar sempre o menor preço final com cupom aceito.
+
 ## 4b. Canal do WhatsApp
 Regra do Leandro (27/11/2026): TODO achado relâmpago publicado aqui vai para o Canal do WhatsApp na MESMA rodada, logo depois do story, pelo fluxo de src/tarefas/canal-whatsapp.md (canal.py → conferir imagem → device_commit_files → POST /canal-post da central com o x-token do prompt desta tarefa → canal/postados.json com "fonte: achado relâmpago HHhMM" → push). Se a central pedir 15 min, espere e tente de novo; fora do horário ou no teto do dia, a próxima rodada da tarefa do Canal posta primeiro. Oferta forte que não coube no teto: grave em `canal/pistas.json` ({"AAAA-MM-DD HHhMM": {"nome","loja","preco","de","link","foto","cupom","condicao"}}) para o Canal aproveitar.
 
