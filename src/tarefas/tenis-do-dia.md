@@ -19,7 +19,7 @@ Para cada imagem, na ordem do `posts.json` (1.jpg com figurinha "VER OFERTA" e l
 2. Desmarcar a Página do Facebook (publicar só no Instagram).
 3. Upload: rodar no console `HTMLInputElement.prototype.click=function(){if(this.type==='file'&&!this.isConnected){document.body.appendChild(this)}}` (evita a janela nativa e mantém o input na página), clicar em "Adicionar foto/vídeo", achar o file-input (find) e usar file_upload. O file_upload só aceita arquivo que a sessão pode ler: se a imagem estiver no PC, primeiro device_stage_files e usar o stagedPath (/mnt/user-data/uploads/...).
 4. Editar → Mais figurinhas → **Link**: URL = campo `link` do posts.json; texto da figurinha = campo `figurinha` (até 25 caracteres).
-   A figurinha entra sozinha no CENTRO da imagem (o Business Suite não deixa arrastar) — as artes já deixam essa faixa livre. Não mover.
+   A figurinha entra sozinha no CENTRO da imagem (o Business Suite não deixa arrastar). As artes (`card()` e `canal_cta()`) reservam a faixa do meio (y ≈ 860–1080 de 1920) para ela: nada de texto ali. Não mover nem aumentar a figurinha. Antes de postar, abrir a imagem e conferir que as fontes saíram certas (Urbanist, sem serifa); se aparecer fonte com serifa (Times), NÃO postar e avisar o Leandro.
    Dica: se a janela do Chrome estiver baixa, o editor corta a imagem; não precisa ver a figurinha inteira, só confirmar que foi aplicada.
 5. Publicar (Compartilhar agora). Conferir que o story apareceu no perfil.
 Se o Business Suite pedir login, CAPTCHA ou verificação: parar e avisar o Leandro (SendUserMessage), sem tentar contornar.

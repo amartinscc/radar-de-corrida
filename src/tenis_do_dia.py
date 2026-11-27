@@ -73,8 +73,11 @@ def baixa(u):
         return None, None
 
 
-CSS = f'''@font-face{{font-family:Urbanist;src:url("{(FONTES / 'Urbanist-var.ttf').as_uri()}")}}
-@font-face{{font-family:"Plus Jakarta Sans";src:url("{(FONTES / 'PlusJakartaSans-var.ttf').as_uri()}")}}
+# fontes embutidas (data URI): com set_content o Chrome bloqueia file://, e sem as fontes instaladas a arte saía em Times (27/11/2026)
+_F_URB = base64.b64encode((FONTES / 'Urbanist-var.ttf').read_bytes()).decode()
+_F_PJS = base64.b64encode((FONTES / 'PlusJakartaSans-var.ttf').read_bytes()).decode()
+CSS = f'''@font-face{{font-family:Urbanist;font-weight:100 900;src:url(data:font/ttf;base64,{_F_URB}) format("truetype")}}
+@font-face{{font-family:"Plus Jakarta Sans";font-weight:200 800;src:url(data:font/ttf;base64,{_F_PJS}) format("truetype")}}
 *{{margin:0;box-sizing:border-box}}body{{width:1080px;height:1920px;position:relative;overflow:hidden;font-family:"Plus Jakarta Sans";color:#F4ECF4;
 background:radial-gradient(circle at 50% 640px,#33203a 0,#1D1220 62%)}}
 .ring{{position:absolute;left:50%;border:3px solid rgba(221,185,221,.14);border-radius:50%}}
@@ -103,18 +106,19 @@ R11 = root / 'src' / 'instagram' / 'r11-recorte.png'  # arte aprovada R11 (sacol
 
 
 def canal_cta(logo):
-    """Story fixo que fecha o Tênis do dia chamando para o Canal de ofertas no WhatsApp (Leandro, 27/11/2026)."""
+    """Story fixo que fecha o Tênis do dia chamando para o Canal de ofertas no WhatsApp (Leandro, 27/11/2026).
+    Centralizado; a faixa do meio (y 860–1080) fica livre para a figurinha de link, que o Business Suite põe no centro."""
     r11 = b64(R11.read_bytes())
     return f'''<html><head><style>{CSS}</style></head><body>{rings(700)}
 <div style="position:absolute;top:200px;width:100%;text-align:center" class="kick">QUER MAIS OFERTAS ASSIM?</div>
 <div style="position:absolute;top:290px;width:100%;text-align:center;font:800 120px/0.95 Urbanist;letter-spacing:-3px">OFERTAS NO<br><span style="color:#F28A5B">WHATSAPP</span></div>
-<img src="data:image/png;base64,{r11}" style="position:absolute;top:600px;left:590px;height:940px">
-<div style="position:absolute;top:640px;left:80px;width:460px;font:600 40px/1.35 'Plus Jakarta Sans'">Tênis e achados com desconto real e cupom, direto no seu WhatsApp.</div>
-<div style="position:absolute;top:1120px;left:80px;width:460px;font:700 40px/1.3 Urbanist;color:#F28A5B">Toque no link e entre no canal 👆</div>
+<div style="position:absolute;top:560px;left:120px;width:840px;text-align:center;font:600 40px/1.35 'Plus Jakarta Sans'">Tênis e achados com desconto real e cupom, direto no seu WhatsApp.</div>
+<div style="position:absolute;top:790px;width:100%;text-align:center;font:700 40px Urbanist;color:#F28A5B">Toque no link e entre no canal 👇</div>
+<img src="data:image/png;base64,{r11}" style="position:absolute;top:1080px;left:50%;transform:translateX(-50%);height:580px">
 <img class="logo" src="data:image/png;base64,{logo}"></body></html>'''
 
 
-def card(o, foto, ct, i, n, fin, base, off, logo, kick=None):
+def card(o, foto, ct, i, n, fin, base, off, logo, kick=None, figurinha=True):
     mod = (o.get('modalidade') or 'Corrida').upper()
     cup = f'<div style="display:inline-block;margin-top:26px;background:#F28A5B;color:#1D1220;font:800 34px Urbanist;padding:12px 28px;border-radius:999px;letter-spacing:2px">CUPOM {o["cupom"]}</div>' if o.get('cupom') else ''
     cond = o.get('condicao') or ''
@@ -126,10 +130,10 @@ def card(o, foto, ct, i, n, fin, base, off, logo, kick=None):
     return f'''<html><head><style>{CSS}</style></head><body>{rings(580)}
 <div style="position:absolute;top:200px;left:80px" class="kick">{kick or f"TÊNIS DO DIA · {i}/{n}"}</div>
 <div style="position:absolute;top:200px;right:80px;font:800 34px Urbanist;color:#DDB9DD">{mod}</div>
-<div style="position:absolute;top:270px;bottom:290px;left:80px;width:920px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
-<div style="position:relative;flex:none;width:920px;height:580px;background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(0,0,0,.35)">
+<div style="position:absolute;top:{'300px' if figurinha else '270px'};bottom:290px;left:80px;width:920px;display:flex;flex-direction:column;justify-content:{'flex-start' if figurinha else 'center'};align-items:center;text-align:center">
+<div style="position:relative;flex:none;width:920px;height:{'520px' if figurinha else '580px'};background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(0,0,0,.35)">
 <img src="data:{ct};base64,{foto}" style="max-width:88%;max-height:88%;object-fit:contain;mix-blend-mode:multiply">{selo}</div>
-<div style="margin-top:70px;font:700 32px Urbanist;color:#DDB9DD;letter-spacing:3px">{(o.get('marca') or '').upper()}{loja}</div>
+{'<div style="flex:none;height:300px"></div>' if figurinha else ''}<div style="margin-top:{'0' if figurinha else '70px'};font:700 32px Urbanist;color:#DDB9DD;letter-spacing:3px">{(o.get('marca') or '').upper()}{loja}</div>
 <div style="margin-top:12px;font:800 66px/1.05 Urbanist">{o['nome']}</div>
 <div style="margin-top:26px;display:flex;align-items:baseline;justify-content:center;gap:26px"><span style="font:800 120px/1 Urbanist;color:#F28A5B">{brl(fin)}</span>{f'<s style="font:600 42px Urbanist;color:#B9A3BC">{brl(base)}</s>' if base else ''}</div>
 {cup}{cond}</div>

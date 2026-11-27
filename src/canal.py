@@ -51,7 +51,7 @@ def main(arq):
             de = float(o['de']) if o.get('de') else None
             off = round((1 - preco / de) * 100) if de and de > preco else 0
             foto, ct = baixa(o['foto'])
-            html = T.card(o, foto, ct, 1, 1, preco, de or preco, off, logo, kick='ACHADO DO RADAR')
+            html = T.card(o, foto, ct, 1, 1, preco, de or preco, off, logo, kick='ACHADO DO RADAR', figurinha=False)
             pg.set_content(html)
             pg.wait_for_timeout(700)
             base = FILA / f"{agora:%Y-%m-%d-%H%M}-{slug(o['nome'])}"
