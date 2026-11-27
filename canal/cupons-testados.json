@@ -60,6 +60,12 @@
    "cupom": "BLACK100",
    "resultado": "aceito sem efeito",
    "testado_em": "Wave Rebellion Pro 3 (R$ 899,99) 20h30; BLACK40 expirado; BLACKFRIDAY e AMARTINS inválidos; APP15 só no app"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACKNETS",
+   "resultado": "'Cupom inválido' às 20h33",
+   "testado_em": "Olympikus Corre 5 tam. 38 (vendido pela Netshoes, R$ 389,99)"
   }
  ]
 }
