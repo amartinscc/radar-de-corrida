@@ -19006,13 +19006,20 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     if(dir){ c.textAlign = 'right'; c.font = '800 32px ' + D; c.fillText(dir.toUpperCase(), W - LX, 232); }
     // cartão branco com a imagem
     const bx = LX, bw = LW, bh = 580; let by = 280;
-    const centrado = !!p;  // provas: cartão e textos centralizados na largura e na altura (Leandro, 27/11/2026)
+    const centrado = true;  // padrão de qualquer compartilhamento: cartão e textos centralizados na largura e na altura (Leandro, 27/11/2026)
+    const nl = (t, ft, mx) => { c.font = ft; const w = String(t||'').split(' '); let ln = '', n = 1; w.forEach(x => { const tt = ln ? ln + ' ' + x : x; if(c.measureText(tt).width > LW && ln){ n++; ln = x; } else ln = tt; }); return Math.min(n, mx); };
+    let alt = 0;
     if(p){
-      const nl = (t, ft, mx) => { c.font = ft; const w = t.split(' '); let ln = '', n = 1; w.forEach(x => { const tt = ln ? ln + ' ' + x : x; if(c.measureText(tt).width > LW && ln){ n++; ln = x; } else ln = tt; }); return Math.min(n, mx); };
       const pr0 = p.valor===0 || typeof p.valor==='number' || ST[p.status];
-      const alt = bh + 140 + 50 + 18 + nl(p.nome, '800 70px ' + D, 2)*76 + 26 + (p.local ? 54 : 0) + (p.distancias ? 54 : 0) + (pr0 ? 54 : 0) + (p.cupom ? 120 : 0) - 40;
-      by = Math.round(270 + (1600 - 270 - alt)/2);
+      alt = bh + 140 + 70 + 18 + nl(p.nome, '800 70px ' + D, 2)*76 + 26 + (p.local ? 54 : 0) + (p.distancias ? 54 : 0) + (pr0 ? 54 : 0) + (p.cupom ? 120 : 0) - 40;
+    } else if(o && o.parceiro){
+      alt = bh + 140 + 50 + 18 + nl(o.nome, '800 70px ' + D, 3)*76 + 30 + (typeof o.preco === 'number' ? 140 : o.detalhe ? nl(o.detalhe, '700 44px ' + B, 2)*56 : 0) + 10 + (o.cupom ? 100 : 0) - 40;
+    } else if(o){
+      alt = bh + 140 + 50 + 14 + nl(o.nome, '800 66px ' + D, 3)*70 + 30 + 140 + (o.cupom ? 100 : 0) - 40;
+    } else if(!f){
+      alt = bh + 140 + 50 + 18 + 76 + 26 + 3*56 - 40;
     }
+    if(alt) by = Math.round(270 + (1600 - 270 - alt)/2);
     if(!f){ c.save(); c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 60; c.shadowOffsetY = 30; c.fillStyle = '#FFFFFF'; rr(c, bx, by, bw, bh, 44); c.fill(); c.restore(); }
     c.textAlign = 'center';
     const cobre = (im, cont) => { const iw = im.naturalWidth, ih = im.naturalHeight; c.save(); rr(c, bx, by, bw, bh, 44); c.clip();
@@ -19024,6 +19031,10 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     const linha = (txt, font, cor, max, lh) => { c.textAlign = centrado ? 'center' : 'left'; c.fillStyle = cor; c.font = font; const k = wrap(c, txt, centrado ? cx : LX, yy, LW, lh, max); yy += k*lh; return k; };
     const pilula = (txt) => { c.font = '800 36px ' + D; ls('2px'); const w = c.measureText(txt).width + 64, px = centrado ? cx - w/2 : LX; c.fillStyle = '#F28A5B'; rr(c, px, yy, w, 72, 36); c.fill(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(txt, px + 32, yy + 49); ls('0px'); yy += 100; };
     let nota = '';
+    const preco = (v, de) => { c.font = '800 120px ' + D; const pt = brl(v), pw = c.measureText(pt).width; let dw = 0, ds = ''; if(de){ ds = brl(de); c.font = '600 42px ' + D; dw = c.measureText(ds).width + 30; }
+      let x = cx - (pw + dw)/2; c.textAlign = 'left'; c.fillStyle = '#F28A5B'; c.font = '800 120px ' + D; c.fillText(pt, x, yy + 90);
+      if(de){ x += pw + 30; c.fillStyle = '#B9A3BC'; c.font = '600 42px ' + D; c.fillText(ds, x, yy + 90); c.strokeStyle = '#B9A3BC'; c.lineWidth = 3; c.beginPath(); c.moveTo(x, yy+76); c.lineTo(x + dw - 30, yy+76); c.stroke(); }
+      c.textAlign = 'center'; yy += 140; };
     if(f){
       // fotógrafo: só a bolinha com a foto (sem cartão), tudo centralizado (Leandro, 27/11/2026)
       const fim = await imgSegura(f.foto);
@@ -19066,21 +19077,17 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       if(lg) cobre(lg, true); else bloco(o.marca.charAt(0).toUpperCase(), 'PARCEIRO');
       linha(o.marca.toUpperCase(), '700 34px ' + D, '#DDB9DD', 1, 50);
       yy += 18; linha(o.nome, '800 70px ' + D, '#F4ECF4', 3, 76); yy += 30;
-      if(typeof o.preco === 'number'){ c.textAlign = 'left'; c.fillStyle = '#F28A5B'; c.font = '800 120px ' + D; c.fillText(brl(o.preco), LX, yy + 90);
-        if(typeof o.de === 'number' && o.de > o.preco){ const pw = c.measureText(brl(o.preco)).width; c.fillStyle = '#B9A3BC'; c.font = '600 42px ' + D; const de = brl(o.de); c.fillText(de, LX + pw + 30, yy + 90); const dw = c.measureText(de).width; c.strokeStyle = '#B9A3BC'; c.lineWidth = 3; c.beginPath(); c.moveTo(LX+pw+30, yy+76); c.lineTo(LX+pw+30+dw, yy+76); c.stroke(); }
-        yy += 140; }
+      if(typeof o.preco === 'number') preco(o.preco, typeof o.de === 'number' && o.de > o.preco ? o.de : 0);
       else if(o.detalhe) linha(o.detalhe, '700 44px ' + B, '#F28A5B', 2, 56);
       yy += 10; if(o.cupom) pilula('CUPOM ' + o.cupom);
       nota = 'Parceiro do Radar de Corrida';
     } else if(o){
       const foto = await imgSegura(o.foto);
       if(foto) cobre(foto, true); else bloco(o.off ? '-' + o.off + '%' : '★', o.off ? 'OFF' : 'RADAR');
-      if(o.off && foto){ c.save(); c.translate(W-130, 300); c.rotate(4*Math.PI/180); c.font = '800 64px ' + D; const t = '-' + o.off + '%', tw = c.measureText(t).width + 60; c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, -tw/2, -50, tw, 100, 28); c.fill(); c.shadowColor = 'transparent'; c.fillStyle = '#1D1220'; c.fillText(t, 0, 24); c.restore(); }
+      if(o.off && foto){ c.save(); c.translate(bx + bw - 50, by + 20); c.rotate(4*Math.PI/180); c.font = '800 64px ' + D; const t = '-' + o.off + '%', tw = c.measureText(t).width + 60; c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, -tw/2, -50, tw, 100, 28); c.fill(); c.shadowColor = 'transparent'; c.fillStyle = '#1D1220'; c.fillText(t, 0, 24); c.restore(); }
       linha([o.marca, o.loja].filter((v,i,a)=>v && a.indexOf(v)===i).join(' · ').toUpperCase() + (o.genero ? ' · ' + o.genero.toUpperCase() : ''), '700 32px ' + D, '#DDB9DD', 1, 50);
       yy += 14; linha(o.nome, '800 66px ' + D, '#F4ECF4', 3, 70); yy += 30;
-      c.textAlign = 'left'; c.fillStyle = '#F28A5B'; c.font = '800 120px ' + D; const pt = brl(o.fin || o.preco); c.fillText(pt, LX, yy + 90);
-      if(o.off && o.base){ const pw = c.measureText(pt).width; c.fillStyle = '#B9A3BC'; c.font = '600 42px ' + D; const de = brl(o.base); c.fillText(de, LX + pw + 30, yy + 90); const dw = c.measureText(de).width; c.strokeStyle = '#B9A3BC'; c.lineWidth = 3; c.beginPath(); c.moveTo(LX+pw+30, yy+76); c.lineTo(LX+pw+30+dw, yy+76); c.stroke(); }
-      yy += 140; if(o.cupom) pilula('CUPOM ' + o.cupom);
+      preco(o.fin || o.preco, o.off && o.base ? o.base : 0); if(o.cupom) pilula('CUPOM ' + o.cupom);
       const dd = new Date(o.conferido || data.ofertas_atualizado || data.atualizado);
       nota = 'Preço conferido em ' + dd.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' pelo Radar · pode mudar na loja a qualquer momento';
     } else {
