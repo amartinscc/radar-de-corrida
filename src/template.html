@@ -542,6 +542,9 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .fg .chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
 .fg .pbc.cam{background:linear-gradient(135deg,#B28AB1,#7A4E7D);color:#fff}
 .fg .loc{font:500 10px/1.2 var(--body);color:var(--muted)}
+.fg .fsh{display:inline-flex;align-items:center;gap:4px;margin-top:2px;border:1px solid var(--line);background:var(--surface);color:var(--accent);font:700 10px/1 var(--body);padding:4px 8px;border-radius:999px;cursor:pointer}
+.fg .fsh svg{width:11px;height:11px}
+.fg .pb.hilite .pbc{box-shadow:0 0 0 3px var(--mauve),0 6px 16px rgba(29,18,32,.14)}
 .fg .ver{display:inline-block;margin-top:2px;font:700 10px/1 var(--body);color:#fff;background:var(--accent);padding:5px 8px;border-radius:999px;text-decoration:none}
 .fg .of{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
 .fg .of h4{margin:0 0 8px;text-align:center;font:700 11px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -1741,7 +1744,7 @@ __DATA__
       history.replaceState(null, '', location.pathname + location.hash);
     }
   }catch(e){}
-  const shLinkCanal = canal => shKind === 'parceiro' ? RADAR_URL + '?o=' + canal + (shQuem ? '&q=' + shQuem : '') + '#parceiro=' + shSlug : shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1&o=' + canal + (shQuem ? '&q=' + shQuem : '') : RADAR_URL + '?o=' + canal + (shQuem ? '&q=' + shQuem : '');
+  const shLinkCanal = canal => (shKind === 'parceiro' || shKind === 'fotografo') ? RADAR_URL + '?o=' + canal + (shQuem ? '&q=' + shQuem : '') + '#' + shKind + '=' + shSlug : shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1&o=' + canal + (shQuem ? '&q=' + shQuem : '') : RADAR_URL + '?o=' + canal + (shQuem ? '&q=' + shQuem : '');
   const shareEl = document.getElementById('share');
   const shImg = document.getElementById('sh-img');
   let shBlob = null, shUrl = null, dlApi = null;
@@ -1766,7 +1769,7 @@ __DATA__
     const m = u.match(/^https?:\/\/(www\.)?radardecorrida\.com\.br\/(.*)$/i); if(m) return m[2];
     return (await capaMapaCarrega())[u] || null;
   }
-  async function drawStory(o, p){
+  async function drawStory(o, p, f){
     const D = "'Urbanist','Avenir Next',system-ui,sans-serif", B = "'Plus Jakarta Sans',system-ui,sans-serif";
     try{ await Promise.all(['800 60px Urbanist','700 40px "Plus Jakarta Sans"','600 40px "Plus Jakarta Sans"'].map(f => document.fonts.load(f))); }catch(e){}
     const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
@@ -1781,11 +1784,30 @@ __DATA__
     else { c.fillStyle = '#B28AB1'; c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 110px ' + D; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('A',cx,cy+6); }
     c.textAlign = 'center'; c.textBaseline = 'alphabetic';
     c.fillStyle = '#1D1220'; c.font = '700 44px ' + B; c.fillText('@' + (pf.instagram||'amartinscc'), cx, 430);
-    c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(o ? (o.parceiro ? 'PARCEIRA DA ALINE' : 'OFERTA DO DIA') : (p ? 'PROVA DO RADAR' : 'RADAR DE HOJE'), cx, 500);
+    c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(f ? 'FOTÓGRAFO DO RADAR' : o ? (o.parceiro ? 'PARCEIRA DA ALINE' : 'OFERTA DO DIA') : (p ? 'PROVA DO RADAR' : 'RADAR DE HOJE'), cx, 500);
     // cartão
-    const x0 = 90, y0 = 560, cw = W-180, ch = p ? 990 : o ? 960 : 860;
+    const x0 = 90, y0 = 560, cw = W-180, ch = p ? 990 : (o || f) ? 960 : 860;
     c.fillStyle = '#FFFFFF'; rr(c,x0,y0,cw,ch,56); c.fill();
-    if(p){
+    if(f){
+      // fotógrafo parceiro: foto do perfil, nome, @, onde fotografa, canal de venda e cupom (Leandro, 27/11/2026)
+      const fr = 150, fy = y0 + 210, fim = await carregaImg(f.foto);
+      c.fillStyle = '#F6F0F6'; c.beginPath(); c.arc(cx, fy, fr+10, 0, Math.PI*2); c.fill();
+      if(fim){ c.save(); c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.clip(); const iw = fim.naturalWidth, ih = fim.naturalHeight, sc = Math.max(fr*2/iw, fr*2/ih); c.drawImage(fim, cx-iw*sc/2, fy-ih*sc/2, iw*sc, ih*sc); c.restore(); }
+      else { const gg = c.createLinearGradient(cx-fr, fy-fr, cx+fr, fy+fr); gg.addColorStop(0,'#B28AB1'); gg.addColorStop(1,'#7A4E7D'); c.fillStyle = gg; c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.fill(); c.fillStyle = '#fff'; c.font = '800 110px ' + D; c.fillText(f.nome.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase(), cx, fy+38); }
+      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; const fn = wrap(c, f.nome, cx, y0+470, cw-120, 78, 2);
+      let yy = y0 + 470 + (fn-1)*78 + 70;
+      const ig = (f.link.match(/instagram\.com\/([^\/?#]+)/i) || [])[1];
+      if(ig){ c.fillStyle = '#7A4E7D'; c.font = '700 42px ' + B; c.fillText('@' + ig, cx, yy); yy += 70; }
+      const lugar = [...(f.locais||[]), f.estado].filter(Boolean).join(' · ');
+      if(lugar){ c.fillStyle = '#6B5A6E'; c.font = '600 38px ' + B; c.fillText('📍 ' + lugar, cx, yy); yy += 64; }
+      if(f.site){ let h = ''; try{ h = new URL(f.site).hostname.replace(/^www\./,''); }catch(e){} c.fillStyle = '#6B5A6E'; c.font = '600 36px ' + B; c.fillText('Fotos à venda' + (h ? ' em ' + h : ''), cx, yy); yy += 60; }
+      if(f.cupom){
+        c.font = '800 46px ' + B; const ct = 'Cupom ' + f.cupom, tw = c.measureText(ct).width + 100;
+        c.fillStyle = '#B28AB1'; rr(c, cx-tw/2, y0+ch-190, tw, 90, 45); c.fill();
+        c.fillStyle = '#1D1220'; c.fillText(ct, cx, y0+ch-130);
+      }
+      c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; c.fillText('Fotógrafos de corrida no radar', cx, y0+ch-45);
+    } else if(p){
       const [pyy, pmm, pdd] = p.data.split('-').map(Number);
       const dow = new Date(Date.UTC(pyy, pmm-1, pdd)).getUTCDay();
       const capa = await carregaImg(await capaLocal(p.capa));
@@ -1881,17 +1903,18 @@ __DATA__
     return cv;
   }
   let shName = 'radar-da-aline.png', shLink = RADAR_URL, shMsg = '', shTxt = '', shKind = '', shSlug = '';
-  async function openShare(o, p){
+  async function openShare(o, p, f){
     shareEl.hidden = false; shImg.removeAttribute('src');
-    const cv = await drawStory(o, p);
+    const cv = await drawStory(o, p, f);
     shImg.src = cv.toDataURL('image/png');
     shBlob = await new Promise(res => cv.toBlob(res, 'image/png'));
     const slug = s => s.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40);
-    shName = 'radar-da-aline-' + (o ? (o.parceiro ? 'parceiro-' : '') + slug(o.marca + '-' + o.nome) : p ? 'prova-' + slug(p.nome) : 'ofertas') + '.png';
+    shName = 'radar-da-aline-' + (f ? 'fotografo-' + slug(f.nome) : o ? (o.parceiro ? 'parceiro-' : '') + slug(o.marca + '-' + o.nome) : p ? 'prova-' + slug(p.nome) : 'ofertas') + '.png';
     // link da página do item no radar (a prévia no WhatsApp mostra a imagem e o título; o toque abre o radar)
-    shKind = o ? (o.parceiro ? 'parceiro' : 'tenis') : p ? 'prova' : ''; shSlug = (o ? (o.parceiro ? o.pslug : o.slug) : (p||{}).slug) || '';
-    shLink = shKind === 'parceiro' ? RADAR_URL + '#parceiro=' + shSlug : shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1' : RADAR_URL;
-    if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : '') + (p.cupom ? ' · cupom ' + p.cupom + ' na inscrição' : ''); }
+    shKind = f ? 'fotografo' : o ? (o.parceiro ? 'parceiro' : 'tenis') : p ? 'prova' : ''; shSlug = (f ? f.slug : o ? (o.parceiro ? o.pslug : o.slug) : (p||{}).slug) || '';
+    shLink = (shKind === 'parceiro' || shKind === 'fotografo') ? RADAR_URL + '#' + shKind + '=' + shSlug : shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1' : RADAR_URL;
+    if(f){ const lg = [...(f.locais||[]), f.estado].filter(Boolean).join(' · '); shTxt = '📸 ' + f.nome + ', fotógrafo de corrida' + (lg ? ' (' + lg + ')' : '') + (f.cupom ? ' · cupom ' + f.cupom + ' nas fotos' : ''); }
+    else if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : '') + (p.cupom ? ' · cupom ' + p.cupom + ' na inscrição' : ''); }
     else if(o && o.parceiro){ shTxt = o.nome + (typeof o.preco === 'number' ? ' por ' + brl(o.preco) : '') + ' na ' + o.marca + (o.cupom ? ' · cupom da Aline: ' + o.cupom : ''); }
     else if(o){ shTxt = o.nome + ' por ' + brl(o.fin || o.preco) + (o.off ? ' (-' + o.off + '%)' : '') + ' na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
     else shTxt = 'Provas e ofertas de corrida todos os dias';
@@ -1901,6 +1924,7 @@ __DATA__
     document.getElementById('sh-hint').hidden = true;
   }
   // gerador das postagens do Canal do WhatsApp (src/canal.py): mesma arte do compartilhar + link de afiliada da Aline marcado como whatsapp-canal
+  window.__radarShareFoto = f => openShare(null, null, f);
   window.__radarCanal = {story: drawStory, link: u => awinRef(afil0(u), '', 'whatsapp-canal'), brl};
   const shTrack = canal => { if(window.posthog) posthog.capture('compartilhar_link', {canal, tipo: shKind, item: shSlug, quem: shQuem || undefined}); };
   document.getElementById('sh-wa').addEventListener('click', () => shTrack('whatsapp'));
@@ -2963,7 +2987,7 @@ __DATA__
 /* Fotógrafos na aba Provas: o botão só aparece quando houver fotógrafo cadastrado em radar-data "fotografos" */
 (function(){
   let d; try{ d = JSON.parse(document.getElementById('radar-data').textContent); }catch(e){ return; }
-  const fs = (d.fotografos||[]).filter(f => f && f.nome && f.link), of = (d.fotos_oficiais||[]).filter(o => o && o.nome && o.link);
+  const fs = (d.fotografos||[]).filter(f => f && f.nome && f.link).map(f => Object.assign({slug: f.nome.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}, f)), of = (d.fotos_oficiais||[]).filter(o => o && o.nome && o.link);
   const btn = document.getElementById('e-fotobtn'), box = document.getElementById('e-foto');
   if(!btn || !box || (!fs.length && !of.length)) return;
   btn.hidden = false;
@@ -2985,6 +3009,10 @@ __DATA__
       if(f.cupom){ const k = document.createElement('button'); k.type = 'button'; k.className = 'pcup'; k.textContent = f.cupom;
         k.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(f.cupom); k.classList.add('ok'); k.textContent = 'Copiado!'; setTimeout(() => { k.classList.remove('ok'); k.textContent = f.cupom; }, 1600); if(window.posthog) posthog.capture('cupom_copiado', {parceiro: 'fotografo: ' + f.nome, cupom: f.cupom}); });
         b.appendChild(k); }
+      const sh = document.createElement('button'); sh.type = 'button'; sh.className = 'fsh'; sh.setAttribute('aria-label', 'Compartilhar ' + f.nome);
+      sh.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>Compartilhar';
+      sh.addEventListener('click', () => { if(window.posthog) posthog.capture('compartilhar_fotografo', {fotografo: f.nome}); window.__radarShareFoto && window.__radarShareFoto(f); });
+      b.appendChild(sh); b.dataset.slug = f.slug;
       a.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_fotografo', {fotografo: f.nome, destino: 'instagram'}); });
       grid.appendChild(b);
     });
@@ -3000,5 +3028,7 @@ __DATA__
   btn.addEventListener('click', () => modo(true));
   document.getElementById('e-voltar').addEventListener('click', () => modo(false));
   if(location.hash === '#fotografos') setTimeout(() => modo(true), 400);
+  const mf = (location.hash||'').match(/^#fotografo=([a-z0-9-]+)$/);
+  if(mf) setTimeout(() => { modo(true); const el = grid.querySelector('[data-slug="' + mf[1] + '"]'); if(el){ el.classList.add('hilite'); el.scrollIntoView({block:'center'}); } if(window.posthog) posthog.capture('abriu_link_compartilhado', {tipo: 'fotografo', item: mf[1], achou: !!el}); }, 400);
 })();
 </script>
