@@ -1,10 +1,11 @@
 {
-  "2026-11-27 10h39": "Tênis Olympikus Corre 4 S Masculino · Netshoes · R$ 299,99 (de R$ 599,99, -50%) · fonte: achado relâmpago 10h16",
-  "2026-11-27 10h55": "Tênis Puma Deviate Nitro 4 Feminino · Netshoes · R$ 949,99 no Pix (de R$ 1.499,99, -37%) · fonte: pedido da Aline 26/11",
-  "2026-11-27 13h20": "Tênis Kiprun KD900X LD+ Feminino · Decathlon · R$ 499,99 (de R$ 1.499,99, -67%) · conferido na API da Decathlon 13h18",
-  "2026-11-27 13h40": "Tênis Mizuno Neo Vista 2 Masculino · Netshoes · R$ 701,99 (de R$ 1.299,99, -46%) · conferido na Netshoes 13h39",
-  "2026-11-27 13h58": "Tênis Kiprun KS900 2 Feminino · Decathlon · R$ 299,99 (de R$ 699,99, -57%) · conferido na API da Decathlon 13h58",
-  "2026-11-27 14h16": "Tênis Brooks Hyperion Elite 4 Masculino · Decathlon · R$ 899,99 (de R$ 2.299,99, -61%) · conferido na API da Decathlon 14h16",
-  "2026-11-27 14h33": "Tênis Asics Magic Speed 5 · Netshoes · R$ 599,99 (de R$ 1.399,99, -57%, tamanhos 39 a 44) · fonte: achado relâmpago 13h46 · conferido na Netshoes 14h28",
-  "2026-11-27 15h25": "Tênis Olympikus Corre 5 · Decathlon · R$ 424,99 com o cupom CORRE15 (R$ 499,99 sem cupom; de R$ 599,99, -29%) · fonte: achado relâmpago 26/11 19h47 · conferido na API e na página da Decathlon 15h24"
+  "2026-11-27 10h39": "Tênis Olympikus Corre 4 S Masculino · Netshoes · R$ 299,99 (de R$ 599,99, -50%) · fonte: achado relâmpago 10h16 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 10h55": "Tênis Puma Deviate Nitro 4 Feminino · Netshoes · R$ 949,99 no Pix (de R$ 1.499,99, -37%) · fonte: pedido da Aline 26/11 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 13h20": "Tênis Kiprun KD900X LD+ Feminino · Decathlon · R$ 499,99 (de R$ 1.499,99, -67%) · conferido na API da Decathlon 13h18 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 13h40": "Tênis Mizuno Neo Vista 2 Masculino · Netshoes · R$ 701,99 (de R$ 1.299,99, -46%) · conferido na Netshoes 13h39 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 13h58": "Tênis Kiprun KS900 2 Feminino · Decathlon · R$ 299,99 (de R$ 699,99, -57%) · conferido na API da Decathlon 13h58 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 14h16": "Tênis Brooks Hyperion Elite 4 Masculino · Decathlon · R$ 899,99 (de R$ 2.299,99, -61%) · conferido na API da Decathlon 14h16 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 14h33": "Tênis Asics Magic Speed 5 · Netshoes · R$ 599,99 (de R$ 1.399,99, -57%, tamanhos 39 a 44) · fonte: achado relâmpago 13h46 · conferido na Netshoes 14h28 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 15h25": "Tênis Olympikus Corre 5 · Decathlon · R$ 424,99 com o cupom CORRE15 (R$ 499,99 sem cupom; de R$ 599,99, -29%) · fonte: achado relâmpago 26/11 19h47 · conferido na API e na página da Decathlon 15h24 · NÃO ENTREGUE (bug da central, corrigido 15h30)",
+  "2026-11-27 15h31": "Tênis Kiprun KS900 2 Feminino · Decathlon · R$ 299,99 (de R$ 699,99, -57%) · conferido na API 15h31 · 1º post entregue de verdade (confirmado pelo Leandro)"
 }
