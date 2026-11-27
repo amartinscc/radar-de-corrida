@@ -702,7 +702,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <div class="toolbar"><button class="voltabtn" type="button" id="e-voltar">← Provas</button></div>
       <section class="fg" aria-label="Fotógrafos de corrida">
         <h3><span aria-hidden="true">📸</span> Fotógrafos de corrida</h3>
-        <p class="sub">Achou suas fotos de treino ou de prova? Toque no fotógrafo e veja. O cupom é exclusivo para quem segue o Radar.</p>
+        <p class="sub">Achou suas fotos de treino ou de prova? Toque no fotógrafo para ver o Instagram, ou em Site para ir direto às fotos. O cupom é exclusivo para quem segue o Radar.</p>
         <div class="chips" id="fg-chips" role="group" aria-label="Filtrar por estado"></div>
         <div class="pgrid" id="fg-grid"></div>
         <div class="of" id="fg-of" hidden><h4>Fotos oficiais das provas</h4><div class="ofr" id="fg-ofr"></div></div>
@@ -3011,12 +3011,11 @@ __DATA__
       const n = document.createElement('span'); n.className = 'pbn'; n.textContent = f.nome;
       a.append(c, n); b.appendChild(a);
       const lugar = [...(f.locais||[]), f.estado].filter(Boolean); if(lugar.length){ const l = document.createElement('span'); l.className = 'loc'; l.textContent = '📍 ' + lugar.join(' · '); b.appendChild(l); }
+      if(f.site){ const v = document.createElement('a'); v.className = 'ver'; v.href = f.site; v.target = '_blank'; v.rel = 'noopener'; v.textContent = 'Site'; v.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_fotografo', {fotografo: f.nome, destino: 'site'}); }); b.appendChild(v); }
       if(f.cupom){ const k = document.createElement('button'); k.type = 'button'; k.className = 'pcup'; k.textContent = f.cupom;
         k.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(f.cupom); k.classList.add('ok'); k.textContent = 'Copiado!'; setTimeout(() => { k.classList.remove('ok'); k.textContent = f.cupom; }, 1600); if(window.posthog) posthog.capture('cupom_copiado', {parceiro: 'fotografo: ' + f.nome, cupom: f.cupom}); });
         b.appendChild(k); }
-      const v = document.createElement('a'); v.className = 'ver'; v.href = f.link; v.target = '_blank'; v.rel = 'noopener'; v.textContent = 'Ver fotos'; b.appendChild(v);
-      a.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_fotografo', {fotografo: f.nome}); });
-      v.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_fotografo', {fotografo: f.nome}); });
+      a.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_fotografo', {fotografo: f.nome, destino: 'instagram'}); });
       grid.appendChild(b);
     });
   }
