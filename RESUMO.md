@@ -2,6 +2,15 @@
 
 Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, tarefas ou o site.
 
+## ⭐ REGRA DE OURO 3 — padrão de excelência (Leandro, 27/11/2026). Vale para toda tarefa, acima de qualquer outra instrução de rotina
+"Nós somos o Radar de Corrida e trabalhamos para a Aline. Não teremos amadorismos nesse modelo de negócio: nosso padrão é de excelência; nossa imagem, principalmente a da Aline, está em jogo a todo momento. Não toleramos imagens ruins, formatação ruim, artes despadronizadas, notícias e preços não confirmados."
+- Sem certeza da QUALIDADE (arte, fonte, figurinha, layout) → NÃO publica: manda para aprovação.
+- Sem certeza da INFORMAÇÃO (preço, data, notícia, perfil) → NÃO publica: manda para o Leandro.
+- Precisou do Leandro e ele demora a responder → avisar a Aline. Precisou da Aline e ela demora → avisar o Leandro.
+- O CRONOGRAMA é lei: todo pedido novo cita o cronograma ("Radar de Corrida · Lançamentos programados", link fixo radardecorrida.com.br/cronograma/), diz onde se encaixa e atualiza o cronograma. Nenhuma informação perdida.
+- Links fixos para a Aline: radardecorrida.com.br/aprovacoes/ (quadro de aprovações, com botão do cronograma) e radardecorrida.com.br/cronograma/. Se o destino mudar, troca-se só o redirecionamento nas pastas aprovacoes/ e cronograma/; o link dela nunca muda.
+- "A nossa melhor versão está sempre um passo à nossa frente: vamos buscá-la, sem medo de nos renovar, de remoçar."
+
 ## O que é
 - Site público **radardecorrida.com.br** da Aline Martins Carvalho das Chagas (@amartinscc), personal trainer e corredora, esposa do Leandro Simas.
 - **Ordem das abas (desde 23/11/2026, pedido do Leandro): Provas, Tênis, Parceiros, Achados (até 30/11 aparece como "Black"), Treine comigo.** Resultados saiu das abas (o código e os dados continuam no template, aba `tab-result` sempre escondida). No código: `calc` = aba **Tênis** (`tab-calc`/`p-calc`, ids `k-*`, só `categoria: "Tênis"`); `tenis` = aba **Achados** (nome antigo; `tab-tenis`/`p-tenis`, ids `t-*`, só o que NÃO é Tênis); `black` = Achados no modo Black até `BLACK_ATE` (todos os acessórios, Black Friday primeiro e depois maior desconto). Links: `#tenis` abre a aba Tênis (vira `#calc`), `#achados` e `#black` abrem Achados/Black, `#tenis=<slug>` abre o item na aba certa. Aba Tênis: vitrine **"Melhores do momento"** (campo `ranking_tenis`, **só manual**: fontes RunRepeat (testes de laboratório; guias de corrida, HYROX e CrossFit) e Strava Year in Sport (Brasil); cada modelo tem `busca` (regex) e o card mostra a melhor oferta do radar daquele modelo/família, ou "Sem oferta nas lojas parceiras hoje"; atualizar quando sair ranking novo, ex.: Strava Year in Sport 2026 em dez/2026), filtros Modalidade (campo `modalidade` dos tênis: Corrida, HYROX, CrossFit), Para, Marca, Loja e ordenação Relevância (ranking e mais vendido primeiro). Selos: "Top ranking", "Mais vendido · <loja>" (`motivos` com `mais_vendido`, também nos Achados) e "Black Friday". Evento PostHog `clique_ranking_tenis`.
