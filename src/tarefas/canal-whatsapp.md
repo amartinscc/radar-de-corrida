@@ -8,8 +8,9 @@ salvo as que já são achados do site por outro motivo.
 1. **Promoções que a Aline manda** no WhatsApp da agência: registro da central `C:\zap-claude\dados\auditoria\AAAA-MM-DD.jsonl`
    (eventos "recebida" da Aline com link, print ou texto de oferta; prints/áudios ficam em `C:\zap-claude\dados\entrada\radar\AAAA-MM-DD\`).
    Pedido explícito dela de oferta = prioridade máxima (desde que passe na conferência).
-2. **Achados relâmpago e Vigia Black Friday dos parceiros**: tudo o que essas tarefas publicaram em story também vai para o Canal
-   (ver `tenis-do-dia/relampago.json`), se ainda não foi, e as pistas guardadas em `canal/pistas.json` (ofertas fortes que não couberam no teto dos stories).
+2. **Achados relâmpago e Vigia Black Friday dos parceiros** (regra do Leandro em 27/11/2026: TODOS vão para o Canal; em cada rodada, antes de qualquer outra coisa,
+   poste todo relâmpago de `tenis-do-dia/relampago.json` dos últimos 2 dias que ainda não está em `canal/postados.json`, reconferindo o preço; só não sai se o preço
+   subiu/o desconto sumiu, e aí anote o motivo no relatório), e as pistas guardadas em `canal/pistas.json` (ofertas fortes que não couberam no teto dos stories).
 3. **Busca própria** (quando as fontes 1 e 2 não encherem o dia): os achados do site com maior desconto real e cupom
    (`index.html`, radar-data "ofertas"), as pistas do @acasadoatleta e os stories/posts dos parceiros
    (`src/tarefas/parceiros-instagram.json`). Foco em tênis de corrida/HYROX; depois roupas e acessórios de corrida de marca.

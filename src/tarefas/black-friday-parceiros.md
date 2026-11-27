@@ -34,7 +34,7 @@ e "até X% off" genérico sem produto ou cupom concreto.
 - Sem collab, sem impulsionar, sem música.
 
 ## 4b. Canal do WhatsApp
-O que for publicado aqui também vai para o Canal do WhatsApp (tarefa "Radar · Canal do WhatsApp", src/tarefas/canal-whatsapp.md, lê o relampago.json). Oferta forte que não coube no teto: grave em `canal/pistas.json` ({"AAAA-MM-DD HHhMM": {"nome","loja","preco","de","link","foto","cupom","condicao"}}) para o Canal aproveitar.
+Regra do Leandro (27/11/2026): TODO achado relâmpago publicado aqui vai para o Canal do WhatsApp na MESMA rodada, logo depois do story, pelo fluxo de src/tarefas/canal-whatsapp.md (canal.py → conferir imagem → device_commit_files → POST /canal-post da central com o x-token do prompt desta tarefa → canal/postados.json com "fonte: achado relâmpago HHhMM" → push). Se a central pedir 15 min, espere e tente de novo; fora do horário ou no teto do dia, a próxima rodada da tarefa do Canal posta primeiro. Oferta forte que não coube no teto: grave em `canal/pistas.json` ({"AAAA-MM-DD HHhMM": {"nome","loja","preco","de","link","foto","cupom","condicao"}}) para o Canal aproveitar.
 
 ## 5. Avisar
 Se publicou ou achou oferta forte que não coube no teto: mandar ao Leandro pela central do WhatsApp (zap-claude) um resumo curto
