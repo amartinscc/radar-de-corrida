@@ -276,7 +276,7 @@ if (location.hostname === 'radardecorrida.com.br') {
       <div class="eyebrow">Ferramenta grátis</div>
       <h1>Calculadora de pace</h1>
       <p>Ritmo, tempo de prova, parciais e zonas de treino em segundos.</p>
-      <a class="novidades-btn" href="#novidades" id="nov-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Novidades</a>
+      <a class="novidades-btn" href="https://whatsapp.com/channel/0029VbA6AWm05MUoUxH8802g" target="_blank" rel="noopener" id="canal-btn" data-ev="canal_whatsapp" data-origem="calculadora"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/></svg>Ofertas no WhatsApp</a>
       <a class="novidades-btn" href="https://www.instagram.com/radardecorrida/" target="_blank" rel="noopener" id="seguir-radar" data-ev="ig" data-origem="radardecorrida"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Seguir @radardecorrida</a>
     </div>
     <a class="avatar" href="https://www.instagram.com/amartinscc/" target="_blank" rel="noopener" data-ev="ig" data-origem="avatar">
@@ -491,11 +491,11 @@ if (location.hostname === 'radardecorrida.com.br') {
     <details><summary>O que é split negativo?</summary><p>É correr a segunda metade da prova mais rápido que a primeira. Começar um pouco mais contido poupa energia e costuma render tempos melhores em provas longas.</p></details>
   </section>
 
-  <section class="news" id="novidades" aria-labelledby="nov-t">
-    <h2 class="nh" id="nov-t">Novidades do Radar</h2>
-    <p class="np">Toda quinta no seu e-mail: as provas do fim de semana no Rio para colocar no seu plano, os melhores achados de corrida e as ofertas dos parceiros da Aline. Grátis.</p>
-    <form novalidate><input type="email" name="fields[email]" required placeholder="seu@email.com" autocomplete="email" aria-label="Seu e-mail"><button class="nb" type="submit">Quero receber</button></form>
-    <p class="nl">Você confirma no e-mail e cancela quando quiser. <a href="/privacidade/">Privacidade</a></p>
+  <section class="news" id="canal" aria-labelledby="canal-t">
+    <h2 class="nh" id="canal-t">Ofertas no WhatsApp</h2>
+    <p class="np">Os tênis e achados de corrida com desconto real e cupom, conferidos pelo Radar, chegando direto no seu WhatsApp.</p>
+    <a class="nb" href="https://whatsapp.com/channel/0029VbA6AWm05MUoUxH8802g" target="_blank" rel="noopener" data-ev="canal_whatsapp" data-origem="calculadora-caixa" style="text-decoration:none">Entrar no canal</a>
+    <p class="nl">Canal só de avisos: você recebe as ofertas, sem grupo e sem conversa.</p>
   </section>
   </main>
 </div>
@@ -517,27 +517,7 @@ if (location.hostname === 'radardecorrida.com.br') {
   const st = { mode:null, unit:'km', split:'igual', allSplits:false, r:null };
 
   const ev = (nome, props) => { try { if (window.posthog && posthog.capture) posthog.capture(nome, props||{}); } catch(e){} };
-  // Novidades: inscrição no e-mail semanal (MailerLite, formulário "Radar de Corrida · caixa do site", confirmação dupla)
-  (function(){
-    const ML_SUB = 'https://assets.mailerlite.com/jsonp/2751750/forms/202624491460757155/subscribe';
-    const box = document.getElementById('novidades'); if(!box) return;
-    const nb = document.getElementById('nov-btn');
-    if(nb) nb.addEventListener('click', e => { e.preventDefault(); ev('newsletter_abrir', {origem: 'calculadora'}); box.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(() => { const i = box.querySelector('input'); if(i) i.focus({preventScroll:true}); }, 700); });
-    const f = box.querySelector('form'), inp = f.querySelector('input'), bt = f.querySelector('button');
-    f.addEventListener('submit', async e => {
-      e.preventDefault();
-      box.querySelectorAll('.er').forEach(x => x.remove());
-      const em = inp.value.trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){ const er = document.createElement('p'); er.className = 'er'; er.textContent = 'Confira o e-mail digitado.'; f.after(er); inp.focus(); return; }
-      bt.disabled = true; bt.textContent = 'Enviando…';
-      const fd = new FormData(); fd.append('fields[email]', em); fd.append('ml-submit', '1'); fd.append('anticsrf', 'true');
-      let ok = false;
-      try{ const r = await fetch(ML_SUB, {method:'POST', body: fd}); const j = await r.json().catch(() => ({})); ok = r.ok && j.success !== false; }
-      catch(err){ try{ await fetch(ML_SUB, {method:'POST', body: fd, mode:'no-cors'}); ok = true; }catch(e2){ ok = false; } }
-      if(ok){ f.remove(); const nl = box.querySelector('.nl'); if(nl) nl.remove(); const o = document.createElement('p'); o.className = 'ok'; o.textContent = 'Quase lá! Abra o e-mail que acabamos de enviar e toque em confirmar. (Se não achar, olhe em Promoções ou Spam.)'; box.appendChild(o); ev('newsletter_inscricao', {origem: 'calculadora'}); }
-      else { bt.disabled = false; bt.textContent = 'Quero receber'; const er = document.createElement('p'); er.className = 'er'; er.textContent = 'Não deu certo agora. Tente de novo em instantes.'; f.after(er); }
-    });
-  })();
+  document.querySelectorAll('[data-ev="canal_whatsapp"]').forEach(a => a.addEventListener('click', () => ev('canal_whatsapp', {origem: a.dataset.origem})));
   const num = v => { const n = parseFloat(String(v).replace(',', '.').trim()); return isFinite(n) ? n : NaN; };
   const int0 = v => { const s = String(v).trim(); if (s === '') return 0; const n = parseInt(s, 10); return isFinite(n) ? n : NaN; };
   const dec = (n, d=1) => n.toFixed(d).replace('.', ',');
