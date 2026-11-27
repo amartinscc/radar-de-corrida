@@ -186,5 +186,5 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 
 ## Canal do WhatsApp do Radar (desde 26/11/2026, pedido do Leandro)
 - Canal (só envio, sem interação) para as promoções que a Aline manda: elas NÃO entram no site (o site não pode virar vitrine de vendas).
-- Toda postagem = a mesma arte do botão Compartilhar do site (drawStory 1080x1920) + texto "<produto> por R$ X (-Y%) na <loja> … Achado no Radar de Corrida 👉 <link de afiliada da Aline>".
-- Gerador: `python3 src/canal.py oferta.json` (campos nome, marca, loja, preco, de, link limpo, cupom?, condicao?, genero?) → `canal/fila/*.png` + `.txt` (fila fora do git). Usa o gancho `window.__radarCanal` do template (story, link com clickref `whatsapp-canal` na Awin, brl). Preço conferido na loja na hora de postar, sempre.
+- Toda postagem = o card dos stories do @radardecorrida (função `card()` do `src/tenis_do_dia.py`, kick "ACHADO DO RADAR", foto do produto; decisão do Leandro em 26/11/2026) + texto "<produto> por R$ X (-Y%) na <loja> … Achado no Radar de Corrida 👉 <link de afiliada da Aline>".
+- Gerador: `python3 src/canal.py oferta.json` (campos nome, marca, loja, preco, de, link limpo, foto (URL da imagem do produto), cupom?, condicao?) → `canal/fila/*.jpg` + `.txt` (fila fora do git). Usa o gancho `window.__radarCanal` do template (link com clickref `whatsapp-canal` na Awin, brl). Preço conferido na loja na hora de postar, sempre.
