@@ -10,7 +10,7 @@ CAMPOS_CONTROLE = ('desde', 'conferido', 'motivos', 'hyrox')
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from PIL import Image, ImageDraw, ImageFont
 
-VERSAO = 'v1'  # mude para forçar a regravação de todas as imagens
+VERSAO = 'v2'  # v2 (27/11/2026): padrão profissional do Radar, sem foto/@ da Aline  # mude para forçar a regravação de todas as imagens
 root = pathlib.Path(__file__).resolve().parent.parent
 FONTES = root / 'src' / 'fontes'
 SITE = 'https://' + (root / 'CNAME').read_text().strip().strip('/') + '/'
@@ -168,24 +168,22 @@ _FUNDO = None
 def imagem(item, tipo, perfil, ofertas_em):
     global _FUNDO
     W, H = 1200, 630
-    if _FUNDO is None: _FUNDO = fundo(W, H)
+    if _FUNDO is None:
+        # fundo escuro com anéis do radar e o logo oficial (padrão do Tênis do dia; Leandro, 27/11/2026)
+        bg = Image.new('RGB', (W, H), '#1D1220'); g = ImageDraw.Draw(bg)
+        for r_, a in [(180, 60), (260, 42), (350, 28), (450, 16)]:
+            g.ellipse((215 - r_, 300 - r_, 215 + r_, 300 + r_), outline=(29 + a // 2, 18 + a // 3, 32 + a // 2), width=3)
+        lg = Image.open(root / 'src' / 'instagram' / 'logo-radar.png').convert('RGB')
+        lw = 330; lg = lg.resize((lw, round(lg.height * lw / lg.width)), Image.LANCZOS)
+        bg.paste(lg, (215 - lw // 2, 230))
+        _FUNDO = bg
     im = _FUNDO.copy()
     dr = ImageDraw.Draw(im)
-    # coluna da Aline
-    cx, cy, r = 215, 170, 98
-    dr.ellipse((cx - r - 9, cy - r - 9, cx + r + 9, cy + r + 9), fill='white')
-    foto = perfil.get('foto') or ''
-    if foto.startswith('data:image'):
-        av = Image.open(io.BytesIO(base64.b64decode(foto.split(',', 1)[1]))).convert('RGB')
-        lado = min(av.size); av = av.crop(((av.width - lado) // 2, (av.height - lado) // 2, (av.width + lado) // 2, (av.height + lado) // 2)).resize((2 * r, 2 * r), Image.LANCZOS)
-        mk = Image.new('L', (2 * r, 2 * r), 0); ImageDraw.Draw(mk).ellipse((0, 0, 2 * r - 1, 2 * r - 1), fill=255)
-        im.paste(av, (cx - r, cy - r), mk)
-    centro(dr, cx, 290, '@' + (perfil.get('instagram') or 'amartinscc'), B(30), '#1D1220')
-    centro(dr, cx, 334, 'PROVA DO RADAR' if tipo == 'prova' else 'OFERTA DO DIA', B(22), '#7A4E7D')
-    centro(dr, cx, 438, 'Achado no', B(24), (255, 255, 255))
-    centro(dr, cx, 472, 'Radar de Corrida', D(44), (255, 255, 255))
-    centro(dr, cx, 522, 'da Aline', D(44), (255, 255, 255))
-    centro(dr, cx, 584, 'radardecorrida.com.br', M(20), (255, 255, 255))
+    cx = 215
+    centro(dr, cx, 150, 'PROVA DO RADAR' if tipo == 'prova' else 'ACHADO DO RADAR', B(24), '#DDB9DD')
+    centro(dr, cx, 470, 'provas e ofertas de corrida', M(22), (244, 236, 244))
+    centro(dr, cx, 504, 'todos os dias', M(22), (244, 236, 244))
+    centro(dr, cx, 572, 'radardecorrida.com.br', B(22), '#F28A5B')
     # cartão
     x0, y0, x1, y1 = 430, 40, 1160, 590
     dr.rounded_rectangle((x0, y0, x1, y1), 40, fill='white')
@@ -209,12 +207,12 @@ def imagem(item, tipo, perfil, ofertas_em):
         pr = 'Inscrição gratuita' if item.get('valor') == 0 else ('A partir de ' + brl(item['valor']) if isinstance(item.get('valor'), (int, float)) else None)
         ult = ' · '.join(x for x in [pr, ST.get(item.get('status'), '')] if x)
         if ult: info.append(ult)
-        if item.get('cupom'): info.append('Cupom da Aline: ' + item['cupom'])
+        if item.get('cupom'): info.append('Cupom: ' + item['cupom'])
         for linha in info:
             for l in quebra(dr, linha, M(25), larg, 1):
                 centro(dr, kx, yy, l, M(25), '#6B5A6E'); yy += 34
             yy += 4
-        if item.get('aline'):
+        if False and item.get('aline'):
             dr.rounded_rectangle((kx - 190, y1 - 112, kx + 190, y1 - 66), 23, fill='#B28AB1')
             t = 'A Aline vai correr'; w = dr.textlength(t, font=B(22)) + 30
             sx = kx - w / 2
@@ -228,7 +226,7 @@ def imagem(item, tipo, perfil, ofertas_em):
         centro(dr, kx, y1 - 48, 'Confira a inscrição no radar', M(20), '#6B5A6E')
     else:
         off = round((1 - item['preco'] / item['de']) * 100) if item.get('de') and item['de'] > item['preco'] else 0
-        centro(dr, kx, y0 + 50, f'-{off}%' if off else 'Aline indica', D(72) if off else D(44), '#1D1220')
+        centro(dr, kx, y0 + 50, f'-{off}%' if off else 'Radar indica', D(72) if off else D(44), '#1D1220')
         cab = ' · '.join(dict.fromkeys(x for x in [item.get('genero'), item.get('marca'), item.get('loja')] if x))
         centro(dr, kx, y0 + 172, cab.upper(), B(20), '#6B5A6E')
         yy = y0 + 210
@@ -243,7 +241,7 @@ def imagem(item, tipo, perfil, ofertas_em):
             dr.line((kx - wd / 2 + wp, yy + 19, kx + wd / 2, yy + 19), fill='#6B5A6E', width=3)
             yy += 46
         cond = ' · '.join(x for x in [('cupom ' + item['cupom']) if item.get('cupom') else None, item.get('condicao')] if x)
-        if cond: centro(dr, kx, yy, cond, B(22), '#7A4E7D')
+        if cond: centro(dr, kx, yy, quebra(dr, cond, B(22), larg, 1)[0], B(22), '#7A4E7D')
         centro(dr, kx, y1 - 48, 'Preço sujeito a alteração: confira na loja', M(19), '#6B5A6E')
     out = io.BytesIO(); im.save(out, 'JPEG', quality=80, optimize=True, progressive=True, subsampling=2)
     return out.getvalue()

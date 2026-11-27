@@ -1769,153 +1769,123 @@ __DATA__
     const m = u.match(/^https?:\/\/(www\.)?radardecorrida\.com\.br\/(.*)$/i); if(m) return m[2];
     return (await capaMapaCarrega())[u] || null;
   }
+  // arte de compartilhar (desde 27/11/2026, pedido do Leandro): padrão profissional do Radar, igual ao Tênis do dia
+  // (fundo escuro com anéis do radar, cartão branco, laranja nos destaques e o logo do Radar). Sem foto nem @ da Aline:
+  // a marca é a empresa Radar de Corrida, para facilitar parcerias.
+  const logoRadarImg = new Image(); logoRadarImg.src = '/src/instagram/logo-radar.png';
+  async function imgSegura(src){
+    // só entra no canvas imagem que não bloqueia salvar/compartilhar (mesmo site ou loja com CORS liberado)
+    if(!src) return null;
+    const im = await carregaImg(src, /^https?:/i.test(src)); if(!im) return null;
+    try{ const t = document.createElement('canvas'); t.width = t.height = 2; const x = t.getContext('2d'); x.drawImage(im, 0, 0, 2, 2); t.toDataURL(); return im; }catch(e){ return null; }
+  }
   async function drawStory(o, p, f){
     const D = "'Urbanist','Avenir Next',system-ui,sans-serif", B = "'Plus Jakarta Sans',system-ui,sans-serif";
-    try{ await Promise.all(['800 60px Urbanist','700 40px "Plus Jakarta Sans"','600 40px "Plus Jakarta Sans"'].map(f => document.fonts.load(f))); }catch(e){}
+    try{ await Promise.all(['800 60px Urbanist','700 40px "Plus Jakarta Sans"','600 40px "Plus Jakarta Sans"'].map(ff => document.fonts.load(ff))); }catch(e){}
+    if(!logoRadarImg.complete) await new Promise(r => { logoRadarImg.onload = logoRadarImg.onerror = r; setTimeout(r, 3000); });
     const W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-    const c = cv.getContext('2d');
-    const g = c.createLinearGradient(0,0,0,H);
-    g.addColorStop(0,'#BBE3E5'); g.addColorStop(.5,'#D9C1D9'); g.addColorStop(.82,'#E9A07E'); g.addColorStop(1,'#3B2A40');
-    c.fillStyle = g; c.fillRect(0,0,W,H);
-    // foto
-    const cx = W/2, cy = 250, r = 110;
-    c.fillStyle = '#FFFFFF'; c.beginPath(); c.arc(cx,cy,r+10,0,Math.PI*2); c.fill();
-    if(avatarImg.complete && avatarImg.naturalWidth){ c.save(); c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.clip(); c.drawImage(avatarImg,cx-r,cy-r,r*2,r*2); c.restore(); }
-    else { c.fillStyle = '#B28AB1'; c.beginPath(); c.arc(cx,cy,r,0,Math.PI*2); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 110px ' + D; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('A',cx,cy+6); }
-    c.textAlign = 'center'; c.textBaseline = 'alphabetic';
-    c.fillStyle = '#1D1220'; c.font = '700 44px ' + B; c.fillText('@' + (pf.instagram||'amartinscc'), cx, 430);
-    c.fillStyle = '#7A4E7D'; c.font = '700 34px ' + B; c.fillText(f ? 'FOTÓGRAFO DO RADAR' : o ? (o.parceiro ? 'PARCEIRA DA ALINE' : 'OFERTA DO DIA') : (p ? 'PROVA DO RADAR' : 'RADAR DE HOJE'), cx, 500);
-    // cartão
-    const x0 = 90, y0 = 560, cw = W-180, ch = p ? 990 : (o || f) ? 960 : 860;
-    c.fillStyle = '#FFFFFF'; rr(c,x0,y0,cw,ch,56); c.fill();
+    const c = cv.getContext('2d'), cx = W/2, LX = 80, LW = 920;
+    const ls = v => { try{ c.letterSpacing = v; }catch(e){} };
+    // fundo e anéis do radar
+    const g = c.createRadialGradient(cx, 580, 0, cx, 580, 1250); g.addColorStop(0, '#33203a'); g.addColorStop(1, '#1D1220');
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    [[320, .14], [450, .10], [590, .063], [740, .035]].forEach(([r, a]) => { c.strokeStyle = 'rgba(221,185,221,' + a + ')'; c.lineWidth = 3; c.beginPath(); c.arc(cx, 580, r, 0, Math.PI*2); c.stroke(); });
+    // etiquetas do topo
+    const kick = f ? 'FOTÓGRAFO DO RADAR' : p ? 'PROVA DO RADAR' : o ? (o.parceiro ? 'PARCEIRO DO RADAR' : 'ACHADO DO RADAR') : 'RADAR DE HOJE';
+    c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillStyle = '#DDB9DD'; c.font = '800 34px ' + D; ls('10px'); c.fillText(kick, LX, 232); ls('0px');
+    let dir = '';
+    if(p) dir = (p.uf !== 'RJ' && p.cidade ? p.cidade + ' · ' + p.uf : 'RIO DE JANEIRO');
+    else if(f) dir = f.estado || '';
+    else if(o && !o.parceiro) dir = (o.modalidade || (o.categoria && o.categoria !== 'Tênis' ? o.categoria : 'Corrida'));
+    if(dir){ c.textAlign = 'right'; c.font = '800 32px ' + D; c.fillText(dir.toUpperCase(), W - LX, 232); }
+    // cartão branco com a imagem
+    const bx = LX, by = 280, bw = LW, bh = 580;
+    c.save(); c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 60; c.shadowOffsetY = 30; c.fillStyle = '#FFFFFF'; rr(c, bx, by, bw, bh, 44); c.fill(); c.restore();
+    c.textAlign = 'center';
+    const cobre = (im, cont) => { const iw = im.naturalWidth, ih = im.naturalHeight; c.save(); rr(c, bx, by, bw, bh, 44); c.clip();
+      if(cont){ const s = Math.min(bw*.88/iw, bh*.88/ih); c.drawImage(im, cx - iw*s/2, by + bh/2 - ih*s/2, iw*s, ih*s); }
+      else { const s = Math.max(bw/iw, bh/ih); c.drawImage(im, cx - iw*s/2, by + (bh - ih*s)*(ih*s > bh*1.6 ? .25 : .5), iw*s, ih*s); }
+      c.restore(); };
+    const bloco = (l1, l2) => { c.fillStyle = '#B28AB1'; rr(c, cx-210, by+bh/2-150, 420, 300, 48); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 170px ' + D; c.fillText(l1, cx, by+bh/2+40); c.font = '800 40px ' + B; ls('6px'); c.fillText(l2, cx, by+bh/2+110); ls('0px'); };
+    let yy = 1000;
+    const linha = (txt, font, cor, max, lh) => { c.textAlign = 'left'; c.fillStyle = cor; c.font = font; const k = wrap(c, txt, LX, yy, LW, lh, max); yy += k*lh; return k; };
+    const pilula = (txt) => { c.font = '800 36px ' + D; ls('2px'); const w = c.measureText(txt).width + 64; c.fillStyle = '#F28A5B'; rr(c, LX, yy, w, 72, 36); c.fill(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(txt, LX + 32, yy + 49); ls('0px'); yy += 100; };
+    let nota = '';
     if(f){
-      // fotógrafo parceiro: foto do perfil, nome, @, onde fotografa, canal de venda e cupom (Leandro, 27/11/2026)
-      const fr = 150, fy = y0 + 210, fim = await carregaImg(f.foto);
-      c.fillStyle = '#F6F0F6'; c.beginPath(); c.arc(cx, fy, fr+10, 0, Math.PI*2); c.fill();
+      const fim = await imgSegura(f.foto);
+      const fr = 210, fy = by + bh/2;
+      c.fillStyle = '#F6F0F6'; c.beginPath(); c.arc(cx, fy, fr+14, 0, Math.PI*2); c.fill();
       if(fim){ c.save(); c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.clip(); const iw = fim.naturalWidth, ih = fim.naturalHeight, sc = Math.max(fr*2/iw, fr*2/ih); c.drawImage(fim, cx-iw*sc/2, fy-ih*sc/2, iw*sc, ih*sc); c.restore(); }
-      else { const gg = c.createLinearGradient(cx-fr, fy-fr, cx+fr, fy+fr); gg.addColorStop(0,'#B28AB1'); gg.addColorStop(1,'#7A4E7D'); c.fillStyle = gg; c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.fill(); c.fillStyle = '#fff'; c.font = '800 110px ' + D; c.fillText(f.nome.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase(), cx, fy+38); }
-      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; const fn = wrap(c, f.nome, cx, y0+470, cw-120, 78, 2);
-      let yy = y0 + 470 + (fn-1)*78 + 70;
+      else { c.fillStyle = '#7A4E7D'; c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.fill(); c.fillStyle = '#fff'; c.font = '800 150px ' + D; c.fillText(f.nome.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase(), cx, fy+52); }
       const ig = (f.link.match(/instagram\.com\/([^\/?#]+)/i) || [])[1];
-      if(ig){ c.fillStyle = '#7A4E7D'; c.font = '700 42px ' + B; c.fillText('@' + ig, cx, yy); yy += 70; }
+      if(ig) linha('@' + ig, '700 34px ' + D, '#DDB9DD', 1, 50);
+      yy += 18; linha(f.nome, '800 76px ' + D, '#F4ECF4', 2, 80); yy += 24;
       const lugar = [...(f.locais||[]), f.estado].filter(Boolean).join(' · ');
-      if(lugar){ c.fillStyle = '#6B5A6E'; c.font = '600 38px ' + B; c.fillText('📍 ' + lugar, cx, yy); yy += 64; }
-      if(f.site){ let h = ''; try{ h = new URL(f.site).hostname.replace(/^www\./,''); }catch(e){} c.fillStyle = '#6B5A6E'; c.font = '600 36px ' + B; c.fillText('Fotos à venda' + (h ? ' em ' + h : ''), cx, yy); yy += 60; }
-      if(f.cupom){
-        c.font = '800 46px ' + B; const ct = 'Cupom ' + f.cupom, tw = c.measureText(ct).width + 100;
-        c.fillStyle = '#B28AB1'; rr(c, cx-tw/2, y0+ch-190, tw, 90, 45); c.fill();
-        c.fillStyle = '#1D1220'; c.fillText(ct, cx, y0+ch-130);
-      }
-      c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; c.fillText('Fotógrafos de corrida no radar', cx, y0+ch-45);
+      if(lugar) linha('📍 ' + lugar, '600 38px ' + B, '#F4ECF4', 1, 56);
+      if(f.site){ let h = ''; try{ h = new URL(f.site).hostname.replace(/^www\./,''); }catch(e){} linha('Fotos à venda' + (h ? ' em ' + h : ''), '600 36px ' + B, '#DDB9DD', 1, 56); }
+      yy += 20; if(f.cupom) pilula('CUPOM ' + f.cupom);
+      nota = 'Fotógrafos de corrida no radardecorrida.com.br';
     } else if(p){
-      const [pyy, pmm, pdd] = p.data.split('-').map(Number);
-      const dow = new Date(Date.UTC(pyy, pmm-1, pdd)).getUTCDay();
+      const [pyy, pmm, pdd] = p.data.split('-').map(Number), dow = new Date(Date.UTC(pyy, pmm-1, pdd)).getUTCDay();
       const capa = await carregaImg(await capaLocal(p.capa));
-      let yy, ny;
-      if(capa){
-        // capa oficial no alto do cartão (cantos de cima arredondados) com a data numa etiqueta por cima
-        const chh = 400, iw = capa.naturalWidth, ih = capa.naturalHeight;
-        c.save(); rr(c, x0, y0, cw, ch, 56); c.clip(); c.beginPath(); c.rect(x0, y0, cw, chh); c.clip();
-        c.fillStyle = '#F6F0F6'; c.fillRect(x0, y0, cw, chh);
-        const sc = Math.max(cw/iw, chh/ih); c.drawImage(capa, x0 + (cw - iw*sc)/2, y0 + (chh - ih*sc)*(ih*sc > chh*1.6 ? .25 : .5), iw*sc, ih*sc);
-        c.restore();
-        const dt = String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase() + ' · ' + DOW[dow].toUpperCase();
-        c.font = '800 40px ' + B; const tw = c.measureText(dt).width + 64;
-        c.fillStyle = '#B28AB1'; rr(c, cx - tw/2, y0 + chh - 38, tw, 76, 38); c.fill();
-        c.fillStyle = '#1D1220'; c.fillText(dt, cx, y0 + chh + 14);
-        c.fillStyle = '#6B5A6E'; c.font = '700 30px ' + B; c.fillText((p.uf!=='RJ' && p.cidade ? p.cidade + ' · ' + p.uf : (p.geo && p.geo.reg) || 'Rio de Janeiro').toUpperCase(), cx, y0 + chh + 100);
-        c.fillStyle = '#1D1220'; c.font = '800 62px ' + D; const pn = wrap(c, p.nome, cx, y0 + chh + 180, cw-110, 70, 2);
-        yy = y0 + chh + 180 + (pn-1)*70 + 66; ny = 44;
-        c.font = '600 34px ' + B;
-      } else {
-        c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
-        c.fillStyle = '#1D1220'; c.font = '800 120px ' + D; c.fillText(String(pdd).padStart(2,'0'), cx, y0+170);
-        c.font = '700 32px ' + B; c.fillText(MESF[pmm-1].toUpperCase(), cx, y0+222);
-        c.fillStyle = '#6B5A6E'; c.font = '700 30px ' + B; c.fillText([DOW[dow], p.uf!=='RJ' && p.cidade ? p.cidade : (p.geo && p.geo.reg) || 'Rio de Janeiro'].join(' · ').toUpperCase(), cx, y0+320);
-        c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; const pn = wrap(c, p.nome, cx, y0+420, cw-120, 80, 2);
-        yy = y0 + 420 + pn*80 + 64; ny = 48;
-      }
-      const info = [];
-      if(p.local) info.push(p.local);
-      const hd = [p.hora ? p.hora.replace(':','h') : null, p.distancias].filter(Boolean).join(' · ');
-      if(hd) info.push(hd);
-      const pr = p.valor===0 ? 'Inscrição gratuita' : (typeof p.valor==='number' ? 'A partir de ' + brl(p.valor) : null);
-      const stt = ST[p.status] || '';
-      const last = [pr, stt].filter(Boolean).join(' · ');
-      if(last) info.push(last);
-      if(p.cupom) info.push('Cupom da Aline: ' + p.cupom);
-      c.fillStyle = '#6B5A6E'; c.font = (capa ? '600 34px ' : '600 38px ') + B;
-      const lim = y0 + ch - (p.aline ? 170 : 90);
-      info.forEach(line => { if(yy > lim) return; const k = wrap(c, line, cx, yy, cw-120, ny, capa ? 1 : 2); yy += k*ny + (capa ? 12 : 16); });
-      if(p.aline){ c.fillStyle = '#B28AB1'; rr(c,cx-300,y0+ch-150,600,70,35); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 34px ' + B; c.fillText('★ A Aline vai correr', cx, y0+ch-100); }
-      c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; c.fillText('Confira a inscrição no radar', cx, y0+ch-45);
+      if(capa) cobre(capa); else bloco(String(pdd).padStart(2,'0'), MESF[pmm-1].slice(0,3).toUpperCase());
+      linha([String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(), DOW[dow].toUpperCase(), p.hora ? p.hora.replace(':','h') : ''].filter(Boolean).join(' · '), '700 34px ' + D, '#DDB9DD', 1, 50);
+      yy += 18; linha(p.nome, '800 70px ' + D, '#F4ECF4', 2, 76); yy += 26;
+      if(p.local) linha('📍 ' + p.local, '600 36px ' + B, '#F4ECF4', 1, 54);
+      if(p.distancias) linha(p.distancias, '600 36px ' + B, '#F4ECF4', 1, 54);
+      const pr = p.valor===0 ? 'Inscrição gratuita' : (typeof p.valor==='number' ? 'A partir de ' + brl(p.valor) : '');
+      const last = [pr, ST[p.status] || ''].filter(Boolean).join(' · ');
+      if(last) linha(last, '700 36px ' + B, '#F28A5B', 1, 54);
+      yy += 20; if(p.cupom) pilula('CUPOM ' + p.cupom);
+      nota = 'Inscrição e mais provas no radardecorrida.com.br';
     } else if(o && o.parceiro){
-      // produto de uma marca parceira: logo, nome, preço e o cupom da Aline
-      const lr = 95, ly = y0 + 150;
-      c.fillStyle = '#F6F0F6'; c.beginPath(); c.arc(cx, ly, lr+8, 0, Math.PI*2); c.fill();
-      if(o.logoImg && o.logoImg.complete && o.logoImg.naturalWidth){
-        c.save(); c.beginPath(); c.arc(cx, ly, lr, 0, Math.PI*2); c.clip();
-        const lw = o.logoImg.naturalWidth, lh = o.logoImg.naturalHeight;
-        if(o.logoContain){ c.fillStyle = '#fff'; c.fillRect(cx-lr, ly-lr, lr*2, lr*2); const s = Math.min(lr*1.5/lw, lr*1.5/lh); c.drawImage(o.logoImg, cx-lw*s/2, ly-lh*s/2, lw*s, lh*s); }
-        else { const s = Math.max(lr*2/lw, lr*2/lh); c.drawImage(o.logoImg, cx-lw*s/2, ly-lh*s/2, lw*s, lh*s); }
-        c.restore();
-      } else { c.fillStyle = '#B28AB1'; c.beginPath(); c.arc(cx, ly, lr, 0, Math.PI*2); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 96px ' + D; c.fillText(o.marca.charAt(0), cx, ly+34); }
-      c.fillStyle = '#6B5A6E'; c.font = '700 32px ' + B; c.fillText(o.marca.toUpperCase(), cx, y0+320);
-      c.fillStyle = '#1D1220'; c.font = '800 72px ' + D; const n = wrap(c, o.nome, cx, y0+420, cw-120, 82, 3);
-      let py = y0 + 420 + n*82 + 70;
-      if(typeof o.preco === 'number'){
-        c.fillStyle = '#B4501F'; c.font = '800 110px ' + D; c.fillText(brl(o.preco), cx, py+40);
-        if(typeof o.de === 'number' && o.de > o.preco){ c.fillStyle = '#6B5A6E'; c.font = '600 44px ' + B; const de = 'de ' + brl(o.de); c.fillText(de, cx, py+110); const dw = c.measureText(de).width, pw = c.measureText('de ').width; c.strokeStyle = '#6B5A6E'; c.lineWidth = 4; c.beginPath(); c.moveTo(cx-dw/2+pw, py+95); c.lineTo(cx+dw/2, py+95); c.stroke(); }
-      } else if(o.detalhe){ c.fillStyle = '#B4501F'; c.font = '800 54px ' + B; wrap(c, o.detalhe, cx, py+20, cw-140, 62, 2); }
-      if(o.cupom){
-        c.font = '800 46px ' + B; const ct = 'Cupom ' + o.cupom, tw = c.measureText(ct).width + 100;
-        c.fillStyle = '#B28AB1'; rr(c, cx-tw/2, y0+ch-135, tw, 90, 45); c.fill();
-        c.fillStyle = '#1D1220'; c.fillText(ct, cx, y0+ch-75);
-      }
+      const lg = o.logoImg && o.logoImg.complete && o.logoImg.naturalWidth ? o.logoImg : null;
+      if(lg) cobre(lg, true); else bloco(o.marca.charAt(0).toUpperCase(), 'PARCEIRO');
+      linha(o.marca.toUpperCase(), '700 34px ' + D, '#DDB9DD', 1, 50);
+      yy += 18; linha(o.nome, '800 70px ' + D, '#F4ECF4', 3, 76); yy += 30;
+      if(typeof o.preco === 'number'){ c.textAlign = 'left'; c.fillStyle = '#F28A5B'; c.font = '800 120px ' + D; c.fillText(brl(o.preco), LX, yy + 90);
+        if(typeof o.de === 'number' && o.de > o.preco){ const pw = c.measureText(brl(o.preco)).width; c.fillStyle = '#B9A3BC'; c.font = '600 42px ' + D; const de = brl(o.de); c.fillText(de, LX + pw + 30, yy + 90); const dw = c.measureText(de).width; c.strokeStyle = '#B9A3BC'; c.lineWidth = 3; c.beginPath(); c.moveTo(LX+pw+30, yy+76); c.lineTo(LX+pw+30+dw, yy+76); c.stroke(); }
+        yy += 140; }
+      else if(o.detalhe) linha(o.detalhe, '700 44px ' + B, '#F28A5B', 2, 56);
+      yy += 10; if(o.cupom) pilula('CUPOM ' + o.cupom);
+      nota = 'Parceiro do Radar de Corrida';
     } else if(o){
-      c.fillStyle = '#B28AB1'; rr(c,cx-190,y0+70,380,170,40); c.fill();
-      c.fillStyle = '#1D1220'; if(o.off){ c.font = '800 130px ' + D; c.fillText('-' + o.off + '%', cx, y0+205); } else { c.font = '800 56px ' + D; c.fillText('★ A ALINE', cx, y0+150); c.fillText('INDICA', cx, y0+212); }
-      c.fillStyle = '#6B5A6E'; c.font = '700 32px ' + B; c.fillText([o.genero, o.marca, o.loja].filter((v,i,a)=>v && a.indexOf(v)===i).join(' · ').toUpperCase(), cx, y0+320);
-      c.fillStyle = '#1D1220'; c.font = '800 76px ' + D; const n = wrap(c, o.nome, cx, y0+420, cw-120, 84, 3);
-      const py = y0 + 420 + n*84 + 90;
-      c.fillStyle = '#B4501F'; c.font = '800 130px ' + D; c.fillText(brl(o.fin || o.preco), cx, py);
-      if(o.off){ c.fillStyle = '#6B5A6E'; c.font = '600 48px ' + B; const de = 'de ' + brl(o.base); c.fillText(de, cx, py+80);
-      const dw = c.measureText(de).width, pw = c.measureText('de ').width; c.strokeStyle = '#6B5A6E'; c.lineWidth = 4; c.beginPath(); c.moveTo(cx-dw/2+pw, py+64); c.lineTo(cx+dw/2, py+64); c.stroke(); }
+      const foto = await imgSegura(o.foto);
+      if(foto) cobre(foto, true); else bloco(o.off ? '-' + o.off + '%' : '★', o.off ? 'OFF' : 'RADAR');
+      if(o.off && foto){ c.save(); c.translate(W-130, 300); c.rotate(4*Math.PI/180); c.font = '800 64px ' + D; const t = '-' + o.off + '%', tw = c.measureText(t).width + 60; c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, -tw/2, -50, tw, 100, 28); c.fill(); c.shadowColor = 'transparent'; c.fillStyle = '#1D1220'; c.fillText(t, 0, 24); c.restore(); }
+      linha([o.marca, o.loja].filter((v,i,a)=>v && a.indexOf(v)===i).join(' · ').toUpperCase() + (o.genero ? ' · ' + o.genero.toUpperCase() : ''), '700 32px ' + D, '#DDB9DD', 1, 50);
+      yy += 14; linha(o.nome, '800 66px ' + D, '#F4ECF4', 3, 70); yy += 30;
+      c.textAlign = 'left'; c.fillStyle = '#F28A5B'; c.font = '800 120px ' + D; const pt = brl(o.fin || o.preco); c.fillText(pt, LX, yy + 90);
+      if(o.off && o.base){ const pw = c.measureText(pt).width; c.fillStyle = '#B9A3BC'; c.font = '600 42px ' + D; const de = brl(o.base); c.fillText(de, LX + pw + 30, yy + 90); const dw = c.measureText(de).width; c.strokeStyle = '#B9A3BC'; c.lineWidth = 3; c.beginPath(); c.moveTo(LX+pw+30, yy+76); c.lineTo(LX+pw+30+dw, yy+76); c.stroke(); }
+      yy += 140; if(o.cupom) pilula('CUPOM ' + o.cupom);
+      const dd = new Date(o.conferido || data.ofertas_atualizado || data.atualizado);
+      nota = 'Preço conferido em ' + dd.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' pelo Radar · pode mudar na loja a qualquer momento';
     } else {
-      c.fillStyle = '#1D1220'; c.font = '800 70px ' + D; c.fillText('Achados de corrida', cx, y0+130); c.fillText('em promoção', cx, y0+210);
-      const top = [...tenis].sort((a,b)=>b.off-a.off).slice(0,3);
-      top.forEach((t,i) => {
-        const yy = y0 + 280 + i*160;
-        c.fillStyle = '#B28AB1'; rr(c,x0+60,yy,200,120,28); c.fill();
-        c.fillStyle = '#1D1220'; c.font = '800 64px ' + D; c.textAlign = 'center'; c.fillText('-' + t.off + '%', x0+160, yy+82);
-        c.textAlign = 'left'; c.font = '700 40px ' + B; wrap(c, t.nome, x0+290, yy+48, cw-350, 46, 1);
-        c.fillStyle = '#B4501F'; c.font = '800 48px ' + D; c.fillText(brl(t.preco), x0+290, yy+104);
-        c.textAlign = 'center';
-      });
-      c.fillStyle = '#6B5A6E'; c.font = '600 36px ' + B; c.fillText('+ provas no Rio e cupons da Aline', cx, y0+ch-45);
+      bloco('★', 'RADAR');
+      linha('PROVAS E OFERTAS DE CORRIDA', '700 34px ' + D, '#DDB9DD', 1, 50); yy += 18;
+      linha('Achados de corrida em promoção', '800 70px ' + D, '#F4ECF4', 2, 76); yy += 26;
+      [...tenis].sort((a,b)=>b.off-a.off).slice(0,3).forEach(t => linha('-' + t.off + '% · ' + t.nome + ' · ' + brl(t.preco), '600 36px ' + B, '#F4ECF4', 1, 56));
+      nota = 'Todos os dias no radardecorrida.com.br';
     }
-    if(o && !o.parceiro){ c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; const dd = new Date(o.conferido || data.ofertas_atualizado || data.atualizado); c.fillText('Preço conferido em ' + dd.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' · sujeito a alteração', cx, y0+ch-50); }
-    // assinatura do radar
-    c.fillStyle = 'rgba(29,18,32,.9)'; rr(c, 120, 1570, W-240, 270, 48); c.fill();
-    c.fillStyle = '#DDB9DD'; c.font = '700 36px ' + B; c.fillText('Achado no', cx, 1640);
-    c.fillStyle = '#FFFFFF'; c.font = '800 80px ' + D; c.fillText('Radar de Corrida', cx, 1730);
-    c.fillStyle = 'rgba(255,255,255,.85)'; c.font = '600 32px ' + B; c.fillText('provas e ofertas de corrida todos os dias', cx, 1800);
+    c.textAlign = 'center'; c.fillStyle = 'rgba(244,236,244,.6)'; c.font = '500 24px ' + B; c.fillText(nota, cx, H - 230);
+    if(logoRadarImg.naturalWidth){ const lh = 104, lw = logoRadarImg.naturalWidth * lh / logoRadarImg.naturalHeight; c.drawImage(logoRadarImg, cx - lw/2, H - 96 - lh, lw, lh); }
+    else { c.fillStyle = '#F4ECF4'; c.font = '800 64px ' + D; c.fillText('Radar de Corrida', cx, H - 120); }
     return cv;
   }
-  let shName = 'radar-da-aline.png', shLink = RADAR_URL, shMsg = '', shTxt = '', shKind = '', shSlug = '';
+  let shName = 'radar-de-corrida.png', shLink = RADAR_URL, shMsg = '', shTxt = '', shKind = '', shSlug = '';
   async function openShare(o, p, f){
     shareEl.hidden = false; shImg.removeAttribute('src');
     const cv = await drawStory(o, p, f);
     shImg.src = cv.toDataURL('image/png');
     shBlob = await new Promise(res => cv.toBlob(res, 'image/png'));
     const slug = s => s.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40);
-    shName = 'radar-da-aline-' + (f ? 'fotografo-' + slug(f.nome) : o ? (o.parceiro ? 'parceiro-' : '') + slug(o.marca + '-' + o.nome) : p ? 'prova-' + slug(p.nome) : 'ofertas') + '.png';
+    shName = 'radar-de-corrida-' + (f ? 'fotografo-' + slug(f.nome) : o ? (o.parceiro ? 'parceiro-' : '') + slug(o.marca + '-' + o.nome) : p ? 'prova-' + slug(p.nome) : 'ofertas') + '.png';
     // link da página do item no radar (a prévia no WhatsApp mostra a imagem e o título; o toque abre o radar)
     shKind = f ? 'fotografo' : o ? (o.parceiro ? 'parceiro' : 'tenis') : p ? 'prova' : ''; shSlug = (f ? f.slug : o ? (o.parceiro ? o.pslug : o.slug) : (p||{}).slug) || '';
     shLink = (shKind === 'parceiro' || shKind === 'fotografo') ? RADAR_URL + '#' + shKind + '=' + shSlug : shSlug ? RADAR_URL + shKind + '/' + shSlug + '/?c=1' : RADAR_URL;
     if(f){ const lg = [...(f.locais||[]), f.estado].filter(Boolean).join(' · '); shTxt = '📸 ' + f.nome + ', fotógrafo de corrida' + (lg ? ' (' + lg + ')' : '') + (f.cupom ? ' · cupom ' + f.cupom + ' nas fotos' : ''); }
-    else if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.aline ? ' · a Aline vai correr!' : '') + (p.cupom ? ' · cupom ' + p.cupom + ' na inscrição' : ''); }
-    else if(o && o.parceiro){ shTxt = o.nome + (typeof o.preco === 'number' ? ' por ' + brl(o.preco) : '') + ' na ' + o.marca + (o.cupom ? ' · cupom da Aline: ' + o.cupom : ''); }
+    else if(p){ const [yy,mm,dd] = p.data.split('-'); shTxt = p.nome + ' · ' + dd + '/' + mm + (p.local ? ' · ' + p.local : '') + (p.cupom ? ' · cupom ' + p.cupom + ' na inscrição' : ''); }
+    else if(o && o.parceiro){ shTxt = o.nome + (typeof o.preco === 'number' ? ' por ' + brl(o.preco) : '') + ' na ' + o.marca + (o.cupom ? ' · cupom ' + o.cupom : ''); }
     else if(o){ shTxt = o.nome + ' por ' + brl(o.fin || o.preco) + (o.off ? ' (-' + o.off + '%)' : '') + ' na ' + o.loja + (o.cupom ? ', cupom ' + o.cupom : ''); }
     else shTxt = 'Provas e ofertas de corrida todos os dias';
     shTxt += '\nAchado no Radar de Corrida 👉';

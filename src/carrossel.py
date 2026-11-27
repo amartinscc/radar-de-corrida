@@ -9,7 +9,9 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import D, B, M, quebra, centro, brl, MESF  # noqa: E402
 
-VERSAO = 'c4'  # mude para forçar a regravação
+VERSAO = 'c7'
+import pathlib as _pl
+ROOT_LOGO = _pl.Path(__file__).resolve().parent / 'instagram' / 'logo-radar.png'  # mude para forçar a regravação
 root = pathlib.Path(__file__).resolve().parent.parent
 PASTA = root / 'carrossel'
 W, H = 1080, 1350
@@ -88,6 +90,15 @@ def avatar(perfil, r):
     return av, mk
 
 
+def logo_radar(im, dr, cx):
+    """Selo escuro com o logo oficial do Radar no alto da capa (no lugar da foto da Aline; Leandro, 27/11/2026)."""
+    lg = Image.open(ROOT_LOGO).convert('RGB')
+    lw = 380; lg = lg.resize((lw, round(lg.height * lw / lg.width)), Image.LANCZOS)
+    x0, y0 = cx - lw // 2 - 34, 78
+    dr.rounded_rectangle((x0, y0, x0 + lw + 68, y0 + lg.height + 40), 36, fill='#1D1220')
+    im.paste(lg, (cx - lw // 2, y0 + 20))
+
+
 def rodape(dr, n, total, claro=False):
     cor = (255, 255, 255) if claro else INK
     dr.text((70, H - 78), 'radardecorrida.com.br · @radardecorrida', font=B(28), fill=cor)
@@ -109,11 +120,8 @@ def datas_txt(dias):
 
 def capa(base, perfil, dias, total, n_slides):
     im = base.copy(); dr = ImageDraw.Draw(im); cx = W // 2
-    r = 92; av = avatar(perfil, r)
-    dr.ellipse((cx - r - 8, 150 - r - 8, cx + r + 8, 150 + r + 8), fill='white')
-    if av: im.paste(av[0], (cx - r, 150 - r), av[1])
+    logo_radar(im, dr, cx)  # logo oficial no lugar da foto da Aline (pedido do Leandro, 27/11/2026)
     centro(dr, cx, 262, '@radardecorrida', B(34), INK)  # perfil do Radar (pedido do Leandro, 23/11/2026)
-    centro(dr, cx, 312, 'RADAR DE CORRIDA', B(28), ACCENT)
     dr.rounded_rectangle((70, 380, W - 70, 1110), 56, fill='white')
     centro(dr, cx, 440, 'PROVAS DO', B(40), MUTED)
     y = 500
@@ -163,8 +171,8 @@ def lista(base, itens, n, n_slides):
         for l in nome:
             dr.text((x, yy), l, font=D(46), fill=INK); yy += 54
         yy += 8
-        extra = '★ A Aline vai correr' if p.get('aline') else None
-        if p.get('cupom'): extra = (extra + ' · ' if extra else '') + 'Cupom da Aline: ' + p['cupom']
+        extra = None
+        if p.get('cupom'): extra = (extra + ' · ' if extra else '') + 'Cupom ' + p['cupom']
         l1, l2 = info_prova(p)
         info = [t for t in [l1, l2] if t]
         if extra and len(nome) > 1: info = info[:1]  # o destaque (Aline/cupom) tem prioridade sobre a 2ª linha
@@ -206,10 +214,10 @@ def legenda(dias, provas):
         if not do_dia: continue
         linhas.append(f'📅 {DIAS[d.weekday()]}, {d.day:02d}/{d.month:02d}')
         for p in do_dia:
-            extra = ' ⭐ eu vou!' if p.get('aline') else ''
+            extra = ''
             linhas.append(f"• {p['nome']}" + (f" – {p['local']}" if p.get('local') else '') + extra)
         linhas.append('')
-    fim = ['Inscrições, horários e todas as provas no meu Radar de Corrida 👉 link na bio (radardecorrida.com.br)', '',
+    fim = ['Inscrições, horários e todas as provas no Radar de Corrida 👉 link na bio (radardecorrida.com.br)', '',
            'Marca aqui quem vai correr com você! 💜', '', '#corridaderua #corrida #riodejaneiro #corridario #radardecorrida']
     txt = '\n'.join(linhas + fim)
     while len(txt) > 2150 and len(linhas) > 3:  # limite de legenda do Instagram (2.200)

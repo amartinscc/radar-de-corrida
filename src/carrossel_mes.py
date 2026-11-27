@@ -10,9 +10,9 @@ from PIL import ImageDraw
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from paginas import D, B, M, quebra, centro, MESF  # noqa: E402
-from carrossel import fundo, avatar, rodape, cola_capa, capa_arquivo, selo_data, W, H, INK, MUTED, ACCENT, MAUVE, HOT, DIAC  # noqa: E402
+from carrossel import fundo, avatar, logo_radar, rodape, cola_capa, capa_arquivo, selo_data, W, H, INK, MUTED, ACCENT, MAUVE, HOT, DIAC  # noqa: E402
 
-VERSAO = 'm3'  # mude para forçar a regravação
+VERSAO = 'm5'  # mude para forçar a regravação
 root = pathlib.Path(__file__).resolve().parent.parent
 PASTA = root / 'carrossel' / 'mes'
 POR_SLIDE = 8
@@ -31,11 +31,8 @@ def janela(hoje):
 
 def capa(base, perfil, mes, tot, n_slides):
     im = base.copy(); dr = ImageDraw.Draw(im); cx = W // 2
-    r = 92; av = avatar(perfil, r)
-    dr.ellipse((cx - r - 8, 150 - r - 8, cx + r + 8, 150 + r + 8), fill='white')
-    if av: im.paste(av[0], (cx - r, 150 - r), av[1])
+    logo_radar(im, dr, cx)  # logo oficial no lugar da foto da Aline (pedido do Leandro, 27/11/2026)
     centro(dr, cx, 262, '@radardecorrida', B(34), INK)  # perfil do Radar (pedido do Leandro, 23/11/2026)
-    centro(dr, cx, 312, 'RADAR DE CORRIDA', B(28), ACCENT)
     dr.rounded_rectangle((70, 380, W - 70, 1110), 56, fill='white')
     centro(dr, cx, 440, 'PROVAS DE', B(40), MUTED)
     centro(dr, cx, 500, MESF[mes.month - 1].capitalize(), D(140), INK)
@@ -71,7 +68,7 @@ def lista(base, titulo, itens, n, n_slides, parte):
             centro(dr, 143, y + 78, DIAC[d.weekday()], B(20), INK)
             x = 220
         larg = W - 70 - x - 28
-        destaque = '★ A Aline vai correr' if p.get('aline') else ('Cupom da Aline: ' + p['cupom'] if p.get('cupom') else None)
+        destaque = 'Cupom ' + p['cupom'] if p.get('cupom') else None
         nome = quebra(dr, p['nome'], D(36), larg, 1)[0]
         dr.text((x, y + 16), nome, font=D(36), fill=INK)
         lugar = p.get('cidade') if (p.get('uf') or 'RJ') != 'RJ' and p.get('cidade') else (p.get('local') or p.get('cidade'))
@@ -109,7 +106,7 @@ def final(base, mes, sobrou, n_slides):
 def legenda(mes, por_uf):
     nm = MESF[mes.month - 1]
     topo = [f'🗓️ Provas de {nm} no Rio e em São Paulo!', '']
-    fim = ['Inscrições, horários e todas as provas no meu Radar de Corrida 👉 link na bio (radardecorrida.com.br)', '',
+    fim = ['Inscrições, horários e todas as provas no Radar de Corrida 👉 link na bio (radardecorrida.com.br)', '',
            'Salva o post e marca quem vai correr com você! 💜', '',
            '#corridaderua #corrida #riodejaneiro #saopaulo #calendariodecorrida #radardecorrida']
     blocos = []
