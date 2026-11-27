@@ -120,17 +120,18 @@ def card(o, foto, ct, i, n, fin, base, off, logo, kick=None):
     cond = o.get('condicao') or ''
     if o.get('cupom') and cond.lower().startswith('desconto extra com o cupom'): cond = cond.split('+', 1)[1].strip() if '+' in cond else ''
     cond = f'<div style="margin-top:18px;font:600 30px \'Plus Jakarta Sans\';color:#DDB9DD">{cond}</div>' if cond else ''
-    selo = f'<div style="position:absolute;top:240px;right:60px;background:#F28A5B;color:#1D1220;font:800 64px Urbanist;padding:18px 30px;border-radius:28px;transform:rotate(4deg);box-shadow:0 10px 30px rgba(0,0,0,.3)">-{off}%</div>' if off else ''
+    selo = f'<div style="position:absolute;top:-40px;right:-20px;background:#F28A5B;color:#1D1220;font:800 64px Urbanist;padding:18px 30px;border-radius:28px;transform:rotate(4deg);box-shadow:0 10px 30px rgba(0,0,0,.3)">-{off}%</div>' if off else ''
     loja = '' if o.get('marca') == o.get('loja') else ' · ' + (o.get('loja') or '').upper()
+    # padrão centralizado de qualquer compartilhamento (Leandro, 27/11/2026): cartão e textos no meio da largura e da altura
     return f'''<html><head><style>{CSS}</style></head><body>{rings(580)}
 <div style="position:absolute;top:200px;left:80px" class="kick">{kick or f"TÊNIS DO DIA · {i}/{n}"}</div>
 <div style="position:absolute;top:200px;right:80px;font:800 34px Urbanist;color:#DDB9DD">{mod}</div>
-<div style="position:absolute;top:280px;left:80px;width:920px;height:580px;background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35)">
-<img src="data:{ct};base64,{foto}" style="max-width:92%;max-height:92%;object-fit:contain;mix-blend-mode:multiply"></div>{selo}
-<div style="position:absolute;top:1060px;left:80px;width:920px">
-<div style="font:700 32px Urbanist;color:#DDB9DD;letter-spacing:3px">{(o.get('marca') or '').upper()}{loja}</div>
+<div style="position:absolute;top:270px;bottom:290px;left:80px;width:920px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+<div style="position:relative;flex:none;width:920px;height:580px;background:#fff;border-radius:44px;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 60px rgba(0,0,0,.35)">
+<img src="data:{ct};base64,{foto}" style="max-width:88%;max-height:88%;object-fit:contain;mix-blend-mode:multiply">{selo}</div>
+<div style="margin-top:70px;font:700 32px Urbanist;color:#DDB9DD;letter-spacing:3px">{(o.get('marca') or '').upper()}{loja}</div>
 <div style="margin-top:12px;font:800 66px/1.05 Urbanist">{o['nome']}</div>
-<div style="margin-top:26px;display:flex;align-items:baseline;gap:26px"><span style="font:800 120px/1 Urbanist;color:#F28A5B">{brl(fin)}</span>{f'<s style="font:600 42px Urbanist;color:#B9A3BC">{brl(base)}</s>' if base else ''}</div>
+<div style="margin-top:26px;display:flex;align-items:baseline;justify-content:center;gap:26px"><span style="font:800 120px/1 Urbanist;color:#F28A5B">{brl(fin)}</span>{f'<s style="font:600 42px Urbanist;color:#B9A3BC">{brl(base)}</s>' if base else ''}</div>
 {cup}{cond}</div>
 <div style="position:absolute;bottom:230px;width:100%;text-align:center;font:500 22px 'Plus Jakarta Sans';color:rgba(244,236,244,.6)">Preço conferido hoje pelo Radar · pode mudar na loja a qualquer momento</div>
 <img class="logo" src="data:image/png;base64,{logo}"></body></html>'''

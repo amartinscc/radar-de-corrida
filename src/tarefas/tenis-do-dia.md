@@ -1,6 +1,6 @@
 # Tarefa diária: Tênis do dia (@radardecorrida)
 
-Formato desde 27/11/2026 (decisão do Leandro, "opção B / 1 por dia"): 1 tênis por dia (card "TÊNIS DO DIA" com link de compra) + 1 story final chamando para o Canal de ofertas no WhatsApp. Não mudar o visual sem nova aprovação da Aline.
+Formato desde 27/11/2026 (decisão do Leandro, "opção B / 1 por dia"): 1 tênis por dia (card "TÊNIS DO DIA" com link de compra) + 1 story final chamando para o Canal de ofertas no WhatsApp. Visual centralizado (padrão de qualquer compartilhamento, Leandro 27/11/2026). Não mudar o visual sem nova aprovação.
 Roda todo dia depois da atualização dos achados (11h37). Sem impulsionamento, nunca.
 
 ## 1. Gerar as artes
