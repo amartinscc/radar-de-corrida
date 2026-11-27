@@ -183,3 +183,8 @@ Leia este arquivo antes de mexer no radar. Atualize-o sempre que mudar regras, t
 - Achados: campos de controle `desde`, `conferido`, `motivos` e `hyrox` (não mudam as imagens de prévia). As regras novas da tarefa de achados (busca seg/qua/sáb, conferência diária da Amazon, 80 a 100 itens, mínimo de 3 dias) estão em `src/tarefas/achados.md` e só valem depois de aprovadas no PC (a tarefa é ligada ao computador).
 
 - **Título da página inicial (14/11/2026, pedido do Leandro):** o título grande do topo passou de "Radar diário de corrida" para "Radar de corrida" (`<h1>` no `src/template.html`). O og:title (prévia de link) continua "Radar diário de corrida da Aline".
+
+## Canal do WhatsApp do Radar (desde 26/11/2026, pedido do Leandro)
+- Canal (só envio, sem interação) para as promoções que a Aline manda: elas NÃO entram no site (o site não pode virar vitrine de vendas).
+- Toda postagem = a mesma arte do botão Compartilhar do site (drawStory 1080x1920) + texto "<produto> por R$ X (-Y%) na <loja> … Achado no Radar de Corrida 👉 <link de afiliada da Aline>".
+- Gerador: `python3 src/canal.py oferta.json` (campos nome, marca, loja, preco, de, link limpo, cupom?, condicao?, genero?) → `canal/fila/*.png` + `.txt` (fila fora do git). Usa o gancho `window.__radarCanal` do template (story, link com clickref `whatsapp-canal` na Awin, brl). Preço conferido na loja na hora de postar, sempre.

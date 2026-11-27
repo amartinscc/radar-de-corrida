@@ -18502,7 +18502,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       });
       c.fillStyle = '#6B5A6E'; c.font = '600 36px ' + B; c.fillText('+ provas no Rio e cupons da Aline', cx, y0+ch-45);
     }
-    if(o && !o.parceiro){ c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; const dd = new Date(data.ofertas_atualizado || data.atualizado); c.fillText('Preço conferido em ' + dd.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' · sujeito a alteração', cx, y0+ch-50); }
+    if(o && !o.parceiro){ c.fillStyle = '#6B5A6E'; c.font = '600 30px ' + B; const dd = new Date(o.conferido || data.ofertas_atualizado || data.atualizado); c.fillText('Preço conferido em ' + dd.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}) + ' · sujeito a alteração', cx, y0+ch-50); }
     // assinatura do radar
     c.fillStyle = 'rgba(29,18,32,.9)'; rr(c, 120, 1570, W-240, 270, 48); c.fill();
     c.fillStyle = '#DDB9DD'; c.font = '700 36px ' + B; c.fillText('Achado no', cx, 1640);
@@ -18530,6 +18530,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     document.getElementById('sh-wa').href = 'https://wa.me/?text=' + encodeURIComponent(shTxt + ' ' + shLinkCanal('wa'));
     document.getElementById('sh-hint').hidden = true;
   }
+  // gerador das postagens do Canal do WhatsApp (src/canal.py): mesma arte do compartilhar + link de afiliada da Aline marcado como whatsapp-canal
+  window.__radarCanal = {story: drawStory, link: u => awinRef(afil0(u), '', 'whatsapp-canal'), brl};
   const shTrack = canal => { if(window.posthog) posthog.capture('compartilhar_link', {canal, tipo: shKind, item: shSlug, quem: shQuem || undefined}); };
   document.getElementById('sh-wa').addEventListener('click', () => shTrack('whatsapp'));
   document.getElementById('sh-copy').addEventListener('click', async () => {
