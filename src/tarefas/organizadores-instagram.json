@@ -1,19 +1,60 @@
 {
  "_regra": "Só perfis CONFERIDOS no Instagram (nome/bio batem com a prova ou com o organizador). Chave = trecho do nome da prova no radar (minúsculas). Perfil não conferido não entra. Atualizar 'conferido' ao reconferir.",
  "perfis": [
-  {"prova": "fla run", "perfil": "@flarunoficial", "conferido": "2026-11-27", "nota": "perfil oficial da Fla Run (102 mil seguidores)"},
-  {"prova": "circuito rio antigo", "perfil": "@circuitorioantigo", "conferido": "2026-11-27", "nota": "perfil oficial do circuito (31 mil)"},
-  {"prova": "track&field experience", "perfil": "@tfsportsoficial", "conferido": "2026-11-27", "nota": "TFSports, plataforma de experiências esportivas da Track&Field"},
-  {"prova": "track&field run series", "perfil": "@tfsportsoficial", "conferido": "2026-11-27", "nota": "TFSports (Track&Field)"},
-  {"prova": "vascorrida", "perfil": "@vascorrida", "conferido": "2026-11-27", "nota": "perfil oficial da Vascorrida (54 mil)"},
-  {"prova": "corrida de são nicolau", "perfil": "@corridadesaonicolau", "conferido": "2026-11-27", "nota": "perfil da XV Corrida de São Nicolau (Magé)"},
-  {"prova": "correfaixa", "perfil": "@correfaixa", "conferido": "2026-11-27", "nota": "perfil CORRE, FAIXA! com link de inscrições"}
+  {
+   "prova": "fla run",
+   "perfil": "@flarunoficial",
+   "conferido": "2026-11-27",
+   "nota": "perfil oficial da Fla Run (102 mil seguidores)"
+  },
+  {
+   "prova": "circuito rio antigo",
+   "perfil": "@circuitorioantigo",
+   "conferido": "2026-11-27",
+   "nota": "perfil oficial do circuito (31 mil)"
+  },
+  {
+   "prova": "track&field experience",
+   "perfil": "@tfsportsoficial",
+   "conferido": "2026-11-27",
+   "nota": "TFSports, plataforma de experiências esportivas da Track&Field"
+  },
+  {
+   "prova": "track&field run series",
+   "perfil": "@tfsportsoficial",
+   "conferido": "2026-11-27",
+   "nota": "TFSports (Track&Field)"
+  },
+  {
+   "prova": "vascorrida",
+   "perfil": "@vascorrida",
+   "conferido": "2026-11-27",
+   "nota": "perfil oficial da Vascorrida (54 mil)"
+  },
+  {
+   "prova": "corrida de são nicolau",
+   "perfil": "@corridadesaonicolau",
+   "conferido": "2026-11-27",
+   "nota": "perfil da XV Corrida de São Nicolau (Magé)"
+  },
+  {
+   "prova": "correfaixa",
+   "perfil": "@correfaixa",
+   "conferido": "2026-11-27",
+   "nota": "perfil CORRE, FAIXA! com link de inscrições"
+  },
+  {
+   "prova": "circuito das estações",
+   "perfil": "@circuitoestacoes",
+   "conferido": "2026-11-27",
+   "nota": "perfil oficial do Circuito das Estações (RJ e SP), conferido na prospecção de 27/11"
+  }
  ],
  "nao_confirmados": {
   "correndo de bangu": "@correndodebangu é criador de conteúdo (triatleta); não confirma que organiza a prova",
   "piratas do asfalto": "@piratasdoasfaltoviradouro existe mas anuncia corrida própria em 2027",
   "desafio dos fortes": "único perfil com esse nome é de Florianópolis",
-  "circuito das estações": "@circuitodasestacoes é de beach tennis/padel, não é o circuito de corrida",
+  "circuito das estações": "@circuitodasestacoes é de beach tennis/padel; o oficial da corrida é @circuitoestacoes (já em perfis)",
   "titan race": "@titanrace é russo",
   "sest senat": "@sestsenat tem 0 posts, não é oficial"
  }
