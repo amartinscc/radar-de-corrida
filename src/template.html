@@ -530,6 +530,24 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .pb.alvo .pbc{animation:pbpulse 1.4s ease-in-out 3}
 @keyframes pbpulse{50%{box-shadow:0 0 0 4px var(--mauve),0 4px 12px rgba(29,18,32,.1)}}
 .pb .pbk{border:0;background:none;color:var(--muted);font:600 10.5px var(--body);cursor:pointer;padding:2px}
+/* Fotógrafos (aprovado em 25/11/2026; filtro por estado e link para o Instagram desde 26/11/2026): botão na aba Provas troca a lista de provas pelos fotógrafos; dados em radar-data "fotografos" e "fotos_oficiais"; prova com campo "fotos" ganha o botão Fotos oficiais */
+.fotobtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--mauve);background:color-mix(in srgb,var(--mauve) 14%,var(--surface));color:var(--accent);font:700 14px var(--body);padding:9px 14px;border-radius:999px;cursor:pointer}
+.voltabtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:700 14px var(--body);padding:9px 14px;border-radius:999px;cursor:pointer;margin-bottom:12px}
+.go.fot{color:var(--accent)}
+.fg{padding:16px 12px 14px;border-radius:22px;background:color-mix(in srgb,var(--mauve) 8%,var(--surface));border:1px solid var(--line)}
+.fg h3{margin:0 0 4px;text-align:center;color:var(--muted);font:700 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.fg .sub{margin:0 0 12px;text-align:center;color:var(--muted);font:500 12px/1.4 var(--body)}
+.fg .chips{display:flex;gap:6px;overflow-x:auto;padding:0 2px 12px;scrollbar-width:none}
+.fg .chip{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 12px var(--body);padding:6px 12px;border-radius:999px;cursor:pointer}
+.fg .chip[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.fg .pbc.cam{background:linear-gradient(135deg,#B28AB1,#7A4E7D);color:#fff}
+.fg .loc{font:500 10px/1.2 var(--body);color:var(--muted)}
+.fg .ver{display:inline-block;margin-top:2px;font:700 10px/1 var(--body);color:#fff;background:var(--accent);padding:5px 8px;border-radius:999px;text-decoration:none}
+.fg .of{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+.fg .of h4{margin:0 0 8px;text-align:center;font:700 11px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fg .ofr{display:flex;gap:8px;overflow-x:auto}
+.fg .ofc{flex:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 10px;font:600 12px/1.3 var(--body);color:var(--ink);text-decoration:none}
+.fg .ofc small{display:block;color:var(--muted);font-weight:500}
 /* Parceiros: logos e ofertas */
 .plogos{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .plogos::-webkit-scrollbar{display:none}
@@ -660,8 +678,17 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   </div>
 
   <div class="panel" id="p-provas" role="tabpanel" aria-labelledby="tab-provas">
+    <div class="radar-wrap">
+      <div class="radar" id="radar">
+        <svg id="radar-svg" viewBox="0 0 400 400" role="img" aria-label="Mapa do estado com as provas"></svg>
+        <div class="sweep" id="sweep" aria-hidden="true"></div>
+      </div>
+      <div class="radar-cap" id="radar-cap" aria-live="polite"></div>
+      <div class="dq" id="e-dest" role="region" aria-roledescription="carrossel" aria-label="Destaques" hidden></div>
+    </div>
     <div class="toolbar">
       <button class="fbtn" type="button" id="e-fbtn" aria-expanded="false" aria-controls="e-fpanel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filtros <span class="n" hidden></span></button>
+      <button class="fotobtn" type="button" id="e-fotobtn" hidden><span aria-hidden="true">📸</span> Fotógrafos</button>
       <select id="e-uf" aria-label="Estado"></select>
     </div>
     <div class="fpanel" id="e-fpanel" hidden>
@@ -671,13 +698,15 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <div class="row" id="e-al"><span class="l">Aline</span></div>
       <button class="fclear" type="button" id="e-clear">Limpar filtros</button>
     </div>
-    <div class="radar-wrap">
-      <div class="radar" id="radar">
-        <svg id="radar-svg" viewBox="0 0 400 400" role="img" aria-label="Mapa do estado com as provas"></svg>
-        <div class="sweep" id="sweep" aria-hidden="true"></div>
-      </div>
-      <div class="radar-cap" id="radar-cap" aria-live="polite"></div>
-      <div class="dq" id="e-dest" role="region" aria-roledescription="carrossel" aria-label="Destaques" hidden></div>
+    <div id="e-foto" hidden>
+      <div class="toolbar"><button class="voltabtn" type="button" id="e-voltar">← Provas</button></div>
+      <section class="fg" aria-label="Fotógrafos de corrida">
+        <h3><span aria-hidden="true">📸</span> Fotógrafos de corrida</h3>
+        <p class="sub">Achou suas fotos de treino ou de prova? Toque no fotógrafo e veja. O cupom é exclusivo para quem segue o Radar.</p>
+        <div class="chips" id="fg-chips" role="group" aria-label="Filtrar por estado"></div>
+        <div class="pgrid" id="fg-grid"></div>
+        <div class="of" id="fg-of" hidden><h4>Fotos oficiais das provas</h4><div class="ofr" id="fg-ofr"></div></div>
+      </section>
     </div>
     <div class="list" id="e-list"></div>
     <p class="note">Datas, locais e valores vêm dos sites de inscrição e podem mudar. Confirme sempre na página oficial da prova antes de se inscrever.</p>
@@ -1131,7 +1160,7 @@ __DATA__
   document.getElementById('tab-black').hidden = !blackOn;
   document.getElementById('tab-tenis').hidden = blackOn;
   document.getElementById('tab-result').hidden = true;
-  { const h0 = (location.hash||'').slice(1), ALIAS = {'achados': tabAchados, 'black': tabAchados, 'black-friday': tabAchados, '1111': tabAchados, 'tenis': 'calc', 'tênis': 'calc', 'resultados': 'provas'};
+  { const h0 = (location.hash||'').slice(1), ALIAS = {'achados': tabAchados, 'black': tabAchados, 'black-friday': tabAchados, '1111': tabAchados, 'tenis': 'calc', 'tênis': 'calc', 'resultados': 'provas', 'parceiros': 'roupas'};
     if(ALIAS[h0] && ALIAS[h0] !== h0) history.replaceState(null, '', location.pathname + location.search + '#' + ALIAS[h0]); }
   function show(name){
     tabs.forEach(t => {
@@ -1148,7 +1177,7 @@ __DATA__
   if(tabs.includes(h)) first = h; else if(/^tenis=/.test(h)) first = 'calc'; else { try{ const s = localStorage.getItem('radar-aba2'); if(tabs.includes(s)) first = s; }catch(e){} }
   show(first);
   // link direto para a Black (#black): abre a aba e já rola até ela, sem parar na foto de abertura
-  if(first === 'black') setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
+  if(first === 'black' || (['calc','roupas'].includes(first) && h)) setTimeout(() => document.getElementById('radar-abas').scrollIntoView({block:'start'}), 350);
 
   function chips(id, values, state, key, render, labels){
     const box = document.getElementById(id);
@@ -1534,6 +1563,7 @@ __DATA__
       shb.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
       shb.addEventListener('click', () => { if(window.posthog) posthog.capture('compartilhar_prova', {prova: p.nome}); openShare(null, p); });
       el.appendChild(shb);
+      if(p.fotos){ const fa = document.createElement('a'); fa.className = 'go fot'; fa.target = '_blank'; fa.rel = 'noopener'; fa.href = p.fotos; fa.textContent = '📸 Fotos oficiais'; el.querySelector('.links').appendChild(fa); }
       el.querySelector('.name').textContent = p.nome;
       if(p.geo){ const rg = document.createElement('div'); rg.className='store'; rg.textContent = p.geo.reg + ((p.uf||'RJ')!=='RJ' ? ' · ' + p.uf : ''); el.querySelector('.info').insertBefore(rg, el.querySelector('.name')); }
       const det = el.querySelector('.det');
@@ -2956,5 +2986,50 @@ __DATA__
   }
   document.querySelectorAll('[data-cfmt]').forEach(b => b.addEventListener('click', () => { carrFmt = b.dataset.cfmt; document.querySelectorAll('[data-cfmt]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); carrMostra(); }));
 
+})();
+</script>
+
+<script>
+/* Fotógrafos na aba Provas: o botão só aparece quando houver fotógrafo cadastrado em radar-data "fotografos" */
+(function(){
+  let d; try{ d = JSON.parse(document.getElementById('radar-data').textContent); }catch(e){ return; }
+  const fs = (d.fotografos||[]).filter(f => f && f.nome && f.link), of = (d.fotos_oficiais||[]).filter(o => o && o.nome && o.link);
+  const btn = document.getElementById('e-fotobtn'), box = document.getElementById('e-foto');
+  if(!btn || !box || (!fs.length && !of.length)) return;
+  btn.hidden = false;
+  const P = document.getElementById('p-provas'), tb = btn.closest('.toolbar'), fp = document.getElementById('e-fpanel'), L = document.getElementById('e-list');
+  const grid = document.getElementById('fg-grid'), chips = document.getElementById('fg-chips');
+  let loc = 'Todos';
+  const ini = n => n.split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
+  function draw(){
+    grid.innerHTML = '';
+    fs.filter(f => loc==='Todos' || f.estado===loc).forEach(f => {
+      const b = document.createElement('div'); b.className = 'pb';
+      const a = document.createElement('a'); a.className = 'pbl'; a.href = f.link; a.target = '_blank'; a.rel = 'noopener';
+      const c = document.createElement('span'); c.className = 'pbc' + (f.foto ? '' : ' cam');
+      if(f.foto){ const im = new Image(); im.src = f.foto; im.alt = ''; im.loading = 'lazy'; c.appendChild(im); } else c.textContent = ini(f.nome);
+      const n = document.createElement('span'); n.className = 'pbn'; n.textContent = f.nome;
+      a.append(c, n); b.appendChild(a);
+      const lugar = [...(f.locais||[]), f.estado].filter(Boolean); if(lugar.length){ const l = document.createElement('span'); l.className = 'loc'; l.textContent = '📍 ' + lugar.join(' · '); b.appendChild(l); }
+      if(f.cupom){ const k = document.createElement('button'); k.type = 'button'; k.className = 'pcup'; k.textContent = f.cupom;
+        k.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(f.cupom); k.classList.add('ok'); k.textContent = 'Copiado!'; setTimeout(() => { k.classList.remove('ok'); k.textContent = f.cupom; }, 1600); if(window.posthog) posthog.capture('cupom_copiado', {parceiro: 'fotografo: ' + f.nome, cupom: f.cupom}); });
+        b.appendChild(k); }
+      const v = document.createElement('a'); v.className = 'ver'; v.href = f.link; v.target = '_blank'; v.rel = 'noopener'; v.textContent = 'Ver fotos'; b.appendChild(v);
+      a.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_fotografo', {fotografo: f.nome}); });
+      v.addEventListener('click', () => { if(window.posthog) posthog.capture('clique_fotografo', {fotografo: f.nome}); });
+      grid.appendChild(b);
+    });
+  }
+  const locs = ['Todos', ...[...new Set(fs.map(f => f.estado).filter(Boolean))].sort()];
+  if(locs.length > 2) locs.forEach(t => { const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.textContent = t; c.setAttribute('aria-pressed', t===loc);
+    c.addEventListener('click', () => { loc = t; chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x===c)); draw(); }); chips.appendChild(c); });
+  if(of.length){ document.getElementById('fg-of').hidden = false; const r = document.getElementById('fg-ofr');
+    of.forEach(o => { const a = document.createElement('a'); a.className = 'ofc'; a.href = o.link; a.target = '_blank'; a.rel = 'noopener'; a.textContent = o.nome; if(o.provas){ const sm = document.createElement('small'); sm.textContent = o.provas; a.appendChild(sm); } r.appendChild(a); }); }
+  draw();
+  const notas = [...P.querySelectorAll(':scope > p.note')];
+  function modo(on){ [tb, L, ...notas].forEach(e => e && (e.hidden = on)); if(on && fp) fp.hidden = true; box.hidden = !on; if(on){ if(window.posthog) posthog.capture('aba_aberta', {aba: 'fotografos'}); box.scrollIntoView({block:'start', behavior:'smooth'}); } else tb.scrollIntoView({block:'start', behavior:'smooth'}); }
+  btn.addEventListener('click', () => modo(true));
+  document.getElementById('e-voltar').addEventListener('click', () => modo(false));
+  if(location.hash === '#fotografos') setTimeout(() => modo(true), 400);
 })();
 </script>

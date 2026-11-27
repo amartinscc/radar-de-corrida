@@ -585,7 +585,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
 .pb.alvo .pbc{animation:pbpulse 1.4s ease-in-out 3}
 @keyframes pbpulse{50%{box-shadow:0 0 0 4px var(--mauve),0 4px 12px rgba(29,18,32,.1)}}
 .pb .pbk{border:0;background:none;color:var(--muted);font:600 10.5px var(--body);cursor:pointer;padding:2px}
-/* Fotógrafos (aprovado em 25/11/2026): botão na aba Provas troca a lista de provas pelos fotógrafos; dados em radar-data "fotografos" e "fotos_oficiais"; prova com campo "fotos" ganha o botão Fotos oficiais */
+/* Fotógrafos (aprovado em 25/11/2026; filtro por estado e link para o Instagram desde 26/11/2026): botão na aba Provas troca a lista de provas pelos fotógrafos; dados em radar-data "fotografos" e "fotos_oficiais"; prova com campo "fotos" ganha o botão Fotos oficiais */
 .fotobtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--mauve);background:color-mix(in srgb,var(--mauve) 14%,var(--surface));color:var(--accent);font:700 14px var(--body);padding:9px 14px;border-radius:999px;cursor:pointer}
 .voltabtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:700 14px var(--body);padding:9px 14px;border-radius:999px;cursor:pointer;margin-bottom:12px}
 .go.fot{color:var(--accent)}
@@ -758,7 +758,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       <section class="fg" aria-label="Fotógrafos de corrida">
         <h3><span aria-hidden="true">📸</span> Fotógrafos de corrida</h3>
         <p class="sub">Achou suas fotos de treino ou de prova? Toque no fotógrafo e veja. O cupom é exclusivo para quem segue o Radar.</p>
-        <div class="chips" id="fg-chips" role="group" aria-label="Filtrar por local"></div>
+        <div class="chips" id="fg-chips" role="group" aria-label="Filtrar por estado"></div>
         <div class="pgrid" id="fg-grid"></div>
         <div class="of" id="fg-of" hidden><h4>Fotos oficiais das provas</h4><div class="ofr" id="fg-ofr"></div></div>
       </section>
@@ -17535,7 +17535,17 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     ]
    }
   ]
- }
+ },
+ "fotografos": [
+  {
+   "nome": "Matheus Sanches",
+   "link": "https://www.instagram.com/clickmj/",
+   "estado": "RJ",
+   "locais": [
+    "Nova Iguaçu"
+   ]
+  }
+ ]
 }
 </script>
 
@@ -19619,14 +19629,14 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
   const ini = n => n.split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase();
   function draw(){
     grid.innerHTML = '';
-    fs.filter(f => loc==='Todos' || (f.locais||[]).includes(loc)).forEach(f => {
+    fs.filter(f => loc==='Todos' || f.estado===loc).forEach(f => {
       const b = document.createElement('div'); b.className = 'pb';
       const a = document.createElement('a'); a.className = 'pbl'; a.href = f.link; a.target = '_blank'; a.rel = 'noopener';
       const c = document.createElement('span'); c.className = 'pbc' + (f.foto ? '' : ' cam');
       if(f.foto){ const im = new Image(); im.src = f.foto; im.alt = ''; im.loading = 'lazy'; c.appendChild(im); } else c.textContent = ini(f.nome);
       const n = document.createElement('span'); n.className = 'pbn'; n.textContent = f.nome;
       a.append(c, n); b.appendChild(a);
-      if((f.locais||[]).length){ const l = document.createElement('span'); l.className = 'loc'; l.textContent = '📍 ' + f.locais.join(', '); b.appendChild(l); }
+      const lugar = [...(f.locais||[]), f.estado].filter(Boolean); if(lugar.length){ const l = document.createElement('span'); l.className = 'loc'; l.textContent = '📍 ' + lugar.join(' · '); b.appendChild(l); }
       if(f.cupom){ const k = document.createElement('button'); k.type = 'button'; k.className = 'pcup'; k.textContent = f.cupom;
         k.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(f.cupom); k.classList.add('ok'); k.textContent = 'Copiado!'; setTimeout(() => { k.classList.remove('ok'); k.textContent = f.cupom; }, 1600); if(window.posthog) posthog.capture('cupom_copiado', {parceiro: 'fotografo: ' + f.nome, cupom: f.cupom}); });
         b.appendChild(k); }
@@ -19636,7 +19646,7 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       grid.appendChild(b);
     });
   }
-  const locs = ['Todos', ...new Set(fs.flatMap(f => f.locais||[]))];
+  const locs = ['Todos', ...[...new Set(fs.map(f => f.estado).filter(Boolean))].sort()];
   if(locs.length > 2) locs.forEach(t => { const c = document.createElement('button'); c.type = 'button'; c.className = 'chip'; c.textContent = t; c.setAttribute('aria-pressed', t===loc);
     c.addEventListener('click', () => { loc = t; chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x===c)); draw(); }); chips.appendChild(c); });
   if(of.length){ document.getElementById('fg-of').hidden = false; const r = document.getElementById('fg-ofr');
