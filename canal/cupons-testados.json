@@ -1,8 +1,35 @@
 {
  "_regra": "Cupons testados no carrinho da loja (adicionar 1 item, aplicar, ler o Valor total, remover). Atualizar a cada teste. Cupom 'não elegível' para um item pode valer para outro.",
  "2026-11-27": [
-  {"loja": "Netshoes", "cupom": "BLACK40", "resultado": "vale: R$ 40 OFF acima de R$ 399", "testado_em": "Mizuno Neo Vista 2 Masculino (vendido pela Mizuno na Netshoes) -> R$ 665,99 à vista"},
-  {"loja": "Netshoes", "cupom": "BLACKNETS", "resultado": "vale: R$ 100 OFF", "testado_em": "Olympikus Corre 5 (vendido pela Netshoes) -> R$ 399,99", "nao_elegivel": ["Mizuno Neo Vista 2 Masculino (lojista Mizuno)", "Adidas Adizero Evo SL Masculino FBA-83DK-028"]},
-  {"loja": "Netshoes", "cupom": "EVO100", "resultado": "código existe, mas 'Carrinho não elegível'", "nao_elegivel": ["Adidas Adizero Evo SL Masculino FBA-83DK-028 (branco/preto)"]}
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACK40",
+   "resultado": "vale: R$ 40 OFF acima de R$ 399",
+   "testado_em": "Mizuno Neo Vista 2 Masculino (vendido pela Mizuno na Netshoes) -> R$ 665,99 à vista"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACKNETS",
+   "resultado": "vale: R$ 100 OFF",
+   "testado_em": "Olympikus Corre 5 (vendido pela Netshoes) -> R$ 399,99",
+   "nao_elegivel": [
+    "Mizuno Neo Vista 2 Masculino (lojista Mizuno)",
+    "Adidas Adizero Evo SL Masculino FBA-83DK-028"
+   ]
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "EVO100",
+   "resultado": "código existe, mas 'Carrinho não elegível'",
+   "nao_elegivel": [
+    "Adidas Adizero Evo SL Masculino FBA-83DK-028 (branco/preto)"
+   ]
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACK40 e BLACKNETS",
+   "resultado": "não elegíveis",
+   "testado_em": "Puma Deviate Nitro 4 Feminino PI3-75KF-004 (vendido pela Netshoes)"
+  }
  ]
 }
