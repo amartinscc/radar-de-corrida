@@ -30,6 +30,23 @@
    "cupom": "BLACK40 e BLACKNETS",
    "resultado": "não elegíveis",
    "testado_em": "Puma Deviate Nitro 4 Feminino PI3-75KF-004 (vendido pela Netshoes)"
+  },
+  {
+   "loja": "Decathlon",
+   "cupom": "GUIDO20",
+   "resultado": "vale: 20% OFF (cupom de creator na página da Black Friday)",
+   "testado_em": "Kiprun KD900X LD+ Feminino 38 BR -> R$ 399,99 (de R$ 499,99)",
+   "nao_elegivel": [
+    "New Balance Fuelcell Rebel V5 Masculino (sem efeito)"
+   ]
+  },
+  {
+   "loja": "Decathlon",
+   "cupom": "CORRE15",
+   "resultado": "aceito, mas sem desconto",
+   "nao_elegivel": [
+    "Kiprun KD900X LD+ Feminino"
+   ]
   }
  ]
 }
