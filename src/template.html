@@ -1799,8 +1799,8 @@ __DATA__
     else if(o && !o.parceiro) dir = (o.modalidade || (o.categoria && o.categoria !== 'Tênis' ? o.categoria : 'Corrida'));
     if(dir){ c.textAlign = 'right'; c.font = '800 32px ' + D; c.fillText(dir.toUpperCase(), W - LX, 232); }
     // cartão branco com a imagem
-    const bx = LX, by = 280, bw = LW, bh = p ? 740 : 580;
-    c.save(); c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 60; c.shadowOffsetY = 30; c.fillStyle = '#FFFFFF'; rr(c, bx, by, bw, bh, 44); c.fill(); c.restore();
+    const bx = LX, by = 280, bw = LW, bh = 580;
+    if(!f){ c.save(); c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 60; c.shadowOffsetY = 30; c.fillStyle = '#FFFFFF'; rr(c, bx, by, bw, bh, 44); c.fill(); c.restore(); }
     c.textAlign = 'center';
     const cobre = (im, cont) => { const iw = im.naturalWidth, ih = im.naturalHeight; c.save(); rr(c, bx, by, bw, bh, 44); c.clip();
       if(cont){ const s = Math.min(bw*.88/iw, bh*.88/ih); c.drawImage(im, cx - iw*s/2, by + bh/2 - ih*s/2, iw*s, ih*s); }
@@ -1812,26 +1812,32 @@ __DATA__
     const pilula = (txt) => { c.font = '800 36px ' + D; ls('2px'); const w = c.measureText(txt).width + 64; c.fillStyle = '#F28A5B'; rr(c, LX, yy, w, 72, 36); c.fill(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(txt, LX + 32, yy + 49); ls('0px'); yy += 100; };
     let nota = '';
     if(f){
+      // fotógrafo: só a bolinha com a foto (sem cartão), tudo centralizado (Leandro, 27/11/2026)
       const fim = await imgSegura(f.foto);
-      const fr = 210, fy = by + bh/2;
-      c.fillStyle = '#F6F0F6'; c.beginPath(); c.arc(cx, fy, fr+14, 0, Math.PI*2); c.fill();
+      const fr = 270, ig = (f.link.match(/instagram\.com\/([^\/?#]+)/i) || [])[1];
+      // centraliza o conjunto (bolinha + textos) na altura disponível, para não sobrar espaço
+      const altT = 110 + (ig ? 84 : 0) + 118 + ([...(f.locais||[]), f.estado].some(Boolean) ? 58 : 0) + (f.site ? 58 : 0) + (f.cupom ? 104 : 0);
+      const fy = Math.round(270 + (1600 - 270 - (2*fr + altT))/2 + fr);
+      c.save(); c.shadowColor = 'rgba(0,0,0,.4)'; c.shadowBlur = 60; c.shadowOffsetY = 24; c.fillStyle = '#F28A5B'; c.beginPath(); c.arc(cx, fy, fr+12, 0, Math.PI*2); c.fill(); c.restore();
       if(fim){ c.save(); c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.clip(); const iw = fim.naturalWidth, ih = fim.naturalHeight, sc = Math.max(fr*2/iw, fr*2/ih); c.drawImage(fim, cx-iw*sc/2, fy-ih*sc/2, iw*sc, ih*sc); c.restore(); }
-      else { c.fillStyle = '#7A4E7D'; c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.fill(); c.fillStyle = '#fff'; c.font = '800 150px ' + D; c.fillText(f.nome.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase(), cx, fy+52); }
-      const ig = (f.link.match(/instagram\.com\/([^\/?#]+)/i) || [])[1];
-      if(ig) linha('@' + ig, '700 34px ' + D, '#DDB9DD', 1, 50);
-      yy += 18; linha(f.nome, '800 76px ' + D, '#F4ECF4', 2, 80); yy += 24;
+      else { c.fillStyle = '#7A4E7D'; c.beginPath(); c.arc(cx, fy, fr, 0, Math.PI*2); c.fill(); c.fillStyle = '#fff'; c.font = '800 180px ' + D; c.fillText(f.nome.split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase(), cx, fy+62); }
+      const cl = (txt, font, cor, max, lh) => { c.textAlign = 'center'; c.fillStyle = cor; c.font = font; const k = wrap(c, txt, cx, yy, LW, lh, max); yy += k*lh; };
+      yy = fy + fr + 110;
+      if(ig){ cl('@' + ig, '700 38px ' + D, '#DDB9DD', 1, 50); yy += 34; }
+      yy += 34;
+      cl(f.nome, '800 84px ' + D, '#F4ECF4', 2, 88); yy += 30;
       const lugar = [...(f.locais||[]), f.estado].filter(Boolean).join(' · ');
-      if(lugar) linha('📍 ' + lugar, '600 38px ' + B, '#F4ECF4', 1, 56);
-      if(f.site){ let h = ''; try{ h = new URL(f.site).hostname.replace(/^www\./,''); }catch(e){} linha('Fotos à venda' + (h ? ' em ' + h : ''), '600 36px ' + B, '#DDB9DD', 1, 56); }
-      yy += 20; if(f.cupom) pilula('CUPOM ' + f.cupom);
+      if(lugar) cl('📍 ' + lugar, '600 40px ' + B, '#F4ECF4', 1, 58);
+      if(f.site){ let h = ''; try{ h = new URL(f.site).hostname.replace(/^www\./,''); }catch(e){} cl('Fotos à venda' + (h ? ' em ' + h : ''), '600 38px ' + B, '#DDB9DD', 1, 58); }
+      if(f.cupom){ yy += 24; c.font = '800 40px ' + D; ls('2px'); const t = 'CUPOM ' + f.cupom, w = c.measureText(t).width + 72; c.fillStyle = '#F28A5B'; rr(c, cx - w/2, yy, w, 80, 40); c.fill(); c.fillStyle = '#1D1220'; c.textAlign = 'center'; c.fillText(t, cx, yy + 55); ls('0px'); }
       nota = 'Fotógrafos de corrida no radardecorrida.com.br';
     } else if(p){
       const [pyy, pmm, pdd] = p.data.split('-').map(Number), dow = new Date(Date.UTC(pyy, pmm-1, pdd)).getUTCDay();
-      // provas: foto da Aline correndo (hero do site) no cartão, com a data numa etiqueta (Leandro, 27/11/2026)
-      const foto = await carregaImg('/hero.jpg');
-      if(foto){ const iw = foto.naturalWidth, ih = foto.naturalHeight, sc = Math.max(bw/iw, bh/ih); c.save(); rr(c, bx, by, bw, bh, 44); c.clip(); c.drawImage(foto, cx - iw*sc/2, by - (ih*sc - bh)*.22, iw*sc, ih*sc); c.restore();
-        const dt = String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(); c.font = '800 64px ' + D; const tw = c.measureText(dt).width + 70;
-        c.save(); c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, bx + 36, by + bh - 130, tw, 96, 28); c.fill(); c.restore(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(dt, bx + 71, by + bh - 60); c.textAlign = 'center'; }
+      // provas: a capa oficial da prova (a mesma da aba Provas), com a data numa etiqueta laranja
+      const capa = await carregaImg(await capaLocal(p.capa));
+      if(capa){ cobre(capa);
+        const dt = String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(); c.font = '800 60px ' + D; const tw = c.measureText(dt).width + 70;
+        c.save(); c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, bx + 32, by + bh - 124, tw, 92, 28); c.fill(); c.restore(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(dt, bx + 67, by + bh - 57); c.textAlign = 'center'; }
       else bloco(String(pdd).padStart(2,'0'), MESF[pmm-1].slice(0,3).toUpperCase());
       linha([String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(), DOW[dow].toUpperCase(), p.hora ? p.hora.replace(':','h') : ''].filter(Boolean).join(' · '), '700 34px ' + D, '#DDB9DD', 1, 50);
       yy += 18; linha(p.nome, '800 70px ' + D, '#F4ECF4', 2, 76); yy += 26;
