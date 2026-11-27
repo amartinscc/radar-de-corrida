@@ -1791,7 +1791,7 @@ __DATA__
     c.fillStyle = g; c.fillRect(0, 0, W, H);
     [[320, .14], [450, .10], [590, .063], [740, .035]].forEach(([r, a]) => { c.strokeStyle = 'rgba(221,185,221,' + a + ')'; c.lineWidth = 3; c.beginPath(); c.arc(cx, 580, r, 0, Math.PI*2); c.stroke(); });
     // etiquetas do topo
-    const kick = f ? 'FOTÓGRAFO DO RADAR' : p ? 'PROVA DO RADAR' : o ? (o.parceiro ? 'PARCEIRO DO RADAR' : 'ACHADO DO RADAR') : 'RADAR DE HOJE';
+    const kick = f ? 'FOTÓGRAFO NO RADAR' : p ? 'PROVA NO RADAR' : o ? (o.parceiro ? 'PARCEIRO DO RADAR' : 'ACHADO DO RADAR') : 'RADAR DE HOJE';
     c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillStyle = '#DDB9DD'; c.font = '800 34px ' + D; ls('10px'); c.fillText(kick, LX, 232); ls('0px');
     let dir = '';
     if(p) dir = (p.uf !== 'RJ' && p.cidade ? p.cidade + ' · ' + p.uf : 'RIO DE JANEIRO');
@@ -1799,7 +1799,7 @@ __DATA__
     else if(o && !o.parceiro) dir = (o.modalidade || (o.categoria && o.categoria !== 'Tênis' ? o.categoria : 'Corrida'));
     if(dir){ c.textAlign = 'right'; c.font = '800 32px ' + D; c.fillText(dir.toUpperCase(), W - LX, 232); }
     // cartão branco com a imagem
-    const bx = LX, by = 280, bw = LW, bh = 580;
+    const bx = LX, by = 280, bw = LW, bh = p ? 740 : 580;
     c.save(); c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 60; c.shadowOffsetY = 30; c.fillStyle = '#FFFFFF'; rr(c, bx, by, bw, bh, 44); c.fill(); c.restore();
     c.textAlign = 'center';
     const cobre = (im, cont) => { const iw = im.naturalWidth, ih = im.naturalHeight; c.save(); rr(c, bx, by, bw, bh, 44); c.clip();
@@ -1807,7 +1807,7 @@ __DATA__
       else { const s = Math.max(bw/iw, bh/ih); c.drawImage(im, cx - iw*s/2, by + (bh - ih*s)*(ih*s > bh*1.6 ? .25 : .5), iw*s, ih*s); }
       c.restore(); };
     const bloco = (l1, l2) => { c.fillStyle = '#B28AB1'; rr(c, cx-210, by+bh/2-150, 420, 300, 48); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 170px ' + D; c.fillText(l1, cx, by+bh/2+40); c.font = '800 40px ' + B; ls('6px'); c.fillText(l2, cx, by+bh/2+110); ls('0px'); };
-    let yy = 1000;
+    let yy = by + bh + 140;
     const linha = (txt, font, cor, max, lh) => { c.textAlign = 'left'; c.fillStyle = cor; c.font = font; const k = wrap(c, txt, LX, yy, LW, lh, max); yy += k*lh; return k; };
     const pilula = (txt) => { c.font = '800 36px ' + D; ls('2px'); const w = c.measureText(txt).width + 64; c.fillStyle = '#F28A5B'; rr(c, LX, yy, w, 72, 36); c.fill(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(txt, LX + 32, yy + 49); ls('0px'); yy += 100; };
     let nota = '';
@@ -1827,8 +1827,12 @@ __DATA__
       nota = 'Fotógrafos de corrida no radardecorrida.com.br';
     } else if(p){
       const [pyy, pmm, pdd] = p.data.split('-').map(Number), dow = new Date(Date.UTC(pyy, pmm-1, pdd)).getUTCDay();
-      const capa = await carregaImg(await capaLocal(p.capa));
-      if(capa) cobre(capa); else bloco(String(pdd).padStart(2,'0'), MESF[pmm-1].slice(0,3).toUpperCase());
+      // provas: foto da Aline correndo (hero do site) no cartão, com a data numa etiqueta (Leandro, 27/11/2026)
+      const foto = await carregaImg('/hero.jpg');
+      if(foto){ const iw = foto.naturalWidth, ih = foto.naturalHeight, sc = Math.max(bw/iw, bh/ih); c.save(); rr(c, bx, by, bw, bh, 44); c.clip(); c.drawImage(foto, cx - iw*sc/2, by - (ih*sc - bh)*.22, iw*sc, ih*sc); c.restore();
+        const dt = String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(); c.font = '800 64px ' + D; const tw = c.measureText(dt).width + 70;
+        c.save(); c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, bx + 36, by + bh - 130, tw, 96, 28); c.fill(); c.restore(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(dt, bx + 71, by + bh - 60); c.textAlign = 'center'; }
+      else bloco(String(pdd).padStart(2,'0'), MESF[pmm-1].slice(0,3).toUpperCase());
       linha([String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(), DOW[dow].toUpperCase(), p.hora ? p.hora.replace(':','h') : ''].filter(Boolean).join(' · '), '700 34px ' + D, '#DDB9DD', 1, 50);
       yy += 18; linha(p.nome, '800 70px ' + D, '#F4ECF4', 2, 76); yy += 26;
       if(p.local) linha('📍 ' + p.local, '600 36px ' + B, '#F4ECF4', 1, 54);

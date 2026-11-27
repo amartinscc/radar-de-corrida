@@ -10,7 +10,7 @@ CAMPOS_CONTROLE = ('desde', 'conferido', 'motivos', 'hyrox')
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from PIL import Image, ImageDraw, ImageFont
 
-VERSAO = 'v2'  # v2 (27/11/2026): padrão profissional do Radar, sem foto/@ da Aline  # mude para forçar a regravação de todas as imagens
+VERSAO = 'v3'  # v2 (27/11/2026): padrão profissional do Radar, sem foto/@ da Aline  # mude para forçar a regravação de todas as imagens
 root = pathlib.Path(__file__).resolve().parent.parent
 FONTES = root / 'src' / 'fontes'
 SITE = 'https://' + (root / 'CNAME').read_text().strip().strip('/') + '/'
@@ -180,7 +180,7 @@ def imagem(item, tipo, perfil, ofertas_em):
     im = _FUNDO.copy()
     dr = ImageDraw.Draw(im)
     cx = 215
-    centro(dr, cx, 150, 'PROVA DO RADAR' if tipo == 'prova' else 'ACHADO DO RADAR', B(24), '#DDB9DD')
+    centro(dr, cx, 150, 'PROVA NO RADAR' if tipo == 'prova' else 'ACHADO DO RADAR', B(24), '#DDB9DD')
     centro(dr, cx, 470, 'provas e ofertas de corrida', M(22), (244, 236, 244))
     centro(dr, cx, 504, 'todos os dias', M(22), (244, 236, 244))
     centro(dr, cx, 572, 'radardecorrida.com.br', B(22), '#F28A5B')
