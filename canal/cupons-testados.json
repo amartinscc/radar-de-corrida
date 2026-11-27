@@ -48,6 +48,18 @@
    "nao_elegivel": [
     "Kiprun KD900X LD+ Feminino"
    ]
+  },
+  {
+   "loja": "Decathlon",
+   "cupom": "GUIDO20, 10OFFNOPIX e CORRE15",
+   "resultado": "aceitos sem efeito",
+   "testado_em": "Asics Sonicblast Feminino (vendido pela Decathlon) 20h25"
+  },
+  {
+   "loja": "Mizuno",
+   "cupom": "BLACK100",
+   "resultado": "aceito sem efeito",
+   "testado_em": "Wave Rebellion Pro 3 (R$ 899,99) 20h30; BLACK40 expirado; BLACKFRIDAY e AMARTINS inválidos; APP15 só no app"
   }
  ]
 }
