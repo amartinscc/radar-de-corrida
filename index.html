@@ -19005,7 +19005,14 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
     else if(o && !o.parceiro) dir = (o.modalidade || (o.categoria && o.categoria !== 'Tênis' ? o.categoria : 'Corrida'));
     if(dir){ c.textAlign = 'right'; c.font = '800 32px ' + D; c.fillText(dir.toUpperCase(), W - LX, 232); }
     // cartão branco com a imagem
-    const bx = LX, by = 280, bw = LW, bh = 580;
+    const bx = LX, bw = LW, bh = 580; let by = 280;
+    const centrado = !!p;  // provas: cartão e textos centralizados na largura e na altura (Leandro, 27/11/2026)
+    if(p){
+      const nl = (t, ft, mx) => { c.font = ft; const w = t.split(' '); let ln = '', n = 1; w.forEach(x => { const tt = ln ? ln + ' ' + x : x; if(c.measureText(tt).width > LW && ln){ n++; ln = x; } else ln = tt; }); return Math.min(n, mx); };
+      const pr0 = p.valor===0 || typeof p.valor==='number' || ST[p.status];
+      const alt = bh + 140 + 50 + 18 + nl(p.nome, '800 70px ' + D, 2)*76 + 26 + (p.local ? 54 : 0) + (p.distancias ? 54 : 0) + (pr0 ? 54 : 0) + (p.cupom ? 120 : 0) - 40;
+      by = Math.round(270 + (1600 - 270 - alt)/2);
+    }
     if(!f){ c.save(); c.shadowColor = 'rgba(0,0,0,.35)'; c.shadowBlur = 60; c.shadowOffsetY = 30; c.fillStyle = '#FFFFFF'; rr(c, bx, by, bw, bh, 44); c.fill(); c.restore(); }
     c.textAlign = 'center';
     const cobre = (im, cont) => { const iw = im.naturalWidth, ih = im.naturalHeight; c.save(); rr(c, bx, by, bw, bh, 44); c.clip();
@@ -19014,8 +19021,8 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       c.restore(); };
     const bloco = (l1, l2) => { c.fillStyle = '#B28AB1'; rr(c, cx-210, by+bh/2-150, 420, 300, 48); c.fill(); c.fillStyle = '#1D1220'; c.font = '800 170px ' + D; c.fillText(l1, cx, by+bh/2+40); c.font = '800 40px ' + B; ls('6px'); c.fillText(l2, cx, by+bh/2+110); ls('0px'); };
     let yy = by + bh + 140;
-    const linha = (txt, font, cor, max, lh) => { c.textAlign = 'left'; c.fillStyle = cor; c.font = font; const k = wrap(c, txt, LX, yy, LW, lh, max); yy += k*lh; return k; };
-    const pilula = (txt) => { c.font = '800 36px ' + D; ls('2px'); const w = c.measureText(txt).width + 64; c.fillStyle = '#F28A5B'; rr(c, LX, yy, w, 72, 36); c.fill(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(txt, LX + 32, yy + 49); ls('0px'); yy += 100; };
+    const linha = (txt, font, cor, max, lh) => { c.textAlign = centrado ? 'center' : 'left'; c.fillStyle = cor; c.font = font; const k = wrap(c, txt, centrado ? cx : LX, yy, LW, lh, max); yy += k*lh; return k; };
+    const pilula = (txt) => { c.font = '800 36px ' + D; ls('2px'); const w = c.measureText(txt).width + 64, px = centrado ? cx - w/2 : LX; c.fillStyle = '#F28A5B'; rr(c, px, yy, w, 72, 36); c.fill(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(txt, px + 32, yy + 49); ls('0px'); yy += 100; };
     let nota = '';
     if(f){
       // fotógrafo: só a bolinha com a foto (sem cartão), tudo centralizado (Leandro, 27/11/2026)
@@ -19043,9 +19050,9 @@ section h2{font:800 22px/1 var(--display);margin:8px 0 10px}
       const capa = await carregaImg(await capaLocal(p.capa));
       if(capa){ cobre(capa);
         const dt = String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(); c.font = '800 60px ' + D; const tw = c.measureText(dt).width + 70;
-        c.save(); c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, bx + 32, by + bh - 124, tw, 92, 28); c.fill(); c.restore(); c.fillStyle = '#1D1220'; c.textAlign = 'left'; c.fillText(dt, bx + 67, by + bh - 57); c.textAlign = 'center'; }
+        c.save(); c.shadowColor = 'rgba(0,0,0,.3)'; c.shadowBlur = 30; c.fillStyle = '#F28A5B'; rr(c, cx - tw/2, by + bh - 46, tw, 92, 28); c.fill(); c.restore(); c.fillStyle = '#1D1220'; c.textAlign = 'center'; c.fillText(dt, cx, by + bh + 21); }
       else bloco(String(pdd).padStart(2,'0'), MESF[pmm-1].slice(0,3).toUpperCase());
-      linha([String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(), DOW[dow].toUpperCase(), p.hora ? p.hora.replace(':','h') : ''].filter(Boolean).join(' · '), '700 34px ' + D, '#DDB9DD', 1, 50);
+      yy += capa ? 20 : 0; linha([capa ? '' : String(pdd).padStart(2,'0') + ' ' + MESF[pmm-1].slice(0,3).toUpperCase(), DOW[dow].toUpperCase(), p.hora ? p.hora.replace(':','h') : ''].filter(Boolean).join(' · '), '700 34px ' + D, '#DDB9DD', 1, 50);
       yy += 18; linha(p.nome, '800 70px ' + D, '#F4ECF4', 2, 76); yy += 26;
       if(p.local) linha('📍 ' + p.local, '600 36px ' + B, '#F4ECF4', 1, 54);
       if(p.distancias) linha(p.distancias, '600 36px ' + B, '#F4ECF4', 1, 54);
