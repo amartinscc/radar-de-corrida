@@ -16,6 +16,7 @@ salvo as que já são achados do site por outro motivo.
    (`src/tarefas/parceiros-instagram.json`). Foco em tênis de corrida/HYROX; depois roupas e acessórios de corrida de marca.
 
 ## Conferência (obrigatória, nunca postar sem isso)
+- PREÇO = O MENOR PREÇO FINAL COM CUPOM (Leandro, 27/11/2026, depois do Mizuno postado sem o BLACK40): antes de cada post, procure os cupons que valem para o item (banner/página do produto, cupons da API da Rakuten para Netshoes/Zattini, Awin para as lojas Awin, cupons públicos de hoje e os que o Leandro/Aline passarem, ex.: BLACK40, BLACKNETS) e TESTE no carrinho da loja (adicionar 1 unidade, aplicar o cupom, ler o "Valor total", remover o item do carrinho; nunca finalizar). Poste o menor valor final (cupom + Pix/à vista), com o cupom no card e no texto. Cupom que o carrinho recusar ("não elegível") não entra. Item de lojista parceiro dentro da Netshoes ("Frete <marca>") pode não aceitar cupons da Netshoes: conferir.
 - Abrir a página do produto na loja AGORA e anotar preço atual, preço "de", condição (Pix, cupom, parcelado) e a foto oficial (og:image).
 - Desconto real (comparar com a Centauro / outra loja oficial se o "de" parecer inflado). Desconto falso NUNCA sai (nem como alerta).
 - Só lojas onde a Aline é afiliada ou parceira (lista em radar-data "parceiros.marcas"). Oferta de loja não parceira: não posta; avisa o Leandro.
