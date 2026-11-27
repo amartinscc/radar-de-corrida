@@ -98,6 +98,22 @@ def capa(data, n, logo):
 <img class="logo" src="data:image/png;base64,{logo}"></body></html>'''
 
 
+CANAL_URL = 'https://whatsapp.com/channel/0029VbA6AWm05MUoUxH8802g'
+R11 = root / 'src' / 'instagram' / 'r11-recorte.png'  # arte aprovada R11 (sacola de tênis), recortada
+
+
+def canal_cta(logo):
+    """Story fixo que fecha o Tênis do dia chamando para o Canal de ofertas no WhatsApp (Leandro, 27/11/2026)."""
+    r11 = b64(R11.read_bytes())
+    return f'''<html><head><style>{CSS}</style></head><body>{rings(700)}
+<div style="position:absolute;top:200px;width:100%;text-align:center" class="kick">QUER MAIS OFERTAS ASSIM?</div>
+<div style="position:absolute;top:290px;width:100%;text-align:center;font:800 120px/0.95 Urbanist;letter-spacing:-3px">OFERTAS NO<br><span style="color:#F28A5B">WHATSAPP</span></div>
+<img src="data:image/png;base64,{r11}" style="position:absolute;top:600px;left:590px;height:940px">
+<div style="position:absolute;top:640px;left:80px;width:460px;font:600 40px/1.35 'Plus Jakarta Sans'">Tênis e achados com desconto real e cupom, direto no seu WhatsApp.</div>
+<div style="position:absolute;top:1120px;left:80px;width:460px;font:700 40px/1.3 Urbanist;color:#F28A5B">Toque no link e entre no canal 👆</div>
+<img class="logo" src="data:image/png;base64,{logo}"></body></html>'''
+
+
 def card(o, foto, ct, i, n, fin, base, off, logo, kick=None):
     mod = (o.get('modalidade') or 'Corrida').upper()
     cup = f'<div style="display:inline-block;margin-top:26px;background:#F28A5B;color:#1D1220;font:800 34px Urbanist;padding:12px 28px;border-radius:999px;letter-spacing:2px">CUPOM {o["cupom"]}</div>' if o.get('cupom') else ''
@@ -153,7 +169,8 @@ def relampago(termo):
 def main():
     if '--relampago' in sys.argv:
         return relampago(sys.argv[sys.argv.index('--relampago') + 1])
-    n = int(sys.argv[sys.argv.index('--n') + 1]) if '--n' in sys.argv else 4
+    um = '--um' in sys.argv  # desde 27/11/2026: 1 tênis por dia (o melhor) + story do Canal
+    n = 1 if um else (int(sys.argv[sys.argv.index('--n') + 1]) if '--n' in sys.argv else 4)
     usar_hist = '--sem-historico' not in sys.argv
     s = (root / 'index.html').read_text()
     d = json.loads(re.search(r'<script id="radar-data" type="application/json">(.*?)</script>', s, re.S).group(1))
@@ -163,7 +180,7 @@ def main():
         raw, ct = baixa(o['foto'])
         if raw: itens.append((o, sl, fin, base, off, top, b64(raw), ct))
         if len(itens) == n: break
-    if len(itens) < 3:
+    if len(itens) < (1 if um else 3):
         print(json.dumps({'ok': False, 'motivo': f'só {len(itens)} tênis com desconto de verdade hoje (mínimo 3)'}, ensure_ascii=False)); return
     hoje = datetime.datetime.now(TZ).date()
     data = f'{DIAS[hoje.weekday()]}, {hoje.day} de {MESF[hoje.month - 1]}'
@@ -171,8 +188,12 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for f in OUT.glob('*'): f.unlink()
     from playwright.sync_api import sync_playwright
-    paginas = [('0-capa.jpg', capa(data, len(itens), logo))] + [
-        (f'{k + 1}.jpg', card(o, foto, ct, k + 1, len(itens), fin, base, off, logo)) for k, (o, sl, fin, base, off, top, foto, ct) in enumerate(itens)]
+    if um:
+        o, sl, fin, base, off, top, foto, ct = itens[0]
+        paginas = [('1.jpg', card(o, foto, ct, 1, 1, fin, base, off, logo, kick='TÊNIS DO DIA')), ('2-canal.jpg', canal_cta(logo))]
+    else:
+        paginas = [('0-capa.jpg', capa(data, len(itens), logo))] + [
+            (f'{k + 1}.jpg', card(o, foto, ct, k + 1, len(itens), fin, base, off, logo)) for k, (o, sl, fin, base, off, top, foto, ct) in enumerate(itens)]
     with sync_playwright() as p:
         b = p.chromium.launch(executable_path='/usr/bin/google-chrome')
         pg = b.new_page(viewport={'width': 1080, 'height': 1920})
@@ -180,18 +201,20 @@ def main():
             pg.set_content(h); pg.wait_for_timeout(700)
             pg.screenshot(path=str(OUT / nome), type='jpeg', quality=92)
         b.close()
-    posts = [{'arquivo': '0-capa.jpg', 'link': SITE + '#tenis', 'figurinha': 'TÊNIS DO RADAR'}]
+    posts = [] if um else [{'arquivo': '0-capa.jpg', 'link': SITE + '#tenis', 'figurinha': 'TÊNIS DO RADAR'}]
     for k, (o, sl, fin, base, off, top, foto, ct) in enumerate(itens):
         posts.append({'arquivo': f'{k + 1}.jpg', 'link': SITE + f'tenis/{sl}/', 'figurinha': 'VER OFERTA', 'slug': sl,
                       'nome': o['nome'], 'marca': o.get('marca'), 'loja': o.get('loja'), 'preco': fin, 'de': base, 'off': off,
                       'cupom': o.get('cupom'), 'ranking': top.get('selo') if top else None})
-    legenda = ('Tênis do dia no Radar 👟 ' + ' · '.join(f"{p['marca']} {brl(p['preco'])}" for p in posts[1:]) +
+    tenis = [p_ for p_ in posts if p_.get('slug')]
+    if um: posts.append({'arquivo': '2-canal.jpg', 'link': CANAL_URL, 'figurinha': 'ENTRAR NO CANAL'})
+    legenda = ('Tênis do dia no Radar 👟 ' + ' · '.join(f"{p['marca']} {brl(p['preco'])}" for p in tenis) +
                '. Preços conferidos hoje, com cupom das lojas parceiras. Todos em radardecorrida.com.br #corrida #hyrox #tenisdecorrida #corridaderua #radardecorrida')
     (OUT / 'posts.json').write_text(json.dumps({'data': hoje.isoformat(), 'stories': posts, 'legenda_outras_redes': legenda}, ensure_ascii=False, indent=1))
     if usar_hist:
         hist = json.loads(HIST.read_text()) if HIST.exists() else {}
         hist = {k: v for k, v in hist.items() if (hoje - datetime.date.fromisoformat(v)).days < 30}
-        for p_ in posts[1:]: hist[p_['slug']] = hoje.isoformat()
+        for p_ in tenis: hist[p_['slug']] = hoje.isoformat()
         HIST.parent.mkdir(exist_ok=True); HIST.write_text(json.dumps(hist, ensure_ascii=False, indent=1, sort_keys=True))
     print(json.dumps({'ok': True, 'pasta': str(OUT), 'stories': len(posts)}, ensure_ascii=False))
 
