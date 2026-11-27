@@ -33,6 +33,9 @@ e "até X% off" genérico sem produto ou cupom concreto.
 - Registrar em `tenis-do-dia/relampago.json` (data, hora, produto, loja, preço, link, "origem": "instagram do parceiro") e dar push.
 - Sem collab, sem impulsionar, sem música.
 
+## 4b. Canal do WhatsApp
+O que for publicado aqui também vai para o Canal do WhatsApp (tarefa "Radar · Canal do WhatsApp", src/tarefas/canal-whatsapp.md, lê o relampago.json). Oferta forte que não coube no teto: grave em `canal/pistas.json` ({"AAAA-MM-DD HHhMM": {"nome","loja","preco","de","link","foto","cupom","condicao"}}) para o Canal aproveitar.
+
 ## 5. Avisar
 Se publicou ou achou oferta forte que não coube no teto: mandar ao Leandro pela central do WhatsApp (zap-claude) um resumo curto
 começando com "🖤 Black Friday dos parceiros:" (o que saiu no ar, o que ficou de fora e por quê, com preço conferido e link).
