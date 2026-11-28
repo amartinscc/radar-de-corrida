@@ -67,5 +67,31 @@
    "resultado": "'Cupom inválido' às 20h33",
    "testado_em": "Olympikus Corre 5 tam. 38 (vendido pela Netshoes, R$ 389,99)"
   }
+ ],
+ "2026-11-28": [
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACK40 e FITNESS20",
+   "resultado": "'Carrinho não elegível à promoção' (12h24)",
+   "testado_em": "Mizuno Wave Rider 29 Masculino SIC-002P-058 tam. 41 (vendido pela Netshoes) -> R$ 499,99"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACKNETS e BLACK100",
+   "resultado": "'Cupom inválido' (12h24)",
+   "testado_em": "Mizuno Wave Rider 29 Masculino"
+  },
+  {
+   "loja": "Decathlon",
+   "cupom": "GUIDO20, 10OFFNOPIX e CORRE15",
+   "resultado": "aceitos sem efeito (12h35); BLACK10 e PIX5 expirados",
+   "testado_em": "NB SuperComp Elite V5 Feminino 37 BR -> R$ 899,99 (carrinho no canal de venda sc=3; no sc=1 o carrinho mostra R$ 2.199,99)"
+  },
+  {
+   "loja": "Decathlon",
+   "cupom": "GUIDO20, 10OFFNOPIX e CORRE15",
+   "resultado": "aceitos sem efeito (12h47); o carrinho aplica sozinho o '[B2C] Desconto 10%OFF no PIX'",
+   "testado_em": "NB FuelCell Rebel V5 Masculino preto 41 BR -> R$ 539,99 no Pix (R$ 599,99 no cartão)"
+  }
  ]
 }
