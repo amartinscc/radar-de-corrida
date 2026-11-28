@@ -1,0 +1,189 @@
+{
+ "2026-11-28 14h25": [
+  {
+   "modelo": "Adidas Adizero Evo SL",
+   "genero": "Masculino e Feminino",
+   "casa": {
+    "preco": 699.99,
+    "cupom": "EVO (Netshoes)"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 699.99,
+    "cupom": "EVO",
+    "link": "https://www.netshoes.com.br/p/tenis-adidas-adizero-evo-sl-masculino-FBA-86ET-304"
+   },
+   "resultado": "igual"
+  },
+  {
+   "modelo": "Adidas Adizero Evo SL (cor azul-marinho, cupom EVO100)",
+   "genero": "Masculino",
+   "casa": {
+    "preco": 664.99,
+    "cupom": "EVO100 (Pix)"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 699.99,
+    "cupom": "EVO",
+    "link": "https://www.netshoes.com.br/p/tenis-adidas-adizero-evo-sl-masculino-FBA-86ET-304"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "Asics Superblast 3",
+   "genero": "Unissex",
+   "casa": {
+    "preco": 1199.99,
+    "cupom": null
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 1113.41,
+    "cupom": "BLACK40",
+    "link": "https://www.netshoes.com.br/p/tenis-asics-superblast-3-unissex-SG4-02M9-026"
+   },
+   "resultado": "abaixo"
+  },
+  {
+   "modelo": "Olympikus Corre 5",
+   "genero": "Unissex",
+   "casa": {
+    "preco": 389.99,
+    "cupom": "automático"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 389.99,
+    "cupom": null,
+    "link": "https://www.netshoes.com.br/p/tenis-olympikus-corre-5-SE7-0803-876"
+   },
+   "resultado": "igual"
+  },
+  {
+   "modelo": "Olympikus Corre Max 2",
+   "genero": "Unissex",
+   "casa": {
+    "preco": 323.92,
+    "cupom": "BLACK10 (Pix)"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 399.99,
+    "cupom": null,
+    "link": "https://www.netshoes.com.br/p/tenis-olympikus-corre-max-2-SE7-08DX-006"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "New Balance FuelCell Rebel V5",
+   "genero": "Masculino",
+   "casa": {
+    "preco": 527.0,
+    "cupom": "CASADOATLETA (Pix)"
+   },
+   "radar": {
+    "loja": "Decathlon",
+    "preco_final": 539.99,
+    "cupom": null,
+    "link": "https://www.decathlon.com.br/tenis-masculino-de-corrida-fuelcell-rebel-v5-preto-9045439-new-balance/p"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "Asics Novablast 6",
+   "genero": "Masculino e Feminino",
+   "casa": {
+    "preco": 680.0,
+    "cupom": "CASADOATLETA (Pix) / ASICS"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 749.99,
+    "cupom": null,
+    "link": "https://www.netshoes.com.br/p/tenis-asics-novablast-6-masculino-SG4-02CQ-058"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "Asics Gel-Nimbus 28",
+   "genero": "Masculino",
+   "casa": {
+    "preco": 679.99,
+    "cupom": null
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 699.99,
+    "cupom": null,
+    "link": "https://www.netshoes.com.br/p/tenis-asics-gel-nimbus-28-masculino-SG4-01UE-004"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "Puma Deviate Nitro 4",
+   "genero": "Masculino e Feminino",
+   "casa": {
+    "preco": 854.99,
+    "cupom": "ACASADOATLETA (Pix)"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 999.99,
+    "cupom": null,
+    "link": "https://www.netshoes.com.br/p/tenis-puma-deviate-nitro-4-masculino-PI3-75KI-006"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "Adidas Adizero Drive RC",
+   "genero": "Masculino",
+   "casa": {
+    "preco": 529.99,
+    "cupom": "GANHE10"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 549.99,
+    "cupom": null,
+    "link": "https://www.netshoes.com.br/p/tenis-adidas-adizero-drive-rc-masculino-FBA-86EP-106"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "Adidas Hyperboost Run",
+   "genero": "Masculino e Feminino",
+   "casa": {
+    "preco": 769.49,
+    "cupom": "ACASADOATLETA (Pix)"
+   },
+   "radar": {
+    "loja": "Netshoes",
+    "preco_final": 1234.99,
+    "cupom": null,
+    "link": "https://www.netshoes.com.br/p/tenis-adidas-hyperboost-run-masculino-FBA-86EU-026"
+   },
+   "resultado": "acima"
+  },
+  {
+   "modelo": "Nike Vaporfly 4",
+   "genero": "Feminino",
+   "casa": {
+    "preco": 683.99,
+    "cupom": "PRIMEIRACOMPRA (app)"
+   },
+   "radar": null,
+   "resultado": "sem parceira"
+  },
+  {
+   "modelo": "Li-Ning Red Hare 9 / Feidian Elite 6, Qiaodan PB 6.0, Irunsvan Heat 3.0, Dynafish Xiaonian",
+   "genero": "-",
+   "casa": {
+    "preco": null,
+    "cupom": "ACASADOATLETA"
+   },
+   "radar": null,
+   "resultado": "sem parceira"
+  }
+ ]
+}

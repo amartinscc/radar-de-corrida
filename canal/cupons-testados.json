@@ -92,6 +92,33 @@
    "cupom": "GUIDO20, 10OFFNOPIX e CORRE15",
    "resultado": "aceitos sem efeito (12h47); o carrinho aplica sozinho o '[B2C] Desconto 10%OFF no PIX'",
    "testado_em": "NB FuelCell Rebel V5 Masculino preto 41 BR -> R$ 539,99 no Pix (R$ 599,99 no cartão)"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "EVO",
+   "resultado": "vale: R$ 100 OFF (14h05, selo na página, até 29/11, acima de R$ 400)",
+   "testado_em": "Adidas Adizero Evo SL Masculino FBA-86ET-304 tam. 41 (vendido pela Netshoes) -> R$ 699,99; tamanhos 38 a 44"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "EVO",
+   "resultado": "vale: R$ 100 OFF (14h20)",
+   "testado_em": "Adidas Adizero Evo SL Feminino FBA-83DL-054 tam. 38 (vendido pela Netshoes) -> R$ 699,99; tamanhos 34, 35, 36, 38, 39",
+   "nao_elegivel": [
+    "Adizero Evo SL Feminino FBA-86ER-032 tam. 37 (lojista Esporte Legal, R$ 1.099,90): 'Carrinho não elegível'"
+   ]
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACK40",
+   "resultado": "vale: R$ 40 OFF (14h10)",
+   "testado_em": "Asics Superblast 3 Unissex SG4-02M9-026 tam. 41 (lojista Trilha Sports) -> R$ 1.113,41 no Pix / R$ 1.309,90 no cartão (sem cupom R$ 1.147,41 Pix / R$ 1.349,90); tamanhos 38 a 43"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACK10",
+   "resultado": "'Cupom inválido' (14h15)",
+   "testado_em": "Olympikus Corre Max 2 SE7-08DX-006 tam. 40 (vendido pela Netshoes) -> R$ 399,99"
   }
  ]
 }
