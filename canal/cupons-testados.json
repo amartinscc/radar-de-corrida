@@ -119,6 +119,18 @@
    "cupom": "BLACK10",
    "resultado": "'Cupom inválido' (14h15)",
    "testado_em": "Olympikus Corre Max 2 SE7-08DX-006 tam. 40 (vendido pela Netshoes) -> R$ 399,99"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "EVO",
+   "resultado": "vale: R$ 100 OFF (15h25)",
+   "testado_em": "Adizero Evo SL Masculino FBA-86ET-304 tam. 41 e Feminino FBA-83DL-054 tam. 38 (vendidos pela Netshoes) -> R$ 699,99"
+  },
+  {
+   "loja": "Netshoes",
+   "cupom": "BLACK40",
+   "resultado": "'Cupom inválido' (15h29; valia às 14h10)",
+   "testado_em": "Asics Superblast 3 Unissex SG4-02M9-026 tam. 41 (lojista Trilha Sports) -> R$ 1.147,41 no Pix / R$ 1.349,90 no cartão (de R$ 1.699,90)"
   }
  ]
 }
