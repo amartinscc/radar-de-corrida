@@ -33,3 +33,6 @@ Login, CAPTCHA ou verificação: parar e avisar o Leandro.
 ## 4. Fechar
 - Fechar as abas. Resumo curto: total de provas, quantos @ marcados (quais) e quantos novos perfis conferidos.
 - Se algo falhou, avisar o Leandro (push curto) com o que ficou pendente.
+
+## OPERAÇÃO COMPARTILHADA (desde 28/11/2026)
+Antes de começar, leia `C:\zap-claude\dados\radar\OPERACAO.md`, o `cronograma.json` e as últimas 40 linhas do `diario.jsonl` (mesma pasta, no PC). No fim, acrescente ao `diario.jsonl` uma linha por publicação ou falha (`{"quando","quem":"agencia","tipo":"publicacao|falha|aviso","item","texto"}`), com o link do que foi ao ar. Publicação no feed/stories do Instagram só de item "aprovada" do cronograma, com a trava `em_execucao`.
